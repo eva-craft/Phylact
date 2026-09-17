@@ -3375,7 +3375,7 @@ const QUEST_DEFS=[
   type:"defeat",target:2,reward:{money:300,items:{potion:3}},dialogue:"Здравствуй... искатель приключений. Я в засаде. Расчисти мне дорогу, чтобы я могла продолжить путь."},
 
 // --- Виридиан-Сити ---
-{id:"q_defeat_viridian8",biome:"viridian",npc:"Тренер Виридиан",npcPos:{x:520,y:1060},
+{id:"q_defeat_viridian8",biome:"viridian",npc:"Архимаг",npcPos:{x:520,y:1060},
   title:"Тренировка в городе",desc:"Победи 3 монстров в Виридиан-Сити.",
   type:"defeat",target:3,reward:{money:800,items:{superball:3}},dialogue:"Эй, новичок! Хочешь стать сильнее? Победи 3 монстров здесь!"},
 {id:"q_catch_pidgey",biome:"viridian",npc:"Птицелов Тим",npcPos:{x:750,y:1100},
@@ -6236,15 +6236,62 @@ function checkUnlockNextZone(currentBiome){
   if(unlockedZones.has(nextBiome))return;
   const prog=zoneProgress[currentBiome]||{defeated:0};
   if((prog.defeated||0)>=DEFAULT_UNLOCK.count){
-unlockedZones.add(nextBiome);
+    unlockedZones.add(nextBiome);
     saveProgress();
+
+    // 1. Перерисовать фон (биомы)
     drawBackground();
+    spawnHouses();          // ← дома тоже нужно перерисовать
+    // 2. Перерисовать верхний слой (рамки + названия)
+    drawTopLayer();
+    // 3. Перестроить туман
     rebuildFogClouds();
-    updateQuestMarkers();   // ФИКС: показать значки ! в новой зоне
+    drawFog();
+    // 4. Показать NPC/тренеров/медцентры в новой зоне
+    refreshWorldVisibility();
+    // 5. Обновить маркеры квестов
+    updateQuestMarkers();
+    // 6. Обновить HUD
+    updateHUD();
+
     showToast(`🗺️ Открыта новая зона: ${HABITATS[nextBiome].name}!`,3500);
   }
 }
 
+function refreshWorldVisibility(){
+  // Медцентры
+  document.querySelectorAll('#world > .building').forEach(el => {
+    const transform = el.style.transform;
+    const match = transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
+    if (!match) return;
+    const x = parseFloat(match[1]);
+    const y = parseFloat(match[2]);
+    const biome = getZoneBiomeAt(x, y);
+    if (biome) {
+      el.style.display = unlockedZones.has(biome) ? 'flex' : 'none';
+    }
+  });
+
+  // Тренеры
+  trainersOnMap.forEach(tr => {
+    const visible = unlockedZones.has(tr.biome);
+    tr.el.style.display = visible ? 'flex' : 'none';
+    if (tr.el._labelEl) tr.el._labelEl.style.display = visible ? 'block' : 'none';
+  });
+
+  // NPC с квестами
+  npcQuestRefs.forEach(n => {
+    const visible = unlockedZones.has(n.quest.biome);
+    n.el.style.display = visible ? 'flex' : 'none';
+    if (n.el._labelEl) n.el._labelEl.style.display = visible ? 'block' : 'none';
+  });
+
+  // Монстры
+  FantasysOnMap.forEach(p => {
+    const visible = !p.biome || unlockedZones.has(p.biome);
+    p.el.style.display = visible ? 'flex' : 'none';
+  });
+}
 // ===================== КВЕСТЫ: ЛОГИКА =====================
 function getQuestState(id){
   if(!activeQuests[id])activeQuests[id]={progress:0,completed:false,claimed:false};
@@ -7089,11 +7136,11 @@ function switchFantasy(index){
 }
 function attemptCatch(){
   if(battleState.busy||battleState.turn!=='player')return;
-  if(battleState.isTrainer){showToast("Нельзя ловить монстров тренера!");return}
+  if(battleState.isTrainer){showToast("Нельзя ловить существ мастеров душ!");return}
   if(playerTeam.length>=MAX_TEAM){showToast("Команда полна!");return}
   const enemy=battleState.enemy;
   const hpPercent=enemy.currentHP/enemy.maxHP;
-  if(hpPercent>.3){showToast("монстр слишком силён! Ослабь до 30% HP.");return}
+  if(hpPercent>.3){showToast("Монстр слишком силён! Ослабь до 30% HP.");return}
   let ball="Magicball";
   if(inventory.ultraball>0)ball="ultraball";
   else if(inventory.superball>0)ball="superball";
