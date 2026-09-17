@@ -2807,26 +2807,26 @@ const BIOME_ZONES=[
 {biome:"ostrova_pobezhdennogo",x:1200,y:1500,w:400,h:250}
 ];
 const TYPE_CHART={
-Обычный:{Каменный:0.5,Призрак:0,Стальной:0.5,Демон:1,Нежить:0.5},
+Обычный:{Каменный:0.5,Бесплотный:0,Стальной:0.5,Демон:1,Нежить:0.5},
 Огненный:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:2,Низший:2,Каменный:0.5,Дракон:0.5,Стальной:2,Демон:1,Нежить:2},
 Водный:{Огненный:2,Водный:0.5,Природа:0.5,Земляной:2,Каменный:2,Дракон:0.5,Демон:1,Нежить:1},
 Природа:{Огненный:0.5,Водный:2,Природа:0.5,Ядовитый:0.5,Земляной:2,Летающий:0.5,Низший:0.5,Каменный:2,Дракон:0.5,Стальной:0.5,Демон:1,Нежить:1},
 Электрик:{Водный:2,Электрик:0.5,Природа:0.5,Земляной:0,Летающий:2,Дракон:0.5,Демон:1,Нежить:1},
 Ледяной:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:0.5,Земляной:2,Летающий:2,Дракон:2,Стальной:0.5,Демон:1,Нежить:0.5},
-Боевой:{Обычный:2,Ледяной:2,Ядовитый:0.5,Летающий:0.5,Астральный:0.5,Низший:0.5,Каменный:2,Призрак:0,Тёмный:2,Стальной:2,Фея:0.5,Демон:0.5,Нежить:0.5},
-Ядовитый:{Природа:2,Ядовитый:0.5,Земляной:0.5,Каменный:0.5,Призрак:0.5,Стальной:0,Фея:2,Демон:1,Нежить:0.5},
+Боевой:{Обычный:2,Ледяной:2,Ядовитый:0.5,Летающий:0.5,Ментальный:0.5,Низший:0.5,Каменный:2,Бесплотный:0,Тёмный:2,Стальной:2,Фея:0.5,Демон:0.5,Нежить:0.5},
+Ядовитый:{Природа:2,Ядовитый:0.5,Земляной:0.5,Каменный:0.5,Бесплотный:0.5,Стальной:0,Фея:2,Демон:1,Нежить:0.5},
 Земляной:{Огненный:2,Электрик:2,Природа:0.5,Ядовитый:2,Летающий:0,Низший:0.5,Каменный:2,Стальной:2,Демон:1,Нежить:1},
 Летающий:{Электрик:0.5,Природа:2,Боевой:2,Низший:2,Каменный:0.5,Стальной:0.5,Демон:1,Нежить:1},
-Астральный:{Боевой:2,Ядовитый:2,Астральный:0.5,Тёмный:0,Стальной:0.5,Демон:2,Нежить:0.5},
-Низший:{Огненный:0.5,Природа:2,Боевой:0.5,Ядовитый:0.5,Летающий:0.5,Астральный:2,Призрак:0.5,Тёмный:2,Стальной:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
+Ментальный:{Боевой:2,Ядовитый:2,Ментальный:0.5,Тёмный:0,Стальной:0.5,Демон:2,Нежить:0.5},
+Низший:{Огненный:0.5,Природа:2,Боевой:0.5,Ядовитый:0.5,Летающий:0.5,Ментальный:2,Бесплотный:0.5,Тёмный:2,Стальной:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
 Каменный:{Огненный:2,Ледяной:2,Боевой:0.5,Земляной:0.5,Летающий:2,Низший:2,Стальной:0.5,Демон:1,Нежить:1},
-Призрак:{Обычный:0,Астральный:2,Призрак:2,Тёмный:0.5,Демон:1,Нежить:0},
+Бесплотный:{Обычный:0,Ментальный:2,Бесплотный:2,Тёмный:0.5,Демон:1,Нежить:0},
 Дракон:{Дракон:2,Стальной:0.5,Фея:0,Демон:1,Нежить:1},
-Тёмный:{Боевой:0.5,Астральный:2,Призрак:2,Тёмный:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
+Тёмный:{Боевой:0.5,Ментальный:2,Бесплотный:2,Тёмный:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
 Стальной:{Огненный:0.5,Водный:0.5,Электрик:0.5,Ледяной:2,Каменный:2,Стальной:0.5,Фея:2,Демон:1,Нежить:0.5},
 Фея:{Огненный:0.5,Боевой:2,Ядовитый:0.5,Дракон:2,Тёмный:2,Стальной:0.5,Демон:2,Нежить:1},
-Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрик:1,Ледяной:1,Боевой:2,Ядовитый:0.5,Земляной:1,Летающий:1,Астральный:0.5,Низший:1,Каменный:1,Призрак:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2},
-Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрик:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Астральный:2,Низший:1,Каменный:1,Призрак:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5}
+Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрик:1,Ледяной:1,Боевой:2,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:0.5,Низший:1,Каменный:1,Бесплотный:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2},
+Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрик:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:2,Низший:1,Каменный:1,Бесплотный:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5}
 };
 
 
@@ -2925,25 +2925,25 @@ const Fantasy_DATA=[
 {id:1174,name:"Ламхи-Отравитель",types:["Земляной","Ядовитый"],rarity:"rare",habitats:["cave","uurion","totsar"],desc:"Мастер ядов и алхимии. Его дротики парализуют даже огров.",height:1.4,weight:70,category:"Ламхи",stats:{hp:75,attack:80,defense:65,spAtk:115,spDef:80,speed:100},shape:"lamhi_poisoner"},
 
 {id:1175,name:"Ламхи-Жрец Тьмы",types:["Тёмный","Нежить"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Служитель подземного бога-крысы. Жертвует пленников ради силы клана.",height:1.5,weight:75,category:"Ламхи",stats:{hp:85,attack:60,defense:70,spAtk:110,spDef:95,speed:80},shape:"lamhi_priest",evolvesTo:1176,evolveLevel:38},
-{id:1176,name:"Ламхи-Иерарх Ночи",types:["Тёмный","Нежить"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Проклятый жрец, чьё тело разлагается веками. Повелевает роем крыс-призраков.",height:1.8,weight:90,category:"Ламхи",stats:{hp:120,attack:90,defense:100,spAtk:150,spDef:130,speed:100},shape:"lamhi_hierarch"},
+{id:1176,name:"Ламхи-Иерарх Ночи",types:["Тёмный","Нежить"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Проклятый жрец, чьё тело разлагается веками. Повелевает роем крыс-Бесплотныйов.",height:1.8,weight:90,category:"Ламхи",stats:{hp:120,attack:90,defense:100,spAtk:150,spDef:130,speed:100},shape:"lamhi_hierarch"},
 // ===== НЕЖИТЬ (в духе Warcraft III) =====
-{id:1160,name:"Тень",types:["Нежить","Призрак"],rarity:"uncommon",habitats:["cave","totsar","pole_magii"],desc:"Тёмный дух, способный становиться невидимым. В тени неуязвим для любых атак.",height:1.2,weight:0.1,category:"Тень",stats:{hp:45,attack:40,defense:35,spAtk:80,spDef:55,speed:95},shape:"shade",evolvesTo:1161,evolveLevel:32},
-{id:1161,name:"Тёмная Тень",types:["Нежить","Призрак"],rarity:"epic",habitats:["cave","totsar","pole_magii"],desc:"Древний тёмный дух, чьё прикосновение высасывает саму жизнь. Абсолютно невидим.",height:1.6,weight:0.1,category:"Тень",stats:{hp:75,attack:65,defense:60,spAtk:130,spDef:90,speed:125},shape:"dark_shade"},
+{id:1160,name:"Тень",types:["Нежить","Бесплотный"],rarity:"uncommon",habitats:["cave","totsar","pole_magii"],desc:"Тёмный дух, способный становиться невидимым. В тени неуязвим для любых атак.",height:1.2,weight:0.1,category:"Тень",stats:{hp:45,attack:40,defense:35,spAtk:80,spDef:55,speed:95},shape:"shade",evolvesTo:1161,evolveLevel:32},
+{id:1161,name:"Тёмная Тень",types:["Нежить","Бесплотный"],rarity:"epic",habitats:["cave","totsar","pole_magii"],desc:"Древний тёмный дух, чьё прикосновение высасывает саму жизнь. Абсолютно невидим.",height:1.6,weight:0.1,category:"Тень",stats:{hp:75,attack:65,defense:60,spAtk:130,spDef:90,speed:125},shape:"dark_shade"},
 
-{id:1162,name:"Банши",types:["Нежить","Призрак"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Скорбящий дух эльфийки, чей крик замедляет врагов, а одержимость подчиняет их волю.",height:1.5,weight:0.1,category:"Банши",stats:{hp:60,attack:50,defense:45,spAtk:110,spDef:70,speed:85},shape:"banshee",evolvesTo:1163,evolveLevel:38},
-{id:1163,name:"Царица Банши",types:["Нежить","Призрак"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Повелительница скорбящих духов. Её крик разрывает разум, а одержимость порабощает героев.",height:1.8,weight:0.1,category:"Банши",stats:{hp:90,attack:75,defense:70,spAtk:155,spDef:110,speed:105},shape:"banshee_queen"},
+{id:1162,name:"Банши",types:["Нежить","Бесплотный"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Скорбящий дух эльфийки, чей крик замедляет врагов, а одержимость подчиняет их волю.",height:1.5,weight:0.1,category:"Банши",stats:{hp:60,attack:50,defense:45,spAtk:110,spDef:70,speed:85},shape:"banshee",evolvesTo:1163,evolveLevel:38},
+{id:1163,name:"Царица Банши",types:["Нежить","Бесплотный"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Повелительница скорбящих духов. Её крик разрывает разум, а одержимость порабощает героев.",height:1.8,weight:0.1,category:"Банши",stats:{hp:90,attack:75,defense:70,spAtk:155,spDef:110,speed:105},shape:"banshee_queen"},
 
 {id:1164,name:"Сшивень",types:["Нежить","Боевой"],rarity:"rare",habitats:["cave","totsar","mountain"],desc:"Сшитый из трупов монстр с огромным крюком. Разрывает плоть и восстанавливает силы, пожирая врагов.",height:2.6,weight:350,category:"Сшивень",stats:{hp:140,attack:125,defense:90,spAtk:40,spDef:70,speed:45},shape:"abomination",evolvesTo:1165,evolveLevel:42},
 {id:1165,name:"Мертвяк",types:["Нежить","Боевой"],rarity:"epic",habitats:["cave","pole_magii"],desc:"Чудовище из сотни трупов, повелитель крюка. Его мясницкий крюк пронзает даже камень.",height:3.2,weight:600,category:"Мясник",stats:{hp:200,attack:165,defense:120,spAtk:50,spDef:95,speed:55},shape:"butcher"},
 
-{id:1166,name:"Лич",types:["Нежить","Астральный"],rarity:"rare",habitats:["cave","pole_magii","totsar"],desc:"Мёртвый маг, обретший бессмертие. Повелевает смертью и восстанавливает силы тёмной магией.",height:1.8,weight:40,category:"Лич",stats:{hp:85,attack:55,defense:70,spAtk:140,spDef:105,speed:75},shape:"lich",evolvesTo:1167,evolveLevel:45},
-{id:1167,name:"Архилич",types:["Нежить","Астральный"],rarity:"legendary",habitats:["pole_magii"],desc:"Древний повелитель мёртвых, чья сила не знает границ. Воскрешает павших и питается их душами.",height:2.2,weight:55,category:"Архилич",stats:{hp:120,attack:80,defense:100,spAtk:175,spDef:140,speed:95},shape:"archlich"},
+{id:1166,name:"Лич",types:["Нежить","Ментальный"],rarity:"rare",habitats:["cave","pole_magii","totsar"],desc:"Мёртвый маг, обретший бессмертие. Повелевает смертью и восстанавливает силы тёмной магией.",height:1.8,weight:40,category:"Лич",stats:{hp:85,attack:55,defense:70,spAtk:140,spDef:105,speed:75},shape:"lich",evolvesTo:1167,evolveLevel:45},
+{id:1167,name:"Архилич",types:["Нежить","Ментальный"],rarity:"legendary",habitats:["pole_magii"],desc:"Древний повелитель мёртвых, чья сила не знает границ. Воскрешает павших и питается их душами.",height:2.2,weight:55,category:"Архилич",stats:{hp:120,attack:80,defense:100,spAtk:175,spDef:140,speed:95},shape:"archlich"},
 // ===== ОГРЫ / ОРКИ / ТРОЛЛИ =====
 {id:1152,name:"Огр",types:["Земляной","Боевой"],rarity:"uncommon",habitats:["mountain","route","haradat","forest"],desc:"Четырёхрукий великан, крушит всё на своём пути дубиной и кулаками.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
 {id:1153,name:"Огр-Вождь",types:["Земляной","Боевой"],rarity:"epic",habitats:["mountain","volcano"],desc:"Вождь огров, четыре руки держат четыре дубины. Ужас гор.",height:3.5,weight:800,category:"Огр",stats:{hp:170,attack:145,defense:105,spAtk:40,spDef:65,speed:45},shape:"ogr_chief"},
 
-{id:1154,name:"Огр-Маг",types:["Земляной","Астральный"],rarity:"rare",habitats:["cave","mountain","pole_magii"],desc:"Синий четырёхрукий огр, владеет грубой боевой магией. Бьёт посохом и заклинаниями.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
-{id:1155,name:"Огр-Архимаг",types:["Земляной","Астральный"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Древний огр-маг, четыре руки чертят руны в воздухе. Повелевает камнем и разумом.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
+{id:1154,name:"Огр-Маг",types:["Земляной","Ментальный"],rarity:"rare",habitats:["cave","mountain","pole_magii"],desc:"Синий четырёхрукий огр, владеет грубой боевой магией. Бьёт посохом и заклинаниями.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
+{id:1155,name:"Огр-Архимаг",types:["Земляной","Ментальный"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Древний огр-маг, четыре руки чертят руны в воздухе. Повелевает камнем и разумом.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
 
 {id:1156,name:"Орк-Громила",types:["Боевой","Тёмный"],rarity:"uncommon",habitats:["mountain","route","desert","forest","volcano"],desc:"Зелёный воин с топором и волчьей шкурой. Яростный и беспощадный.",height:2.0,weight:180,category:"Орк",stats:{hp:90,attack:110,defense:70,spAtk:35,spDef:55,speed:65},shape:"orc_grunt",evolvesTo:1157,evolveLevel:32},
 {id:1157,name:"Орк-Военный Вождь",types:["Боевой","Тёмный"],rarity:"epic",habitats:["volcano","cave","pole_magii"],desc:"Вождь орков в волчьей мантии, его топор пьёт кровь врагов.",height:2.5,weight:260,category:"Орк",stats:{hp:135,attack:150,defense:100,spAtk:50,spDef:80,speed:80},shape:"orc_warchief"},
@@ -2975,13 +2975,13 @@ const Fantasy_DATA=[
 {id:1041,name:"Вампи",types:["Нежить","Летающий"],rarity:"common",habitats:["cave","totsar"],desc:"Пьёт кровь спящих, боится света.",height:0.8,weight:6,category:"Вампир",stats:{hp:45,attack:50,defense:35,spAtk:35,spDef:40,speed:60},shape:"vampire_bat"},
 {id:1074,name:"Каменный Голем",types:["Каменный","Земляной"],rarity:"common",habitats:["mountain","cave"],desc:"Ожившая скала, медлителен, но невероятно силён.",height:1.2,weight:250,category:"Голем",stats:{hp:60,attack:85,defense:110,spAtk:30,spDef:40,speed:15},shape:"stone_golem",evolvesTo:1075,evolveLevel:25},
 {id:1075,name:"Рунный Колосс",types:["Каменный","Стальной"],rarity:"epic",habitats:["mountain","cave"],desc:"Древний голем, на его теле высечены руны древних.",height:2.5,weight:800,category:"Колосс",stats:{hp:95,attack:120,defense:150,spAtk:50,spDef:70,speed:25},shape:"rune_colossus"},
-{id:1092,name:"Банши",types:["Призрак","Нежить"],rarity:"uncommon",habitats:["cave","totsar"],desc:"Дух умершего путника, оплакивает свою судьбу.",height:1.3,weight:0.1,category:"Призрак",stats:{hp:40,attack:40,defense:35,spAtk:100,spDef:45,speed:75},shape:"wailing_ghost",evolvesTo:1094,evolveLevel:25},
-{id:1094,name:"Дух-Пожиратель",types:["Призрак","Тёмный"],rarity:"epic",habitats:["cave","totsar"],desc:"Поглощает души, прячется в тенях.",height:1.6,weight:45,category:"Дух",stats:{hp:70,attack:75,defense:65,spAtk:135,spDef:80,speed:110},shape:"soul_devourer"},
+{id:1092,name:"Банши",types:["Бесплотный","Нежить"],rarity:"uncommon",habitats:["cave","totsar"],desc:"Дух умершего путника, оплакивает свою судьбу.",height:1.3,weight:0.1,category:"Бесплотный",stats:{hp:40,attack:40,defense:35,spAtk:100,spDef:45,speed:75},shape:"wailing_ghost",evolvesTo:1094,evolveLevel:25},
+{id:1094,name:"Дух-Пожиратель",types:["Бесплотный","Тёмный"],rarity:"epic",habitats:["cave","totsar"],desc:"Поглощает души, прячется в тенях.",height:1.6,weight:45,category:"Дух",stats:{hp:70,attack:75,defense:65,spAtk:135,spDef:80,speed:110},shape:"soul_devourer"},
 
 // ===== ВОДНЫЕ =====
 {id:1129,name:"Морской Конёк-Малыш",types:["Водный"],rarity:"common",habitats:["water"],desc:"Крошечный конёк, плавает стаями.",height:0.3,weight:2,category:"Конёк",stats:{hp:30,attack:15,defense:40,spAtk:20,spDef:25,speed:70},shape:"seahorse_baby",evolvesTo:1130,evolveLevel:20},
 {id:1130,name:"Морской Дракон",types:["Водный","Дракон"],rarity:"epic",habitats:["water","ostrova_pobezhdennogo"],desc:"Грозный дракон глубин, топит корабли.",height:5.5,weight:220,category:"Дракон",stats:{hp:95,attack:120,defense:80,spAtk:85,spDef:95,speed:85},shape:"sea_dragon"},
-{id:1054,name:"Рири-маг",types:["Водный","Астральный"],rarity:"uncommon",habitats:["water","goch",	"zyffren"],desc:"Странный зверёк, страдает от видений.",height:0.9,weight:20,category:"Маг",stats:{hp:55,attack:50,defense:50,spAtk:70,spDef:55,speed:50},shape:"platypus_mage"},
+{id:1054,name:"Рири-маг",types:["Водный","Ментальный"],rarity:"uncommon",habitats:["water","goch",	"zyffren"],desc:"Странный зверёк, страдает от видений.",height:0.9,weight:20,category:"Маг",stats:{hp:55,attack:50,defense:50,spAtk:70,spDef:55,speed:50},shape:"platypus_mage"},
 {id:1131,name:"Ледяной Кит",types:["Водный","Ледяной"],rarity:"rare",habitats:["water","ostrova_pobezhdennogo"],desc:"Гигант северных морей, перевозит путников.",height:4.0,weight:400,category:"Кит",stats:{hp:140,attack:80,defense:90,spAtk:90,spDef:100,speed:50},shape:"ice_whale"},
 
 // ===== ГОРНЫЕ / ОГНЕННЫЕ =====
@@ -2990,8 +2990,8 @@ const Fantasy_DATA=[
 {id:1135,name:"Огненная Кицунэ",types:["Огненный","Фея"],rarity:"rare",habitats:["volcano","selax"],desc:"Девятихвостая лиса, чьё пламя — иллюзия.",height:1.2,weight:28,category:"Кицунэ",stats:{hp:65,attack:65,defense:60,spAtk:110,spDef:90,speed:95},shape:"fire_kitsune"},
 
 // ===== ВОЛШЕБНЫЕ СУЩЕСТВА =====
-{id:1063,name:"Ревенант",types:["Астральный"],rarity:"uncommon",habitats:["fattolodor","cave","sid"],desc:"Полупрозрачный дух, читает мысли и телепортируется.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
-{id:1065,name:"Ревенант-архимаг",types:["Астральный","Фея"],rarity:"epic",habitats:["fattolodor","cave"],desc:"Дух великого мага, его знания безграничны.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
+{id:1063,name:"Ревенант",types:["Ментальный"],rarity:"uncommon",habitats:["fattolodor","cave","sid"],desc:"Полупрозрачный дух, читает мысли и телепортируется.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
+{id:1065,name:"Ревенант-архимаг",types:["Ментальный","Фея"],rarity:"epic",habitats:["fattolodor","cave"],desc:"Дух великого мага, его знания безграничны.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
 {id:1147,name:"Дракончик-Змей",types:["Дракон"],rarity:"rare",habitats:["water","cave"],desc:"Молодой морской дракон, живёт у водопадов.",height:1.5,weight:4,category:"Змей",stats:{hp:45,attack:65,defense:45,spAtk:55,spDef:50,speed:50},shape:"dragon_snake",evolvesTo:1148,evolveLevel:30},
 {id:1148,name:"Небесный Змей",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","pole_magii"],desc:"Взрослый дракон, летает среди облаков.",height:3.5,weight:150,category:"Змей",stats:{hp:75,attack:95,defense:70,spAtk:80,spDef:75,speed:75},shape:"sky_serpent"},
 
@@ -2999,8 +2999,8 @@ const Fantasy_DATA=[
 {id:1143,name:"Лесной Медведь-Соня",types:["Обычный","Природа"],rarity:"rare",habitats:["route","forest","mountain"],desc:"Спит всю зиму, весной становится добрым защитником леса.",height:2.2,weight:380,category:"Медведь",stats:{hp:160,attack:110,defense:70,spAtk:60,spDef:105,speed:30},shape:"sleepy_bear"},
 
 // ===== ЛЕГЕНДАРНЫЕ =====
-{id:1150,name:"Тёмный Владыка",types:["Астральный","Нежить"],rarity:"legendary",habitats:["cave","pole_magii"],desc:"Создан из чистой магии тьмы, его сила не знает границ.",height:2.2,weight:130,category:"Владыка",stats:{hp:110,attack:115,defense:95,spAtk:160,spDef:95,speed:135},shape:"dark_lord"},
-{id:1151,name:"Искра-Создатель",types:["Астральный","Фея"],rarity:"legendary",habitats:["forest","pole_magii"],desc:"Прародитель всех волшебных существ, может принимать любую форму.",height:0.5,weight:4,category:"Создатель",stats:{hp:105,attack:105,defense:105,spAtk:105,spDef:105,speed:105},shape:"creator_spark"},
+{id:1150,name:"Тёмный Владыка",types:["Ментальный","Нежить"],rarity:"legendary",habitats:["cave","pole_magii"],desc:"Создан из чистой магии тьмы, его сила не знает границ.",height:2.2,weight:130,category:"Владыка",stats:{hp:110,attack:115,defense:95,spAtk:160,spDef:95,speed:135},shape:"dark_lord"},
+{id:1151,name:"Искра-Создатель",types:["Ментальный","Фея"],rarity:"legendary",habitats:["forest","pole_magii"],desc:"Прародитель всех волшебных существ, может принимать любую форму.",height:0.5,weight:4,category:"Создатель",stats:{hp:105,attack:105,defense:105,spAtk:105,spDef:105,speed:105},shape:"creator_spark"},
 {id:1144,name:"Ледяной Феникс",types:["Ледяной","Летающий"],rarity:"legendary",habitats:["water","ostrova_pobezhdennogo"],desc:"Легендарная птица зимы, её перья — кристаллы льда.",height:1.8,weight:60,category:"Феникс",stats:{hp:95,attack:90,defense:105,spAtk:100,spDef:130,speed:90},shape:"ice_phoenix"},
 {id:1145,name:"Грозовой Феникс",types:["Электрик","Летающий"],rarity:"legendary",habitats:["mountain","pole_magii"],desc:"Легендарная птица бури, повелевает молниями.",height:1.7,weight:55,category:"Феникс",stats:{hp:95,attack:95,defense:90,spAtk:130,spDef:95,speed:105},shape:"storm_phoenix"},
 {id:1146,name:"Огненный Феникс",types:["Огненный","Летающий"],rarity:"legendary",habitats:["volcano"],desc:"Легендарная птица огня, возрождается из пепла.",height:2.1,weight:65,category:"Феникс",stats:{hp:95,attack:105,defense:95,spAtk:130,spDef:90,speed:95},shape:"fire_phoenix"},
@@ -3029,7 +3029,7 @@ const Fantasy_DATA=[
 ];
 const RARITY_COLORS={common:"#9ca3af",uncommon:"#4ade80",rare:"#60a5fa",epic:"#a855f7",legendary:"#fbbf24"};
 const RARITY_NAMES={common:"Обычный",uncommon:"Необычный",rare:"Редкий",epic:"Эпический",legendary:"Легендарный"};
-const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрик:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",Земляной:"#e0c068",Летающий:"#a890f0",Низший:"#a8b820",Каменный:"#b8a038",Призрак:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#c03028",Нежить:"#a855f7", Астральный:"#f85888"};
+const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрик:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",Земляной:"#e0c068",Летающий:"#a890f0",Низший:"#a8b820",Каменный:"#b8a038",Бесплотный:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#c03028",Нежить:"#a855f7", Ментальный:"#f85888"};
 
 // ===================== НАБОРЫ АТАК =====================
 // ===================== НАБОРЫ АТАК (сдвинутые уровни) =====================
@@ -3136,7 +3136,7 @@ const LEARNSETS={
 1063:[{level:1,move:"Смятение"},{level:8,move:"Луч разума"},{level:12,move:"Взрыв разума"},{level:16,move:"Шар тьмы"},{level:20,move:"Магический сон"},{level:24,move:"Магическое отражение"}],
 1065:[{level:1,move:"Взрыв разума"},{level:1,move:"Шар тьмы"},{level:1,move:"Магический сон"},{level:1,move:"Магическое отражение"}],
 
-// --- Призраки ---
+// --- Бесплотныйи ---
 1092:[{level:1,move:"Прикосновение смерти"},{level:5,move:"Тень смерти"},{level:10,move:"Шар тьмы"},{level:14,move:"Пожиратель снов"},{level:18,move:"Магический сон"},{level:22,move:"Поцелуй сирены"}],
 1094:[{level:1,move:"Шар тьмы"},{level:1,move:"Пожиратель снов"},{level:1,move:"Взрыв разума"},{level:1,move:"Прикосновение смерти"},{level:1,move:"Магический сон"}],
 
@@ -3193,14 +3193,14 @@ const FULL_MOVES={
 "Холод могилы":{type:"Нежить",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить."},
 "Ледяная стрела":{type:"Ледяной",power:75,cat:"special",effect:"freeze",chance:0.2,desc:"Ледяная стрела лича. Может заморозить."},
 
-// ===== ТЕНЬ / ПРИЗРАК =====
-"Невидимость":{type:"Призрак",power:null,cat:"status",effect:"invisible",duration:2,desc:"Тень становится невидимой на 2 хода — её нельзя атаковать."},
-"Крик Банши":{type:"Призрак",power:50,cat:"special",effect:"slow",slow:0.5,desc:"Замедляющая волна. Понижает скорость врага вдвое на 3 хода."},
-"Одержимость":{type:"Призрак",power:null,cat:"status",effect:"possess",chance:0.6,desc:"Пытается подчинить волю врага. С шансом 60% враг пропустит ход."},
-"Удар из тени":{type:"Призрак",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Шар тьмы":{type:"Призрак",power:80,cat:"special",desc:"Сгусток чистой тьмы, сгусток чистой тьмы."},
-"Тень смерти":{type:"Призрак",power:null,cat:"special",desc:"Тень накрывает врага, ослабляя его."},
-"Прикосновение могилы":{type:"Призрак",power:45,cat:"physical",desc:"Холодное прикосновение из могилы."},
+// ===== ТЕНЬ / Бесплотный =====
+"Невидимость":{type:"Бесплотный",power:null,cat:"status",effect:"invisible",duration:2,desc:"Тень становится невидимой на 2 хода — её нельзя атаковать."},
+"Крик Банши":{type:"Бесплотный",power:50,cat:"special",effect:"slow",slow:0.5,desc:"Замедляющая волна. Понижает скорость врага вдвое на 3 хода."},
+"Одержимость":{type:"Бесплотный",power:null,cat:"status",effect:"possess",chance:0.6,desc:"Пытается подчинить волю врага. С шансом 60% враг пропустит ход."},
+"Удар из тени":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+"Шар тьмы":{type:"Бесплотный",power:80,cat:"special",desc:"Сгусток чистой тьмы, сгусток чистой тьмы."},
+"Тень смерти":{type:"Бесплотный",power:null,cat:"special",desc:"Тень накрывает врага, ослабляя его."},
+"Прикосновение могилы":{type:"Бесплотный",power:45,cat:"physical",desc:"Холодное прикосновение из могилы."},
 
 // ===== ОБЫЧНЫЕ =====
 "Удар посохом":{type:"Обычный",power:40,cat:"physical"},
@@ -3264,20 +3264,20 @@ const FULL_MOVES={
 "Ледяной укус":{type:"Ледяной",power:65,cat:"physical",effect:"freeze",chance:0.15,desc:"Может заморозить."},
 
 // ===== ПСИХИЧЕСКИЙ =====
-"Смятение":{type:"Астральный",power:50,cat:"special"},
-"Взрыв разума":{type:"Астральный",power:90,cat:"special"},
-"Луч разума":{type:"Астральный",power:65,cat:"special"},
-"Магический сон":{type:"Астральный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
-"Пожиратель снов":{type:"Астральный",power:100,cat:"special",effect:"dreamdrain"},
-"Сон-похититель":{type:"Астральный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих."},
-"Поцелуй сирены":{type:"Астральный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Поцелуй вампира":{type:"Астральный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Отражение":{type:"Астральный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
-"Магическое отражение":{type:"Астральный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
-"Магический барьер":{type:"Астральный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
-"Барьер":{type:"Астральный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
-"Отдых":{type:"Астральный",power:null,cat:"status",effect:"rest",desc:"Полностью восстанавливает HP, но усыпляет."},
-"Гипноз":{type:"Астральный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
+"Смятение":{type:"Ментальный",power:50,cat:"special"},
+"Взрыв разума":{type:"Ментальный",power:90,cat:"special"},
+"Луч разума":{type:"Ментальный",power:65,cat:"special"},
+"Магический сон":{type:"Ментальный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
+"Пожиратель снов":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain"},
+"Сон-похититель":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих."},
+"Поцелуй сирены":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
+"Поцелуй вампира":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
+"Отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
+"Магическое отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
+"Магический барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
+"Барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
+"Отдых":{type:"Ментальный",power:null,cat:"status",effect:"rest",desc:"Полностью восстанавливает HP, но усыпляет."},
+"Гипноз":{type:"Ментальный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
 
 // ===== КАМЕННЫЙ / ЗЕМЛЯНОЙ =====
 "Каменный шип":{type:"Каменный",power:50,cat:"physical"},
@@ -3315,7 +3315,7 @@ const FULL_MOVES={
 "Высасывание":{type:"Боевой",power:20,cat:"physical",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
 "Предчувствие":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
 "Обнаружение":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
-"Астральный":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
+"Ментальный":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
 
 // ===== СТАТУСНЫЕ / ЗАЩИТА =====
 "Защитная стойка":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту."},
@@ -3347,7 +3347,7 @@ const FULL_MOVES={
 // ===== ПРИОРИТЕТ =====
 "Рывок":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
 "Ускорение":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Теневой удар":{type:"Призрак",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+"Теневой удар":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
 "Водный поток":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым."},
 
 // ===== ПОНИЖЕНИЕ СТАТОВ =====
@@ -3360,17 +3360,17 @@ const FULL_MOVES={
 // ===================== ДОПОЛНИТЕЛЬНЫЕ АТАКИ (нежить Warcraft III) =====================
 Object.assign(FULL_MOVES, {
   "Невидимость":{
-    type:"Призрак",power:null,cat:"status",
+    type:"Бесплотный",power:null,cat:"status",
     effect:"invisible",duration:2,
     desc:"Тень становится невидимой на 2 хода — её нельзя атаковать."
   },
   "Крик Банши":{
-    type:"Призрак",power:50,cat:"special",
+    type:"Бесплотный",power:50,cat:"special",
     effect:"slow",slow:0.5,
     desc:"Замедляющая волна. Понижает скорость врага вдвое на 3 хода."
   },
   "Одержимость":{
-    type:"Призрак",power:null,cat:"status",
+    type:"Бесплотный",power:null,cat:"status",
     effect:"possess",chance:0.6,
     desc:"Пытается подчинить волю врага. С шансом 60% враг пропустит ход."
   },
@@ -5407,12 +5407,12 @@ rune_colossus:`<svg viewBox="0 0 64 64">
   <path d="M28 22 L32 24 L36 22" stroke="#fbbf24" stroke-width="1.2" fill="none" stroke-linecap="round"/>
 </svg>`,
 
-/* ===================== ПРИЗРАК-ПЛАКАЛЬЩИК ===================== */
+/* ===================== Бесплотный-ПЛАКАЛЬЩИК ===================== */
 wailing_ghost:`<svg viewBox="0 0 64 64">
   <!-- Призрачная аура -->
   <ellipse cx="32" cy="34" rx="22" ry="20" fill="#7c3aed" opacity="0.25"/>
   <ellipse cx="32" cy="34" rx="16" ry="14" fill="#a78bfa" opacity="0.35"/>
-  <!-- Тело-призрак -->
+  <!-- Тело-Бесплотный -->
   <path d="M18 42 Q18 16 32 16 Q46 16 46 42 Q46 48 42 52 Q38 46 36 48 Q34 46 32 48 Q30 46 28 48 Q26 46 22 52 Q18 48 18 42 Z" fill="#a78bfa" stroke="#4c1d95" stroke-width="1.4" opacity="0.9"/>
   <!-- Плащ-рвань -->
   <path d="M22 52 Q24 56 22 56 Q18 54 18 48 Z" fill="#7c3aed" opacity="0.8"/>
@@ -5762,7 +5762,7 @@ telepath_spirit:`<svg viewBox="0 0 64 64">
   <!-- Аура -->
   <ellipse cx="32" cy="34" rx="22" ry="20" fill="#a855f7" opacity="0.25"/>
   <ellipse cx="32" cy="34" rx="14" ry="12" fill="#c084fc" opacity="0.35"/>
-  <!-- Тело-призрак -->
+  <!-- Тело-Бесплотный -->
   <path d="M22 42 Q22 16 32 16 Q42 16 42 42 Q42 50 38 52 Q34 48 32 50 Q30 48 26 52 Q22 50 22 42 Z" fill="#c084fc" stroke="#6b21a8" stroke-width="1.4" opacity="0.92"/>
   <!-- Мистические линии на теле -->
   <path d="M26 26 Q32 30 38 26" stroke="#e9d5ff" stroke-width="1" fill="none" opacity="0.8"/>
@@ -6267,7 +6267,7 @@ uurion:{
   title:"Мастер Душ Теней",
   team:[{id:1041,level:32},{id:1092,level:34}],
   reward:5500, badge:"uurion",
-  before:"Я — Когар, Мастер Душ Теней. Мои призраки не оставят тебе шансов!",
+  before:"Я — Когар, Мастер Душ Теней. Мои Бесплотныйи не оставят тебе шансов!",
   after:"Печать Теней — твоя. Ты доказал, что не боишься тьмы."
 },
 fattolodor:{
@@ -6439,7 +6439,7 @@ const QUEST_DEFS=[
 {id:"q_ghost_purge",biome:"totsar",nps:"Экзорцист Когар",npsPos:{x:2250,y:1050},
   title:"Изгнание духов",desc:"Победи 30 существ — город проклят.",target:30,
   type:"defeat",reward:{money:7200,items:{ultraball:5}},
-  dialogue:"Город Тотсар проклят! Призраки выходят из стен по ночам. Победи тридцать тварей — и я проведу обряд."},
+  dialogue:"Город Тотсар проклят! Бесплотныйи выходят из стен по ночам. Победи тридцать тварей — и я проведу обряд."},
 
 {id:"q_banshee_hunt",biome:"totsar",nps:"Охотница Вельда",npsPos:{x:2400,y:1100},
   title:"Плач Банши",desc:"Поймай Банши — её слёзы — редчайший алхимический ингредиент.",target:1,
@@ -6649,7 +6649,7 @@ function learnMovesForLevel(pk,level){
     }
   });
   if(pk.moves.length===0){
-    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрик:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Отравленное жало",Летающий:"Порыв",Астральный:"Конфузия",Низший:"Укус жука",Каменный:"Бросок камня",Призрак:"Лизание",Дракон:"Вихрь",Земляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
+    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрик:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Отравленное жало",Летающий:"Порыв",Ментальный:"Конфузия",Низший:"Укус жука",Каменный:"Бросок камня",Бесплотный:"Лизание",Дракон:"Вихрь",Земляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
     pk.moves.push({name:tm||"Захват",level:1});
   }
   if(pk.moves.length>4)pk.moves=pk.moves.slice(-4);
@@ -10523,7 +10523,7 @@ function showBattleLog(text,dur){
   el._timeout=setTimeout(()=>el.classList.remove('show'),dur);
 }
 function calcDamage(attacker,defender,move){
-  const special=['Огненный','Водный','Природа','Электрик','Ледяной','Астральный','Призрак','Дракон'];
+  const special=['Огненный','Водный','Природа','Электрик','Ледяной','Ментальный','Бесплотный','Дракон'];
   const isSpecial=move.cat==='special'||special.includes(move.type);
   const atk=isSpecial?attacker.spAtk:attacker.atk;
   const def=isSpecial?defender.spDef:defender.def;
