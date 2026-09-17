@@ -14,32 +14,32 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 #game:active{cursor:grabbing}
 #world{position:absolute;width:3000px;height:2000px;will-change:transform;transform-origin:0 0}
 #bg{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block}
-#fog{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:5}
-.Fantasy{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:10;will-change:transform;top:0;left:0;margin-left:-28px;margin-top:-28px}
+#fog{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:5}
+.Fantasy{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;will-change:transform;top:0;left:0;margin-left:-28px;margin-top:-28px}
 .Fantasy svg{width:100%;height:100%;display:block}
-.Fantasy:hover{z-inbest:20}
+.Fantasy:hover{z-index:20}
 .Fantasy:hover .label{opacity:1}
 .Fantasy .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
-.trainer{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:12;top:0;left:0;margin-left:-28px;margin-top:-28px}
+.trainer{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:12;top:0;left:0;margin-left:-28px;margin-top:-28px}
 .trainer svg{width:100%;height:100%}
 .trainer:hover .label{opacity:1}
 .trainer .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
-#hud{position:fixed;top:16px;left:16px;z-inbest:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:14px 18px}
+#hud{position:fixed;top:16px;left:16px;z-index:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:14px 18px}
 #hud h1{font-size:18px;color:#ffcb05;text-shadow:2px 2px 0 #2a5aa8;margin-bottom:6px}
 .stat{font-size:13px;color:#b8d4e8;margin:2px 0}
 .stat b{color:#ffcb05}
 .badges{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
 .badge{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;border:2px solid #444;background:#222;color:#666}
 .badge.earned{border-color:#ffcb05;background:#ffcb05;color:#2a5aa8}
-#legend{position:fixed;bottom:16px;left:16px;z-inbest:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px}
+#legend{position:fixed;bottom:16px;left:16px;z-index:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px}
 #legend .title{color:#ffcb05;font-weight:bold;margin-bottom:6px}
 #legend .row{display:flex;align-items:center;gap:8px;margin:4px 0}
 #legend .dot{width:12px;height:12px;border-radius:50%}
-#hint{position:fixed;top:16px;right:16px;z-inbest:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px;color:#b8d4e8;max-width:260px}
+#hint{position:fixed;top:16px;right:16px;z-index:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px;color:#b8d4e8;max-width:260px}
 #hint b{color:#ffcb05}
-#biomeName{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:bold;color:#fff;text-shadow:0 0 20px #000,2px 2px 0 #000;pointer-events:none;opacity:0;transition:opacity .4s;z-inbest:50}
+#biomeName{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:bold;color:#fff;text-shadow:0 0 20px #000,2px 2px 0 #000;pointer-events:none;opacity:0;transition:opacity .4s;z-index:50}
 #biomeName.show{opacity:1}
-#Bestiary{position:fixed;inset:0;background:rgba(0,0,0,.8);z-inbest:1000;display:none;align-items:center;justify-content:center}
+#Bestiary{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:none;align-items:center;justify-content:center}
 #Bestiary.active{display:flex}
 .bestiary-tome{width:640px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#e63946,#c1121f);border-radius:24px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);position:relative;overflow-y:auto}
 .bestiary-tome::before{content:'';position:absolute;top:14px;left:20px;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#7ec8ff,#1a5fa8);box-shadow:0 0 12px #4ab3ff}
@@ -68,7 +68,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .best-close:active{transform:translateY(3px);box-shadow:0 1px 0 #c9a004}
 .weak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px}
 .weak-item{padding:4px 8px;border-radius:8px;font-size:11px;font-weight:bold;text-align:center;text-shadow:1px 1px 0 rgba(0,0,0,.3)}
-#starterScreen{position:fixed;inset:0;z-inbest:2000;background:linear-gradient(160deg,#0a0e1a,#1a2a4a);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#starterScreen{position:fixed;inset:0;z-index:2000;background:linear-gradient(160deg,#0a0e1a,#1a2a4a);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 #starterScreen.hidden{display:none}
 #starterScreen h1{font-size:32px;color:#ffcb05;text-shadow:3px 3px 0 #2a5aa8;margin-bottom:10px;text-align:center}
 #starterScreen p{color:#b8d4e8;margin-bottom:30px;font-size:16px;text-align:center}
@@ -77,7 +77,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .starter-card:hover{border-color:#ffcb05;transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,203,5,.3)}
 .starter-card svg{width:100px;height:100px}
 .starter-card h3{color:#ffcb05;margin:10px 0 5px;font-size:20px}
-#battleScreen{position:fixed;inset:0;z-inbest:1500;background:linear-gradient(180deg,#1a2a4a 0%,#0a0e1a 100%);display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:20px}
+#battleScreen{position:fixed;inset:0;z-index:1500;background:linear-gradient(180deg,#1a2a4a 0%,#0a0e1a 100%);display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:20px}
 #battleScreen.active{display:flex}
 .battle-field{flex:1;width:100%;max-width:900px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
 .battle-enemy,.battle-player{display:flex;align-items:center;gap:20px}
@@ -95,7 +95,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .battle-info .hp-fill{height:100%;background:#4ade80;transition:width .3s}
 .battle-info .hp-text{font-size:12px;color:#b8d4e8;margin-top:2px;text-align:right}
 .status-tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:10px;font-weight:bold;margin-top:3px}
-.battle-log{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.85);border:2px solid #ffcb05;border-radius:14px;padding:14px 24px;font-size:16px;max-width:80%;text-align:center;opacity:0;transition:opacity .3s;pointer-events:none;z-inbest:10}
+.battle-log{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.85);border:2px solid #ffcb05;border-radius:14px;padding:14px 24px;font-size:16px;max-width:80%;text-align:center;opacity:0;transition:opacity .3s;pointer-events:none;z-index:10}
 .battle-log.show{opacity:1}
 .battle-controls{width:100%;max-width:900px;background:rgba(10,20,30,.95);border:2px solid #3a6b8a;border-radius:16px;padding:16px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .battle-btn{padding:12px 20px;border-radius:12px;border:2px solid #3a6b8a;background:rgba(30,50,70,.9);color:#fff;font-size:15px;font-weight:bold;cursor:pointer;transition:all .15s;min-width:120px}
@@ -113,9 +113,9 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .team-slot svg{width:44px;height:44px}
 .team-slot .slot-hp{position:absolute;bottom:2px;left:4px;right:4px;height:3px;background:#333;border-radius:2px;overflow:hidden}
 .team-slot .slot-hp-fill{height:100%;background:#4ade80}
-#toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(10,20,30,.95);border:2px solid #ffcb05;border-radius:12px;padding:12px 24px;font-size:15px;color:#fff;z-inbest:3000;opacity:0;transition:opacity .3s;pointer-events:none}
+#toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(10,20,30,.95);border:2px solid #ffcb05;border-radius:12px;padding:12px 24px;font-size:15px;color:#fff;z-index:3000;opacity:0;transition:opacity .3s;pointer-events:none}
 #toast.show{opacity:1}
-#HealerHutScreen{position:fixed;inset:0;z-inbest:1600;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
+#HealerHutScreen{position:fixed;inset:0;z-index:1600;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
 #HealerHutScreen.active{display:flex}
 .healer-device{width:520px;max-width:95vw;background:linear-gradient(160deg,#ef4444,#b91c1c);border-radius:24px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);text-align:center}
 .healer-device h2{color:#fff;font-size:24px;margin-bottom:6px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -130,7 +130,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .healer-btn.heal{background:#ffcb05;color:#2a5aa8;box-shadow:0 4px 0 #c9a004}
 .healer-btn.heal:disabled{opacity:.5;cursor:not-allowed}
 .healer-btn.close{background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.4)}
-#teamScreen{position:fixed;inset:0;z-inbest:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#teamScreen{position:fixed;inset:0;z-index:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #teamScreen.active{display:flex}
 .team-device{width:700px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1e3a5f,#0f2338);border-radius:24px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto}
 .team-device h2{color:#ffcb05;font-size:22px;margin-bottom:16px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -149,7 +149,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .team-member .tm-exp-fill{height:100%;background:#3b82f6;border-radius:2px}
 .team-member .tm-types{display:flex;gap:4px;margin-top:3px}
 .team-member .tm-types .type-badge{font-size:9px;padding:1px 8px}
-#myFantasyDetail{position:fixed;inset:0;z-inbest:1800;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#myFantasyDetail{position:fixed;inset:0;z-index:1800;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #myFantasyDetail.active{display:flex}
 .mpd-device{width:620px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1a2a4a,#0a1628);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto;border:2px solid #3a6b8a}
 .mpd-header{display:flex;gap:18px;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid rgba(255,255,255,.15)}
@@ -174,7 +174,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .mpd-move.locked{opacity:.5;border-left-color:#555}
 .mpd-move .learn-lvl{font-size:10px;color:#94a3b8;margin-left:6px}
 .mpd-close{margin-top:18px;width:100%;padding:12px;background:#ffcb05;color:#2a5aa8;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 0 #c9a004}
-#shopScreen{position:fixed;inset:0;z-inbest:1650;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#shopScreen{position:fixed;inset:0;z-index:1650;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #shopScreen.active{display:flex}
 .shop-device{width:560px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1e40af,#1e3a8a);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);overflow-y:auto}
 .shop-device h2{color:#fde68a;font-size:24px;margin-bottom:6px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -185,7 +185,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .shop-item .si-desc{font-size:11px;color:#c7d2fe}
 .shop-item .si-buy{padding:6px 14px;border-radius:8px;border:none;background:#ffcb05;color:#1e3a8a;font-weight:bold;cursor:pointer;font-size:13px}
 .shop-item .si-buy:disabled{opacity:.5;cursor:not-allowed}
-#inventoryScreen{position:fixed;inset:0;z-inbest:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#inventoryScreen{position:fixed;inset:0;z-index:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #inventoryScreen.active{display:flex}
 .inv-device{width:520px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1a2a4a,#0f2338);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto}
 .inv-device h2{color:#ffcb05;font-size:22px;margin-bottom:16px;text-align:center}
@@ -193,17 +193,17 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .inv-item{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.3);padding:10px 14px;border-radius:12px;font-size:14px}
 .inv-item .ii-name{font-weight:bold}
 .inv-item .ii-count{color:#ffcb05;font-weight:bold}
-#teamBtn,#shopBtn,#invBtn{position:fixed;z-inbest:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;pointer-events:auto}
+#teamBtn,#shopBtn,#invBtn{position:fixed;z-index:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;pointer-events:auto}
 #teamBtn{bottom:16px;right:16px;background:linear-gradient(180deg,#3b82f6,#1e40af);border:2px solid #93c5fd;box-shadow:0 4px 0 #1e3a8a}
 #shopBtn{bottom:16px;right:197px;background:linear-gradient(180deg,#f59e0b,#b45309);border:2px solid #fde68a;box-shadow:0 4px 0 #78350f}
 #invBtn{bottom:16px;right:380px;background:linear-gradient(180deg,#8b5cf6,#6d28d9);border:2px solid #c4b5fd;box-shadow:0 4px 0 #4c1d95}
 #teamBtn:hover,#shopBtn:hover,#invBtn:hover{transform:translateY(-2px)}
-#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-inbest:1900;padding:20px;display:none}
+#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-index:1900;padding:20px;display:none}
 #dialogScreen.active{display:block}
 .dialog-box{max-width:800px;margin:0 auto;background:rgba(10,20,30,.98);border:3px solid #ffcb05;border-radius:16px;padding:20px 24px;font-size:17px;line-height:1.5;box-shadow:0 10px 40px rgba(0,0,0,.8);cursor:pointer}
 .dialog-speaker{color:#ffcb05;font-weight:bold;margin-bottom:8px;font-size:15px}
 .dialog-hint{color:#94a3b8;font-size:12px;text-align:right;margin-top:8px}
-#evolveScreen{position:fixed;inset:0;z-inbest:2100;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+#evolveScreen{position:fixed;inset:0;z-index:2100;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:20px}
 #evolveScreen.active{display:flex}
 .evolve-title{font-size:28px;color:#ffcb05;text-shadow:2px 2px 0 #2a5aa8}
 .evolve-sprites{display:flex;align-items:center;gap:30px}
@@ -215,10 +215,10 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 ::-webkit-scrollbar-track{background:rgba(0,0,0,.2);border-radius:4px}
 ::-webkit-scrollbar-thumb{background:#ffcb05;border-radius:4px}
 
-#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:6}
+#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:6}
 
 /* ===== КВЕСТЫ ===== */
-#questScreen{position:fixed;inset:0;z-inbest:1750;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#questScreen{position:fixed;inset:0;z-index:1750;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #questScreen.active{display:flex}
 .quest-device{width:700px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#2d1b4e,#1a0e2e);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto;border:2px solid #a855f7}
 .quest-device h2{color:#e9d5ff;font-size:24px;margin-bottom:6px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -235,24 +235,22 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .quest-item .q-reward{font-size:12px;color:#fde68a;margin-top:6px;display:flex;justify-content:space-between;align-items:center}
 .quest-item .q-claim{padding:6px 14px;border-radius:8px;border:none;background:#4ade80;color:#0a2a15;font-weight:bold;cursor:pointer;font-size:12px}
 .quest-item .q-claim:disabled{background:#6b7280;color:#9ca3af;cursor:not-allowed}
-.nps-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:14;top:0;left:0;margin-left:-30px;margin-top:-30px}
+.nps-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:14;top:0;left:0;margin-left:-30px;margin-top:-30px}
 .nps-quest svg{width:100%;height:100%}
 .nps-quest .qmark{position:absolute;top:-8px;right:-8px;font-size:22px;filter:drop-shadow(0 0 4px #fbbf24);animation:qmarkBounce 1s infinite}
 @keyframes qmarkBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .nps-quest .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
 .nps-quest:hover .label{opacity:1}
-#questBtn{position:fixed;z-inbest:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;bottom:16px;right:595px;background:linear-gradient(180deg,#a855f7,#7c3aed);border:2px solid #d8b4fe;box-shadow:0 4px 0 #4c1d95}
+#questBtn{position:fixed;z-index:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;bottom:16px;right:595px;background:linear-gradient(180deg,#a855f7,#7c3aed);border:2px solid #d8b4fe;box-shadow:0 4px 0 #4c1d95}
 #questBtn:hover{transform:translateY(-2px)}
 #questBtn .qbadge{position:absolute;top:-6px;right:-6px;background:#ef4444;color:#fff;font-size:11px;font-weight:bold;border-radius:10px;padding:1px 6px;min-width:18px;text-align:center;border:2px solid #fff}
 
-#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-inbest:6000;padding:20px;display:none}
+#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-index:6000;padding:20px;display:none}
 #dialogScreen.active{display:block}
 /* NPS с квестами — всегда поверх всех объектов */
-.nps-quest {
-  z-inbest: 100 !important;
-}
+
 .nps-quest .label {
-  z-inbest: 101 !important;
+  z-index: 101 !important;
   opacity: 0.6;              /* подпись всегда видна, а не только при наведении */
   font-weight: bold;
   border: 1px solid #a855f7;
@@ -263,7 +261,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.8);
-  z-inbest: 1900;              /* ← было 1000, стало 1900 — выше myFantasyDetail */
+  z-index: 1900;              /* ← было 1000, стало 1900 — выше myFantasyDetail */
   display: none;
   align-items: center;
   justify-content: center;
@@ -272,7 +270,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 #starterScreen {
   position: fixed;
   inset: 0;
-  z-inbest: 9999;          /* ← было 2000, стало 9999 — выше кнопок (5000) */
+  z-index: 9999;          /* ← было 2000, стало 9999 — выше кнопок (5000) */
   background: linear-gradient(160deg,#0a0e1a,#1a2a4a);
   display: flex;
   flex-direction: column;
@@ -281,7 +279,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   padding: 20px;
 }
 
-/* СТАЛО — z-inbest убираем, будем ставить через JS */
+/* СТАЛО — z-index убираем, будем ставить через JS */
 .Fantasy{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;will-change:transform;top:0;left:0;margin-left:-28px;margin-top:-28px}
 
 
@@ -294,15 +292,15 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 
 /* Y-сортировка: базовый слой для игровых объектов */
 .Fantasy, .trainer, .nps-quest {
-  z-inbest: 1; /* будет переопределён в JS */
+  z-index: 1; /* будет переопределён в JS */
 }
 /* Hover — поверх всех */
 .Fantasy:hover, .trainer:hover, .nps-quest:hover {
-  z-inbest: 99999 !important;
+  z-index: 99999 !important;
 }
 /* Подпись при hover */
 .Fantasy .label, .trainer .label, .nps-quest .label {
-  z-inbest: 100000 !important;
+  z-index: 100000 !important;
 }
 
 .building {
@@ -318,7 +316,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   margin-top: -32px;    /* половина высоты (64px) */
 }
 .building svg { width: 100%; height: 100%; display: block; }
-.building:hover { z-inbest: 99999 !important; }
+.building:hover { z-index: 99999 !important; }
 .building:hover .label { opacity: 1; }
 .building .label {
   position: absolute;
@@ -333,7 +331,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   opacity: 0;
   transition: opacity .15s;
   pointer-events: none;
-  z-inbest: 100000 !important;
+  z-index: 100000 !important;
 }
 
 .building {
@@ -347,9 +345,9 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   /* margin-left / margin-top задаются индивидуально в JS */
 }
 .building svg { width: 100%; height: 100%; display: block; }
-.building:hover { z-inbest: 99999 !important; }
+.building:hover { z-index: 99999 !important; }
 
-#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:501111110}
+#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:501111110}
 #labels {
   position: absolute;
   top: 0;
@@ -357,7 +355,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   width: 3000px;
   height: 2000px;
   pointer-events: none;
-  z-inbest: 500000;   /* выше (160000) и зданий (60000) */
+  z-index: 500000;   /* выше (160000) и зданий (60000) */
 }
 #labels .label {
   position: absolute;
@@ -402,7 +400,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   opacity: 0.9;
   transition: opacity .15s;
   pointer-events: none;
-  z-inbest: 999999 !important;   /* ← поверх всего */
+  z-index: 999999 !important;   /* ← поверх всего */
   border: 1px solid #a855f7;
   box-shadow: 0 0 8px rgba(168,85,247,.8);
 }
@@ -413,21 +411,18 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   width: 3000px;
   height: 2000px;
   pointer-events: none;
-  z-inbest: 950000;   /* ← было 500000 */
+  z-index: 950000;   /* ← было 500000 */
 }
 
 /* NPS с квестами — поверх всех объектов мира.
-   !important нужен, потому что у .Fantasy/.trainer тоже есть z-inbest,
+   !important нужен, потому что у .Fantasy/.trainer тоже есть z-index,
    а JS ставит его инлайново с !important ниже. */
-.nps-quest {
-  z-inbest: 900000 !important;
-}
 
 /* ===== ОКНО ПАУЗЫ ===== */
 #pauseScreen {
   position: fixed;
   inset: 0;
-  z-inbest: 100000;                    /* выше всего игрового мира, ниже диалогов */
+  z-index: 100000;                    /* выше всего игрового мира, ниже диалогов */
   background: rgba(5, 10, 20, 0.85);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -506,7 +501,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 #gameModal {
   position: fixed;
   inset: 0;
-  z-inbest: 100001;              /* выше паузы (100000), ниже toast (3000 не хватит) */
+  z-index: 100001;              /* выше паузы (100000), ниже toast (3000 не хватит) */
   background: rgba(5, 10, 20, 0.85);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -633,7 +628,7 @@ html,body{
   width: 3000px;
   height: 2000px;
   pointer-events: none;
-  z-inbest: 500000000;       /* между #labels (950000) и #top (501111110) */
+  z-index: 500000000;       /* между #labels (950000) и #top (501111110) */
 }
 
 #questMarks .qmark {
@@ -647,7 +642,7 @@ html,body{
   line-height: 1;
   white-space: nowrap;
 }
-#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:900000}
+#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:900000}
 
 
 
@@ -788,7 +783,7 @@ button, input, textarea, select {
   pointer-events:none;
   opacity:0;
   transition:opacity .4s;
-  z-inbest:50;
+  z-index:50;
   white-space:nowrap;        /* ← запрет переноса */
   word-break:keep-all;
   overflow-wrap:normal;
@@ -804,7 +799,7 @@ button, input, textarea, select {
   opacity: 0;
   transition: opacity .15s;
   pointer-events: none;
-  z-inbest: 9999999 !important;
+  z-index: 9999999 !important;
 }
 
 /* При наведении — подпись видна и объект поднимается над всем */
@@ -812,7 +807,7 @@ button, input, textarea, select {
 .trainer:hover,
 .nps-quest:hover,
 .building:hover {
-  z-inbest: 9999999999999 !important;
+  z-index: 9999999999999 !important;
 }
 
 .Fantasy:hover .label,
@@ -917,13 +912,7 @@ html,body{
   font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
 }
 
-.nps-quest{
-  position:absolute;width:60px;height:60px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;will-change:transform;
-  top:0;left:0;margin-left:-30px;margin-top:-30px;
-  z-index:900000 !important;
-}
+
 .nps-quest svg{width:100%;height:100%}
 .nps-quest:hover{z-index:99999 !important}
 .nps-quest:hover .label{opacity:1}
@@ -932,7 +921,7 @@ html,body{
   font-size:11px;white-space:nowrap;
   background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;
   opacity:.9;transition:opacity .15s;pointer-events:none;
-  z-index:999999 !important;
+ 
   border:1px solid #a855f7;
   box-shadow:0 0 8px rgba(168,85,247,.8);
   font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
@@ -2548,6 +2537,21 @@ display:none;
   opacity: 1;
 }
 #teamBtn{right:12px;}
+
+.nps-quest .label {
+  z-index: 10122222222 !important;
+  opacity: 0.6;              /* подпись всегда видна, а не только при наведении */
+  font-weight: bold;
+  border: 1px solid #a855f7;
+  box-shadow: 0 0 8px rgba(168,85,247,.8);
+}/* ✅ ЭТО ОСТАВЬ */
+.Fantasy:hover,
+.trainer:hover,
+.nps-quest:hover,
+.building:hover {
+  z-index: 999999999 !important;
+}
+
 </style>
 </head>
 <body>
@@ -6293,12 +6297,12 @@ zyffren:{
 };
 
 const TRAINER_TEMPLATES=[
-{name:"Юный тренер",team:[{id:1016,level:5},{id:1019,level:6}],reward:300},
+{name:"Рыцарь",team:[{id:1016,level:5},{id:1019,level:6}],reward:300},
 {name:"Ловец грибов",team:[{id:1010,level:6},{id:1013,level:6},{id:1010,level:7}],reward:400},
 {name:"Птицелов",team:[{id:1016,level:8},{id:1017,level:9}],reward:500},
 {name:"Рыбак",team:[{id:1129,level:10},{id:1054,level:11}],reward:600},
 {name:"Пещерный житель",team:[{id:1041,level:12},{id:1074,level:13}],reward:800},
-{name:"Астральный",team:[{id:1063,level:14},{id:1092,level:15}],reward:1000}
+{name:"Рейнджер Сальвис",team:[{id:1014,level:1},{id:1010,level:1}],reward:1000}
 ];// ===================== КВЕСТЫ (ПОЛНОСТЬЮ ФЭНТЕЗИЙНЫЕ) =====================
 const QUEST_DEFS=[
 // ========== ГОРОД СИД (стартовый) ==========
@@ -6953,7 +6957,7 @@ el.addEventListener('mouseenter', () => {
 el.addEventListener('mouseleave', () => {
   if (el._labelEl) el._labelEl.classList.remove('visible');
 });
-  el.style.zInbest = yToZFantasy(pos.y);
+  el.style.zIndex = yToZFantasy(pos.y + 28);
 
   FantasysOnMap.push({ el, x: pos.x, y: pos.y, data: p, hidden: false, biome, zone: zoneRef });
 }
@@ -7019,13 +7023,13 @@ label.className = 'label';
 label.textContent = tmpl.name;
 label.style.left = pos.x + 'px';
 label.style.top  = (pos.y + 22) + 'px';
-label.style.zInbest = 900001;
+label.style.zIndex = 900001;
 document.getElementById('labels').appendChild(label);
 el._labelEl = label;
     el.style.transform=`translate(${pos.x}px,${pos.y}px)`;
     el.addEventListener('click',e=>{e.stopPropagation();startTrainerBattle(tmpl,pos)});
      world.appendChild(el);
-el.style.zInbest = yToZ(pos.y);
+el.style.zIndex = yToZ(pos.y + 28);
 el.addEventListener('mouseenter', () => {
   if (el._labelEl) el._labelEl.classList.add('visible');
 });
@@ -7059,7 +7063,7 @@ const POS={
     if(!unlockedZones.has(key)) el.style.display='none';
     
     world.appendChild(el);
-    el.style.zInbest = yToZ(pos.y);
+    el.style.zIndex = yToZBuilding(pos.y + 32);
     reserveSpawnPoint(pos.x, pos.y);
   });
 }
@@ -7100,7 +7104,7 @@ function spawnHealerHuts(){
     world.appendChild(el);
 
     // Y-сортировка: опорная точка — низ здания (cy + 32)
-    el.style.zInbest = yToZ(cy + 32);
+    el.style.zIndex = yToZBuilding(cy + 32);
 
     if(typeof reserveSpawnPoint === 'function') reserveSpawnPoint(cx, cy);
   });
@@ -7278,7 +7282,7 @@ label.className = 'label';
 label.textContent = q.nps;
 label.style.left = spawnX + 'px';
 label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPS
-label.style.zInbest = 900001;                // ← поверх всех
+label.style.zIndex = 900001;                // ← поверх всех
 label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPS
 document.getElementById('labels').appendChild(label);
 el.addEventListener('mouseenter', () => {
@@ -7348,7 +7352,7 @@ document.getElementById('questMarks').appendChild(qmark);
 
    
     // чтобы значки ❗ / ✅ / … / ✓ были видны
-    el.style.zInbest = 900000;
+    el.style.zIndex = yToZNps(spawnY);
     // Сохраняем ссылку
     npsQuestRefs.push({
       el,
@@ -7454,12 +7458,58 @@ function spawnHouses(){
     const cy = h.y + h.h/2;
     el.style.transform = `translate(${cx}px,${cy}px)`;
 
-el.style.zInbest = yToZ(cy + dh / 2);   // всегда под существами
+el.style.zIndex = yToZBuilding(cy + dh / 2) // всегда под существами
     world.appendChild(el);
     houseEls.push(el);
   });
 }
 
+function drawForestTrees(ctx){
+  if(!forestTrees.length) return;
+
+  forestTrees.forEach(t => {
+    const rnd = mulberry32(t.seed);
+
+    // Тень
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.beginPath();
+    ctx.ellipse(t.x, t.y + t.r * 0.9, t.r * 0.9, t.r * 0.35, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Ствол
+    ctx.fillStyle = '#4a2c14';
+    ctx.fillRect(t.x - 2, t.y - 2, 4, 10);
+    ctx.fillStyle = '#2a1a0c';
+    ctx.fillRect(t.x - 2, t.y - 2, 1.5, 10);
+
+    // Корни
+    ctx.strokeStyle = '#2a1a0c';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(t.x - 2, t.y + 8); ctx.lineTo(t.x - 5, t.y + 10);
+    ctx.moveTo(t.x + 2, t.y + 8); ctx.lineTo(t.x + 5, t.y + 10);
+    ctx.stroke();
+
+    // Крона — 3 слоя
+    const layers = [
+      { r: t.r * 1.05, color: '#14532d', dy: -t.r * 0.6 },
+      { r: t.r * 0.85, color: '#166534', dy: -t.r * 0.85 },
+      { r: t.r * 0.6,  color: '#22c55e', dy: -t.r * 1.1 }
+    ];
+    layers.forEach(l => {
+      ctx.fillStyle = l.color;
+      ctx.beginPath();
+      ctx.arc(t.x, t.y + l.dy, l.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Блик
+    ctx.fillStyle = 'rgba(134,239,172,0.35)';
+    ctx.beginPath();
+    ctx.arc(t.x - t.r * 0.3, t.y - t.r * 1.1, t.r * 0.25, 0, Math.PI * 2);
+    ctx.fill();
+  });
+}
 
 function drawBackground(){
   housesToSpawn.length = 0;  
@@ -7524,11 +7574,143 @@ function drawBackground(){
 
   // ===================== ДОРОГИ МЕЖДУ ГОРОДАМИ =====================
   drawRoads(ctx);
-
+  drawForestTrees(ctx);
   // ===================== НАЗВАНИЯ (в top-слое) =====================
 }
 // ===================== МАГОКРАТИЯ ХАРАДАТ 2.0 =====================
 // Синий магический город: башни, купол, стены, порталы, парящие кристаллы
+
+
+// ===================== ДЕРЕВЬЯ НА ПУСТЫХ ЗЕЛЁНЫХ ЗОНАХ =====================
+let forestTrees = [];   // {x, y, r, seed}
+const TREE_MIN_DIST = 55;      // мин. расстояние между деревьями
+const TREE_EDGE_MARGIN = 30;   // отступ от края биома
+
+function generateForestTrees(){
+  forestTrees = [];
+
+  const W = 3000, H = 2000;
+  const rnd = mulberry32(987654321);
+
+  // --- 1. Собираем все "запретные" зоны: биомы + запас ---
+  const forbidden = [];
+  BIOME_ZONES.forEach(z => {
+    forbidden.push({
+      x: z.x - TREE_EDGE_MARGIN,
+      y: z.y - TREE_EDGE_MARGIN,
+      w: z.w + TREE_EDGE_MARGIN * 2,
+      h: z.h + TREE_EDGE_MARGIN * 2,
+      rx: (z.w / 2) + TREE_EDGE_MARGIN,
+      ry: (z.h / 2) + TREE_EDGE_MARGIN,
+      cx: z.x + z.w / 2,
+      cy: z.y + z.h / 2
+    });
+  });
+
+  // --- 2. Запретные точки: дома, медцентры, тренеры, NPC, спавн-точки ---
+  const occupied = [];
+
+  // дома (после spawnHouses)
+  houseEls.forEach(el => {
+    const m = el.style.transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
+    if (m) occupied.push({ x: parseFloat(m[1]), y: parseFloat(m[2]), r: 70 });
+  });
+
+  // медцентры, святилища, магазины — всё, что .building
+  document.querySelectorAll('#world > .building').forEach(el => {
+    const m = el.style.transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
+    if (m) occupied.push({ x: parseFloat(m[1]), y: parseFloat(m[2]), r: 80 });
+  });
+
+  // тренеры
+  trainersOnMap.forEach(t => occupied.push({ x: t.x, y: t.y, r: 80 }));
+
+  // NPC с квестами
+  npsQuestRefs.forEach(n => occupied.push({ x: n.pos.x, y: n.pos.y, r: 80 }));
+
+  // города — центры биомов уже в forbidden, добавим радиус побольше
+  BIOME_ZONES.forEach(z => {
+    if (HABITATS[z.biome] && HABITATS[z.biome].type === 'city') {
+      occupied.push({
+        x: z.x + z.w / 2,
+        y: z.y + z.h / 2,
+        r: Math.max(z.w, z.h) / 2 + 20
+      });
+    }
+  });
+
+  // --- 3. Пытаемся расставить деревья ---
+  const TREE_R = 18;                    // «радиус» дерева для проверок
+  const MAX_ATTEMPTS = 6000;
+  const TARGET_COUNT = 450;
+
+  // Сетка для быстрой проверки пересечений
+  const grid = new Map();
+  const CELL = 60;
+  const key = (gx, gy) => gx + ',' + gy;
+
+  function addToGrid(t) {
+    const gx = Math.floor(t.x / CELL);
+    const gy = Math.floor(t.y / CELL);
+    const k = key(gx, gy);
+    if (!grid.has(k)) grid.set(k, []);
+    grid.get(k).push(t);
+  }
+
+  function hasNeighbor(x, y) {
+    const gx = Math.floor(x / CELL);
+    const gy = Math.floor(y / CELL);
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const arr = grid.get(key(gx + dx, gy + dy));
+        if (!arr) continue;
+        for (const t of arr) {
+          const ddx = t.x - x, ddy = t.y - y;
+          if (ddx * ddx + ddy * ddy < TREE_MIN_DIST * TREE_MIN_DIST) return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  let placed = 0;
+  for (let i = 0; i < MAX_ATTEMPTS && placed < TARGET_COUNT; i++) {
+    const x = 20 + rnd() * (W - 40);
+    const y = 20 + rnd() * (H - 40);
+
+    // не внутри биомов (эллипс)
+    let inBiome = false;
+    for (const f of forbidden) {
+      const dx = (x - f.cx) / f.rx;
+      const dy = (y - f.cy) / f.ry;
+      if (dx * dx + dy * dy <= 1) { inBiome = true; break; }
+    }
+    if (inBiome) continue;
+
+    // не рядом с occupied-точками
+    let nearObj = false;
+    for (const o of occupied) {
+      const dx = o.x - x, dy = o.y - y;
+      const rr = o.r + TREE_R;
+      if (dx * dx + dy * dy < rr * rr) { nearObj = true; break; }
+    }
+    if (nearObj) continue;
+
+    // не рядом с другими деревьями
+    if (hasNeighbor(x, y)) continue;
+
+    const tree = {
+      x, y,
+      r: 10 + rnd() * 6,
+      seed: Math.floor(rnd() * 100000)
+    };
+    forestTrees.push(tree);
+    addToGrid(tree);
+    placed++;
+  }
+
+  console.log(`🌲 Деревьев на пустых зонах: ${placed}`);
+}
 
 const MAGIC_CITY_STATE = {
   crystals: [],   // парящие кристаллы (анимация)
@@ -9506,73 +9688,134 @@ function checkCurrentBiome(){
     clearTimeout(biomeTimeout);
     biomeTimeout=setTimeout(()=>biomeNameEl.classList.remove('show'),1500);
   }
-}
-
-
-// ===================== Y-СОРТИРОВКА =====================
-// Диапазон z-inbest: 100..60000
-// Чем больше y — тем выше z-inbest (объект "ближе" к камере)
+}// ===================== Y-СОРТИРОВКА =====================
 const Z_MIN = 100;
 const Z_MAX = 60000;
 const WORLD_H = 2000;
 
+// Базовый z по Y — одинаковый для всех объектов
 function yToZ(y) {
   const t = Math.max(0, Math.min(1, y / WORLD_H));
   return Math.floor(Z_MIN + t * (Z_MAX - Z_MIN));
 }
 
-const Fantasy_Z_BOOST = 600000;
+// Слои — с РАВНЫМ шагом, чтобы разница между объектами внутри слоя
+// (максимум ~59 900) всегда была меньше шага слоя.
+const LAYER_STEP = 100000;   // с запасом больше Z_MAX - Z_MIN
 
-function yToZFantasy(y) {
-  return yToZ(y) + Fantasy_Z_BOOST;
-}
-
-// Применить z-inbest ко всем объектам на карте
+function yToZBuilding(y) { return yToZ(y); }
+function yToZNps(y)      { return yToZ(y); }
+function yToZFantasy(y)  { return yToZ(y); }
+function yToZTrainer(y)  { return yToZ(y); }
+// Применить z-index ко всем объектам на карте
 function applyYSorting() {
   // существа
   for (const p of FantasysOnMap) {
-    if (p.el) p.el.style.zInbest = yToZ(p.y);
+    if (p.el) p.el.style.zIndex = yToZ(p.y);
   }
   // Тренеры
   for (const t of trainersOnMap) {
-    if (t.el) t.el.style.zInbest = yToZ(t.y);
+    if (t.el) t.el.style.zIndex = yToZ(t.y);
   }
   // NPS с квестами
   for (const n of npsQuestRefs) {
-    if (n.el && n.pos) n.el.style.zInbest = yToZ(n.pos.y);
+    if (n.el && n.pos) n.el.style.zIndex = yToZNps(n.pos.y + 30);
   }
-  // Медцентры и гимы — им тоже можно назначить z-inbest
+  // Медцентры и гимы — им тоже можно назначить z-index
   // (они не хранятся в массивах с y, поэтому берём из transform)
   document.querySelectorAll('#world > .Fantasy, #world > .trainer, #world > .nps-quest').forEach(el => {
     // уже обработаны выше, но на случай "осиротевших" — пропускаем
   });
 }
 
-
 // ===================== АНИМАЦИЯ =====================
 function animate(now){
   animateFog(now);
-  if(now-lastAnim>60){
-    lastAnim=now;
-    const t=now/1000;
-    FantasysOnMap.forEach(p=>{
-      const visible=!p.biome||unlockedZones.has(p.biome);
-      if(!visible){if(p.el.style.display!=='none')p.el.style.display='none';return}
-      if(p.el.style.display==='none')p.el.style.display='flex';
-      const oy=Math.sin(t*1.5+p.x*0.01)*4;
-      p.el.style.transform=`translate(${p.x}px,${p.y+oy}px)`;
+
+  if(now - lastAnim > 60){
+    lastAnim = now;
+    const t = now / 1000;
+
+    // ===== 1. СУЩЕСТВА (.Fantasy) =====
+    // Покачиваются + пересчитывается z-index по Y
+    FantasysOnMap.forEach(p => {
+      const visible = !p.biome || unlockedZones.has(p.biome);
+      if(!visible){
+        if(p.el.style.display !== 'none') p.el.style.display = 'none';
+        return;
+      }
+      if(p.el.style.display === 'none') p.el.style.display = 'flex';
+
+      const oy = Math.sin(t * 1.5 + p.x * 0.01) * 4;
+      p.el.style.transform = `translate(${p.x}px,${p.y + oy}px)`;
+
+      // z-index пересчитывается с учётом покачивания
+p.el.style.zIndex = yToZFantasy(p.y + oy + 28);
     });
-  trainersOnMap.forEach(tr=>{
-  const visible = unlockedZones.has(tr.biome);
-  tr.el.style.display = visible ? 'flex' : 'none';
-  if (tr.el._labelEl) tr.el._labelEl.style.display = visible ? 'block' : 'none';
-});
-   npsQuestRefs.forEach(n=>{
-  const visible = unlockedZones.has(n.quest.biome);
-  n.el.style.display = visible ? 'flex' : 'none';
-  if (n.el._labelEl) n.el._labelEl.style.display = visible ? 'block' : 'none';
-});
+
+    // ===== 2. ТРЕНЕРЫ (.trainer) =====
+    trainersOnMap.forEach(tr => {
+      const visible = unlockedZones.has(tr.biome);
+      tr.el.style.display = visible ? 'flex' : 'none';
+      if(tr.el._labelEl){
+        tr.el._labelEl.style.display = visible ? 'block' : 'none';
+      }
+      // Y-сортировка
+      if(visible){
+        tr.el.style.zIndex = yToZ(tr.y + 28);
+      }
+    });
+
+    // ===== 3. NPC С КВЕСТАМИ (.nps-quest) =====
+    npsQuestRefs.forEach(n => {
+      const visible = unlockedZones.has(n.quest.biome);
+      n.el.style.display = visible ? 'flex' : 'none';
+      if(n.el._labelEl){
+        n.el._labelEl.style.display = visible ? 'block' : 'none';
+      }
+      // Y-сортировка с бонусом поверх существ/тренеров
+      if(visible && n.pos){
+        n.el.style.zIndex = yToZNps(n.pos.y + 30);
+      }
+    });
+
+    // ===== 4. ЗДАНИЯ (.building) =====
+    // Медцентры, святилища, дома — тоже пересчитываем по Y
+    document.querySelectorAll('#world > .building').forEach(el => {
+      const m = el.style.transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
+      if(!m) return;
+      const y = parseFloat(m[2]);
+
+      // Определяем "низ" здания по его высоте
+      const dh = parseFloat(el.style.height) || 64;
+      el.style.zIndex = yToZBuilding(y + dh / 2);
+    });
+
+    // ===== 5. ПОДПИСИ В #labels =====
+    // Подписи существ и тренеров двигаются вместе с родителями,
+    // но они лежат в отдельном слое (#labels), поэтому просто
+    // синхронизируем их позицию и видимость
+    FantasysOnMap.forEach(p => {
+      if(!p.el._labelEl) return;
+      const visible = !p.biome || unlockedZones.has(p.biome);
+      p.el._labelEl.style.display = visible ? 'block' : 'none';
+      // подпись всегда чуть ниже центра объекта
+      // (позиция не меняется — она статична относительно Y)
+    });
+
+    trainersOnMap.forEach(tr => {
+      if(!tr.el._labelEl) return;
+      const visible = unlockedZones.has(tr.biome);
+      tr.el._labelEl.style.display = visible ? 'block' : 'none';
+    });
+
+    npsQuestRefs.forEach(n => {
+      if(!n.el._labelEl) return;
+      const visible = unlockedZones.has(n.quest.biome);
+      n.el._labelEl.style.display = visible ? 'block' : 'none';
+    });
   }
+
   requestAnimationFrame(animate);
 }
 
@@ -9901,8 +10144,10 @@ function checkUnlockNextZone(currentBiome){
     saveProgress();
 
     // 1. Перерисовать фон (биомы)
-    drawBackground();
-    spawnHouses();          // ← дома тоже нужно перерисовать
+    // 1. Перерисовать фон (биомы)
+    spawnHouses();
+    generateForestTrees();   // ← пересоздаём деревья без учёта разблокированной зоны
+    drawBackground();      // ← дома тоже нужно перерисовать
     // 2. Перерисовать верхний слой (рамки + названия)
     drawTopLayer();
     // 3. Перестроить туман
@@ -11278,7 +11523,9 @@ function initGame(){
     document.getElementById('starterScreen').classList.add('hidden');
   }
   drawBackground();
-spawnHouses(); 
+  spawnHouses();
+  generateForestTrees();   // ← добавляем после домов
+  drawBackground();        // ← перерисовываем фон уже с деревьями
   drawTopLayer();
   rebuildFogClouds();
   // Сначала фиксированные объекты — занимают позиции
