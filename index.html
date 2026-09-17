@@ -14,61 +14,61 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 #game:active{cursor:grabbing}
 #world{position:absolute;width:3000px;height:2000px;will-change:transform;transform-origin:0 0}
 #bg{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block}
-#fog{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:5}
-.Fantasy{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;will-change:transform;top:0;left:0;margin-left:-28px;margin-top:-28px}
+#fog{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:5}
+.Fantasy{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:10;will-change:transform;top:0;left:0;margin-left:-28px;margin-top:-28px}
 .Fantasy svg{width:100%;height:100%;display:block}
-.Fantasy:hover{z-index:20}
+.Fantasy:hover{z-inbest:20}
 .Fantasy:hover .label{opacity:1}
 .Fantasy .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
-.trainer{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:12;top:0;left:0;margin-left:-28px;margin-top:-28px}
+.trainer{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:12;top:0;left:0;margin-left:-28px;margin-top:-28px}
 .trainer svg{width:100%;height:100%}
 .trainer:hover .label{opacity:1}
 .trainer .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
-#hud{position:fixed;top:16px;left:16px;z-index:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:14px 18px}
+#hud{position:fixed;top:16px;left:16px;z-inbest:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:14px 18px}
 #hud h1{font-size:18px;color:#ffcb05;text-shadow:2px 2px 0 #2a5aa8;margin-bottom:6px}
 .stat{font-size:13px;color:#b8d4e8;margin:2px 0}
 .stat b{color:#ffcb05}
 .badges{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
 .badge{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;border:2px solid #444;background:#222;color:#666}
 .badge.earned{border-color:#ffcb05;background:#ffcb05;color:#2a5aa8}
-#legend{position:fixed;bottom:16px;left:16px;z-index:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px}
+#legend{position:fixed;bottom:16px;left:16px;z-inbest:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px}
 #legend .title{color:#ffcb05;font-weight:bold;margin-bottom:6px}
 #legend .row{display:flex;align-items:center;gap:8px;margin:4px 0}
 #legend .dot{width:12px;height:12px;border-radius:50%}
-#hint{position:fixed;top:16px;right:16px;z-index:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px;color:#b8d4e8;max-width:260px}
+#hint{position:fixed;top:16px;right:16px;z-inbest:100;background:rgba(10,20,30,.9);border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px;color:#b8d4e8;max-width:260px}
 #hint b{color:#ffcb05}
-#biomeName{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:bold;color:#fff;text-shadow:0 0 20px #000,2px 2px 0 #000;pointer-events:none;opacity:0;transition:opacity .4s;z-index:50}
+#biomeName{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:bold;color:#fff;text-shadow:0 0 20px #000,2px 2px 0 #000;pointer-events:none;opacity:0;transition:opacity .4s;z-inbest:50}
 #biomeName.show{opacity:1}
-#Magicdex{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:none;align-items:center;justify-content:center}
-#Magicdex.active{display:flex}
-.dex-device{width:640px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#e63946,#c1121f);border-radius:24px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);position:relative;overflow-y:auto}
-.dex-device::before{content:'';position:absolute;top:14px;left:20px;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#7ec8ff,#1a5fa8);box-shadow:0 0 12px #4ab3ff}
-.dex-header{display:flex;gap:16px;margin-top:30px;padding-bottom:16px;border-bottom:3px solid rgba(255,255,255,.25)}
-.dex-sprite{width:130px;height:130px;flex-shrink:0;background:radial-gradient(circle,#2a4a6a,#0f2338);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 0 4px rgba(255,255,255,.2)}
-.dex-sprite svg{width:100px;height:100px}
-.dex-title h2{font-size:26px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
-.dex-title .num{font-size:14px;color:#ffcb05;font-weight:bold;letter-spacing:2px}
+#Bestiary{position:fixed;inset:0;background:rgba(0,0,0,.8);z-inbest:1000;display:none;align-items:center;justify-content:center}
+#Bestiary.active{display:flex}
+.bestiary-tome{width:640px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#e63946,#c1121f);border-radius:24px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);position:relative;overflow-y:auto}
+.bestiary-tome::before{content:'';position:absolute;top:14px;left:20px;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#7ec8ff,#1a5fa8);box-shadow:0 0 12px #4ab3ff}
+.best-header{display:flex;gap:16px;margin-top:30px;padding-bottom:16px;border-bottom:3px solid rgba(255,255,255,.25)}
+.best-sprite{width:130px;height:130px;flex-shrink:0;background:radial-gradient(circle,#2a4a6a,#0f2338);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 0 4px rgba(255,255,255,.2)}
+.best-sprite svg{width:100px;height:100px}
+.best-title h2{font-size:26px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.best-title .num{font-size:14px;color:#ffcb05;font-weight:bold;letter-spacing:2px}
 .types{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .type-badge{padding:3px 12px;border-radius:12px;font-size:12px;font-weight:bold;text-transform:uppercase;text-shadow:1px 1px 0 rgba(0,0,0,.3)}
 .rarity-tag{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:bold;background:rgba(0,0,0,.35)}
 .habitat-tag{display:inline-block;margin-top:6px;margin-left:6px;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:bold;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3)}
-.dex-body{margin-top:18px}
-.dex-desc{background:rgba(255,255,255,.12);border-left:4px solid #ffcb05;padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.5;margin-bottom:16px}
-.dex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
-.dex-stat{background:rgba(0,0,0,.25);padding:10px 14px;border-radius:10px;display:flex;justify-content:space-between;font-size:13px}
-.dex-stat .k{color:#ffd97a}
-.dex-stat .v{font-weight:bold}
-.dex-section-title{font-size:13px;color:#ffcb05;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;font-weight:bold}
+.best-body{margin-top:18px}
+.best-desc{background:rgba(255,255,255,.12);border-left:4px solid #ffcb05;padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.5;margin-bottom:16px}
+.best-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.best-stat{background:rgba(0,0,0,.25);padding:10px 14px;border-radius:10px;display:flex;justify-content:space-between;font-size:13px}
+.best-stat .k{color:#ffd97a}
+.best-stat .v{font-weight:bold}
+.best-section-title{font-size:13px;color:#ffcb05;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;font-weight:bold}
 .bar-row{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:12px}
 .bar-row .name{width:80px;color:#cfe4f5}
 .bar-row .bar{flex:1;height:10px;background:rgba(0,0,0,.35);border-radius:5px;overflow:hidden}
 .bar-row .fill{height:100%;border-radius:5px}
 .bar-row .val{width:34px;text-align:right;font-weight:bold}
-.dex-close{margin-top:20px;width:100%;padding:12px;background:#ffcb05;color:#2a5aa8;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 0 #c9a004}
-.dex-close:active{transform:translateY(3px);box-shadow:0 1px 0 #c9a004}
+.best-close{margin-top:20px;width:100%;padding:12px;background:#ffcb05;color:#2a5aa8;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 0 #c9a004}
+.best-close:active{transform:translateY(3px);box-shadow:0 1px 0 #c9a004}
 .weak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px}
 .weak-item{padding:4px 8px;border-radius:8px;font-size:11px;font-weight:bold;text-align:center;text-shadow:1px 1px 0 rgba(0,0,0,.3)}
-#starterScreen{position:fixed;inset:0;z-index:2000;background:linear-gradient(160deg,#0a0e1a,#1a2a4a);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#starterScreen{position:fixed;inset:0;z-inbest:2000;background:linear-gradient(160deg,#0a0e1a,#1a2a4a);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 #starterScreen.hidden{display:none}
 #starterScreen h1{font-size:32px;color:#ffcb05;text-shadow:3px 3px 0 #2a5aa8;margin-bottom:10px;text-align:center}
 #starterScreen p{color:#b8d4e8;margin-bottom:30px;font-size:16px;text-align:center}
@@ -77,7 +77,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .starter-card:hover{border-color:#ffcb05;transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,203,5,.3)}
 .starter-card svg{width:100px;height:100px}
 .starter-card h3{color:#ffcb05;margin:10px 0 5px;font-size:20px}
-#battleScreen{position:fixed;inset:0;z-index:1500;background:linear-gradient(180deg,#1a2a4a 0%,#0a0e1a 100%);display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:20px}
+#battleScreen{position:fixed;inset:0;z-inbest:1500;background:linear-gradient(180deg,#1a2a4a 0%,#0a0e1a 100%);display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:20px}
 #battleScreen.active{display:flex}
 .battle-field{flex:1;width:100%;max-width:900px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
 .battle-enemy,.battle-player{display:flex;align-items:center;gap:20px}
@@ -95,7 +95,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .battle-info .hp-fill{height:100%;background:#4ade80;transition:width .3s}
 .battle-info .hp-text{font-size:12px;color:#b8d4e8;margin-top:2px;text-align:right}
 .status-tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:10px;font-weight:bold;margin-top:3px}
-.battle-log{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.85);border:2px solid #ffcb05;border-radius:14px;padding:14px 24px;font-size:16px;max-width:80%;text-align:center;opacity:0;transition:opacity .3s;pointer-events:none;z-index:10}
+.battle-log{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.85);border:2px solid #ffcb05;border-radius:14px;padding:14px 24px;font-size:16px;max-width:80%;text-align:center;opacity:0;transition:opacity .3s;pointer-events:none;z-inbest:10}
 .battle-log.show{opacity:1}
 .battle-controls{width:100%;max-width:900px;background:rgba(10,20,30,.95);border:2px solid #3a6b8a;border-radius:16px;padding:16px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .battle-btn{padding:12px 20px;border-radius:12px;border:2px solid #3a6b8a;background:rgba(30,50,70,.9);color:#fff;font-size:15px;font-weight:bold;cursor:pointer;transition:all .15s;min-width:120px}
@@ -113,24 +113,24 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .team-slot svg{width:44px;height:44px}
 .team-slot .slot-hp{position:absolute;bottom:2px;left:4px;right:4px;height:3px;background:#333;border-radius:2px;overflow:hidden}
 .team-slot .slot-hp-fill{height:100%;background:#4ade80}
-#toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(10,20,30,.95);border:2px solid #ffcb05;border-radius:12px;padding:12px 24px;font-size:15px;color:#fff;z-index:3000;opacity:0;transition:opacity .3s;pointer-events:none}
+#toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(10,20,30,.95);border:2px solid #ffcb05;border-radius:12px;padding:12px 24px;font-size:15px;color:#fff;z-inbest:3000;opacity:0;transition:opacity .3s;pointer-events:none}
 #toast.show{opacity:1}
-#HealerHutScreen{position:fixed;inset:0;z-index:1600;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
+#HealerHutScreen{position:fixed;inset:0;z-inbest:1600;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
 #HealerHutScreen.active{display:flex}
-.pc-device{width:520px;max-width:95vw;background:linear-gradient(160deg,#ef4444,#b91c1c);border-radius:24px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);text-align:center}
-.pc-device h2{color:#fff;font-size:24px;margin-bottom:6px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
-.pc-device .pc-sub{color:#ffe4e6;font-size:13px;margin-bottom:18px}
-.pc-team{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px;margin-bottom:18px}
-.pc-slot{background:rgba(0,0,0,.3);border-radius:12px;padding:8px;font-size:11px;color:#fff}
-.pc-slot svg{width:52px;height:52px}
-.pc-slot .pc-hp{height:6px;background:#333;border-radius:3px;margin-top:4px;overflow:hidden}
-.pc-slot .pc-hp-fill{height:100%;background:#4ade80}
-.pc-price{color:#fde68a;font-size:15px;font-weight:bold;margin:12px 0}
-.pc-btn{padding:12px 22px;border-radius:12px;border:none;font-size:15px;font-weight:bold;cursor:pointer;margin:4px;text-transform:uppercase}
-.pc-btn.heal{background:#ffcb05;color:#2a5aa8;box-shadow:0 4px 0 #c9a004}
-.pc-btn.heal:disabled{opacity:.5;cursor:not-allowed}
-.pc-btn.close{background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.4)}
-#teamScreen{position:fixed;inset:0;z-index:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+.healer-device{width:520px;max-width:95vw;background:linear-gradient(160deg,#ef4444,#b91c1c);border-radius:24px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);text-align:center}
+.healer-device h2{color:#fff;font-size:24px;margin-bottom:6px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.healer-device .healer-sub{color:#ffe4e6;font-size:13px;margin-bottom:18px}
+.healer-team{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px;margin-bottom:18px}
+.healer-slot{background:rgba(0,0,0,.3);border-radius:12px;padding:8px;font-size:11px;color:#fff}
+.healer-slot svg{width:52px;height:52px}
+.healer-slot .healer-hp{height:6px;background:#333;border-radius:3px;margin-top:4px;overflow:hidden}
+.healer-slot .healer-hp-fill{height:100%;background:#4ade80}
+.healer-price{color:#fde68a;font-size:15px;font-weight:bold;margin:12px 0}
+.healer-btn{padding:12px 22px;border-radius:12px;border:none;font-size:15px;font-weight:bold;cursor:pointer;margin:4px;text-transform:uppercase}
+.healer-btn.heal{background:#ffcb05;color:#2a5aa8;box-shadow:0 4px 0 #c9a004}
+.healer-btn.heal:disabled{opacity:.5;cursor:not-allowed}
+.healer-btn.close{background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.4)}
+#teamScreen{position:fixed;inset:0;z-inbest:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #teamScreen.active{display:flex}
 .team-device{width:700px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1e3a5f,#0f2338);border-radius:24px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto}
 .team-device h2{color:#ffcb05;font-size:22px;margin-bottom:16px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -149,7 +149,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .team-member .tm-exp-fill{height:100%;background:#3b82f6;border-radius:2px}
 .team-member .tm-types{display:flex;gap:4px;margin-top:3px}
 .team-member .tm-types .type-badge{font-size:9px;padding:1px 8px}
-#myFantasyDetail{position:fixed;inset:0;z-index:1800;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#myFantasyDetail{position:fixed;inset:0;z-inbest:1800;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #myFantasyDetail.active{display:flex}
 .mpd-device{width:620px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1a2a4a,#0a1628);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto;border:2px solid #3a6b8a}
 .mpd-header{display:flex;gap:18px;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid rgba(255,255,255,.15)}
@@ -174,7 +174,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .mpd-move.locked{opacity:.5;border-left-color:#555}
 .mpd-move .learn-lvl{font-size:10px;color:#94a3b8;margin-left:6px}
 .mpd-close{margin-top:18px;width:100%;padding:12px;background:#ffcb05;color:#2a5aa8;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 0 #c9a004}
-#shopScreen{position:fixed;inset:0;z-index:1650;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#shopScreen{position:fixed;inset:0;z-inbest:1650;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #shopScreen.active{display:flex}
 .shop-device{width:560px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1e40af,#1e3a8a);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);overflow-y:auto}
 .shop-device h2{color:#fde68a;font-size:24px;margin-bottom:6px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -185,7 +185,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .shop-item .si-desc{font-size:11px;color:#c7d2fe}
 .shop-item .si-buy{padding:6px 14px;border-radius:8px;border:none;background:#ffcb05;color:#1e3a8a;font-weight:bold;cursor:pointer;font-size:13px}
 .shop-item .si-buy:disabled{opacity:.5;cursor:not-allowed}
-#inventoryScreen{position:fixed;inset:0;z-index:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#inventoryScreen{position:fixed;inset:0;z-inbest:1700;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #inventoryScreen.active{display:flex}
 .inv-device{width:520px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#1a2a4a,#0f2338);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto}
 .inv-device h2{color:#ffcb05;font-size:22px;margin-bottom:16px;text-align:center}
@@ -193,17 +193,17 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .inv-item{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.3);padding:10px 14px;border-radius:12px;font-size:14px}
 .inv-item .ii-name{font-weight:bold}
 .inv-item .ii-count{color:#ffcb05;font-weight:bold}
-#teamBtn,#shopBtn,#invBtn{position:fixed;z-index:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;pointer-events:auto}
+#teamBtn,#shopBtn,#invBtn{position:fixed;z-inbest:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;pointer-events:auto}
 #teamBtn{bottom:16px;right:16px;background:linear-gradient(180deg,#3b82f6,#1e40af);border:2px solid #93c5fd;box-shadow:0 4px 0 #1e3a8a}
 #shopBtn{bottom:16px;right:197px;background:linear-gradient(180deg,#f59e0b,#b45309);border:2px solid #fde68a;box-shadow:0 4px 0 #78350f}
 #invBtn{bottom:16px;right:380px;background:linear-gradient(180deg,#8b5cf6,#6d28d9);border:2px solid #c4b5fd;box-shadow:0 4px 0 #4c1d95}
 #teamBtn:hover,#shopBtn:hover,#invBtn:hover{transform:translateY(-2px)}
-#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-index:1900;padding:20px;display:none}
+#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-inbest:1900;padding:20px;display:none}
 #dialogScreen.active{display:block}
 .dialog-box{max-width:800px;margin:0 auto;background:rgba(10,20,30,.98);border:3px solid #ffcb05;border-radius:16px;padding:20px 24px;font-size:17px;line-height:1.5;box-shadow:0 10px 40px rgba(0,0,0,.8);cursor:pointer}
 .dialog-speaker{color:#ffcb05;font-weight:bold;margin-bottom:8px;font-size:15px}
 .dialog-hint{color:#94a3b8;font-size:12px;text-align:right;margin-top:8px}
-#evolveScreen{position:fixed;inset:0;z-index:2100;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+#evolveScreen{position:fixed;inset:0;z-inbest:2100;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:20px}
 #evolveScreen.active{display:flex}
 .evolve-title{font-size:28px;color:#ffcb05;text-shadow:2px 2px 0 #2a5aa8}
 .evolve-sprites{display:flex;align-items:center;gap:30px}
@@ -215,10 +215,10 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 ::-webkit-scrollbar-track{background:rgba(0,0,0,.2);border-radius:4px}
 ::-webkit-scrollbar-thumb{background:#ffcb05;border-radius:4px}
 
-#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:6}
+#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:6}
 
 /* ===== КВЕСТЫ ===== */
-#questScreen{position:fixed;inset:0;z-index:1750;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+#questScreen{position:fixed;inset:0;z-inbest:1750;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
 #questScreen.active{display:flex}
 .quest-device{width:700px;max-width:95vw;max-height:90vh;background:linear-gradient(160deg,#2d1b4e,#1a0e2e);border-radius:24px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);overflow-y:auto;border:2px solid #a855f7}
 .quest-device h2{color:#e9d5ff;font-size:24px;margin-bottom:6px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
@@ -235,35 +235,35 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .quest-item .q-reward{font-size:12px;color:#fde68a;margin-top:6px;display:flex;justify-content:space-between;align-items:center}
 .quest-item .q-claim{padding:6px 14px;border-radius:8px;border:none;background:#4ade80;color:#0a2a15;font-weight:bold;cursor:pointer;font-size:12px}
 .quest-item .q-claim:disabled{background:#6b7280;color:#9ca3af;cursor:not-allowed}
-.npc-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:14;top:0;left:0;margin-left:-30px;margin-top:-30px}
-.npc-quest svg{width:100%;height:100%}
-.npc-quest .qmark{position:absolute;top:-8px;right:-8px;font-size:22px;filter:drop-shadow(0 0 4px #fbbf24);animation:qmarkBounce 1s infinite}
+.nhealer-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:14;top:0;left:0;margin-left:-30px;margin-top:-30px}
+.nhealer-quest svg{width:100%;height:100%}
+.nhealer-quest .qmark{position:absolute;top:-8px;right:-8px;font-size:22px;filter:drop-shadow(0 0 4px #fbbf24);animation:qmarkBounce 1s infinite}
 @keyframes qmarkBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.npc-quest .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
-.npc-quest:hover .label{opacity:1}
-#questBtn{position:fixed;z-index:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;bottom:16px;right:595px;background:linear-gradient(180deg,#a855f7,#7c3aed);border:2px solid #d8b4fe;box-shadow:0 4px 0 #4c1d95}
+.nhealer-quest .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
+.nhealer-quest:hover .label{opacity:1}
+#questBtn{position:fixed;z-inbest:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;bottom:16px;right:595px;background:linear-gradient(180deg,#a855f7,#7c3aed);border:2px solid #d8b4fe;box-shadow:0 4px 0 #4c1d95}
 #questBtn:hover{transform:translateY(-2px)}
 #questBtn .qbadge{position:absolute;top:-6px;right:-6px;background:#ef4444;color:#fff;font-size:11px;font-weight:bold;border-radius:10px;padding:1px 6px;min-width:18px;text-align:center;border:2px solid #fff}
 
-#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-index:6000;padding:20px;display:none}
+#dialogScreen{position:fixed;bottom:0;left:0;right:0;z-inbest:6000;padding:20px;display:none}
 #dialogScreen.active{display:block}
-/* NPC с квестами — всегда поверх всех объектов */
-.npc-quest {
-  z-index: 100 !important;
+/* Nhealer с квестами — всегда поверх всех объектов */
+.nhealer-quest {
+  z-inbest: 100 !important;
 }
-.npc-quest .label {
-  z-index: 101 !important;
+.nhealer-quest .label {
+  z-inbest: 101 !important;
   opacity: 0.6;              /* подпись всегда видна, а не только при наведении */
   font-weight: bold;
   border: 1px solid #a855f7;
   box-shadow: 0 0 8px rgba(168,85,247,.8);
 }
 
-#Magicdex {
+#Bestiary {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.8);
-  z-index: 1900;              /* ← было 1000, стало 1900 — выше myFantasyDetail */
+  z-inbest: 1900;              /* ← было 1000, стало 1900 — выше myFantasyDetail */
   display: none;
   align-items: center;
   justify-content: center;
@@ -272,7 +272,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 #starterScreen {
   position: fixed;
   inset: 0;
-  z-index: 9999;          /* ← было 2000, стало 9999 — выше кнопок (5000) */
+  z-inbest: 9999;          /* ← было 2000, стало 9999 — выше кнопок (5000) */
   background: linear-gradient(160deg,#0a0e1a,#1a2a4a);
   display: flex;
   flex-direction: column;
@@ -281,7 +281,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   padding: 20px;
 }
 
-/* СТАЛО — z-index убираем, будем ставить через JS */
+/* СТАЛО — z-inbest убираем, будем ставить через JS */
 .Fantasy{position:absolute;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;will-change:transform;top:0;left:0;margin-left:-28px;margin-top:-28px}
 
 
@@ -290,19 +290,19 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 
 
 /* СТАЛО */
-.npc-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;top:0;left:0;margin-left:-30px;margin-top:-30px}
+.nhealer-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;top:0;left:0;margin-left:-30px;margin-top:-30px}
 
 /* Y-сортировка: базовый слой для игровых объектов */
-.Fantasy, .trainer, .npc-quest {
-  z-index: 1; /* будет переопределён в JS */
+.Fantasy, .trainer, .nhealer-quest {
+  z-inbest: 1; /* будет переопределён в JS */
 }
 /* Hover — поверх всех */
-.Fantasy:hover, .trainer:hover, .npc-quest:hover {
-  z-index: 99999 !important;
+.Fantasy:hover, .trainer:hover, .nhealer-quest:hover {
+  z-inbest: 99999 !important;
 }
 /* Подпись при hover */
-.Fantasy .label, .trainer .label, .npc-quest .label {
-  z-index: 100000 !important;
+.Fantasy .label, .trainer .label, .nhealer-quest .label {
+  z-inbest: 100000 !important;
 }
 
 .building {
@@ -318,7 +318,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   margin-top: -32px;    /* половина высоты (64px) */
 }
 .building svg { width: 100%; height: 100%; display: block; }
-.building:hover { z-index: 99999 !important; }
+.building:hover { z-inbest: 99999 !important; }
 .building:hover .label { opacity: 1; }
 .building .label {
   position: absolute;
@@ -333,7 +333,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   opacity: 0;
   transition: opacity .15s;
   pointer-events: none;
-  z-index: 100000 !important;
+  z-inbest: 100000 !important;
 }
 
 .building {
@@ -347,9 +347,9 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   /* margin-left / margin-top задаются индивидуально в JS */
 }
 .building svg { width: 100%; height: 100%; display: block; }
-.building:hover { z-index: 99999 !important; }
+.building:hover { z-inbest: 99999 !important; }
 
-#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:501111110}
+#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:501111110}
 #labels {
   position: absolute;
   top: 0;
@@ -357,7 +357,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   width: 3000px;
   height: 2000px;
   pointer-events: none;
-  z-index: 500000;   /* выше (160000) и зданий (60000) */
+  z-inbest: 500000;   /* выше (160000) и зданий (60000) */
 }
 #labels .label {
   position: absolute;
@@ -374,7 +374,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   box-shadow: 0 0 8px rgba(168,85,247,.8);
 }
 
-.npc-quest {
+.nhealer-quest {
   position: absolute;
   width: 60px;
   height: 60px;
@@ -389,7 +389,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   margin-top: -30px;
 }
 
-.npc-quest .label {
+.nhealer-quest .label {
   position: absolute;
   bottom: -20px;
   left: 50%;
@@ -402,7 +402,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   opacity: 0.9;
   transition: opacity .15s;
   pointer-events: none;
-  z-index: 999999 !important;   /* ← поверх всего */
+  z-inbest: 999999 !important;   /* ← поверх всего */
   border: 1px solid #a855f7;
   box-shadow: 0 0 8px rgba(168,85,247,.8);
 }
@@ -413,21 +413,21 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   width: 3000px;
   height: 2000px;
   pointer-events: none;
-  z-index: 950000;   /* ← было 500000 */
+  z-inbest: 950000;   /* ← было 500000 */
 }
 
-/* NPC с квестами — поверх всех объектов мира.
-   !important нужен, потому что у .Fantasy/.trainer тоже есть z-index,
+/* Nhealer с квестами — поверх всех объектов мира.
+   !important нужен, потому что у .Fantasy/.trainer тоже есть z-inbest,
    а JS ставит его инлайново с !important ниже. */
-.npc-quest {
-  z-index: 900000 !important;
+.nhealer-quest {
+  z-inbest: 900000 !important;
 }
 
 /* ===== ОКНО ПАУЗЫ ===== */
 #pauseScreen {
   position: fixed;
   inset: 0;
-  z-index: 100000;                    /* выше всего игрового мира, ниже диалогов */
+  z-inbest: 100000;                    /* выше всего игрового мира, ниже диалогов */
   background: rgba(5, 10, 20, 0.85);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -506,7 +506,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 #gameModal {
   position: fixed;
   inset: 0;
-  z-index: 100001;              /* выше паузы (100000), ниже toast (3000 не хватит) */
+  z-inbest: 100001;              /* выше паузы (100000), ниже toast (3000 не хватит) */
   background: rgba(5, 10, 20, 0.85);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -625,7 +625,7 @@ html,body{
 
 
 
-/* === Слой значков квестов — выше подписей и NPC, но ниже названий городов === */
+/* === Слой значков квестов — выше подписей и Nhealer, но ниже названий городов === */
 #questMarks {
   position: absolute;
   top: 0;
@@ -633,7 +633,7 @@ html,body{
   width: 3000px;
   height: 2000px;
   pointer-events: none;
-  z-index: 500000000;       /* между #labels (950000) и #top (501111110) */
+  z-inbest: 500000000;       /* между #labels (950000) и #top (501111110) */
 }
 
 #questMarks .qmark {
@@ -647,7 +647,7 @@ html,body{
   line-height: 1;
   white-space: nowrap;
 }
-#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:900000}
+#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-inbest:900000}
 
 
 
@@ -680,7 +680,7 @@ button, input, textarea, select {
 
 
 html, body{font-family:'Fantasy Classic','Segoe UI',sans-serif;
-font-weight:normal;text-size:9px !important;}.npc-quest .label,
+font-weight:normal;text-size:9px !important;}.nhealer-quest .label,
 #labels .label,
 .Fantasy .label,
 .trainer .label,
@@ -771,7 +771,7 @@ button, input, textarea, select {
   line-height: 1.2;
 }
 
-/* Название монстра — не вылезает */
+/* Название существо — не вылезает */
 .starter-card h3 {
   word-break: break-word;
   line-height: 1.2;
@@ -788,7 +788,7 @@ button, input, textarea, select {
   pointer-events:none;
   opacity:0;
   transition:opacity .4s;
-  z-index:50;
+  z-inbest:50;
   white-space:nowrap;        /* ← запрет переноса */
   word-break:keep-all;
   overflow-wrap:normal;
@@ -798,36 +798,837 @@ button, input, textarea, select {
 /* Подписи по умолчанию — скрыты и не влияют на layering */
 .Fantasy .label,
 .trainer .label,
-.npc-quest .label,
+.nhealer-quest .label,
 .building .label {
   position: absolute;
   opacity: 0;
   transition: opacity .15s;
   pointer-events: none;
-  z-index: 9999999 !important;
+  z-inbest: 9999999 !important;
 }
 
 /* При наведении — подпись видна и объект поднимается над всем */
 .Fantasy:hover,
 .trainer:hover,
-.npc-quest:hover,
+.nhealer-quest:hover,
 .building:hover {
-  z-index: 9999999999999 !important;
+  z-inbest: 9999999999999 !important;
 }
 
 .Fantasy:hover .label,
 .trainer:hover .label,
-.npc-quest:hover .label,
+.nhealer-quest:hover .label,
 .building:hover .label {
   opacity: 1;
 }
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+html,body{
+  font-family:'Fantasy Classic','Segoe UI',sans-serif;
+  background:#0a0e1a;
+  overflow:hidden;
+  height:100%;
+  width:100%;
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  color:#fff;
+  user-select:none;
+  -webkit-user-select:none;
+  overscroll-behavior:none;
+  touch-action:none;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  font-weight:normal;
+}
+
+/* ===================== СЛОИ (z-index) =====================
+   #game                  → 1
+   объекты мира           → 100..60000 (через JS, yToZ)
+   labels / questMarks    → 900000+
+   HUD / hint / legend    → 100
+   biomeName              → 50
+   кнопки меню            → 5000
+   диалоги / квесты       → 1500..2100
+   pause                  → 100000
+   gameModal              → 100001
+   starterScreen          → 999999
+   toast                  → 1000000
+   ========================================================= */
+
+#game{position:fixed;inset:0;overflow:hidden;cursor:grab;z-index:1}
+#game:active{cursor:grabbing}
+
+#world{position:absolute;width:3000px;height:2000px;will-change:transform;transform-origin:0 0}
+
+#bg{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;z-index:1}
+#fog{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:5}
+#top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:900000}
+
+/* ===================== СУЩЕСТВА / ТРЕНЕРЫ / Nhealer / ЗДАНИЯ ===================== */
+.Fantasy{
+  position:absolute;width:56px;height:56px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;will-change:transform;
+  top:0;left:0;margin-left:-28px;margin-top:-28px;
+  z-index:1;
+}
+.Fantasy svg{width:100%;height:100%;display:block}
+.Fantasy:hover{z-index:99999 !important}
+.Fantasy:hover .label{opacity:1}
+.Fantasy .label{
+  position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  font-size:11px;white-space:nowrap;
+  background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;
+  opacity:0;transition:opacity .15s;pointer-events:none;
+  z-index:100000 !important;
+  font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
+}
+
+.Fantasy.undead{
+  filter:drop-shadow(0 0 8px #a855f7) drop-shadow(0 0 14px #4c1d95) !important;
+}
+.Fantasy.undead::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  background:radial-gradient(circle, rgba(168,85,247,.25), transparent 70%);
+  pointer-events:none;animation:undeadAura 3s ease-in-out infinite;
+}
+@keyframes undeadAura{
+  0%,100%{opacity:.5;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.15)}
+}
+
+.trainer{
+  position:absolute;width:56px;height:56px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;will-change:transform;
+  top:0;left:0;margin-left:-28px;margin-top:-28px;
+  z-index:1;
+}
+.trainer svg{width:100%;height:100%}
+.trainer:hover{z-index:99999 !important}
+.trainer:hover .label{opacity:1}
+.trainer .label{
+  position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  font-size:11px;white-space:nowrap;
+  background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;
+  opacity:0;transition:opacity .15s;pointer-events:none;
+  z-index:100000 !important;
+  font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
+}
+
+.nhealer-quest{
+  position:absolute;width:60px;height:60px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;will-change:transform;
+  top:0;left:0;margin-left:-30px;margin-top:-30px;
+  z-index:900000 !important;
+}
+.nhealer-quest svg{width:100%;height:100%}
+.nhealer-quest:hover{z-index:99999 !important}
+.nhealer-quest:hover .label{opacity:1}
+.nhealer-quest .label{
+  position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  font-size:11px;white-space:nowrap;
+  background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;
+  opacity:.9;transition:opacity .15s;pointer-events:none;
+  z-index:999999 !important;
+  border:1px solid #a855f7;
+  box-shadow:0 0 8px rgba(168,85,247,.8);
+  font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
+}
+.nhealer-quest .qmark{
+  position:absolute;top:-8px;right:-8px;font-size:22px;
+  filter:drop-shadow(0 0 4px #fbbf24);
+  animation:qmarkBounce 1s infinite;
+}
+@keyframes qmarkBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+
+.building{
+  position:absolute;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;will-change:transform;top:0;left:0;
+  z-index:1;
+}
+.building svg{width:100%;height:100%;display:block}
+.building:hover{z-index:99999 !important}
+.building:hover .label{opacity:1}
+.building .label{
+  position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  font-size:11px;white-space:nowrap;
+  background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;
+  opacity:0;transition:opacity .15s;pointer-events:none;
+  z-index:100000 !important;
+  font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
+}
+
+/* ===================== СЛОЙ ПОДПИСЕЙ И МАРКЕРОВ ===================== */
+#labels{
+  position:absolute;top:0;left:0;width:3000px;height:2000px;
+  pointer-events:none;z-index:950000;
+}
+#labels .label{
+  position:absolute;transform:translate(-50%,0);
+  font-size:11px;white-space:nowrap;
+  background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;
+  color:#fff;pointer-events:none;opacity:.9;
+  border:1px solid #a855f7;
+  box-shadow:0 0 8px rgba(168,85,247,.8);
+}
+
+#questMarks{
+  position:absolute;top:0;left:0;width:3000px;height:2000px;
+  pointer-events:none;z-index:960000;
+}
+#questMarks .qmark{
+  position:absolute;transform:translate(-50%,-50%);
+  font-size:22px;font-weight:bold;pointer-events:none;
+  filter:drop-shadow(0 0 4px #fbbf24);
+  animation:qmarkBounce 1s infinite;
+  line-height:1;white-space:nowrap;
+}
+
+/* ===================== HUD / ПОДСКАЗКИ ===================== */
+#hud{
+  position:fixed;top:16px;left:16px;z-index:100;
+  background:rgba(10,20,30,.9);
+  border:2px solid #3a6b8a;border-radius:14px;padding:14px 18px;
+}
+#hud h1{font-size:18px;color:#ffcb05;text-shadow:2px 2px 0 #2a5aa8;margin-bottom:6px}
+.stat{font-size:13px;color:#b8d4e8;margin:2px 0}
+.stat b{color:#ffcb05}
+.badges{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.badge{
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:bold;border:2px solid #444;
+  background:#222;color:#666;
+}
+.badge.earned{border-color:#ffcb05;background:#ffcb05;color:#2a5aa8}
+
+#legend{
+  position:fixed;bottom:16px;left:16px;z-index:100;
+  background:rgba(10,20,30,.9);
+  border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;font-size:12px;
+}
+#legend .title{color:#ffcb05;font-weight:bold;margin-bottom:6px}
+#legend .row{display:flex;align-items:center;gap:8px;margin:4px 0}
+#legend .dot{width:12px;height:12px;border-radius:50%}
+
+#hint{
+  position:fixed;top:16px;right:16px;z-index:100;
+  background:rgba(10,20,30,.9);
+  border:2px solid #3a6b8a;border-radius:14px;padding:12px 16px;
+  font-size:12px;color:#b8d4e8;max-width:260px;
+}
+#hint b{color:#ffcb05}
+
+#biomeName{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:36px;font-weight:bold;color:#fff;
+  text-shadow:0 0 20px #000,2px 2px 0 #000;
+  pointer-events:none;opacity:0;transition:opacity .4s;
+  z-index:50;
+  white-space:nowrap;word-break:keep-all;overflow-wrap:normal;hyphens:none;
+  max-width:95vw;
+}
+#biomeName.show{opacity:1}
+
+/* ===================== КНОПКИ МЕНЮ ===================== */
+#teamBtn,#shopBtn,#invBtn{
+  position:fixed;z-index:5000;border-radius:14px;padding:12px 18px;
+  color:#fff;font-size:14px;font-weight:bold;cursor:pointer;
+  text-transform:uppercase;transition:all .15s;pointer-events:auto;
+}
+#teamBtn{bottom:16px;right:16px;background:linear-gradient(180deg,#3b82f6,#1e40af);border:2px solid #93c5fd;box-shadow:0 4px 0 #1e3a8a}
+#shopBtn{bottom:16px;right:197px;background:linear-gradient(180deg,#f59e0b,#b45309);border:2px solid #fde68a;box-shadow:0 4px 0 #78350f}
+#invBtn{bottom:16px;right:380px;background:linear-gradient(180deg,#8b5cf6,#6d28d9);border:2px solid #c4b5fd;box-shadow:0 4px 0 #4c1d95}
+#teamBtn:hover,#shopBtn:hover,#invBtn:hover{transform:translateY(-2px)}
+
+#questBtn{
+  position:fixed;z-index:5000;border-radius:14px;padding:12px 18px;
+  color:#fff;font-size:14px;font-weight:bold;cursor:pointer;
+  text-transform:uppercase;transition:all .15s;
+  bottom:16px;right:595px;
+  background:linear-gradient(180deg,#a855f7,#7c3aed);
+  border:2px solid #d8b4fe;box-shadow:0 4px 0 #4c1d95;
+}
+#questBtn:hover{transform:translateY(-2px)}
+#questBtn .qbadge{
+  position:absolute;top:-6px;right:-6px;background:#ef4444;color:#fff;
+  font-size:11px;font-weight:bold;border-radius:10px;
+  padding:1px 6px;min-width:18px;text-align:center;border:2px solid #fff;
+}
+
+/* ===================== БЕСТИАРИЙ ===================== */
+#Bestiary{
+  position:fixed;inset:0;background:rgba(0,0,0,.8);
+  z-index:1900;display:none;align-items:center;justify-content:center;
+}
+#Bestiary.active{display:flex}
+.bestiary-tome{
+  width:640px;max-width:95vw;max-height:90vh;
+  background:linear-gradient(160deg,#e63946,#c1121f);
+  border-radius:24px;padding:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);
+  position:relative;overflow-y:auto;
+}
+.bestiary-tome::before{
+  content:'';position:absolute;top:14px;left:20px;
+  width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#7ec8ff,#1a5fa8);
+  box-shadow:0 0 12px #4ab3ff;
+}
+.best-header{
+  display:flex;gap:16px;margin-top:30px;padding-bottom:16px;
+  border-bottom:3px solid rgba(255,255,255,.25);
+}
+.best-sprite{
+  width:130px;height:130px;flex-shrink:0;
+  background:radial-gradient(circle,#2a4a6a,#0f2338);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 0 4px rgba(255,255,255,.2);
+}
+.best-sprite svg{width:100px;height:100px}
+.best-title h2{font-size:26px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.best-title .num{font-size:14px;color:#ffcb05;font-weight:bold;letter-spacing:2px}
+.types{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.type-badge{
+  padding:3px 12px;border-radius:12px;font-size:12px;font-weight:bold;
+  text-transform:uppercase;text-shadow:1px 1px 0 rgba(0,0,0,.3);
+}
+.rarity-tag{
+  display:inline-block;margin-top:6px;padding:2px 10px;border-radius:10px;
+  font-size:11px;font-weight:bold;background:rgba(0,0,0,.35);
+}
+.habitat-tag{
+  display:inline-block;margin-top:6px;margin-left:6px;
+  padding:2px 10px;border-radius:10px;font-size:11px;font-weight:bold;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+}
+.best-body{margin-top:18px}
+.best-desc{
+  background:rgba(255,255,255,.12);border-left:4px solid #ffcb05;
+  padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.5;margin-bottom:16px;
+}
+.best-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.best-stat{
+  background:rgba(0,0,0,.25);padding:10px 14px;border-radius:10px;
+  display:flex;justify-content:space-between;font-size:13px;
+}
+.best-stat .k{color:#ffd97a}
+.best-stat .v{font-weight:bold}
+.best-section-title{
+  font-size:13px;color:#ffcb05;text-transform:uppercase;
+  letter-spacing:1px;margin:14px 0 8px;font-weight:bold;
+}
+.bar-row{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:12px}
+.bar-row .name{width:80px;color:#cfe4f5}
+.bar-row .bar{flex:1;height:10px;background:rgba(0,0,0,.35);border-radius:5px;overflow:hidden}
+.bar-row .fill{height:100%;border-radius:5px}
+.bar-row .val{width:34px;text-align:right;font-weight:bold}
+.best-close{
+  margin-top:20px;width:100%;padding:12px;background:#ffcb05;color:#2a5aa8;
+  border:none;border-radius:12px;font-size:16px;font-weight:bold;
+  cursor:pointer;text-transform:uppercase;box-shadow:0 4px 0 #c9a004;
+}
+.best-close:active{transform:translateY(3px);box-shadow:0 1px 0 #c9a004}
+.weak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px}
+.weak-item{
+  padding:4px 8px;border-radius:8px;font-size:11px;font-weight:bold;
+  text-align:center;text-shadow:1px 1px 0 rgba(0,0,0,.3);
+}
+
+/* ===================== СТАРТОВЫЙ ЭКРАН ===================== */
+#starterScreen{
+  position:fixed;inset:0;z-index:999999;
+  background:linear-gradient(160deg,#0a0e1a,#1a2a4a);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;
+}
+#starterScreen.hidden{display:none}
+#starterScreen h1{
+  font-size:32px;color:#ffcb05;text-shadow:3px 3px 0 #2a5aa8;
+  margin-bottom:10px;text-align:center;
+}
+#starterScreen p{color:#b8d4e8;margin-bottom:30px;font-size:16px;text-align:center}
+.starter-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:20px;max-width:800px;width:100%;
+}
+.starter-card{
+  background:rgba(20,40,60,.9);border:3px solid #3a6b8a;border-radius:20px;
+  padding:20px;text-align:center;cursor:pointer;transition:all .2s;
+}
+.starter-card:hover{
+  border-color:#ffcb05;transform:translateY(-5px);
+  box-shadow:0 10px 30px rgba(255,203,5,.3);
+}
+.starter-card svg{width:100px;height:100px}
+.starter-card h3{color:#ffcb05;margin:10px 0 5px;font-size:20px;word-break:break-word;line-height:1.2}
+.starter-card > div{
+  display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;
+}
+.starter-card .type-badge{
+  font-size:10px !important;padding:2px 8px !important;
+  max-width:100%;white-space:nowrap;line-height:1.2;
+}
+
+/* ===================== БОЙ ===================== */
+#battleScreen{
+  position:fixed;inset:0;z-index:1500;
+  background:linear-gradient(180deg,#1a2a4a 0%,#0a0e1a 100%);
+  display:none;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:20px;
+}
+#battleScreen.active{display:flex}
+.battle-field{
+  flex:1;width:100%;max-width:900px;
+  display:flex;flex-direction:column;justify-content:space-between;position:relative;
+}
+.battle-enemy,.battle-player{display:flex;align-items:center;gap:20px}
+.battle-enemy{justify-content:flex-start;padding-top:10px}
+.battle-player{justify-content:flex-end;padding-bottom:10px}
+.battle-sprite{
+  width:140px;height:140px;display:flex;align-items:center;justify-content:center;
+  transition:transform .1s;
+}
+.battle-sprite svg{width:120px;height:120px}
+.battle-sprite.enemy svg{transform:scaleX(-1)}
+.battle-sprite.shake{animation:shake .3s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
+.battle-info{
+  background:rgba(10,20,30,.9);border:2px solid #3a6b8a;
+  border-radius:14px;padding:10px 16px;min-width:220px;
+}
+.battle-info .bname{font-size:18px;font-weight:bold;color:#fff;display:flex;justify-content:space-between}
+.battle-info .blevel{color:#ffcb05;font-size:14px}
+.battle-info .hp-bar{height:10px;background:#333;border-radius:5px;margin-top:6px;overflow:hidden}
+.battle-info .hp-fill{height:100%;background:#4ade80;transition:width .3s}
+.battle-info .hp-text{font-size:12px;color:#b8d4e8;margin-top:2px;text-align:right}
+.status-tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:10px;font-weight:bold;margin-top:3px}
+.battle-log{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:rgba(0,0,0,.85);border:2px solid #ffcb05;border-radius:14px;
+  padding:14px 24px;font-size:16px;max-width:80%;text-align:center;
+  opacity:0;transition:opacity .3s;pointer-events:none;z-index:10;
+}
+.battle-log.show{opacity:1}
+.battle-controls{
+  width:100%;max-width:900px;background:rgba(10,20,30,.95);
+  border:2px solid #3a6b8a;border-radius:16px;padding:16px;
+  display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
+}
+.battle-btn{
+  padding:12px 20px;border-radius:12px;border:2px solid #3a6b8a;
+  background:rgba(30,50,70,.9);color:#fff;font-size:15px;font-weight:bold;
+  cursor:pointer;transition:all .15s;min-width:120px;
+}
+.battle-btn:hover{border-color:#ffcb05;background:rgba(50,80,110,.9)}
+.battle-btn:disabled{opacity:.4;cursor:not-allowed}
+.battle-btn.attack{background:linear-gradient(180deg,#e63946,#c1121f);border-color:#ff6b6b}
+.battle-btn.catch{background:linear-gradient(180deg,#fbbf24,#d97706);border-color:#fde68a;color:#1a1a1a}
+.battle-btn.item{background:linear-gradient(180deg,#10b981,#047857);border-color:#6ee7b7}
+.battle-btn.run{background:linear-gradient(180deg,#6b7280,#374151);border-color:#9ca3af}
+.battle-team{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%;max-width:900px;margin-bottom:8px}
+.team-slot{
+  width:60px;height:60px;background:rgba(30,50,70,.9);
+  border:2px solid #3a6b8a;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .15s;position:relative;
+}
+.team-slot:hover{border-color:#ffcb05}
+.team-slot.active{border-color:#4ade80;box-shadow:0 0 10px #4ade80}
+.team-slot.fainted{opacity:.35}
+.team-slot svg{width:44px;height:44px}
+.team-slot .slot-hp{position:absolute;bottom:2px;left:4px;right:4px;height:3px;background:#333;border-radius:2px;overflow:hidden}
+.team-slot .slot-hp-fill{height:100%;background:#4ade80}
+.team-slot.undead-slot{border-color:#a855f7;box-shadow:0 0 8px rgba(168,85,247,.6)}
+.team-slot.undead-slot.active{border-color:#4ade80;box-shadow:0 0 12px #4ade80,0 0 8px rgba(168,85,247,.6)}
+
+/* ===================== ЛАВКА ЛЕКАРЯ ===================== */
+#HealerHutScreen{
+  position:fixed;inset:0;z-index:1600;
+  background:rgba(0,0,0,.8);
+  display:none;align-items:center;justify-content:center;
+}
+#HealerHutScreen.active{display:flex}
+.healer-device{
+  width:520px;max-width:95vw;
+  background:linear-gradient(160deg,#ef4444,#b91c1c);
+  border-radius:24px;padding:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);
+  text-align:center;
+}
+.healer-device h2{color:#fff;font-size:24px;margin-bottom:6px;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.healer-device .healer-sub{color:#ffe4e6;font-size:13px;margin-bottom:18px}
+.healer-team{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px;margin-bottom:18px}
+.healer-slot{background:rgba(0,0,0,.3);border-radius:12px;padding:8px;font-size:11px;color:#fff}
+.healer-slot svg{width:52px;height:52px}
+.healer-slot .healer-hp{height:6px;background:#333;border-radius:3px;margin-top:4px;overflow:hidden}
+.healer-slot .healer-hp-fill{height:100%;background:#4ade80}
+.healer-price{color:#fde68a;font-size:15px;font-weight:bold;margin:12px 0}
+.healer-btn{padding:12px 22px;border-radius:12px;border:none;font-size:15px;font-weight:bold;cursor:pointer;margin:4px;text-transform:uppercase}
+.healer-btn.heal{background:#ffcb05;color:#2a5aa8;box-shadow:0 4px 0 #c9a004}
+.healer-btn.heal:disabled{opacity:.5;cursor:not-allowed}
+.healer-btn.close{background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.4)}
+
+/* ===================== КОМАНДА ===================== */
+#teamScreen{
+  position:fixed;inset:0;z-index:1700;
+  background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;
+}
+#teamScreen.active{display:flex}
+.team-device{
+  width:700px;max-width:95vw;max-height:90vh;
+  background:linear-gradient(160deg,#1e3a5f,#0f2338);
+  border-radius:24px;padding:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);
+  overflow-y:auto;
+}
+.team-device h2{color:#ffcb05;font-size:22px;margin-bottom:16px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.team-list{display:flex;flex-direction:column;gap:10px}
+.team-member{
+  display:flex;align-items:center;gap:14px;background:rgba(0,0,0,.3);
+  border-radius:14px;padding:10px 14px;cursor:pointer;
+  border:2px solid transparent;transition:all .15s;
+}
+.team-member:hover{border-color:#ffcb05;background:rgba(255,203,5,.08)}
+.team-member .tm-sprite{width:64px;height:64px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.team-member .tm-sprite svg{width:56px;height:56px}
+.team-member .tm-info{flex:1}
+.team-member .tm-name{font-size:16px;font-weight:bold;color:#fff;display:flex;align-items:center;gap:8px}
+.team-member .tm-level{font-size:12px;color:#ffcb05}
+.team-member .tm-hp-bar{height:8px;background:#333;border-radius:4px;margin-top:4px;overflow:hidden}
+.team-member .tm-hp-fill{height:100%;border-radius:4px}
+.team-member .tm-hp-text{font-size:11px;color:#b8d4e8;margin-top:2px}
+.team-member .tm-exp-bar{height:4px;background:#333;border-radius:2px;margin-top:3px;overflow:hidden}
+.team-member .tm-exp-fill{height:100%;background:#3b82f6;border-radius:2px}
+.team-member .tm-types{display:flex;gap:4px;margin-top:3px}
+.team-member .tm-types .type-badge{font-size:9px;padding:1px 8px}
+
+/* ===================== ДЕТАЛИ СУЩЕСТВА ===================== */
+#myFantasyDetail{
+  position:fixed;inset:0;z-index:1800;
+  background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;
+}
+#myFantasyDetail.active{display:flex}
+.mpd-device{
+  width:620px;max-width:95vw;max-height:90vh;
+  background:linear-gradient(160deg,#1a2a4a,#0a1628);
+  border-radius:24px;padding:22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);
+  overflow-y:auto;border:2px solid #3a6b8a;
+}
+.mpd-header{
+  display:flex;gap:18px;align-items:center;margin-bottom:16px;
+  padding-bottom:16px;border-bottom:2px solid rgba(255,255,255,.15);
+}
+.mpd-sprite{
+  width:110px;height:110px;flex-shrink:0;
+  background:radial-gradient(circle,#2a4a6a,#0f2338);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 0 3px rgba(255,255,255,.15);
+}
+.mpd-sprite svg{width:86px;height:86px}
+.mpd-header-info h2{font-size:24px;color:#fff;display:flex;align-items:center;gap:10px}
+.mpd-header-info .mpd-lvl{font-size:14px;color:#ffcb05;font-weight:bold}
+.mpd-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+.mpd-stat{
+  background:rgba(0,0,0,.25);padding:8px 12px;border-radius:10px;
+  display:flex;justify-content:space-between;font-size:13px;
+}
+.mpd-stat .k{color:#ffd97a}
+.mpd-stat .v{font-weight:bold}
+.mpd-hp-bar{height:12px;background:#333;border-radius:6px;overflow:hidden;margin-bottom:4px}
+.mpd-hp-fill{height:100%;border-radius:6px}
+.mpd-exp-bar{height:8px;background:#333;border-radius:4px;overflow:hidden;margin-top:2px;margin-bottom:12px}
+.mpd-exp-fill{height:100%;background:#3b82f6;border-radius:4px}
+.mpd-section-title{font-size:13px;color:#ffcb05;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px;font-weight:bold}
+.mpd-moves{display:flex;flex-direction:column;gap:6px}
+.mpd-move{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.25);padding:8px 14px;border-radius:10px;
+  font-size:13px;border-left:4px solid #3a6b8a;
+}
+.mpd-move .mname{font-weight:bold}
+.mpd-move .mtype{padding:2px 10px;border-radius:8px;font-size:11px;font-weight:bold}
+.mpd-move .mpower{color:#ffcb05;font-weight:bold}
+.mpd-move.locked{opacity:.5;border-left-color:#555}
+.mpd-move .learn-lvl{font-size:10px;color:#94a3b8;margin-left:6px}
+.mpd-close{
+  margin-top:18px;width:100%;padding:12px;background:#ffcb05;color:#2a5aa8;
+  border:none;border-radius:12px;font-size:16px;font-weight:bold;
+  cursor:pointer;text-transform:uppercase;box-shadow:0 4px 0 #c9a004;
+}
+
+/* ===================== МАГАЗИН ===================== */
+#shopScreen{
+  position:fixed;inset:0;z-index:1650;
+  background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;
+}
+#shopScreen.active{display:flex}
+.shop-device{
+  width:560px;max-width:95vw;max-height:90vh;
+  background:linear-gradient(160deg,#1e40af,#1e3a8a);
+  border-radius:24px;padding:22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 4px rgba(255,255,255,.15);
+  overflow-y:auto;
+}
+.shop-device h2{color:#fde68a;font-size:24px;margin-bottom:6px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.shop-money{color:#fde68a;text-align:center;margin-bottom:16px;font-size:15px}
+.shop-items{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.shop-item{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.3);padding:10px 14px;border-radius:12px;font-size:14px;
+}
+.shop-item .si-name{font-weight:bold;color:#fff}
+.shop-item .si-desc{font-size:11px;color:#c7d2fe}
+.shop-item .si-buy{
+  padding:6px 14px;border-radius:8px;border:none;
+  background:#ffcb05;color:#1e3a8a;font-weight:bold;cursor:pointer;font-size:13px;
+}
+.shop-item .si-buy:disabled{opacity:.5;cursor:not-allowed}
+
+/* ===================== ИНВЕНТАРЬ ===================== */
+#inventoryScreen{
+  position:fixed;inset:0;z-index:1700;
+  background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;
+}
+#inventoryScreen.active{display:flex}
+.inv-device{
+  width:520px;max-width:95vw;max-height:90vh;
+  background:linear-gradient(160deg,#1a2a4a,#0f2338);
+  border-radius:24px;padding:22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);
+  overflow-y:auto;
+}
+.inv-device h2{color:#ffcb05;font-size:22px;margin-bottom:16px;text-align:center}
+.inv-items{display:flex;flex-direction:column;gap:8px}
+.inv-item{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.3);padding:10px 14px;border-radius:12px;font-size:14px;
+}
+.inv-item .ii-name{font-weight:bold}
+.inv-item .ii-count{color:#ffcb05;font-weight:bold}
+
+/* ===================== КВЕСТЫ ===================== */
+#questScreen{
+  position:fixed;inset:0;z-index:1750;
+  background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;
+}
+#questScreen.active{display:flex}
+.quest-device{
+  width:700px;max-width:95vw;max-height:90vh;
+  background:linear-gradient(160deg,#2d1b4e,#1a0e2e);
+  border-radius:24px;padding:22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7),inset 0 0 0 3px rgba(255,255,255,.1);
+  overflow-y:auto;border:2px solid #a855f7;
+}
+.quest-device h2{color:#e9d5ff;font-size:24px;margin-bottom:6px;text-align:center;text-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.quest-sub{color:#c4b5fd;text-align:center;font-size:13px;margin-bottom:16px}
+.quest-list{display:flex;flex-direction:column;gap:10px}
+.quest-item{
+  background:rgba(0,0,0,.3);border-radius:14px;padding:14px 16px;
+  border-left:5px solid #a855f7;transition:all .15s;
+}
+.quest-item.completed{border-left-color:#4ade80;opacity:.7}
+.quest-item.claimed{border-left-color:#6b7280;opacity:.45}
+.quest-item .q-title{font-size:16px;font-weight:bold;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.quest-item .q-title .q-status{font-size:11px;padding:2px 10px;border-radius:8px;font-weight:bold}
+.quest-item .q-desc{font-size:12px;color:#cbd5e1;margin-top:6px;line-height:1.4}
+.quest-item .q-progress{height:8px;background:#333;border-radius:4px;margin-top:8px;overflow:hidden}
+.quest-item .q-progress-fill{height:100%;background:linear-gradient(90deg,#a855f7,#ec4899);border-radius:4px;transition:width .3s}
+.quest-item .q-reward{font-size:12px;color:#fde68a;margin-top:6px;display:flex;justify-content:space-between;align-items:center}
+.quest-item .q-claim{
+  padding:6px 14px;border-radius:8px;border:none;
+  background:#4ade80;color:#0a2a15;font-weight:bold;cursor:pointer;font-size:12px;
+}
+.quest-item .q-claim:disabled{background:#6b7280;color:#9ca3af;cursor:not-allowed}
+
+/* ===================== ДИАЛОГИ ===================== */
+#dialogScreen{
+  position:fixed;bottom:0;left:0;right:0;z-index:6000;
+  padding:20px;display:none;
+}
+#dialogScreen.active{display:block}
+.dialog-box{
+  max-width:800px;margin:0 auto;
+  background:rgba(10,20,30,.98);
+  border:3px solid #ffcb05;border-radius:16px;
+  padding:20px 24px;font-size:17px;line-height:1.5;
+  box-shadow:0 10px 40px rgba(0,0,0,.8);cursor:pointer;
+}
+.dialog-speaker{color:#ffcb05;font-weight:bold;margin-bottom:8px;font-size:15px}
+.dialog-hint{color:#94a3b8;font-size:12px;text-align:right;margin-top:8px}
+
+/* ===================== ЭВОЛЮЦИЯ ===================== */
+#evolveScreen{
+  position:fixed;inset:0;z-index:2100;
+  background:rgba(0,0,0,.95);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:20px;
+}
+#evolveScreen.active{display:flex}
+.evolve-title{font-size:28px;color:#ffcb05;text-shadow:2px 2px 0 #2a5aa8}
+.evolve-sprites{display:flex;align-items:center;gap:30px}
+.evolve-sprite{width:140px;height:140px}
+.evolve-sprite svg{width:100%;height:100%}
+.evolve-arrow{font-size:48px;color:#ffcb05;animation:pulse 1s infinite}
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.4}
+}
+
+/* ===================== СКРОЛЛБАР ===================== */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:rgba(0,0,0,.2);border-radius:4px}
+::-webkit-scrollbar-thumb{background:#ffcb05;border-radius:4px}
+
+/* ===================== TOAST ===================== */
+#toast{
+  position:fixed;top:80px;left:50%;transform:translateX(-50%);
+  background:rgba(10,20,30,.95);
+  border:2px solid #ffcb05;border-radius:12px;
+  padding:12px 24px;font-size:15px;color:#fff;
+  z-index:1000000;
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+#toast.show{opacity:1}
+
+/* ===================== ПАУЗА ===================== */
+#pauseScreen{
+  position:fixed;inset:0;z-index:100000;
+  background:rgba(5,10,20,.85);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+}
+#pauseScreen.active{display:flex}
+.pause-device{
+  width:420px;max-width:92vw;
+  background:linear-gradient(160deg,#1a2a4a,#0a1628);
+  border:3px solid #3a6b8a;border-radius:24px;
+  padding:28px 26px;text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.75),inset 0 0 0 3px rgba(255,255,255,.08);
+  animation:pausePop .18s ease-out;
+}
+@keyframes pausePop{
+  from{transform:scale(.92);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.pause-logo{font-size:44px;margin-bottom:6px}
+.pause-device h2{color:#ffcb05;font-size:30px;text-shadow:2px 2px 0 #2a5aa8;margin-bottom:4px}
+.pause-sub{color:#b8d4e8;font-size:13px;margin-bottom:22px}
+.pause-buttons{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.pause-btn{
+  width:100%;padding:14px 18px;border:none;border-radius:14px;
+  font-size:16px;font-weight:bold;cursor:pointer;
+  text-transform:uppercase;letter-spacing:.5px;
+  transition:transform .12s,box-shadow .12s;
+}
+.pause-btn:active{transform:translateY(2px)}
+.pause-btn.resume{background:#ffcb05;color:#2a5aa8;box-shadow:0 4px 0 #c9a004}
+.pause-btn.resume:hover{box-shadow:0 6px 0 #c9a004}
+.pause-btn.restart{background:linear-gradient(180deg,#ef4444,#b91c1c);color:#fff;box-shadow:0 4px 0 #7f1d1d}
+.pause-btn.restart:hover{box-shadow:0 6px 0 #7f1d1d}
+.pause-hint{color:#94a3b8;font-size:12px}
+.pause-hint b{color:#ffcb05}
+
+/* ===================== ИГРОВОЕ МОДАЛЬНОЕ ОКНО ===================== */
+#gameModal{
+  position:fixed;inset:0;z-index:100001;
+  background:rgba(5,10,20,.85);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+}
+#gameModal.active{display:flex}
+.gm-device{
+  width:440px;max-width:92vw;
+  background:linear-gradient(160deg,#1a2a4a,#0a1628);
+  border:3px solid #ffcb05;border-radius:22px;
+  padding:26px 24px 20px;text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.8),inset 0 0 0 3px rgba(255,255,255,.08);
+  animation:gmPop .18s ease-out;
+}
+@keyframes gmPop{
+  from{transform:scale(.92);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.gm-icon{font-size:40px;margin-bottom:6px;filter:drop-shadow(0 0 8px rgba(255,203,5,.6))}
+.gm-device h2{color:#ffcb05;font-size:22px;text-shadow:2px 2px 0 #2a5aa8;margin-bottom:10px}
+.gm-text{color:#e2e8f0;font-size:15px;line-height:1.5;margin-bottom:18px;white-space:pre-wrap}
+.gm-input-wrap{margin-bottom:16px}
+.gm-input{
+  width:100%;padding:10px 14px;border-radius:10px;
+  border:2px solid #3a6b8a;background:rgba(0,0,0,.35);
+  color:#fff;font-size:15px;outline:none;transition:border-color .15s;
+}
+.gm-input:focus{border-color:#ffcb05}
+.gm-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.gm-btn{
+  flex:1 1 120px;min-width:110px;padding:12px 16px;
+  border:none;border-radius:12px;font-size:15px;font-weight:bold;
+  cursor:pointer;text-transform:uppercase;letter-spacing:.3px;
+  transition:transform .12s,box-shadow .12s;
+}
+.gm-btn:active{transform:translateY(2px)}
+.gm-btn.ok{background:#ffcb05;color:#2a5aa8;box-shadow:0 4px 0 #c9a004}
+.gm-btn.ok:hover{box-shadow:0 6px 0 #c9a004}
+.gm-btn.cancel{background:linear-gradient(180deg,#6b7280,#374151);color:#fff;box-shadow:0 4px 0 #1f2937}
+.gm-btn.cancel:hover{box-shadow:0 6px 0 #1f2937}
+.gm-btn.danger{background:linear-gradient(180deg,#ef4444,#b91c1c);color:#fff;box-shadow:0 4px 0 #7f1d1d}
+.gm-btn.danger:hover{box-shadow:0 6px 0 #7f1d1d}
+
+/* ===================== МАРКЕР НЕЖИТИ ===================== */
+.undead-mark{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:1px 7px;border-radius:10px;font-size:10px;font-weight:bold;
+  text-transform:uppercase;letter-spacing:.5px;
+  color:#e9d5ff;
+  background:linear-gradient(135deg,#2a332a,#4c1d95);
+  border:1px solid #a855f7;
+  box-shadow:0 0 6px rgba(168,85,247,.7),inset 0 0 4px rgba(168,85,247,.3);
+  text-shadow:0 0 4px #a855f7;
+  animation:undeadPulse 2s ease-in-out infinite;
+  vertical-align:middle;
+}
+.undead-mark::before{content:'💀';font-size:10px;filter:drop-shadow(0 0 3px #a855f7)}
+@keyframes undeadPulse{
+  0%,100%{box-shadow:0 0 6px rgba(168,85,247,.7),inset 0 0 4px rgba(168,85,247,.3)}
+  50%{box-shadow:0 0 12px rgba(168,85,247,1),inset 0 0 6px rgba(168,85,247,.5)}
+}
+
+/* ===================== ШРИФТ ===================== */
+@font-face{
+  font-family:'Fantasy Classic';
+  src:url('Fantasy Classic.ttf') format('truetype');
+  font-weight:normal;font-style:normal;font-display:swap;
+}
+
+*,*::before,*::after{font-family:inherit}
+button,input,textarea,select{font-family:inherit}
+
+
 </style>
 </head>
 <body>
 
 <div id="starterScreen">
   <h1>🌍 Филакт</h1>
-  <p>Выбери своего первого монстра!</p>
+  <p>Выбери своего первого существо!</p>
   <div class="starter-grid" id="starterGrid"></div>
 </div>
 
@@ -842,7 +1643,7 @@ button, input, textarea, select {
 
 <div id="hud">
   <h1>🌍 Филакт</h1>
-  <div class="stat">Монстров: <b id="count">0</b></div>
+  <div class="stat">Существ: <b id="count">0</b></div>
   <div class="stat">Поймано видов: <b id="caught">0</b></div>
   <div class="stat">В команде: <b id="teamCount">0</b>/7</div>
   <div class="stat">💰 Деньги: <b id="money">0</b></div>
@@ -864,8 +1665,8 @@ button, input, textarea, select {
   🏥 Красные — лечение<br>
   🏪 Синие — магазин<br>
   👤 Филактеристы — бой<br>
-  📜 NPC с "!" — квесты<br>
-  🗺 Побеждай монстров, чтобы открыть новые зоны!
+  📜 Nhealer с "!" — квесты<br>
+  🗺 Побеждай существ, чтобы открыть новые зоны!
 </div>
 
 <div id="legend">
@@ -878,10 +1679,10 @@ button, input, textarea, select {
   <div class="row"><span class="dot" style="background:#c4a882"></span> Города</div>
   <div class="row"><span class="dot" style="background:#ef4444"></span> Лавка лекаря</div>
   <div class="row"><span class="dot" style="background:#3b82f6"></span> 🏪 Магазин</div>
-  <div class="row"><span class="dot" style="background:#a855f7"></span> 📜 NPC с квестом</div>
+  <div class="row"><span class="dot" style="background:#a855f7"></span> 📜 Nhealer с квестом</div>
 </div>
 
-<div id="Magicdex"><div class="dex-device" id="dexContent"></div></div>
+<div id="Bestiary"><div class="bestiary-tome" id="bestiaryContent"></div></div>
 
 <div id="battleScreen">
   <div class="battle-field">
@@ -900,13 +1701,13 @@ button, input, textarea, select {
 </div>
 
 <div id="HealerHutScreen">
-  <div class="pc-device">
+  <div class="healer-device">
     <h2>Лавка лекаря</h2>
-    <div class="pc-sub">Добро пожаловать! Мы вылечим вашу команду.</div>
-    <div class="pc-team" id="pcTeam"></div>
-    <div class="pc-price" id="pcPrice"></div>
-    <button class="pc-btn heal" id="pcHealBtn">Вылечить</button>
-    <button class="pc-btn close" onclick="closeHealerHut()">Выйти</button>
+    <div class="healer-sub">Добро пожаловать! Мы вылечим вашу команду.</div>
+    <div class="healer-team" id="healerTeam"></div>
+    <div class="healer-price" id="healerPrice"></div>
+    <button class="healer-btn heal" id="healerHealBtn">Вылечить</button>
+    <button class="healer-btn close" onclick="closeHealerHut()">Выйти</button>
   </div>
 </div>
 
@@ -930,7 +1731,7 @@ button, input, textarea, select {
 <div id="questScreen">
   <div class="quest-device">
     <h2>📜 Журнал квестов</h2>
-    <div class="quest-sub">Выполняй задания NPC и получай награды!</div>
+    <div class="quest-sub">Выполняй задания Nhealer и получай награды!</div>
     <div class="quest-list" id="questList"></div>
     <button class="mpd-close" onclick="closeQuestScreen()">Закрыть ✕</button>
   </div>
@@ -1011,7 +1812,7 @@ function showMenuButtons() {
 
 
 function closeAllScreens() {
-  document.getElementById('Magicdex').classList.remove('active');
+  document.getElementById('Bestiary').classList.remove('active');
   document.getElementById('teamScreen').classList.remove('active');
   document.getElementById('myFantasyDetail').classList.remove('active');
   document.getElementById('HealerHutScreen').classList.remove('active');
@@ -1035,7 +1836,7 @@ forest:{name:"Темный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:
 water:{name:"Море Сирен",color:"#38bdf8",bg:"rgba(30,91,138,0.6)",type:"nature"},
 mountain:{name:"Гора Звезд",color:"#a8a29e",bg:"rgba(90,90,90,0.6)",type:"nature"},
 desert:{name:"Пески Забвения",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",type:"nature"},
-cave:{name:"Пещера Душ Душ",color:"#7c3aed",bg:"rgba(40,20,60,0.7)",type:"nature"},
+cave:{name:"Пещера Душ",color:"#7c3aed",bg:"rgba(40,20,60,0.7)",type:"nature"},
 route:{name:"Тропа Странников",color:"#a3e635",bg:"rgba(120,160,80,0.4)",type:"nature"},
 volcano:{name:"Остров Хэдрон",color:"#ef4444",bg:"rgba(120,40,20,0.5)",type:"nature"},
 
@@ -1141,7 +1942,7 @@ window.addEventListener('keydown', e => {
 
   // Если открыто какое-то модальное окно — пусть работает старый обработчик
   const anyModalOpen =
-    document.querySelector('#Magicdex.active') ||
+    document.querySelector('#Bestiary.active') ||
     document.querySelector('#teamScreen.active') ||
     document.querySelector('#myFantasyDetail.active') ||
     document.querySelector('#HealerHutScreen.active') ||
@@ -1259,9 +2060,9 @@ const Fantasy_DATA=[
 {id:1135,name:"Огненная Кицунэ",types:["Огненный","Фея"],rarity:"rare",habitats:["volcano","selax"],desc:"Девятихвостая лиса, чьё пламя — иллюзия.",height:1.2,weight:28,category:"Кицунэ",stats:{hp:65,attack:65,defense:60,spAtk:110,spDef:90,speed:95},shape:"fire_kitsune"},
 
 // ===== ВОЛШЕБНЫЕ СУЩЕСТВА =====
-{id:1063,name:"Дух-Телепат",types:["Психический"],rarity:"uncommon",habitats:["fattolodor","cave","sid"],desc:"Полупрозрачный дух, читает мысли и телепортируется.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
-{id:1065,name:"Архимаг-Дух",types:["Психический","Фея"],rarity:"epic",habitats:["fattolodor","cave"],desc:"Дух великого мага, его знания безграничны.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
-{id:1147,name:"Дракончик-Змей",types:["Дракон"],rarity:"rare",habitats:["water","cave"],desc:"Молодой морской дракон, живёт у водопадов.",height:1.5,weight:4,category:"Змей",stats:{hp:45,attack:65,defense:45,spAtk:55,spDef:50,spSpeed:50},shape:"dragon_snake",evolvesTo:1148,evolveLevel:30},
+{id:1063,name:"Ревенант",types:["Психический"],rarity:"uncommon",habitats:["fattolodor","cave","sid"],desc:"Полупрозрачный дух, читает мысли и телепортируется.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
+{id:1065,name:"Ревенант-архимаг",types:["Психический","Фея"],rarity:"epic",habitats:["fattolodor","cave"],desc:"Дух великого мага, его знания безграничны.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
+{id:1147,name:"Дракончик-Змей",types:["Дракон"],rarity:"rare",habitats:["water","cave"],desc:"Молодой морской дракон, живёт у водопадов.",height:1.5,weight:4,category:"Змей",stats:{hp:45,attack:65,defense:45,spAtk:55,spDef:50,speed:50},shape:"dragon_snake",evolvesTo:1148,evolveLevel:30},
 {id:1148,name:"Небесный Змей",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","pole_magii"],desc:"Взрослый дракон, летает среди облаков.",height:3.5,weight:150,category:"Змей",stats:{hp:75,attack:95,defense:70,spAtk:80,spDef:75,speed:75},shape:"sky_serpent"},
 
 // ===== КУЛЬТОВЫЕ / РЕДКИЕ =====
@@ -1383,7 +2184,7 @@ const LEARNSETS={
 1019:[{level:1,move:"Царапка когтем"},{level:3,move:"Внезапный выпад"},{level:7,move:"Укус тьмы"},{level:11,move:"Клык зверя"},{level:15,move:"Контрудар"},{level:19,move:"Сокрушение"}],
 
 // --- Вампиры ---
-1041:[{level:1,move:"Высасывание жизни"},{level:5,move:"Укус тьмы"},{level:9,move:"Удар крылом"},{level:13,move:"Ядовитыйовитый клык"},{level:17,move:"Поцелуй сирены"},{level:21,move:"Шар тьмы"}],
+1041:[{level:1,move:"Высасывание жизни"},{level:5,move:"Укус тьмы"},{level:9,move:"Удар крылом"},{level:13,move:"Отравленный клык"},{level:17,move:"Поцелуй сирены"},{level:21,move:"Шар тьмы"}],
 
 // --- Големы ---
 1074:[{level:1,move:"Каменный шип"},{level:5,move:"Удар кулаком"},{level:10,move:"Обвал"},{level:15,move:"Землетрясение"},{level:20,move:"Тройной удар"},{level:25,move:"Взрыв маны"}],
@@ -1401,7 +2202,7 @@ const LEARNSETS={
 // --- Рири ---
 1054:[{level:1,move:"Водяной шип"},{level:4,move:"Смятение"},{level:9,move:"Поток воды"},{level:14,move:"Взрыв разума"},{level:19,move:"Гидроудар"},{level:24,move:"Природное восстановление"}],
 
-// --- Дух-Телепат ---
+// --- Ревенант ---
 1063:[{level:1,move:"Смятение"},{level:8,move:"Луч разума"},{level:12,move:"Взрыв разума"},{level:16,move:"Шар тьмы"},{level:20,move:"Магический сон"},{level:24,move:"Магическое отражение"}],
 1065:[{level:1,move:"Взрыв разума"},{level:1,move:"Шар тьмы"},{level:1,move:"Магический сон"},{level:1,move:"Магическое отражение"}],
 
@@ -1538,7 +2339,7 @@ const FULL_MOVES={
 // Расширенные атаки с эффектами
 Object.assign(FULL_MOVES, {
   // --- Статусные атаки ---
-  "Ядовитыйовитая пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель"},
+  "Отравленная пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель"},
   "Огненный вихрь":{type:"Огненный",power:35,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь"},
   "Молния":{type:"Электрик",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать"},
   "Магический сон":{type:"Психический",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель"},
@@ -1586,7 +2387,7 @@ Object.assign(FULL_MOVES, {
 
   // --- Урон от статусов ---
   "Отравленный шип":{type:"Ядовитый",power:15,cat:"physical",effect:"toxic",chance:0.5,desc:"Сильно отравляет"},
-  "Ядовитыйовитый клык":{type:"Ядовитый",power:50,cat:"physical",effect:"poison",chance:0.4,desc:"Может отравить"},
+  "Отравленный клык":{type:"Ядовитый",power:50,cat:"physical",effect:"poison",chance:0.4,desc:"Может отравить"},
 
   // --- Исцеляющие ---
   "Природное восстановление":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP"},
@@ -1652,7 +2453,7 @@ Object.assign(FULL_MOVES, {
 // Расширенные атаки с эффектами
 Object.assign(FULL_MOVES, {
   // --- Статусные атаки ---
-  "Ядовитыйовитая пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель"},
+  "Отравленная пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель"},
   "Огненный вихрь":{type:"Огненный",power:35,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь"},
   "Разряд молнии":{type:"Электрик",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать"},
   "Гипноз":{type:"Психический",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель"},
@@ -4064,7 +4865,7 @@ fire_kitsune:`<svg viewBox="0 0 64 64">
   <path d="M27 32 Q30 34 33 32" stroke="#7c2d12" stroke-width="1.1" fill="none" stroke-linecap="round"/>
 </svg>`,
 
-/* ===================== ДУХ-ТЕЛЕПАТ ===================== */
+/* ===================== Ревенант ===================== */
 telepath_spirit:`<svg viewBox="0 0 64 64">
   <!-- Аура -->
   <ellipse cx="32" cy="34" rx="22" ry="20" fill="#a855f7" opacity="0.25"/>
@@ -4095,7 +4896,7 @@ telepath_spirit:`<svg viewBox="0 0 64 64">
   <circle cx="50" cy="46" r="1" fill="#e9d5ff" opacity="0.7"/>
 </svg>`,
 
-/* ===================== АРХИМАГ-ДУХ ===================== */
+/* ===================== Ревенант-архимаг ===================== */
 archmage_spirit:`<svg viewBox="0 0 64 64">
   <!-- Сияющая аура -->
   <ellipse cx="32" cy="34" rx="26" ry="22" fill="#7c3aed" opacity="0.2"/>
@@ -4499,7 +5300,7 @@ function isUndead(pkOrData){
   return Array.isArray(types) && types.includes('Нежить');
 }
 
-// Возвращает HTML-бейдж, если монстр — нежить
+// Возвращает HTML-бейдж, если существо — нежить
 function undeadBadge(pkOrData){
   return isUndead(pkOrData) ? '<span class="undead-mark">Нежить</span>' : '';
 }
@@ -4604,162 +5405,249 @@ zyffren:{
 };
 
 const TRAINER_TEMPLATES=[
-{name:"Юный тренер",team:[{id:16,level:5},{id:19,level:6}],reward:300},
-{name:"Ловец жуков",team:[{id:10,level:6},{id:13,level:6},{id:10,level:7}],reward:400},
-{name:"Птицелов",team:[{id:16,level:8},{id:16,level:9}],reward:500},
-{name:"Рыбак",team:[{id:129,level:10},{id:54,level:11}],reward:600},
-{name:"Пещерный житель",team:[{id:41,level:12},{id:74,level:13}],reward:800},
-{name:"Психический",team:[{id:63,level:14},{id:92,level:15}],reward:1000}
-];
-
-// ===================== КВЕСТЫ =====================
+{name:"Юный тренер",team:[{id:1016,level:5},{id:1019,level:6}],reward:300},
+{name:"Ловец грибов",team:[{id:1010,level:6},{id:1013,level:6},{id:1010,level:7}],reward:400},
+{name:"Птицелов",team:[{id:1016,level:8},{id:1017,level:9}],reward:500},
+{name:"Рыбак",team:[{id:1129,level:10},{id:1054,level:11}],reward:600},
+{name:"Пещерный житель",team:[{id:1041,level:12},{id:1074,level:13}],reward:800},
+{name:"Психический",team:[{id:1063,level:14},{id:1092,level:15}],reward:1000}
+];// ===================== КВЕСТЫ (ПОЛНОСТЬЮ ФЭНТЕЗИЙНЫЕ) =====================
 const QUEST_DEFS=[
-// --- Город Сид ---
-{id:"q_catch3",biome:"sid",npc:"Архимаг",npcPos:{x:550,y:1660},
-  title:"Первые шаги",desc:"Поймай 1 монстра",
-  type:"catch",target:1,reward:{money:500,items:{Magicball:5}},dialogue:"Привет, юный искатель приключений! Помоги моим колдовским исследованиям — поймай 1 монстра."},
-{id:"q_defeat_pallet5",biome:"sid",npc:"Ведьма",npcPos:{x:650,y:1600},
-  title:"Спаси ведьму",desc:"Победи 2 диких монстров, чтобы стать сильнее.",
-  type:"defeat",target:2,reward:{money:300,items:{potion:3}},dialogue:"Здравствуй... искатель приключений. Я в засаде. Расчисти мне дорогу, чтобы я могла продолжить путь."},
+// ========== ГОРОД СИД (стартовый) ==========
+{id:"q_first_hunt",biome:"sid",nhealer:"Старейшина Орн",nhealerPos:{x:550,y:1660},
+  title:"Первая охота",desc:"Победи 2 существ на окраинах Сида, чтобы доказать свою готовность.",target:2,
+  type:"defeat",reward:{money:400,items:{Magicball:5}},
+  dialogue:"Юный искатель... Город Сид окружён тёмными тварями. Докажи, что ты не трус — победи двух существ на окраинах."},
 
-// --- Город Зиффрен ---
-{id:"q_defeat_viridian8",biome:	"zyffren",npc:"Архимаг",npcPos:{x:520,y:1060},
-  title:"Тренировка в городе",desc:"Победи 3 монстров в Город Зиффрен.",
-  type:"defeat",target:3,reward:{money:800,items:{superball:3}},dialogue:"Эй, новичок! Хочешь стать сильнее? Победи 3 монстров здесь!"},
-{id:"q_catch_pidgey",biome:	"zyffren",npc:"Дворф Руд",npcPos:{x:750,y:1100},
-  title:"Птичья коллекция",desc:"Поймай Пиджи или Ратату.",
-  type:"catch_specific",targetIds:[16,19],target:1,reward:{money:600,items:{Magicball:5}},dialogue:"Я собираю птиц и мышей! Принеси мне Пиджи или Ратату — и получишь награду."},
+{id:"q_first_catch",biome:"sid",nhealer:"Ловчий Кейр",nhealerPos:{x:650,y:1600},
+  title:"Первый трофей",desc:"Поймай 1 существо, чтобы пополнить свой бестиарий.",target:1,
+  type:"catch",reward:{money:300,items:{potion:3}},
+  dialogue:"Каждый великий охотник начинал с первого трофея. Поймай существо — и я научу тебя большему."},
 
-// --- Маршрут ---
-{id:"q_defeat_route10",biome:"route",npc:"Рейнджер Маршрута",npcPos:{x:900,y:1450},
-  title:"Очистка маршрута",desc:"Победи 5 монстров на маршрутах.",
-  type:"defeat",target:5,reward:{money:1000,items:{superpotion:2}},dialogue:"Маршруты кишат дикими монстрами! Помоги очистить их — победи 5."},
-{id:"q_level_team",biome:"route",npc:"Тренер-ветеран",npcPos:{x:1200,y:1000},
-  title:"Сильная команда",desc:"Доведи любого монстра до 10 уровня.",
-  type:"level",target:10,reward:{money:1200,items:{revive:1}},dialogue:"Настоящий тренер должен иметь сильного монстра! Доведи кого-нибудь до 10 уровня."},
+{id:"q_smith_ingredients",biome:"sid",nhealer:"Кузнец Торин",nhealerPos:{x:600,y:1580},
+  title:"Ингредиенты для рун",desc:"Победи 3 существ — их кости нужны мне для рун.",target:3,
+  type:"defeat",reward:{money:600,items:{superball:2}},
+  dialogue:"Мне нужны кости тварей для рунных клинков. Победи трёх — и я щедро заплачу."},
 
-// --- Темный Лес ---
-{id:"q_catch_caterpie",biome:"forest",npc:"Ловец жуков",npcPos:{x:500,y:1250},
-  title:"Жучий инстинкт",desc:"Поймай Катерпи или Видла.",
-  type:"catch_specific",targetIds:[10,13],target:1,reward:{money:700,items:{Magicball:8}},dialogue:"Жуки — моя страсть! Принеси мне Катерпи или Видла!"},
-{id:"q_defeat_forest12",biome:"forest",npc:"Лесник",npcPos:{x:800,y:1400},
-  title:"Защита леса",desc:"Победи 12 монстров в лесу.",
-  type:"defeat",target:12,reward:{money:1500,items:{superball:5}},dialogue:"Дикие монстры распоясались! Победи 12 из них в лесу."},
-{id:"q_catch_pikachu",biome:"forest",npc:"Электрик-фанат",npcPos:{x:650,y:1500},
-  title:"Охота на Пикачу",desc:"Поймай Пикачу!",
-  type:"catch_specific",targetIds:[25],target:1,reward:{money:2000,items:{ultraball:2}},dialogue:"Пикачу — мечта коллекционера! Поймай его — и получишь щедрую награду."},
+// ========== ГОРОД ЗИФФРЕН ==========
+{id:"q_goblin_thieves",biome:"zyffren",nhealer:"Стражник Гром",nhealerPos:{x:520,y:1060},
+  title:"Гоблинские воры",desc:"Победи 4 существ — гоблины обнаглели и грабят караваны.",target:4,
+  type:"defeat",reward:{money:900,items:{Magicball:8}},
+  dialogue:"Гоблины-воры совсем распоясались! Помоги страже — победи четырёх тварей возле города."},
 
-// --- Магократия Харадат ---
-{id:"q_defeat_pewter15",biome:"haradat",npc:"Скалолаз",npcPos:{x:550,y:400},
-  title:"Каменная твёрдость",desc:"Победи 15 монстров.",
-  type:"defeat",target:15,reward:{money:2000,items:{superpotion:3}},dialogue:"Каменный — это сила! Победи 15 монстров, чтобы доказать свою твёрдость."},
-{id:"q_catch_geodude",biome:"haradat",npc:"Коллекционер камней",npcPos:{x:700,y:450},
-  title:"Каменная коллекция",desc:"Поймай Геодуда.",
-  type:"catch_specific",targetIds:[74],target:1,reward:{money:1800,items:{superball:5}},dialogue:"Геодуд — прекрасный образец! Поймай его для моей коллекции."},
+{id:"q_wolf_pack",biome:"zyffren",nhealer:"Охотница Ильва",nhealerPos:{x:750,y:1100},
+  title:"Волчья стая",desc:"Поймай Гоблина-Вора — его выводок терроризирует фермеров.",target:1,
+  type:"catch_specific",targetIds:[1019],reward:{money:800,items:{superball:3}},
+  dialogue:"Один хитрый гоблин ворует у фермеров всю скотину. Поймай его — и деревня вздохнёт спокойно."},
 
-// --- Гора Звезд ---
-{id:"q_defeat_mountain18",biome:"mountain",npc:"Альпинист",npcPos:{x:450,y:500},
-  title:"Покоритель гор",desc:"Победи 18 монстров в горах.",
-  type:"defeat",target:18,reward:{money:2500,items:{revive:1}},dialogue:"Гора Звезд — суровое место! Победи 18 монстров здесь."},
-{id:"q_level_team15",biome:"mountain",npc:"Мастер тренировок",npcPos:{x:600,y:600},
-  title:"Путь мастера",desc:"Доведи любого монстра до 15 уровня.",
-  type:"level",target:15,reward:{money:3000,items:{superpotion:5}},dialogue:"Хочешь стать мастером? Доведи монстра до 15 уровня!"},
+{id:"q_first_seal_hint",biome:"zyffren",nhealer:"Мудрец Кайлен",nhealerPos:{x:650,y:1120},
+  title:"Шёпот Печатей",desc:"Доведи любого существо до 8 уровня, чтобы почувствовать силу Печатей.",target:8,
+  type:"level",reward:{money:700,items:{potion:5}},
+  dialogue:"Печати Душ открываются лишь достойным. Прокачай своего спутника до 8 уровня — я вижу в тебе искру."},
 
-// --- Город Гоч ---
-{id:"q_defeat_cerulean20",biome:"goch",npc:"Пловец",npcPos:{x:1650,y:350},
-  title:"Водные тренировки",desc:"Победи 20 монстров.",
-  type:"defeat",target:20,reward:{money:3000,items:{ultraball:2}},dialogue:"Водный — стихия силы! Победи 20 монстров."},
-{id:"q_catch_psyduck",biome:"goch",npc:"Рыбак",npcPos:{x:1800,y:400},
-  title:"Утиная охота",desc:"Поймай Псайдака.",
-  type:"catch_specific",targetIds:[54],target:1,reward:{money:2200,items:{superball:5}},dialogue:"Псайдак — забавный монстр! Поймай его для меня."},
+// ========== ТРОПА СТРАННИКОВ ==========
+{id:"q_road_cleanup",biome:"route",nhealer:"Рейнджер Дариэль",nhealerPos:{x:900,y:1450},
+  title:"Зачистка тракта",desc:"Победи 6 существ — торговый путь должен быть безопасен.",target:6,
+  type:"defeat",reward:{money:1200,items:{superpotion:2}},
+  dialogue:"Торговый тракт кишит тварями. Победи шестерых — и купцы снова смогут ходить с миром."},
 
-// --- Город Оландир ---
-{id:"q_defeat_vermilion25",biome:"olandir",npc:"Электрик-тренер",npcPos:{x:1850,y:1450},
-  title:"Электрик шторм",desc:"Победи 25 монстров.",
-  type:"defeat",target:25,reward:{money:4000,items:{ultraball:3}},dialogue:"Электричество — моя страсть! Победи 25 монстров."},
-{id:"q_level_team20",biome:"olandir",npc:"Опытный тренер",npcPos:{x:2000,y:1500},
-  title:"Опытный боец",desc:"Доведи любого монстра до 20 уровня.",
-  type:"level",target:20,reward:{money:5000,items:{revive:2}},dialogue:"20 уровень — это серьёзно! Докажи, что ты можешь."},
+{id:"q_rat_lord",biome:"route",nhealer:"Путник Ллевин",nhealerPos:{x:1200,y:1000},
+  title:"Крысиный владыка",desc:"Поймай Ламхи-Когтя — он терроризирует путников.",target:1,
+  type:"catch_specific",targetIds:[1171],reward:{money:1500,items:{superball:5}},
+  dialogue:"Меня ограбил крысолюд-воин! Поймай его — и я отдам тебе всё, что у меня осталось."},
 
-// --- Магократия Селакс ---
-{id:"q_defeat_celadon30",biome:"selax",npc:"Модница",npcPos:{x:1450,y:950},
-  title:"Стильные битвы",desc:"Победи 30 монстров.",
-  type:"defeat",target:30,reward:{money:5000,items:{ultraball:5}},dialogue:"Стиль — во всём! Победи 30 монстров стильно!"},
-{id:"q_catch_eevee",biome:"selax",npc:"Эволюционный эксперт",npcPos:{x:1600,y:1000},
-  title:"Загадка Иви",desc:"Поймай Иви.",
-  type:"catch_specific",targetIds:[133],target:1,reward:{money:4000,items:{superpotion:5}},dialogue:"Иви — загадка эволюции! Поймай его для меня."},
+// ========== ТЁМНЫЙ ЛЕС ==========
+{id:"q_mushroom_menace",biome:"forest",nhealer:"Травница Мирра",nhealerPos:{x:500,y:1250},
+  title:"Грибная напасть",desc:"Победи 8 существ — грибы-микониды отравили колодцы.",target:8,
+  type:"defeat",reward:{money:1500,items:{Magicball:10}},
+  dialogue:"Микониды отравили наши колодцы! Победи восьмерых — и я сварю тебе целебный эликсир."},
 
-// --- Город Фаттолодор ---
-{id:"q_defeat_saffron35",biome:"fattolodor",npc:"Психический",npcPos:{x:1950,y:600},
-  title:"Сила разума",desc:"Победи 35 монстров.",
-  type:"defeat",target:35,reward:{money:6000,items:{ultraball:5}},dialogue:"Разум сильнее тела! Победи 35 монстров."},
-{id:"q_catch_abra",biome:"fattolodor",npc:"Телепат",npcPos:{x:2100,y:650},
-  title:"Телепортация",desc:"Поймай Абру.",
-  type:"catch_specific",targetIds:[63],target:1,reward:{money:5000,items:{revive:2}},dialogue:"Абра телепортируется! Поймай его, если сможешь."},
+{id:"q_treant_awakening",biome:"forest",nhealer:"Друид Элронд",nhealerPos:{x:800,y:1400},
+  title:"Пробуждение Древня",desc:"Поймай Плюща — его семена пробудят Древня-Стража.",target:1,
+  type:"catch_specific",targetIds:[1013],reward:{money:1800,items:{superball:5}},
+  dialogue:"Древень-Страж спит уже сто лет. Принеси мне семена Плюща — и я разбужу его."},
 
-// --- Город Тотсар ---
-{id:"q_defeat_lavender40",biome:"totsar",npc:"Экзорцист",npcPos:{x:2250,y:1050},
-  title:"Изгнание духов",desc:"Победи 40 монстров.",
-  type:"defeat",target:40,reward:{money:7000,items:{ultraball:5}},dialogue:"Призраки повсюду! Победи 40 монстров, чтобы их изгнать."},
-{id:"q_catch_gastly",biome:"totsar",npc:"Охотник за призраками",npcPos:{x:2400,y:1100},
-  title:"Призрачная охота",desc:"Поймай Гастли.",
-  type:"catch_specific",targetIds:[92],target:1,reward:{money:6000,items:{superpotion:5}},dialogue:"Гастли — elusive! Поймай его для меня."},
+{id:"q_harpy_eggs",biome:"forest",nhealer:"Птицелов Гарен",nhealerPos:{x:650,y:1500},
+  title:"Гарпийи яйца",desc:"Поймай Гарпию-Птенца — её выводок нужен мне для исследований.",target:1,
+  type:"catch_specific",targetIds:[1016],reward:{money:2200,items:{ultraball:2}},
+  dialogue:"Гарпии откладывают яйца раз в век! Поймай птенца — я щедро награжу."},
 
-// --- Пещера Душ ---
-{id:"q_defeat_cave45",biome:"cave",npc:"Спелеолог",npcPos:{x:1300,y:300},
-  title:"Глубины пещер",desc:"Победи 45 монстров.",
-  type:"defeat",target:45,reward:{money:8000,items:{ultraball:5}},dialogue:"Пещеры полны тайн! Победи 45 монстров."},
-{id:"q_catch_zubat",biome:"cave",npc:"Исследователь",npcPos:{x:1500,y:400},
-  title:"Летучие мыши",desc:"Поймай Зубата.",
-  type:"catch_specific",targetIds:[41],target:1,reward:{money:4000,items:{superball:5}},dialogue:"Зубаты живут в темноте! Поймай одного."},
+// ========== МАГОКРАТИЯ ХАРАДАТ ==========
+{id:"q_golem_souls",biome:"haradat",nhealer:"Магистр Вейлон",nhealerPos:{x:550,y:400},
+  title:"Души големов",desc:"Победи 10 существ — осколки их душ питают наших големов.",target:10,
+  type:"defeat",reward:{money:2200,items:{superpotion:3}},
+  dialogue:"Наши големы питаются осколками душ. Победи десятерых — и магия Харадата не угаснет."},
 
-// --- Город Уурион ---
-{id:"q_defeat_fuchsia50",biome:"uurion",npc:"Сафари-гид",npcPos:{x:2650,y:1500},
-  title:"Сафари-марафон",desc:"Победи 50 монстров.",
-  type:"defeat",target:50,reward:{money:10000,items:{ultraball:5}},dialogue:"Сафари — это испытание! Победи 50 монстров."},
-{id:"q_catch_dratini",biome:"uurion",npc:"Дракон-фанат",npcPos:{x:2800,y:1550},
-  title:"Драконья мечта",desc:"Поймай Дратини.",
-  type:"catch_specific",targetIds:[147],target:1,reward:{money:8000,items:{revive:3}},dialogue:"Дратини — будущий дракон! Поймай его для меня."},
+{id:"q_stone_collector",biome:"haradat",nhealer:"Коллекционер Бран",nhealerPos:{x:700,y:450},
+  title:"Живой камень",desc:"Поймай Каменного Голема — мне нужен образец.",target:1,
+  type:"catch_specific",targetIds:[1074],reward:{money:2000,items:{superball:5}},
+  dialogue:"Каменный Голем — редчайший экземпляр! Поймай его для моей коллекции — заплачу щедро."},
 
-// --- Пески Забвения ---
-{id:"q_defeat_desert55",biome:"desert",npc:"Пустынный рейнджер",npcPos:{x:2300,y:1400},
-  title:"Песчаная буря",desc:"Победи 55 монстров.",
-  type:"defeat",target:55,reward:{money:12000,items:{ultraball:5}},dialogue:"Пустыня жестока! Победи 55 монстров."},
-{id:"q_level_team30",biome:"desert",npc:"Мастер пустыни",npcPos:{x:2500,y:1450},
-  title:"30 уровень",desc:"Доведи любого монстра до 30 уровня.",
-  type:"level",target:30,reward:{money:15000,items:{revive:3}},dialogue:"30 уровень — это элита! Докажи свою силу."},
+{id:"q_first_master_stone",biome:"haradat",nhealer:"Ученик Торвальда",nhealerPos:{x:650,y:500},
+  title:"Путь к Печати Камня",desc:"Доведи любого существо до 12 уровня — Мастер Душ Камня ждёт сильных.",target:12,
+  type:"level",reward:{money:2500,items:{superpotion:5}},
+  dialogue:"Мой учитель Торвальд принимает только сильных. Доведи спутника до 12 уровня — и он тебя заметит."},
 
-// --- Остров Шёпота ---
-{id:"q_defeat_cinnabar60",biome:"gozon",npc:"Вулканолог",npcPos:{x:2250,y:1850},
-  title:"Огненное испытание",desc:"Победи 60 монстров.",
-  type:"defeat",target:60,reward:{money:15000,items:{ultraball:5}},dialogue:"Вулкан кипит! Победи 60 монстров."},
-{id:"q_catch_lapras",biome:"gozon",npc:"Морской капитан",npcPos:{x:2400,y:1900},
-  title:"Лапрас-легенда",desc:"Поймай Лапраса.",
-  type:"catch_specific",targetIds:[131],target:1,reward:{money:10000,items:{revive:3}},dialogue:"Лапрас — редкость! Поймай его для меня."},
+// ========== ГОРА ЗВЕЗД ==========
+{id:"q_mountain_climb",biome:"mountain",nhealer:"Альпинист Бьорн",nhealerPos:{x:450,y:500},
+  title:"Восхождение",desc:"Победи 12 существ — гора не терпит слабых.",target:12,
+  type:"defeat",reward:{money:2800,items:{revive:1}},
+  dialogue:"Гора Звёзд убивает слабых. Победи двенадцать существ — и я поверю, что ты достоин вершины."},
 
-// --- Остров Хэдрон ---
-{id:"q_defeat_volcano70",biome:"volcano",npc:"Огненный мастер",npcPos:{x:2000,y:1700},
-  title:"Пламенный путь",desc:"Победи 70 монстров.",
-  type:"defeat",target:70,reward:{money:20000,items:{ultraball:5}},dialogue:"Огненный — моя жизнь! Победи 70 монстров."},
-{id:"q_catch_charizard",biome:"volcano",npc:"Коллекционер легенд",npcPos:{x:2150,y:1750},
-  title:"Чаризард!",desc:"Поймай Чаризарда.",
-  type:"catch_specific",targetIds:[6],target:1,reward:{money:25000,items:{revive:5}},dialogue:"Чаризард — мечта! Поймай его для меня."},
+{id:"q_star_crystal",biome:"mountain",nhealer:"Звездочёт Лун",nhealerPos:{x:600,y:600},
+  title:"Осколок звезды",desc:"Поймай Каменного Бойца — в его теле осколок звезды.",target:1,
+  type:"catch_specific",targetIds:[1068],reward:{money:3500,items:{ultraball:3}},
+  dialogue:"В теле Каменного Бойца бьётся осколок упавшей звезды. Поймай его — и я заплачу как за легенду."},
 
-// --- Поле Магии ---
-{id:"q_defeat_indigo80",biome:"pole_magii",npc:"Чемпион",npcPos:{x:200,y:150},
-  title:"Путь чемпиона",desc:"Победи 80 монстров.",
-  type:"defeat",target:80,reward:{money:30000,items:{ultraball:5}},dialogue:"Я — чемпион! Победи 80 монстров, и я признаю тебя."},
-{id:"q_catch_legendary",biome:"pole_magii",npc:"Хранитель легенд",npcPos:{x:350,y:200},
-  title:"Легендарная охота",desc:"Поймай любого легендарного монстра.",
-  type:"catch_rarity",targetRarity:"legendary",target:1,reward:{money:50000,items:{revive:5}},dialogue:"Легенды существуют! Поймай одну из них."}
+// ========== ГОРОД ГОЧ ==========
+{id:"q_siren_song",biome:"goch",nhealer:"Бард Аэлин",nhealerPos:{x:1650,y:350},
+  title:"Песнь Сирен",desc:"Победи 15 существ — песни сирен заманивают моряков.",target:15,
+  type:"defeat",reward:{money:3200,items:{ultraball:2}},
+  dialogue:"Песни сирен топят корабли! Победи пятнадцать морских тварей — я сложу о тебе балладу."},
+
+{id:"q_lost_seahorse",biome:"goch",nhealer:"Рыбак Тобиас",nhealerPos:{x:1800,y:400},
+  title:"Потерянный конёк",desc:"Поймай Морского Конька-Малыша — мой сын потерял его.",target:1,
+  type:"catch_specific",targetIds:[1129],reward:{money:2500,items:{superball:8}},
+  dialogue:"Мой сын потерял своего конька! Поймай нового малыша — и я озолочу тебя."},
+
+// ========== ГОРОД ОЛАНДИР ==========
+{id:"q_storm_trials",biome:"olandir",nhealer:"Громовержец Зарр",nhealerPos:{x:1850,y:1450},
+  title:"Испытание Грозы",desc:"Победи 18 существ — молния выбирает сильных.",target:18,
+  type:"defeat",reward:{money:4200,items:{ultraball:3}},
+  dialogue:"Молния бьёт только в сильных! Победи восемнадцать — и я дам тебе своё благословение."},
+
+{id:"q_leprechaun_gold",biome:"olandir",nhealer:"Купец О'Брайен",nhealerPos:{x:2000,y:1500},
+  title:"Золото Лепрекона",desc:"Доведи любое существо до 18 уровня — лепреконы торгуют только с мастерами.",target:18,
+  type:"level",reward:{money:5000,items:{revive:2}},
+  dialogue:"Лепреконы торгуют только с настоящими мастерами. Прокачай спутника до 18 уровня — и мы заключим сделку."},
+
+// ========== МАГОКРАТИЯ СЕЛАКС ==========
+{id:"q_forest_guardians",biome:"selax",nhealer:"Дриада Элирия",nhealerPos:{x:1450,y:950},
+  title:"Хранители рощи",desc:"Победи 22 существа — роща стонет от тварей.",target:22,
+  type:"defeat",reward:{money:5200,items:{ultraball:5}},
+  dialogue:"Моя роща стонет от диких тварей! Победи двадцать два — и лес благословит тебя."},
+
+{id:"q_fox_spirit",biome:"selax",nhealer:"Духовед Сайра",nhealerPos:{x:1600,y:1000},
+  title:"Дух-Лисичка",desc:"Поймай Духа-Лисичку — он хранит тайны эволюции.",target:1,
+  type:"catch_specific",targetIds:[1133],reward:{money:4500,items:{superpotion:8}},
+  dialogue:"Дух-Лисичка может эволюционировать в любую стихию! Поймай его — и я раскрою тебе древний ритуал."},
+
+// ========== ГОРОД ФАТТОЛОДОР ==========
+{id:"q_mind_flayer",biome:"fattolodor",nhealer:"Архимаг Сабирель",nhealerPos:{x:1950,y:600},
+  title:"Пожиратели разума",desc:"Победи 26 существ — телепаты атакуют наш город.",target:26,
+  type:"defeat",reward:{money:6200,items:{ultraball:5}},
+  dialogue:"Пожиратели разума атакуют наш город! Победи двадцать шесть — и я открою тебе тайную магию."},
+
+{id:"q_telepath_amulet",biome:"fattolodor",nhealer:"Телепат Миран",nhealerPos:{x:2100,y:650},
+  title:"Амулет Телепата",desc:"Поймай Духа-Телепата — его амулет усилит твою команду.",target:1,
+  type:"catch_specific",targetIds:[1063],reward:{money:5500,items:{revive:2}},
+  dialogue:"Амулет Духа-Телепата усиливает разум. Поймай его — и твоя команда станет непобедимой."},
+
+// ========== ГОРОД ТОТСАР ==========
+{id:"q_ghost_purge",biome:"totsar",nhealer:"Экзорцист Когар",nhealerPos:{x:2250,y:1050},
+  title:"Изгнание духов",desc:"Победи 30 существ — город проклят.",target:30,
+  type:"defeat",reward:{money:7200,items:{ultraball:5}},
+  dialogue:"Город Тотсар проклят! Призраки выходят из стен по ночам. Победи тридцать тварей — и я проведу обряд."},
+
+{id:"q_banshee_hunt",biome:"totsar",nhealer:"Охотница Вельда",nhealerPos:{x:2400,y:1100},
+  title:"Плач Банши",desc:"Поймай Банши — её слёзы — редчайший алхимический ингредиент.",target:1,
+  type:"catch_specific",targetIds:[1092],reward:{money:6500,items:{superpotion:8}},
+  dialogue:"Слёзы Банши стоят дороже золота! Поймай её для меня — и я сделаю тебя богачом."},
+
+// ========== ПЕЩЕРА ДУШ ==========
+{id:"q_dark_depths",biome:"cave",nhealer:"Спелеолог Дюран",nhealerPos:{x:1300,y:300},
+  title:"Тёмные глубины",desc:"Победи 35 существ — в пещере пробудилось древнее зло.",target:35,
+  type:"defeat",reward:{money:8500,items:{ultraball:5}},
+  dialogue:"В глубинах Пещеры Душ пробудилось древнее зло! Победи тридцать пять — и я расскажу тебе тайну."},
+
+{id:"q_vampire_nest",biome:"cave",nhealer:"Исследователь Грим",nhealerPos:{x:1500,y:400},
+  title:"Гнездо Вампи",desc:"Поймай Вампи — их гнездо у входа в бездну.",target:1,
+  type:"catch_specific",targetIds:[1041],reward:{money:4200,items:{superball:8}},
+  dialogue:"Вампи высасывают кровь спящих! Поймай одного — и я найду их гнездо."},
+
+// ========== ГОРОД УУРИОН ==========
+{id:"q_safari_master",biome:"uurion",nhealer:"Сафари-гид Хан",nhealerPos:{x:2650,y:1500},
+  title:"Мастер Сафари",desc:"Победи 40 существ — только мастер получит лицензию.",target:40,
+  type:"defeat",reward:{money:10500,items:{ultraball:5}},
+  dialogue:"Сафари — не для слабаков! Победи сорок существ — и получишь лицензию мастера."},
+
+{id:"q_dragon_egg",biome:"uurion",nhealer:"Дракон-фанат Рэй",nhealerPos:{x:2800,y:1550},
+  title:"Яйцо дракона",desc:"Поймай Дракончика-Змея — из него вырастет небесный дракон.",target:1,
+  type:"catch_specific",targetIds:[1147],reward:{money:9000,items:{revive:3}},
+  dialogue:"Дракончик-Змей — будущий повелитель небес! Поймай его — и я подарю тебе драконье яйцо."},
+
+// ========== ПЕСКИ ЗАБВЕНИЯ ==========
+{id:"q_desert_storm",biome:"desert",nhealer:"Рейнджер Кассим",nhealerPos:{x:2300,y:1400},
+  title:"Песчаная буря",desc:"Победи 45 существ — буря пробудила древние мумии.",target:45,
+  type:"defeat",reward:{money:12500,items:{ultraball:5}},
+  dialogue:"Песчаная буря пробудила древние мумии! Победи сорок пять — и пустыня успокоится."},
+
+{id:"q_pharaoh_tomb",biome:"desert",nhealer:"Археолог Нефер",nhealerPos:{x:2500,y:1450},
+  title:"Гробница Фараона",desc:"Доведи любое существо до 35 уровня — только сильные войдут в гробницу.",target:35,
+  type:"level",reward:{money:15000,items:{revive:3}},
+  dialogue:"Гробница Фараона открывается только для сильных! Прокачай спутника до 35 уровня — и войдём вместе."},
+
+// ========== ГОРОД ГОЗОН ==========
+{id:"q_volcanic_rage",biome:"gozon",nhealer:"Вулканолог Брайнер",nhealerPos:{x:2250,y:1850},
+  title:"Ярость вулкана",desc:"Победи 50 существ — вулкан вот-вот взорвётся.",target:50,
+  type:"defeat",reward:{money:15500,items:{ultraball:5}},
+  dialogue:"Вулкан вот-вот взорвётся! Победи пятьдесят тварей — и я научу тебя усмирять пламя."},
+
+{id:"q_ice_whale_song",biome:"gozon",nhealer:"Морской капитан Морган",nhealerPos:{x:2400,y:1900},
+  title:"Песнь Ледяного Кита",desc:"Поймай Ледяного Кита — его песнь успокаивает моря.",target:1,
+  type:"catch_specific",targetIds:[1131],reward:{money:11000,items:{revive:3}},
+  dialogue:"Ледяной Кит поёт песнь, что успокаивает штормы. Поймай его — и я отдам тебе свой корабль."},
+
+// ========== ОСТРОВ ХЭДРОН ==========
+{id:"q_phoenix_rising",biome:"volcano",nhealer:"Огненный мастер Игнис",nhealerPos:{x:2000,y:1700},
+  title:"Восход Феникса",desc:"Победи 60 существ — только пламя очистит остров.",target:60,
+  type:"defeat",reward:{money:20000,items:{ultraball:5}},
+  dialogue:"Огонь — это жизнь! Победи шестьдесят тварей — и пламя благословит тебя."},
+
+{id:"q_fire_phoenix_feather",biome:"volcano",nhealer:"Коллекционер легенд Ксандр",nhealerPos:{x:2150,y:1750},
+  title:"Перо Огненного Феникса",desc:"Поймай Огненного Феникса — его перо дарует бессмертие.",target:1,
+  type:"catch_specific",targetIds:[1146],reward:{money:26000,items:{revive:5}},
+  dialogue:"Перо Огненного Феникса дарует бессмертие! Поймай его — и я сделаю тебя легендой."},
+
+// ========== ПОЛЕ МАГИИ (финал) ==========
+{id:"q_champion_path",biome:"pole_magii",nhealer:"Чемпион Аркадиус",nhealerPos:{x:200,y:150},
+  title:"Путь Чемпиона",desc:"Победи 80 существ — докажи, что ты достоин трона.",target:80,
+  type:"defeat",reward:{money:35000,items:{ultraball:5}},
+  dialogue:"Я — Чемпион Аркадиус! Победи восемьдесят существ — и я лично признаю тебя равным."},
+
+{id:"q_legendary_hunt",biome:"pole_magii",nhealer:"Хранитель Легенд Аэлон",nhealerPos:{x:350,y:200},
+  title:"Легендарная охота",desc:"Поймай любое легендарное существо — стань легендой Филакта.",target:1,
+  type:"catch_rarity",targetRarity:"legendary",reward:{money:60000,items:{revive:5}},
+  dialogue:"Легенды Филакта — Тёмный Владыка, Искра-Создатель, Фениксы... Поймай одного — и твоё имя впишут в вечность."},
+
+// ========== ОСТРОВА ПОБЕЖДЁННОГО ==========
+{id:"q_lost_civilization",biome:"ostrova_pobezhdennogo",nhealer:"Мореход Сайлас",nhealerPos:{x:1300,y:1550},
+  title:"Затерянная цивилизация",desc:"Победи 45 существ — острова хранят проклятие древних.",target:45,
+  type:"defeat",reward:{money:13000,items:{ultraball:5}},
+  dialogue:"На этих островах погибла целая цивилизация! Победи сорок пять тварей — и я расскажу тебе её историю."},
+
+{id:"q_sea_dragon_pearl",biome:"ostrova_pobezhdennogo",nhealer:"Жемчужница Лиара",nhealerPos:{x:1400,y:1650},
+  title:"Жемчужина Морского Дракона",desc:"Поймай Морского Дракона — его жемчужина стоит королевство.",target:1,
+  type:"catch_specific",targetIds:[1130],reward:{money:14000,items:{revive:3}},
+  dialogue:"В сердце Морского Дракона — жемчужина, что стоит королевство! Поймай его — и мы разделим богатство."},
+
+// ========== МОРЕ СИРЕН ==========
+{id:"q_deep_sea_treasure",biome:"water",nhealer:"Капитан Немо",nhealerPos:{x:1300,y:1250},
+  title:"Сокровища глубин",desc:"Победи 20 морских существ — пираты ищут клад на дне.",target:20,
+  type:"defeat",reward:{money:6000,items:{ultraball:3}},
+  dialogue:"На дне Моря Сирен лежит клад пиратов! Победи двадцать тварей — и мы спустимся за ним."},
+
+{id:"q_siren_queen_crown",biome:"water",nhealer:"Искательница Марго",nhealerPos:{x:1400,y:1350},
+  title:"Корона Королевы Сирен",desc:"Поймай Русалку — её корона откроет путь в подводный город.",target:1,
+  type:"catch_specific",targetIds:[1007],reward:{money:5500,items:{superball:8}},
+  dialogue:"Корона Королевы Сирен открывает путь в подводный город! Поймай Русалку — и я последую за тобой."}
 ];
-
 let activeQuests={}; // id -> {progress, completed, claimed}
-let npcQuestRefs=[]; // {el, quest, pos}
+let nhealerQuestRefs=[]; // {el, quest, pos}
 
 // ===================== СОСТОЯНИЕ =====================
 let playerTeam=[];
-let activeFantasyIndex=0;
+let activeFantasyInbest=0;
 const MAX_TEAM=7;
 let playerMoney=2000;
 const HealerHut_COST_PER_HP=2;
@@ -4869,7 +5757,7 @@ function learnMovesForLevel(pk,level){
     }
   });
   if(pk.moves.length===0){
-    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрик:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Ядовитыйовитое жало",Летающий:"Порыв",Психический:"Конфузия",Жук:"Укус жука",Каменный:"Бросок камня",Призрак:"Лизание",Дракон:"Вихрь",Земляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
+    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрик:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Отравленное жало",Летающий:"Порыв",Психический:"Конфузия",Жук:"Укус жука",Каменный:"Бросок камня",Призрак:"Лизание",Дракон:"Вихрь",Земляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
     pk.moves.push({name:tm||"Захват",level:1});
   }
   if(pk.moves.length>4)pk.moves=pk.moves.slice(-4);
@@ -5143,19 +6031,22 @@ if (p.rarity === 'legendary') el.style.filter = 'drop-shadow(0 0 10px #fbbf24)';
 else if (p.rarity === 'epic') el.style.filter = 'drop-shadow(0 0 6px #a855f7)';
 else if (p.rarity === 'rare') el.style.filter = 'drop-shadow(0 0 4px #60a5fa)';
   const zoneRef = forcedZone || getZoneAtPoint(pos.x, pos.y);
-
-  el.addEventListener('click', e => {
-    e.stopPropagation();
-    startBattle(p, biome, { el, x: pos.x, y: pos.y, data: p, biome, zone: zoneRef });
-  });
+el.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!unlockedZones.has(biome)) {
+    showToast('Эта зона ещё не открыта!');
+    return;
+  }
+  startBattle(p, biome, { el, x: pos.x, y: pos.y, data: p, biome, zone: zoneRef });
+});
   el.addEventListener('contextmenu', e => {
     e.preventDefault(); e.stopPropagation();
-    openMagicdex(p);
+    openBestiary(p);
     caughtSet.add(p.id);
     updateHUD(); saveProgress();
   });
    world.appendChild(el);
-  el.style.zIndex = yToZFantasy(pos.y);
+  el.style.zInbest = yToZFantasy(pos.y);
 
   FantasysOnMap.push({ el, x: pos.x, y: pos.y, data: p, hidden: false, biome, zone: zoneRef });
 }
@@ -5215,19 +6106,19 @@ function spawnTrainers(){
     const tmpl=TRAINER_TEMPLATES[i%TRAINER_TEMPLATES.length];
     const el=document.createElement('div');
     el.className='trainer';
-   el.innerHTML = (i % 2 === 0) ? NPC_TRAINER_MALE : NPC_TRAINER_FEMALE;
+   el.innerHTML = (i % 2 === 0) ? Nhealer_TRAINER_MALE : Nhealer_TRAINER_FEMALE;
 const label = document.createElement('div');
 label.className = 'label';
 label.textContent = tmpl.name;
 label.style.left = pos.x + 'px';
 label.style.top  = (pos.y + 22) + 'px';
-label.style.zIndex = 900001;
+label.style.zInbest = 900001;
 document.getElementById('labels').appendChild(label);
 el._labelEl = label;
     el.style.transform=`translate(${pos.x}px,${pos.y}px)`;
     el.addEventListener('click',e=>{e.stopPropagation();startTrainerBattle(tmpl,pos)});
      world.appendChild(el);
-el.style.zIndex = yToZ(pos.y);
+el.style.zInbest = yToZ(pos.y);
     trainersOnMap.push({el,x:pos.x,y:pos.y,data:tmpl,biome:pos.biome});
     reserveSpawnPoint(pos.x, pos.y);
   });
@@ -5255,7 +6146,7 @@ const POS={
     if(!unlockedZones.has(key)) el.style.display='none';
     
     world.appendChild(el);
-    el.style.zIndex = yToZ(pos.y);
+    el.style.zInbest = yToZ(pos.y);
     reserveSpawnPoint(pos.x, pos.y);
   });
 }
@@ -5296,14 +6187,14 @@ function spawnHealerHuts(){
     world.appendChild(el);
 
     // Y-сортировка: опорная точка — низ здания (cy + 32)
-    el.style.zIndex = yToZ(cy + 32);
+    el.style.zInbest = yToZ(cy + 32);
 
     if(typeof reserveSpawnPoint === 'function') reserveSpawnPoint(cx, cy);
   });
 }
-// ===================== SVG NPC ДЛЯ КВЕСТОВ =====================
+// ===================== SVG Nhealer ДЛЯ КВЕСТОВ =====================
 
-const NPC_QUEST_SVGS = {
+const Nhealer_QUEST_SVGS = {
   professor: `<svg viewBox="0 0 64 64">
     <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
     <rect x="26" y="46" width="5" height="12" rx="2" fill="#1e3a8a"/>
@@ -5407,49 +6298,49 @@ const NPC_QUEST_SVGS = {
     <circle cx="32" cy="6" r="1.5" fill="#fbbf24"/>
   </svg>`
 };
-function pickNpcSvg(npcName){
-  const n = npcName.toLowerCase();
+function pickNhealerSvg(nhealerName){
+  const n = nhealerName.toLowerCase();
 
   // === Архимаг / профессор / хранитель / чемпион ===
   if(n.includes('профессор')  || n.includes('архимаг') ||
      n.includes('хранитель') || n.includes('чемпион'))
-    return NPC_PROFESSOR;
+    return Nhealer_PROFESSOR;
 
   // === Женские образы: жрицы, ведуньи, магички ===
   if(n.includes('ведьма') || n.includes('жрица') ||
      n.includes('коллекционер') || n.includes('экзорцист'))
-    return NPC_QUEST_FEMALE;
+    return Nhealer_QUEST_FEMALE;
 
   // === Кузнецы, Дворфы, ремесленники — бородатые мастера ===
   if(n.includes('кузнец') || n.includes('Дворф') || n.includes('мастер') ||
      n.includes('скалолаз') || n.includes('альпинист') || n.includes('шахтёр') ||
      n.includes('спелеолог') || n.includes('исследователь'))
-    return NPC_QUEST_MALE;
+    return Nhealer_QUEST_MALE;
 
   // === Тренеры / бойцы ===
   if(n.includes('рейнджер') || n.includes('воин') ||
      n.includes('стражник') || n.includes('охотник'))
-    return NPC_TRAINER_MALE;
+    return Nhealer_TRAINER_MALE;
 
-  // === По умолчанию — мужской квестовый NPC ===
-  return NPC_QUEST_MALE;
+  // === По умолчанию — мужской квестовый Nhealer ===
+  return Nhealer_QUEST_MALE;
 }
-// ===================== СПАВН NPC С КВЕСТАМИ =====================
-function spawnQuestNPCs(){
+// ===================== СПАВН Nhealer С КВЕСТАМИ =====================
+function spawnQuestNhealers(){
   // Очистка старых ссылок (на случай перезапуска)
-    npcQuestRefs.forEach(ref => {
+    nhealerQuestRefs.forEach(ref => {
     if(ref.el && ref.el.parentNode) ref.el.parentNode.removeChild(ref.el);
     if(ref.el && ref.el._labelEl && ref.el._labelEl.parentNode){
       ref.el._labelEl.parentNode.removeChild(ref.el._labelEl);
     }
   });
-  npcQuestRefs = [];
+  nhealerQuestRefs = [];
 
   QUEST_DEFS.forEach(q => {
-    const pos = q.npcPos;
+    const pos = q.nhealerPos;
     if(!pos) return;
 
-    // Ищем свободное место рЯдовитыйом (не на медцентре/монстре/другом NPC)
+    
     let spawnX = pos.x;
     let spawnY = pos.y;
     if(typeof findFreeSpotNear === 'function'){
@@ -5459,23 +6350,23 @@ function spawnQuestNPCs(){
 
     // Создаём контейнер
     const el = document.createElement('div');
-    el.className = 'npc-quest';
+    el.className = 'nhealer-quest';
     el.dataset.questId = q.id;
     el.dataset.biome = q.biome;
 
-    // SVG по типу NPC + восклицательный знак
-   const svg = pickNpcSvg(q.npc);
+    // SVG по типу Nhealer + восклицательный знак
+   const svg = pickNhealerSvg(q.nhealer);
 el.innerHTML = svg;
 
     // Подпись с именем
    // Подпись кладём в отдельный слой, чтобы она была поверх зданий
 const label = document.createElement('div');
 label.className = 'label';
-label.textContent = q.npc;
+label.textContent = q.nhealer;
 label.style.left = spawnX + 'px';
-label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPC
-label.style.zIndex = 900001;                // ← поверх всех
-label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPC
+label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра Nhealer
+label.style.zInbest = 900001;                // ← поверх всех
+label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра Nhealer
 document.getElementById('labels').appendChild(label);
 
 // сохраняем ссылку, чтобы двигать/удалять
@@ -5503,6 +6394,8 @@ el._labelEl = label;
       }
       openQuestDialog(q);
     });
+
+
 
     // ПКМ — показать информацию о квесте
     el.addEventListener('contextmenu', e => {
@@ -5535,18 +6428,18 @@ qmark.style.display = unlockedZones.has(q.biome) ? 'block' : 'none';
 document.getElementById('questMarks').appendChild(qmark);
 
 
-    // NPC с квестом — всегда поверх зданий, тренеров и монстров,
+   
     // чтобы значки ❗ / ✅ / … / ✓ были видны
-    el.style.zIndex = 900000;
+    el.style.zInbest = 900000;
     // Сохраняем ссылку
-    npcQuestRefs.push({
+    nhealerQuestRefs.push({
       el,
       quest: q,
       pos: { x: spawnX, y: spawnY },
       biome: q.biome
     });
 
-    // Резервируем точку, чтобы монстры не спавнились сверху
+    // Резервируем точку, чтобы существа не спавнились сверху
     if(typeof reserveSpawnPoint === 'function'){
       reserveSpawnPoint(spawnX, spawnY);
     }
@@ -5555,7 +6448,7 @@ document.getElementById('questMarks').appendChild(qmark);
   // Обновляем маркеры (❗ / … / ✅ / ✓)
   updateQuestMarkers();
 
-  console.log(`📜 Заспавнено NPC с квестами: ${npcQuestRefs.length}`);
+  console.log(`📜 Заспавнено Nhealer с квестами: ${nhealerQuestRefs.length}`);
 }function updateQuestMarkers(){
   QUEST_DEFS.forEach(q=>{
     const mark = document.getElementById('qmark_' + q.id);
@@ -5643,7 +6536,7 @@ function spawnHouses(){
     const cy = h.y + h.h/2;
     el.style.transform = `translate(${cx}px,${cy}px)`;
 
-el.style.zIndex = yToZ(cy + dh / 2);   // всегда под монстрами
+el.style.zInbest = yToZ(cy + dh / 2);   // всегда под существами
     world.appendChild(el);
     houseEls.push(el);
   });
@@ -7117,8 +8010,8 @@ ctx.font = '15px "Fantasy Classic", "Segoe UI", sans-serif';
   });
 }
 
-// Маг-подмастерье (заменяет NPC_TRAINER_MALE)
-const NPC_TRAINER_MALE = `<svg viewBox="0 0 64 64">
+// Маг-подмастерье (заменяет Nhealer_TRAINER_MALE)
+const Nhealer_TRAINER_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Мантия -->
   <path d="M22 30 L42 30 L46 58 L18 58 Z" fill="#3b82f6"/>
@@ -7147,8 +8040,8 @@ const NPC_TRAINER_MALE = `<svg viewBox="0 0 64 64">
   <!-- Звёздочка-искра -->
   <path d="M52 14 L53 12 L54 14 L56 15 L54 16 L53 18 L52 16 L50 15 Z" fill="#fbbf24" opacity="0.9"/>
 </svg>`;
-// Эльфийка-лучница (заменяет NPC_TRAINER_FEMALE)
-const NPC_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
+// Эльфийка-лучница (заменяет Nhealer_TRAINER_FEMALE)
+const Nhealer_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#065f46"/>
@@ -7191,8 +8084,8 @@ const NPC_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
   <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
   <path d="M30 24 Q32 26 34 24" stroke="#dc2626" stroke-width="1" fill="none" stroke-linecap="round"/>
 </svg>`;
-// Тёмный культист (заменяет NPC_GYM_LEADER)
-const NPC_GYM_LEADER = `<svg viewBox="0 0 64 64">
+// Тёмный культист (заменяет Nhealer_GYM_LEADER)
+const Nhealer_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="15" ry="3" fill="rgba(0,0,0,0.4)"/>
   <!-- Аура -->
   <ellipse cx="32" cy="36" rx="24" ry="20" fill="#7c3aed" opacity="0.25"/>
@@ -7232,8 +8125,8 @@ const NPC_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <!-- Значок на груди -->
   <circle cx="42" cy="33" r="2.5" fill="#fbbf24" stroke="#b45309" stroke-width="0.8"/>
 </svg>`;
-// Старый Дворф-кузнец (заменяет NPC_QUEST_MALE)
-const NPC_QUEST_MALE = `<svg viewBox="0 0 64 64">
+// Старый Дворф-кузнец (заменяет Nhealer_QUEST_MALE)
+const Nhealer_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ботинки -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#451a03"/>
@@ -7269,8 +8162,8 @@ const NPC_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="23" rx="2" ry="1.6" fill="#d97706"/>
 </svg>`;
 
-// Жрица-целительница (заменяет NPC_QUEST_FEMALE)
-const NPC_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
+// Жрица-целительница (заменяет Nhealer_QUEST_FEMALE)
+const Nhealer_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#fef3c7"/>
@@ -7308,8 +8201,8 @@ const NPC_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
   <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
   <path d="M30 24 Q32 26 34 24" stroke="#dc2626" stroke-width="1" fill="none" stroke-linecap="round"/>
 </svg>`;
-// Верховный архимаг (заменяет NPC_PROFESSOR)
-const NPC_PROFESSOR = `<svg viewBox="0 0 64 64">
+// Верховный архимаг (заменяет Nhealer_PROFESSOR)
+const Nhealer_PROFESSOR = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#1e1b4b"/>
@@ -7699,8 +8592,8 @@ function checkCurrentBiome(){
 
 
 // ===================== Y-СОРТИРОВКА =====================
-// Диапазон z-index: 100..60000
-// Чем больше y — тем выше z-index (объект "ближе" к камере)
+// Диапазон z-inbest: 100..60000
+// Чем больше y — тем выше z-inbest (объект "ближе" к камере)
 const Z_MIN = 100;
 const Z_MAX = 60000;
 const WORLD_H = 2000;
@@ -7716,23 +8609,23 @@ function yToZFantasy(y) {
   return yToZ(y) + Fantasy_Z_BOOST;
 }
 
-// Применить z-index ко всем объектам на карте
+// Применить z-inbest ко всем объектам на карте
 function applyYSorting() {
-  // монстры
+  // существа
   for (const p of FantasysOnMap) {
-    if (p.el) p.el.style.zIndex = yToZ(p.y);
+    if (p.el) p.el.style.zInbest = yToZ(p.y);
   }
   // Тренеры
   for (const t of trainersOnMap) {
-    if (t.el) t.el.style.zIndex = yToZ(t.y);
+    if (t.el) t.el.style.zInbest = yToZ(t.y);
   }
-  // NPC с квестами
-  for (const n of npcQuestRefs) {
-    if (n.el && n.pos) n.el.style.zIndex = yToZ(n.pos.y);
+  // Nhealer с квестами
+  for (const n of nhealerQuestRefs) {
+    if (n.el && n.pos) n.el.style.zInbest = yToZ(n.pos.y);
   }
-  // Медцентры и гимы — им тоже можно назначить z-index
+  // Медцентры и гимы — им тоже можно назначить z-inbest
   // (они не хранятся в массивах с y, поэтому берём из transform)
-  document.querySelectorAll('#world > .Fantasy, #world > .trainer, #world > .npc-quest').forEach(el => {
+  document.querySelectorAll('#world > .Fantasy, #world > .trainer, #world > .nhealer-quest').forEach(el => {
     // уже обработаны выше, но на случай "осиротевших" — пропускаем
   });
 }
@@ -7756,7 +8649,7 @@ function animate(now){
   tr.el.style.display = visible ? 'flex' : 'none';
   if (tr.el._labelEl) tr.el._labelEl.style.display = visible ? 'block' : 'none';
 });
-   npcQuestRefs.forEach(n=>{
+   nhealerQuestRefs.forEach(n=>{
   const visible = unlockedZones.has(n.quest.biome);
   n.el.style.display = visible ? 'flex' : 'none';
   if (n.el._labelEl) n.el._labelEl.style.display = visible ? 'block' : 'none';
@@ -7769,7 +8662,7 @@ function animate(now){
 const game=document.getElementById('game');
 let startX,startY,vx=0,vy=0,lastMX=0,lastMY=0,lastMT=0;
 game.addEventListener('mousedown',e=>{
-  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.npc-quest'))return;
+  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.nhealer-quest'))return;
   isDragging=true;
   startX=e.clientX-camX;startY=e.clientY-camY;
   lastMX=e.clientX;lastMY=e.clientY;lastMT=Date.now();
@@ -7792,7 +8685,7 @@ window.addEventListener('mouseup',()=>{
   inertia();
 });
 game.addEventListener('touchstart',e=>{
-  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.npc-quest'))return;
+  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.nhealer-quest'))return;
   if(e.touches.length===1){isDragging=true;startX=e.touches[0].clientX-camX;startY=e.touches[0].clientY-camY}
 },{passive:true});
 game.addEventListener('touchmove',e=>{
@@ -7804,12 +8697,12 @@ game.addEventListener('touchend',()=>{isDragging=false;saveProgress()});
 
 
 function statBar(name,value,max,color){
-  const pct=Math.min(100,(value/max)*100);
-  return `<div class="bar-row"><span class="name">${name}</span><div class="bar"><div class="fill" style="width:${pct}%;background:${color}"></div></div><span class="val">${value}</span></div>`;
+  const healert=Math.min(100,(value/max)*100);
+  return `<div class="bar-row"><span class="name">${name}</span><div class="bar"><div class="fill" style="width:${healert}%;background:${color}"></div></div><span class="val">${value}</span></div>`;
 }
-function openMagicdex(p,playerPk){
-  const dex=document.getElementById('Magicdex');
-  const content=document.getElementById('dexContent');
+function openBestiary(p,playerPk){
+  const best=document.getElementById('Bestiary');
+  const content=document.getElementById('bestiaryContent');
   const total=Object.values(p.stats).reduce((a,b)=>a+b,0);
   const typesHTML=p.types.map(t=>`<span class="type-badge" style="background:${TYPE_COLORS[t]||'#777'}">${t}</span>`).join('');
   const habitatsHTML=p.habitats.map(h=>`<span class="habitat-tag" style="color:${HABITATS[h].color}">📍 ${HABITATS[h].name}</span>`).join('');
@@ -7823,14 +8716,14 @@ function openMagicdex(p,playerPk){
     else if(eff===0)weaks[0].push(atkType);
   });
   let weakHTML='';
-  if(weaks[4].length)weakHTML+=`<div class="dex-section-title">Слабости ×4</div><div class="weak-grid">${weaks[4].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]}">${t} ×4</div>`).join('')}</div>`;
-  if(weaks[2].length)weakHTML+=`<div class="dex-section-title">Слабости ×2</div><div class="weak-grid">${weaks[2].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]}">${t} ×2</div>`).join('')}</div>`;
-  if(weaks[0.5].length)weakHTML+=`<div class="dex-section-title">Сопротивления</div><div class="weak-grid">${weaks[0.5].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]};opacity:.7">${t} ×0.5</div>`).join('')}</div>`;
-  if(weaks[0].length)weakHTML+=`<div class="dex-section-title">Иммунитеты</div><div class="weak-grid">${weaks[0].map(t=>`<div class="weak-item" style="background:#333">${t} ×0</div>`).join('')}</div>`;
+  if(weaks[4].length)weakHTML+=`<div class="best-section-title">Слабости ×4</div><div class="weak-grid">${weaks[4].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]}">${t} ×4</div>`).join('')}</div>`;
+  if(weaks[2].length)weakHTML+=`<div class="best-section-title">Слабости ×2</div><div class="weak-grid">${weaks[2].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]}">${t} ×2</div>`).join('')}</div>`;
+  if(weaks[0.5].length)weakHTML+=`<div class="best-section-title">Сопротивления</div><div class="weak-grid">${weaks[0.5].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]};opacity:.7">${t} ×0.5</div>`).join('')}</div>`;
+  if(weaks[0].length)weakHTML+=`<div class="best-section-title">Иммунитеты</div><div class="weak-grid">${weaks[0].map(t=>`<div class="weak-item" style="background:#333">${t} ×0</div>`).join('')}</div>`;
   let playerMovesHTML='';
   if(playerPk){
     const moves=getMovesWithData(playerPk);
-    playerMovesHTML=`<div class="dex-section-title">🎯 Атаки (Ур. ${playerPk.level})</div><div class="mpd-moves">${moves.map(m=>`<div class="mpd-move" style="border-left-color:${TYPE_COLORS[m.type]||'#777'}"><div><span class="mname">${m.name}</span></div><div style="display:flex;gap:8px;align-items:center"><span class="mtype" style="background:${TYPE_COLORS[m.type]||'#777'}">${m.type}</span><span class="mpower">${m.power?'⚡'+m.power:'—'}</span></div></div>`).join('')}</div>`;
+    playerMovesHTML=`<div class="best-section-title">🎯 Атаки (Ур. ${playerPk.level})</div><div class="mpd-moves">${moves.map(m=>`<div class="mpd-move" style="border-left-color:${TYPE_COLORS[m.type]||'#777'}"><div><span class="mname">${m.name}</span></div><div style="display:flex;gap:8px;align-items:center"><span class="mtype" style="background:${TYPE_COLORS[m.type]||'#777'}">${m.type}</span><span class="mpower">${m.power?'⚡'+m.power:'—'}</span></div></div>`).join('')}</div>`;
   }
 // ====== ПОЛНЫЙ СПИСОК СПОСОБНОСТЕЙ ======
 let allMovesHTML = '';
@@ -7840,11 +8733,11 @@ let allMovesHTML = '';
   const sorted = [...ls].sort((a,b)=>a.level-b.level);
 
   if(sorted.length){
-    // Уровни, которые монстр уже знает (если есть playerPk)
+    // Уровни, которые существо уже знает (если есть playerPk)
     const currentLvl = playerPk ? playerPk.level : 0;
     const knownNames = playerPk ? playerPk.moves.map(m=>m.name) : [];
 
-    allMovesHTML = `<div class="dex-section-title">📖 Все способности (${sorted.length})</div>
+    allMovesHTML = `<div class="best-section-title">📖 Все способности (${sorted.length})</div>
       <div class="mpd-moves">${
         sorted.map(entry=>{
           const md = FULL_MOVES[entry.move] || {type:"Обычный",power:40,cat:"physical"};
@@ -7888,50 +8781,50 @@ let allMovesHTML = '';
         }).join('')
       }</div>`;
   } else {
-    allMovesHTML = `<div class="dex-section-title">📖 Все способности</div>
-      <div style="font-size:12px;color:#94a3b8;padding:8px">Для этого монстра набор способностей не задан.</div>`;
+    allMovesHTML = `<div class="best-section-title">📖 Все способности</div>
+      <div style="font-size:12px;color:#94a3b8;padding:8px">Для этого существа набор способностей не задан.</div>`;
   }
 }
 
 
   content.innerHTML=`
-    <div class="dex-header">
-      <div class="dex-sprite">${getSprite(p.shape)}</div>
-      <div class="dex-title">
+    <div class="best-header">
+      <div class="best-sprite">${getSprite(p.shape)}</div>
+      <div class="best-title">
         <div class="num">#${String(p.id).padStart(3,'0')}</div>
         <h2>${p.name}${playerPk?` <span style="font-size:14px;color:#ffcb05">Ур. ${playerPk.level}</span>`:''}</h2>
         <div class="types">${typesHTML}</div>
         <div><div class="rarity-tag" style="display:inline-block;color:${RARITY_COLORS[p.rarity]};border:1px solid ${RARITY_COLORS[p.rarity]}">★ ${RARITY_NAMES[p.rarity]}</div>${habitatsHTML}</div>
       </div>
     </div>
-    <div class="dex-body">
-      <div class="dex-desc">${p.desc}</div>
-      <div class="dex-grid">
-        <div class="dex-stat"><span class="k">Рост</span><span class="v">${p.height} м</span></div>
-        <div class="dex-stat"><span class="k">Вес</span><span class="v">${p.weight} кг</span></div>
-        <div class="dex-stat"><span class="k">Категория</span><span class="v">${p.category}</span></div>
-        <div class="dex-stat"><span class="k">Всего статов</span><span class="v">${total}</span></div>
+    <div class="best-body">
+      <div class="best-desc">${p.desc}</div>
+      <div class="best-grid">
+        <div class="best-stat"><span class="k">Рост</span><span class="v">${p.height} м</span></div>
+        <div class="best-stat"><span class="k">Вес</span><span class="v">${p.weight} кг</span></div>
+        <div class="best-stat"><span class="k">Категория</span><span class="v">${p.category}</span></div>
+        <div class="best-stat"><span class="k">Всего статов</span><span class="v">${total}</span></div>
       </div>
           ${playerMovesHTML}
       ${allMovesHTML}
       ${weakHTML}
-      <div class="dex-section-title">Базовые характеристики</div>
+      <div class="best-section-title">Базовые характеристики</div>
       ${statBar('HP',p.stats.hp,255,'#ef4444')}
       ${statBar('Атака',p.stats.attack,190,'#f97316')}
       ${statBar('Защита',p.stats.defense,230,'#eab308')}
       ${statBar('Сп. Атака',p.stats.spAtk,194,'#3b82f6')}
       ${statBar('Сп. Защита',p.stats.spDef,230,'#22c55e')}
       ${statBar('Скорость',p.stats.speed,180,'#a855f7')}
-      <button class="dex-close" onclick="closeMagicdex()">Закрыть ✕</button>
+      <button class="best-close" onclick="closeBestiary()">Закрыть ✕</button>
     </div>`;
-  dex.classList.add('active');
+  best.classList.add('active');
   hideMenuButtons();   // ← скрываем кнопки меню
 }
-function closeMagicdex(){document.getElementById('Magicdex').classList.remove('active');  showMenuButtons();  }
+function closeBestiary(){document.getElementById('Bestiary').classList.remove('active');  showMenuButtons();  }
 
 // ===================== КОМАНДА =====================
 function openTeamScreen(){
-  if(playerTeam.length===0){showToast("У тебя пока нет монстров!");return}
+  if(playerTeam.length===0){showToast("У тебя пока нет существ!");return}
   renderTeamScreen();
   document.getElementById('teamScreen').classList.add('active');
   hideMenuButtons();
@@ -7944,8 +8837,8 @@ function renderTeamScreen(){
   const list=document.getElementById('teamList');
   list.innerHTML='';
   playerTeam.forEach((pk,i)=>{
-    const hpPct=Math.max(0,(pk.currentHP/pk.maxHP)*100);
-    const expPct=Math.min(100,(pk.exp/pk.expToNext)*100);
+    const hphealert=Math.max(0,(pk.currentHP/pk.maxHP)*100);
+    const exphealert=Math.min(100,(pk.exp/pk.expToNext)*100);
     const typesHTML=pk.data.types.map(t=>`<span class="type-badge" style="background:${TYPE_COLORS[t]||'#777'};font-size:9px;padding:1px 6px">${t}</span>`).join('');
     const el=document.createElement('div');
     el.className='team-member';
@@ -7954,9 +8847,9 @@ function renderTeamScreen(){
       <div class="tm-info">
         <div class="tm-name">${pk.data.name}<span class="tm-level">Ур. ${pk.level}</span></div>
         <div class="tm-types">${typesHTML}</div>
-        <div class="tm-hp-bar"><div class="tm-hp-fill" style="width:${hpPct}%;background:${hpPct>50?'#4ade80':hpPct>20?'#fbbf24':'#ef4444'}"></div></div>
+        <div class="tm-hp-bar"><div class="tm-hp-fill" style="width:${hphealert}%;background:${hphealert>50?'#4ade80':hphealert>20?'#fbbf24':'#ef4444'}"></div></div>
         <div class="tm-hp-text">❤️ ${Math.max(0,pk.currentHP)} / ${pk.maxHP} HP</div>
-        <div class="tm-exp-bar"><div class="tm-exp-fill" style="width:${expPct}%"></div></div>
+        <div class="tm-exp-bar"><div class="tm-exp-fill" style="width:${exphealert}%"></div></div>
         <div class="tm-hp-text">✨ ${pk.exp} / ${pk.expToNext} ОПЫТ</div>
       </div>`;
     el.addEventListener('click',()=>openMyFantasyDetail(i));
@@ -7965,11 +8858,11 @@ function renderTeamScreen(){
 }
 
 // ===================== ДЕТАЛИ =====================
-function openMyFantasyDetail(index){
-  const pk=playerTeam[index];if(!pk)return;
+function openMyFantasyDetail(inbest){
+  const pk=playerTeam[inbest];if(!pk)return;
   const content=document.getElementById('mpdContent');
-  const hpPct=Math.max(0,(pk.currentHP/pk.maxHP)*100);
-  const expPct=Math.min(100,(pk.exp/pk.expToNext)*100);
+  const hphealert=Math.max(0,(pk.currentHP/pk.maxHP)*100);
+  const exphealert=Math.min(100,(pk.exp/pk.expToNext)*100);
   const typesHTML=pk.data.types.map(t=>`<span class="type-badge" style="background:${TYPE_COLORS[t]||'#777'}">${t}</span>`).join('');
   const moves=getMovesWithData(pk);
   const ls=LEARNSETS[pk.data.id]||[];
@@ -7987,9 +8880,9 @@ function openMyFantasyDetail(index){
         <div style="margin-top:8px;font-size:12px;color:#b8d4e8">#${String(pk.data.id).padStart(3,'0')} · ${pk.data.category} · ${RARITY_NAMES[pk.data.rarity]}</div>
       </div>
     </div>
-    <div class="mpd-hp-bar"><div class="mpd-hp-fill" style="width:${hpPct}%;background:${hpPct>50?'#4ade80':hpPct>20?'#fbbf24':'#ef4444'}"></div></div>
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:#b8d4e8"><span>❤️ HP: ${Math.max(0,pk.currentHP)} / ${pk.maxHP}</span><span>${Math.round(hpPct)}%</span></div>
-    <div class="mpd-exp-bar"><div class="mpd-exp-fill" style="width:${expPct}%"></div></div>
+    <div class="mpd-hp-bar"><div class="mpd-hp-fill" style="width:${hphealert}%;background:${hphealert>50?'#4ade80':hphealert>20?'#fbbf24':'#ef4444'}"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#b8d4e8"><span>❤️ HP: ${Math.max(0,pk.currentHP)} / ${pk.maxHP}</span><span>${Math.round(hphealert)}%</span></div>
+    <div class="mpd-exp-bar"><div class="mpd-exp-fill" style="width:${exphealert}%"></div></div>
     <div style="display:flex;justify-content:space-between;font-size:12px;color:#b8d4e8;margin-bottom:12px"><span>✨ Опыт: ${pk.exp} / ${pk.expToNext}</span></div>
     <div class="mpd-stats-grid">
       <div class="mpd-stat"><span class="k">Атака</span><span class="v">${pk.atk}</span></div>
@@ -8003,16 +8896,17 @@ function openMyFantasyDetail(index){
     <div class="mpd-moves">${moves.map(m=>`<div class="mpd-move" style="border-left-color:${TYPE_COLORS[m.type]||'#777'}"><div><span class="mname">${m.name}</span>${m.desc?`<div style="font-size:10px;color:#94a3b8;margin-top:2px">${m.desc}</div>`:''}<span class="learn-lvl">(ур. ${m.learnLevel})</span></div><div style="display:flex;gap:8px;align-items:center"><span class="mtype" style="background:${TYPE_COLORS[m.type]||'#777'}">${m.type}</span><span class="mpower">${m.power?'⚡'+m.power:'—'}</span></div></div>`).join('')}</div>
     ${futureMoves.length>0?`<div class="mpd-section-title">📖 Будущие атаки</div><div class="mpd-moves">${futureMoves.map(m=>`<div class="mpd-move locked" style="border-left-color:${TYPE_COLORS[m.type]||'#777'}"><div><span class="mname">${m.name}</span>${m.desc?`<div style="font-size:10px;color:#64748b;margin-top:2px">${m.desc}</div>`:''}<span class="learn-lvl">на ур. ${m.learnLevel}</span></div><div style="display:flex;gap:8px;align-items:center"><span class="mtype" style="background:${TYPE_COLORS[m.type]||'#777'}">${m.type}</span><span class="mpower">${m.power?'⚡'+m.power:'—'}</span></div></div>`).join('')}</div>`:''}
     <div style="display:flex;gap:8px;margin-top:12px">
-      <button class="mpd-close" style="flex:1;background:#3b82f6;color:#fff;box-shadow:0 4px 0 #1e40af" onclick="openMagicdexFromTeam(${index})">📕 Бестиарий</button>
+      <button class="mpd-close" style="flex:1;background:#3b82f6;color:#fff;box-shadow:0 4px 0 #1e40af" onclick="openBestiaryFromTeam(${inbest})">📕 Бестиарий</button>
       <button class="mpd-close" style="flex:1" onclick="closeMyFantasyDetail()">Закрыть ✕</button>
     </div>`;
   document.getElementById('myFantasyDetail').classList.add('active');
 }
 function closeMyFantasyDetail(){document.getElementById('myFantasyDetail').classList.remove('active')}
-function openMagicdexFromTeam(i){const pk=playerTeam[i];if(!pk)return;closeMyFantasyDetail();openMagicdex(pk.data,pk)}
+function openBestiaryFromTeam(i){const pk=playerTeam[i];if(!pk)return;closeMyFantasyDetail();openBestiary(pk.data,pk)}
 
 // ===================== СТАРТ =====================
-const STARTERS=[{id:1001},{id:1004},{id:1024},{id:1055},{id:1025}];
+const STARTERS=[{id:1001},{id:1004},{id:1007},{id:1055},{id:1025}];
+//                                        ^^^^ — Русалка (Водный стартовик)
 function showStarterScreen(){
   const grid=document.getElementById('starterGrid');
   grid.innerHTML='';
@@ -8094,7 +8988,7 @@ function checkUnlockNextZone(currentBiome){
     // 3. Перестроить туман
     rebuildFogClouds();
     drawFog();
-    // 4. Показать NPC/тренеров/медцентры в новой зоне
+    // 4. Показать Nhealer/тренеров/медцентры в новой зоне
     refreshWorldVisibility();
     // 5. Обновить маркеры квестов
     updateQuestMarkers();
@@ -8126,14 +9020,14 @@ function refreshWorldVisibility(){
     if (tr.el._labelEl) tr.el._labelEl.style.display = visible ? 'block' : 'none';
   });
 
-  // NPC с квестами
-  npcQuestRefs.forEach(n => {
+  // Nhealer с квестами
+  nhealerQuestRefs.forEach(n => {
     const visible = unlockedZones.has(n.quest.biome);
     n.el.style.display = visible ? 'flex' : 'none';
     if (n.el._labelEl) n.el._labelEl.style.display = visible ? 'block' : 'none';
   });
 
-  // Монстры
+  // Существа
   FantasysOnMap.forEach(p => {
     const visible = !p.biome || unlockedZones.has(p.biome);
     p.el.style.display = visible ? 'flex' : 'none';
@@ -8188,21 +9082,21 @@ function updateQuestBadge(){
 function openQuestDialog(q){
   const st=activeQuests[q.id];
   if(st&&st.claimed){
-    showDialog(q.npc,`Спасибо за помощь! Квест "${q.title}" уже выполнен.`);
+    showDialog(q.nhealer,`Спасибо за помощь! Квест "${q.title}" уже выполнен.`);
     return;
   }
   if(st&&st.completed){
-    showDialog(q.npc,`Отлично! Ты выполнил "${q.title}"! Держи награду.`,()=>{
+    showDialog(q.nhealer,`Отлично! Ты выполнил "${q.title}"! Держи награду.`,()=>{
       claimQuestReward(q.id);
     });
     return;
   }
   if(st){
-    showDialog(q.npc,`Как дела с квестом "${q.title}"?\nПрогресс: ${st.progress}/${q.target}\n\n${q.desc}`);
+    showDialog(q.nhealer,`Как дела с квестом "${q.title}"?\nПрогресс: ${st.progress}/${q.target}\n\n${q.desc}`);
     return;
   }
   // Новый квест
-  showDialog(q.npc,`${q.dialogue}\n\n📜 Квест: ${q.title}\n${q.desc}\n\nНаграда: ${formatReward(q.reward)}`,()=>{
+  showDialog(q.nhealer,`${q.dialogue}\n\n📜 Квест: ${q.title}\n${q.desc}\n\nНаграда: ${formatReward(q.reward)}`,()=>{
     activeQuests[q.id]={progress:0,completed:false,claimed:false};
     // Проверка на уже выполненное условие
     checkQuestAutoComplete(q);
@@ -8256,14 +9150,14 @@ function renderQuestScreen(){
   list.innerHTML='';
   const accepted=QUEST_DEFS.filter(q=>activeQuests[q.id]);
   if(!accepted.length){
-    list.innerHTML='<div style="text-align:center;color:#c4b5fd;padding:30px">Пока нет активных квестов.<br>Найди NPC с "❗" на карте!</div>';
+    list.innerHTML='<div style="text-align:center;color:#c4b5fd;padding:30px">Пока нет активных квестов.<br>Найди Nhealer с "❗" на карте!</div>';
     return;
   }
   accepted.forEach(q=>{
     const st=activeQuests[q.id];
     const el=document.createElement('div');
     el.className='quest-item'+(st.claimed?' claimed':st.completed?' completed':'');
-    const pct=Math.min(100,(st.progress/q.target)*100);
+    const healert=Math.min(100,(st.progress/q.target)*100);
     let statusText,statusColor;
     if(st.claimed){statusText='Завершён';statusColor='#6b7280'}
     else if(st.completed){statusText='Готов к сдаче';statusColor='#4ade80'}
@@ -8271,39 +9165,39 @@ function renderQuestScreen(){
     el.innerHTML=`
       <div class="q-title"><span>${q.title}</span><span class="q-status" style="background:${statusColor};color:#fff">${statusText}</span></div>
       <div class="q-desc">${q.desc}</div>
-      <div class="q-progress"><div class="q-progress-fill" style="width:${pct}%"></div></div>
+      <div class="q-progress"><div class="q-progress-fill" style="width:${healert}%"></div></div>
       <div class="q-reward"><span>Прогресс: ${st.progress}/${q.target} · Награда: ${formatReward(q.reward)}</span>${st.completed&&!st.claimed?`<button class="q-claim" onclick="claimQuestReward('${q.id}');renderQuestScreen()">Забрать</button>`:''}</div>
-      <div style="font-size:11px;color:#94a3b8;margin-top:4px">📍 ${q.npc} · ${HABITATS[q.biome].name}</div>`;
+      <div style="font-size:11px;color:#94a3b8;margin-top:4px">📍 ${q.nhealer} · ${HABITATS[q.biome].name}</div>`;
     list.appendChild(el);
   });
 }
 
 // ===================== БОЙ =====================
 function startBattle(enemyData, biomeOverride, mapRef){
-  if(playerTeam.length===0){showToast("У тебя нет монстров!");return}
-  if(!playerTeam.some(p=>p.currentHP>0)){showToast("Все монстры без сознания!");return}
+  if(playerTeam.length===0){showToast("У тебя нет существ!");return}
+  if(!playerTeam.some(p=>p.currentHP>0)){showToast("Все существа без сознания!");return}
  closeAllScreens(); // ← добавить
   hideMenuButtons();
   const biome=biomeOverride||getCurrentZoneBiome()||"route";
   const [minL,maxL]=getZoneLevels(biome);
   const enemyLevel=minL+Math.floor(Math.random()*(maxL-minL+1));
   const enemy=createPlayerFantasy(enemyData,enemyLevel,{ powerMult: WILD_POWER_MULT });
-  battleState={enemy,playerIndex:playerTeam.findIndex(p=>p.currentHP>0),turn:'player',busy:false,isTrainer:false,isGym:false,enemyTeam:null,enemyIndex:0,mapRef:mapRef||null,playerProtect:false,enemyProtect:false,lastPlayerDamage:0,lastEnemyDamage:0,lastPlayerMove:null,lastEnemyMove:null};
-  activeFantasyIndex=battleState.playerIndex;
+  battleState={enemy,playerInbest:playerTeam.findIndex(p=>p.currentHP>0),turn:'player',busy:false,isTrainer:false,isGym:false,enemyTeam:null,enemyInbest:0,mapRef:mapRef||null,playerProtect:false,enemyProtect:false,lastPlayerDamage:0,lastEnemyDamage:0,lastPlayerMove:null,lastEnemyMove:null};
+  activeFantasyInbest=battleState.playerInbest;
   document.getElementById('battleScreen').classList.add('active');
   updateBattleUI();
   showBattleLog(`Дикий ${enemy.data.name} (Ур. ${enemy.level}) появился!`);
 }
 function startTrainerBattle(tmpl,pos){
-  if(playerTeam.length===0){showToast("У тебя нет монстров!");return}
-  if(!playerTeam.some(p=>p.currentHP>0)){showToast("Все монстры без сознания!");return}
+  if(playerTeam.length===0){showToast("У тебя нет существ!");return}
+  if(!playerTeam.some(p=>p.currentHP>0)){showToast("Все существа без сознания!");return}
   const team=tmpl.team.map(t=>{const d=Fantasy_DATA.find(x=>x.id===t.id);return d?createPlayerFantasy(d,t.level):null}).filter(Boolean);
   if(!team.length)return;
   closeAllScreens(); // ← добавить
   hideMenuButtons();
   currentTrainer={tmpl,pos};
   showDialog(tmpl.name,`Эй, ты! Давай сразимся!`,()=>{
-    battleState={enemy:team[0],playerIndex:playerTeam.findIndex(p=>p.currentHP>0),turn:'player',busy:false,isTrainer:true,isGym:false,enemyTeam:team,enemyIndex:0,trainerName:tmpl.name,reward:tmpl.reward,playerProtect:false,enemyProtect:false,lastPlayerDamage:0,lastEnemyDamage:0,lastPlayerMove:null,lastEnemyMove:null};
+    battleState={enemy:team[0],playerInbest:playerTeam.findIndex(p=>p.currentHP>0),turn:'player',busy:false,isTrainer:true,isGym:false,enemyTeam:team,enemyInbest:0,trainerName:tmpl.name,reward:tmpl.reward,playerProtect:false,enemyProtect:false,lastPlayerDamage:0,lastEnemyDamage:0,lastPlayerMove:null,lastEnemyMove:null};
     document.getElementById('battleScreen').classList.add('active');
     updateBattleUI();
     showBattleLog(`${tmpl.name}: ${team[0].data.name}, вперёд!`);
@@ -8314,15 +9208,15 @@ function startTrainerBattle(tmpl,pos){
 
 // ЗАМЕНИТЕ НА:
 function startSoulMasterBattle(soulKey){
-  if(playerTeam.length===0){showToast("У тебя нет монстров!");return}
+  if(playerTeam.length===0){showToast("У тебя нет существ!");return}
   if(earnedSeals.has(soulKey)){showToast("Ты уже получил Печать от этого Мастера Душ!");return}
-  if(!playerTeam.some(p=>p.currentHP>0)){showToast("Все монстры без сознания!");return}
+  if(!playerTeam.some(p=>p.currentHP>0)){showToast("Все существа без сознания!");return}
   const master=SOUL_MASTERS[soulKey];
   const team=master.team.map(t=>{const d=Fantasy_DATA.find(x=>x.id===t.id);return d?createPlayerFantasy(d,t.level):null}).filter(Boolean);
   closeAllScreens();
   hideMenuButtons();
 showDialog(master.name,`${master.before}\n\n(${master.title} · ${HABITATS[soulKey].name})`,()=>{
-    battleState={enemy:team[0],playerIndex:playerTeam.findIndex(p=>p.currentHP>0),turn:'player',busy:false,isTrainer:true,isSoulMaster:true,enemyTeam:team,enemyIndex:0,trainerName:master.name,reward:master.reward,soulKey,playerProtect:false,enemyProtect:false,lastPlayerDamage:0,lastEnemyDamage:0,lastPlayerMove:null,lastEnemyMove:null};
+    battleState={enemy:team[0],playerInbest:playerTeam.findIndex(p=>p.currentHP>0),turn:'player',busy:false,isTrainer:true,isSoulMaster:true,enemyTeam:team,enemyInbest:0,trainerName:master.name,reward:master.reward,soulKey,playerProtect:false,enemyProtect:false,lastPlayerDamage:0,lastEnemyDamage:0,lastPlayerMove:null,lastEnemyMove:null};
     document.getElementById('battleScreen').classList.add('active');
     updateBattleUI();
     showBattleLog(`${master.name}: ${team[0].data.name}, вперёд!`);
@@ -8330,8 +9224,8 @@ showDialog(master.name,`${master.before}\n\n(${master.title} · ${HABITATS[soulK
 }
 function updateBattleUI(){
   if(!battleState)return;
-  const {enemy,playerIndex}=battleState;
-  const player=playerTeam[playerIndex];
+  const {enemy,playerInbest}=battleState;
+  const player=playerTeam[playerInbest];
   const eHPP=enemy.currentHP/enemy.maxHP;
   document.getElementById('enemySprite').innerHTML=getSprite(enemy.data.shape);
   let eStatus=enemy.status?`<span class="status-tag" style="background:${statusColor(enemy.status)}">${enemy.status}</span>`:'';
@@ -8358,7 +9252,7 @@ function renderBattleTeam(){
   c.innerHTML='';
   playerTeam.forEach((p,i)=>{
     const slot=document.createElement('div');
-    slot.className='team-slot'+(i===battleState.playerIndex?' active':'')+(p.currentHP<=0?' fainted':'');
+    slot.className='team-slot'+(i===battleState.playerInbest?' active':'')+(p.currentHP<=0?' fainted':'');
     slot.innerHTML=`${getSprite(p.data.shape)}<div class="slot-hp"><div class="slot-hp-fill" style="width:${Math.max(0,(p.currentHP/p.maxHP)*100)}%;background:${p.currentHP/p.maxHP>.5?'#4ade80':p.currentHP/p.maxHP>.2?'#fbbf24':'#ef4444'}"></div></div>`;
     slot.title=`${isUndead(p.data)?'💀 ':''}${p.data.name} Ур. ${p.level}`;
 // И добавляем класс для фиолетовой обводки
@@ -8369,7 +9263,7 @@ if(isUndead(p.data)) slot.classList.add('undead-slot');
 }
 function renderBattleControls(){
   const c=document.getElementById('battleControls');
-  const player=playerTeam[battleState.playerIndex];
+  const player=playerTeam[battleState.playerInbest];
   const moves=getMovesWithData(player);
   c.innerHTML='';
 
@@ -8502,7 +9396,7 @@ function applyStatus(target,status){
 function applyStatusDamage(pk){
   if(!pk.status)return 0;
   let dmg=0,msg='';
-  if(pk.status==="poison"){dmg=Math.floor(pk.maxHP/16);msg=`${pk.data.name} страдает от Ядовитыйа!`}
+  if(pk.status==="poison"){dmg=Math.floor(pk.maxHP/16);msg=`${pk.data.name} страдает от яда!`}
   else if(pk.status==="toxic"){dmg=Math.floor(pk.maxHP/8);msg=`${pk.data.name} страдает от токсинов!`}
   else if(pk.status==="burn"){dmg=Math.floor(pk.maxHP/16);msg=`${pk.data.name} страдает от ожога!`}
   if(dmg>0){pk.currentHP=Math.max(0,pk.currentHP-dmg);return {dmg,msg}}
@@ -8533,7 +9427,7 @@ function processStatusBeforeMove(pk){
   if(battleState.busy||battleState.turn!=='player')return;
   battleState.busy=true;
   updateBattleUI();
-  const player=playerTeam[battleState.playerIndex];
+  const player=playerTeam[battleState.playerInbest];
   const enemy=battleState.enemy;
 
   // ===== Статусные проверки =====
@@ -8792,7 +9686,7 @@ function shakeSprite(id){
 }
 function enemyTurn(){
   const enemy=battleState.enemy;
-  const player=playerTeam[battleState.playerIndex];
+  const player=playerTeam[battleState.playerInbest];
   if(player.currentHP<=0){playerFainted();return}
 
   // Статусные проверки
@@ -8923,7 +9817,7 @@ function enemyTurn(){
 }
 function enemyFainted(){
   const enemy=battleState.enemy;
-  const player=playerTeam[battleState.playerIndex];
+  const player=playerTeam[battleState.playerInbest];
   showBattleLog(`Вражеский ${enemy.data.name} побеждён!`);
   const expGain=Math.floor((enemy.level*8+enemy.maxHP*.3) * 2.5); // ×2.5 опыта
   player.exp+=expGain;
@@ -8978,10 +9872,10 @@ function enemyFainted(){
     }
   }
   if(battleState.isTrainer&&battleState.enemyTeam){
-    battleState.enemyIndex++;
-    if(battleState.enemyIndex<battleState.enemyTeam.length){
+    battleState.enemyInbest++;
+    if(battleState.enemyInbest<battleState.enemyTeam.length){
       setTimeout(()=>{
-        battleState.enemy=battleState.enemyTeam[battleState.enemyIndex];
+        battleState.enemy=battleState.enemyTeam[battleState.enemyInbest];
         battleState.enemyProtect=false;
         battleState.turn='player';battleState.busy=false;
         updateBattleUI();
@@ -9055,27 +9949,27 @@ function evolveFantasy(pk,evoData){
   },3500);
 }
 function playerFainted(){
-  const player=playerTeam[battleState.playerIndex];
+  const player=playerTeam[battleState.playerInbest];
   showBattleLog(`${player.data.name} теряет сознание...`);
   const nextAlive=playerTeam.findIndex(p=>p.currentHP>0&&p!==player);
   if(nextAlive===-1){
-    showToast("Все монстры без сознания! Бой проигран.");
+    showToast("Все существа без сознания! Бой проигран.");
     setTimeout(endBattle,1500);
   } else {
-    battleState.playerIndex=nextAlive;
+    battleState.playerInbest=nextAlive;
     showToast(`Вперёд, ${playerTeam[nextAlive].data.name}!`);
     setTimeout(()=>{battleState.turn='player';battleState.busy=false;updateBattleUI()},1200);
   }
 }
-function switchFantasy(index){
+function switchFantasy(inbest){
   if(battleState.busy||battleState.turn!=='player')return;
-  const p=playerTeam[index];
-  if(!p||p.currentHP<=0){showToast("Этот монстр без сознания!");return}
-  if(index===battleState.playerIndex)return;
-  battleState.playerIndex=index;
+  const p=playerTeam[inbest];
+  if(!p||p.currentHP<=0){showToast("Это существо без сознания!");return}
+  if(inbest===battleState.playerInbest)return;
+  battleState.playerInbest=inbest;
   battleState.busy=true;
   updateBattleUI();
-  showBattleLog(`Ты меняешь монстра на ${p.data.name}!`);
+  showBattleLog(`Ты меняешь существо на ${p.data.name}!`);
   setTimeout(enemyTurn,1000);
 }
 function attemptCatch(){
@@ -9084,7 +9978,7 @@ function attemptCatch(){
   if(playerTeam.length>=MAX_TEAM){showToast("Команда полна!");return}
   const enemy=battleState.enemy;
   const hpPercent=enemy.currentHP/enemy.maxHP;
-  if(hpPercent>.3){showToast("Монстр слишком силён! Ослабь до 30% HP.");return}
+  if(hpPercent>.3){showToast("Существо слишком сильно! Ослабь до 30% HP.");return}
   let ball="Magicball";
   if(inventory.ultraball>0)ball="ultraball";
   else if(inventory.superball>0)ball="superball";
@@ -9119,7 +10013,7 @@ function attemptCatch(){
       saveProgress();
       setTimeout(endBattle,1200);
     } else {
-      showBattleLog(`монстр вырвался!`);
+      showBattleLog(`Существо вырвалось!`);
       setTimeout(()=>{battleState.busy=false;enemyTurn()},1000);
     }
   },1200);
@@ -9161,7 +10055,7 @@ function attemptCatch(){
   modal.classList.add('active');
 }
 function useBattleItem(key){
-  const player=playerTeam[battleState.playerIndex];
+  const player=playerTeam[battleState.playerInbest];
   if(key==="potion"||key==="superpotion"){
     const heal=key==="potion"?50:150;
     player.currentHP=Math.min(player.maxHP,player.currentHP+heal);
@@ -9171,7 +10065,7 @@ function useBattleItem(key){
     setTimeout(enemyTurn,1000);
   } else if(key==="revive"){
     const fainted=playerTeam.find(p=>p.currentHP<=0);
-    if(!fainted){showToast("Нет монстров без сознания!");return}
+    if(!fainted){showToast("Нет существ без сознания!");return}
     fainted.currentHP=Math.floor(fainted.maxHP/2);
     inventory.revive--;
     showBattleLog(`${fainted.data.name} оживлён!`);
@@ -9206,7 +10100,7 @@ function endBattle(){
   saveProgress();
   updateHUD();
 }
-// ===================== УДАЛЕНИЕ монстрА С КАРТЫ =====================
+
 function removeFantasyFromMap(mapRef){
   if(!mapRef)return;
   if(mapRef.el&&mapRef.el.parentNode)mapRef.el.remove();
@@ -9351,7 +10245,6 @@ function gamePrompt(text, defaultValue, opts){
 }
 
 
-// ===================== ЦЕНТР монстрОВ =====================
 function calculateHealCost(){
   let total=0;
   playerTeam.forEach(p=>{total+=Math.max(0,p.maxHP-p.currentHP)});
@@ -9359,7 +10252,7 @@ function calculateHealCost(){
   return HealerHut_BASE_COST+total*HealerHut_COST_PER_HP;
 }
 function openHealerHut(){
-  if(playerTeam.length===0){showToast("У тебя нет монстров!");return}
+  if(playerTeam.length===0){showToast("У тебя нет существ!");return}
   closeAllScreens();
   renderHealerHut();
   document.getElementById('HealerHutScreen').classList.add('active');
@@ -9370,19 +10263,19 @@ function closeHealerHut(){
   showMenuButtons();
 }
 function renderHealerHut(){
-  const team=document.getElementById('pcTeam');
+  const team=document.getElementById('healerTeam');
   team.innerHTML='';
   playerTeam.forEach(p=>{
     const slot=document.createElement('div');
-    slot.className='pc-slot';
-    const hpPct=Math.max(0,(p.currentHP/p.maxHP)*100);
-    slot.innerHTML=`${getSprite(p.data.shape)}<div>${p.data.name}</div><div style="color:#ffcb05">Ур. ${p.level}</div><div class="pc-hp"><div class="pc-hp-fill" style="width:${hpPct}%;background:${hpPct>50?'#4ade80':hpPct>20?'#fbbf24':'#ef4444'}"></div></div><div style="font-size:10px;color:#cfe4f5">${Math.max(0,p.currentHP)}/${p.maxHP}</div>`;
+    slot.className='healer-slot';
+    const hphealert=Math.max(0,(p.currentHP/p.maxHP)*100);
+    slot.innerHTML=`${getSprite(p.data.shape)}<div>${p.data.name}</div><div style="color:#ffcb05">Ур. ${p.level}</div><div class="healer-hp"><div class="healer-hp-fill" style="width:${hphealert}%;background:${hphealert>50?'#4ade80':hphealert>20?'#fbbf24':'#ef4444'}"></div></div><div style="font-size:10px;color:#cfe4f5">${Math.max(0,p.currentHP)}/${p.maxHP}</div>`;
     team.appendChild(slot);
   });
   const cost=calculateHealCost();
-  const priceEl=document.getElementById('pcPrice');
-  const healBtn=document.getElementById('pcHealBtn');
-  if(cost===0){priceEl.textContent='✅ Все монстры здоровы!';healBtn.disabled=true;healBtn.textContent='Здоровы'}
+  const priceEl=document.getElementById('healerPrice');
+  const healBtn=document.getElementById('healerHealBtn');
+  if(cost===0){priceEl.textContent='✅ Все существа здоровы!';healBtn.disabled=true;healBtn.textContent='Здоровы'}
   else{priceEl.textContent=`💰 Стоимость: ${cost} монет (у вас ${playerMoney})`;healBtn.disabled=playerMoney<cost;healBtn.textContent=playerMoney<cost?'Недостаточно монет':`Вылечить за ${cost}`}
   healBtn.onclick=()=>{
     const c=calculateHealCost();
@@ -9472,8 +10365,8 @@ spawnHouses();
   spawnHealerHuts();
 spawnSoulSanctuaries();
 spawnTrainers();
-  spawnQuestNPCs();
-  // Потом дикие монстры — ищут свободные места
+  spawnQuestNhealers();
+  // Потом дикие существа — ищут свободные места
   spawnAllFantasy();
   if(!loaded){
     camX=-(650-window.innerWidth/2);
@@ -9511,7 +10404,7 @@ if (ZONE_CONFIG.water && !FantasysOnMap.some(p => p.biome === 'water')) {
   console.log(`🌊 Принудительный спавн воды: зон найдено ${waterZones.length}`);
 
   if (waterZones.length > 0) {
-    // Спавним по 3 монстра каждой доступной редкости
+    // Спавним по 3 существо каждой доступной редкости
     ['common', 'uncommon', 'rare', 'epic', 'legendary'].forEach(rarity => {
       const weight = ZONE_CONFIG.water.rarities[rarity] || 0;
       if (weight <= 0) return;
@@ -9520,7 +10413,7 @@ if (ZONE_CONFIG.water && !FantasysOnMap.some(p => p.biome === 'water')) {
         p.rarity === rarity && p.habitats.includes('water')
       );
       if (!pool.length) {
-        console.log(`  ⚠️ Нет монстров редкости "${rarity}" для воды`);
+        console.log(`  ⚠️ Нет существ редкости "${rarity}" для воды`);
         return;
       }
 
@@ -9532,21 +10425,21 @@ if (ZONE_CONFIG.water && !FantasysOnMap.some(p => p.biome === 'water')) {
       }
     });
 
-    console.log(`🌊 Заспавнено монстров в воде: ${FantasysOnMap.filter(p => p.biome === 'water').length}`);
+    console.log(`🌊 Заспавнено существ в воде: ${FantasysOnMap.filter(p => p.biome === 'water').length}`);
   }
 }
 
 }
 
 // Глобальные функции для inline onclick
-window.closeMagicdex=closeMagicdex;
+window.closeBestiary=closeBestiary;
 window.closeTeamScreen=closeTeamScreen;
 window.closeMyFantasyDetail=closeMyFantasyDetail;
 window.closeHealerHut=closeHealerHut;
 window.closeShop=closeShop;
 window.closeInventory=closeInventory;
 window.closeQuestScreen=closeQuestScreen;
-window.openMagicdexFromTeam=openMagicdexFromTeam;
+window.openBestiaryFromTeam=openBestiaryFromTeam;
 window.claimQuestReward=claimQuestReward;
 window.renderQuestScreen=renderQuestScreen;
 
@@ -9555,14 +10448,14 @@ document.getElementById('teamBtn').addEventListener('click',openTeamScreen);
 document.getElementById('shopBtn').addEventListener('click',openShop);
 document.getElementById('invBtn').addEventListener('click',openInventory);
 document.getElementById('questBtn').addEventListener('click',openQuestScreen);
-document.getElementById('Magicdex').addEventListener('click',e=>{if(e.target.id==='Magicdex')closeMagicdex()});
+document.getElementById('Bestiary').addEventListener('click',e=>{if(e.target.id==='Bestiary')closeBestiary()});
 
 
 // Запуск
 initGame();
 
 console.log('🎮 Филакт загружен!');
-console.log('📋 Зон: '+ZONE_ORDER.length+', монстров на карте: '+FantasysOnMap.length);
+console.log('📋 Зон: '+ZONE_ORDER.length+', существ на карте: '+FantasysOnMap.length);
 console.log('🔒 Открыто зон: '+unlockedZones.size);
 console.log('📜 Квестов: '+QUEST_DEFS.length);
 
