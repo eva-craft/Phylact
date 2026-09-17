@@ -795,6 +795,32 @@ button, input, textarea, select {
   hyphens:none;
   max-width:95vw;            /* чтобы не вылезало за экран */
 }
+/* Подписи по умолчанию — скрыты и не влияют на layering */
+.Fantasy .label,
+.trainer .label,
+.npc-quest .label,
+.building .label {
+  position: absolute;
+  opacity: 0;
+  transition: opacity .15s;
+  pointer-events: none;
+  z-index: 9999999 !important;
+}
+
+/* При наведении — подпись видна и объект поднимается над всем */
+.Fantasy:hover,
+.trainer:hover,
+.npc-quest:hover,
+.building:hover {
+  z-index: 9999999999999 !important;
+}
+
+.Fantasy:hover .label,
+.trainer:hover .label,
+.npc-quest:hover .label,
+.building:hover .label {
+  opacity: 1;
+}
 </style>
 </head>
 <body>
@@ -1004,6 +1030,7 @@ function closeAllScreens() {
 window.addEventListener('DOMContentLoaded', function(){
 "use strict";
 const HABITATS={
+// ===== ПРИРОДНЫЕ БИОМЫ =====
 forest:{name:"Темный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:"nature"},
 water:{name:"Море Сирен",color:"#38bdf8",bg:"rgba(30,91,138,0.6)",type:"nature"},
 mountain:{name:"Гора Звезд",color:"#a8a29e",bg:"rgba(90,90,90,0.6)",type:"nature"},
@@ -1011,20 +1038,21 @@ desert:{name:"Пески Забвения",color:"#fcd34d",bg:"rgba(180,150,80,0
 cave:{name:"Пещера Душ",color:"#7c3aed",bg:"rgba(40,20,60,0.7)",type:"nature"},
 route:{name:"Тропа Странников",color:"#a3e635",bg:"rgba(120,160,80,0.4)",type:"nature"},
 volcano:{name:"Остров Хэдрон",color:"#ef4444",bg:"rgba(120,40,20,0.5)",type:"nature"},
-pallet:{name:"Город Сид",color:"#a3e635",bg:"rgba(160,200,120,0.4)",type:"city"},
-viridian:{name:"Город Зиффрен",color:"#86efac",bg:"rgba(140,180,120,0.4)",type:"city"},
-pewter:{name:"Магократия Харадат",color:"#d6d3d1",bg:"rgba(160,155,150,0.4)",type:"city"},
-cerulean:{name:"Город Гоч",color:"#7dd3fc",bg:"rgba(120,180,220,0.4)",type:"city"},
-vermilion:{name:"Город Оландир",color:"#fca5a5",bg:"rgba(220,140,130,0.4)",type:"city"},
-lavender:{name:"Город Тотсар",color:"#c4b5fd",bg:"rgba(140,110,180,0.4)",type:"city"},
-celadon:{name:"Магократия Селакс",color:"#f9a8d4",bg:"rgba(220,150,190,0.4)",type:"city"},
-fuchsia:{name:"Город Уурион",color:"#f472b6",bg:"rgba(200,120,160,0.4)",type:"city"},
-saffron:{name:"Город Фаттолодор",color:"#fcd34d",bg:"rgba(220,180,100,0.4)",type:"city"},
-cinnabar:{name:"Город Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
-indigo:{name:"Поле магии",color:"#fbbf24",bg:"rgba(200,160,80,0.4)",type:"city"},
-seafoam:{name:"Острова Побежденного",color:"#67e8f9",bg:"rgba(60,140,180,0.55)",type:"nature"}
-};
 
+// ===== ГОРОДА =====
+sid:{name:"Город Сид",color:"#a3e635",bg:"rgba(160,200,120,0.4)",type:"city"},
+zyffren:{name:"Город Зиффрен",color:"#86efac",bg:"rgba(140,180,120,0.4)",type:"city"},
+haradat:{name:"Магократия Харадат",color:"#60a5fa",bg:"rgba(59,130,246,0.45)",type:"city"},
+goch:{name:"Город Гоч",color:"#7dd3fc",bg:"rgba(120,180,220,0.4)",type:"city"},
+olandir:{name:"Город Оландир",color:"#fca5a5",bg:"rgba(220,140,130,0.4)",type:"city"},
+totsar:{name:"Город Тотсар",color:"#c4b5fd",bg:"rgba(140,110,180,0.4)",type:"city"},
+selax:{name:"Магократия Селакс",color:"#f9a8d4",bg:"rgba(220,150,190,0.4)",type:"city"},
+uurion:{name:"Город Уурион",color:"#f472b6",bg:"rgba(200,120,160,0.4)",type:"city"},
+fattolodor:{name:"Город Фаттолодор",color:"#fcd34d",bg:"rgba(220,180,100,0.4)",type:"city"},
+gozon:{name:"Город Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
+pole_magii:{name:"Поле магии",color:"#fbbf24",bg:"rgba(200,160,80,0.4)",type:"city"},
+ostrova_pobezhdennogo:{name:"Острова Побежденного",color:"#67e8f9",bg:"rgba(60,140,180,0.55)",type:"nature"}
+};
 const BIOME_ZONES=[
 {biome:"water",x:100,y:1700,w:2800,h:300},{biome:"water",x:100,y:900,w:250,h:900},
 {biome:"water",x:1200,y:1200,w:500,h:250},{biome:"water",x:1900,y:700,w:400,h:200},
@@ -1033,35 +1061,41 @@ const BIOME_ZONES=[
 {biome:"cave",x:1200,y:200,w:500,h:400},{biome:"cave",x:1900,y:900,w:350,h:350},
 {biome:"route",x:750,y:1350,w:500,h:300},{biome:"route",x:1100,y:900,w:400,h:300},
 {biome:"route",x:1500,y:500,w:400,h:300},{biome:"route",x:1400,y:1300,w:500,h:300},
-{biome:"route",x:1750,y:1100,w:400,h:300},{biome:"pallet",x:500,y:1550,w:300,h:200},
-{biome:"viridian",x:500,y:1050,w:300,h:200},{biome:"pewter",x:500,y:350,w:300,h:200},
-{biome:"cerulean",x:1600,y:300,w:300,h:200},{biome:"celadon",x:1400,y:900,w:300,h:200},
-{biome:"saffron",x:1900,y:550,w:300,h:200},{biome:"lavender",x:2200,y:1000,w:300,h:200},
-{biome:"vermilion",x:1800,y:1400,w:300,h:200},{biome:"fuchsia",x:2600,y:1450,w:300,h:200},
-{biome:"cinnabar",x:2200,y:1800,w:250,h:150},{biome:"indigo",x:150,y:100,w:400,h:250},
-{biome:"seafoam",x:1200,y:1500,w:400,h:250}
+{biome:"route",x:1750,y:1100,w:400,h:300},
+{biome:"sid",x:500,y:1550,w:300,h:200},
+{biome:"zyffren",x:500,y:1050,w:300,h:200},
+{biome:"haradat",x:500,y:350,w:300,h:200},
+{biome:"goch",x:1600,y:300,w:300,h:200},
+{biome:"selax",x:1400,y:900,w:300,h:200},
+{biome:"fattolodor",x:1900,y:550,w:300,h:200},
+{biome:"totsar",x:2200,y:1000,w:300,h:200},
+{biome:"olandir",x:1800,y:1400,w:300,h:200},
+{biome:"uurion",x:2600,y:1450,w:300,h:200},
+{biome:"gozon",x:2200,y:1800,w:250,h:150},
+{biome:"pole_magii",x:150,y:100,w:400,h:250},
+{biome:"ostrova_pobezhdennogo",x:1200,y:1500,w:400,h:250}
 ];
 const TYPE_CHART={
 Обычный:{Каменный:0.5,Призрак:0,Стальной:0.5,Демон:1,Нежить:0.5},
 Огненный:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:2,Жук:2,Каменный:0.5,Дракон:0.5,Стальной:2,Демон:1,Нежить:2},
-Водный:{Огненный:2,Водный:0.5,Природа:0.5,ЗЩемляной:2,Каменный:2,Дракон:0.5,Демон:1,Нежить:1},
-Природа:{Огненный:0.5,Водный:2,Природа:0.5,Ядовитый:0.5,ЗЩемляной:2,Летающий:0.5,Жук:0.5,Каменный:2,Дракон:0.5,Стальной:0.5,Демон:1,Нежить:1},
-Электрический:{Водный:2,Электрический:0.5,Природа:0.5,ЗЩемляной:0,Летающий:2,Дракон:0.5,Демон:1,Нежить:1},
-Ледяной:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:0.5,ЗЩемляной:2,Летающий:2,Дракон:2,Стальной:0.5,Демон:1,Нежить:0.5},
+Водный:{Огненный:2,Водный:0.5,Природа:0.5,Земляной:2,Каменный:2,Дракон:0.5,Демон:1,Нежить:1},
+Природа:{Огненный:0.5,Водный:2,Природа:0.5,Ядовитый:0.5,Земляной:2,Летающий:0.5,Жук:0.5,Каменный:2,Дракон:0.5,Стальной:0.5,Демон:1,Нежить:1},
+Электрик:{Водный:2,Электрик:0.5,Природа:0.5,Земляной:0,Летающий:2,Дракон:0.5,Демон:1,Нежить:1},
+Ледяной:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:0.5,Земляной:2,Летающий:2,Дракон:2,Стальной:0.5,Демон:1,Нежить:0.5},
 Боевой:{Обычный:2,Ледяной:2,Ядовитый:0.5,Летающий:0.5,Психический:0.5,Жук:0.5,Каменный:2,Призрак:0,Тёмный:2,Стальной:2,Фея:0.5,Демон:0.5,Нежить:0.5},
-Ядовитый:{Природа:2,Ядовитый:0.5,ЗЩемляной:0.5,Каменный:0.5,Призрак:0.5,Стальной:0,Фея:2,Демон:1,Нежить:0.5},
-ЗЩемляной:{Огненный:2,Электрический:2,Природа:0.5,Ядовитый:2,Летающий:0,Жук:0.5,Каменный:2,Стальной:2,Демон:1,Нежить:1},
-Летающий:{Электрический:0.5,Природа:2,Боевой:2,Жук:2,Каменный:0.5,Стальной:0.5,Демон:1,Нежить:1},
+Ядовитый:{Природа:2,Ядовитый:0.5,Земляной:0.5,Каменный:0.5,Призрак:0.5,Стальной:0,Фея:2,Демон:1,Нежить:0.5},
+Земляной:{Огненный:2,Электрик:2,Природа:0.5,Ядовитый:2,Летающий:0,Жук:0.5,Каменный:2,Стальной:2,Демон:1,Нежить:1},
+Летающий:{Электрик:0.5,Природа:2,Боевой:2,Жук:2,Каменный:0.5,Стальной:0.5,Демон:1,Нежить:1},
 Психический:{Боевой:2,Ядовитый:2,Психический:0.5,Тёмный:0,Стальной:0.5,Демон:2,Нежить:0.5},
 Жук:{Огненный:0.5,Природа:2,Боевой:0.5,Ядовитый:0.5,Летающий:0.5,Психический:2,Призрак:0.5,Тёмный:2,Стальной:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
-Каменный:{Огненный:2,Ледяной:2,Боевой:0.5,ЗЩемляной:0.5,Летающий:2,Жук:2,Стальной:0.5,Демон:1,Нежить:1},
+Каменный:{Огненный:2,Ледяной:2,Боевой:0.5,Земляной:0.5,Летающий:2,Жук:2,Стальной:0.5,Демон:1,Нежить:1},
 Призрак:{Обычный:0,Психический:2,Призрак:2,Тёмный:0.5,Демон:1,Нежить:0},
 Дракон:{Дракон:2,Стальной:0.5,Фея:0,Демон:1,Нежить:1},
 Тёмный:{Боевой:0.5,Психический:2,Призрак:2,Тёмный:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
-Стальной:{Огненный:0.5,Водный:0.5,Электрический:0.5,Ледяной:2,Каменный:2,Стальной:0.5,Фея:2,Демон:1,Нежить:0.5},
+Стальной:{Огненный:0.5,Водный:0.5,Электрик:0.5,Ледяной:2,Каменный:2,Стальной:0.5,Фея:2,Демон:1,Нежить:0.5},
 Фея:{Огненный:0.5,Боевой:2,Ядовитый:0.5,Дракон:2,Тёмный:2,Стальной:0.5,Демон:2,Нежить:1},
-Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрический:1,Ледяной:1,Боевой:2,Ядовитый:0.5,ЗЩемляной:1,Летающий:1,Психический:0.5,Жук:1,Каменный:1,Призрак:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2},
-Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрический:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,ЗЩемляной:1,Летающий:1,Психический:2,Жук:1,Каменный:1,Призрак:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5}
+Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрик:1,Ледяной:1,Боевой:2,Ядовитый:0.5,Земляной:1,Летающий:1,Психический:0.5,Жук:1,Каменный:1,Призрак:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2},
+Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрик:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Психический:2,Жук:1,Каменный:1,Призрак:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5}
 };
 
 
@@ -1151,93 +1185,103 @@ function getTypeEff(moveType,defTypes){
   return m;
 }// ===================== ФЭНТЕЗИ-СУЩЕСТВА =====================
 const Fantasy_DATA=[
+// ===== КРЫСОЛЮДИ ЛАМХИ =====
+{id:1170,name:"Ламхи-Юнец",types:["Земляной","Тёмный"],rarity:"common",habitats:[	"zyffren","route","cave","haradat"],desc:"Молодой крысолюд из подземного клана. Собирает блестящие вещи для старейшин.",height:1.0,weight:35,category:"Ламхи",stats:{hp:55,attack:60,defense:45,spAtk:35,spDef:40,speed:70},shape:"lamhi_young",evolvesTo:1171,evolveLevel:18},
+{id:1171,name:"Ламхи-Коготь",types:["Земляной","Тёмный"],rarity:"uncommon",habitats:[	"zyffren","route","cave","mountain"],desc:"Взрослый крысолюд-воин. Его когти высекают искры из камня.",height:1.5,weight:80,category:"Ламхи",stats:{hp:90,attack:95,defense:75,spAtk:50,spDef:65,speed:95},shape:"lamhi_claw",evolvesTo:1172,evolveLevel:32},
+{id:1172,name:"Ламхи-Владыка Нор",types:["Земляной","Тёмный"],rarity:"epic",habitats:["cave","pole_magii","mountain"],desc:"Старейшина подземного клана. Повелевает роями крыс и хранит древние руны.",height:1.9,weight:140,category:"Ламхи",stats:{hp:130,attack:135,defense:110,spAtk:80,spDef:100,speed:120},shape:"lamhi_lord"},
+
+{id:1173,name:"Ламхи-Метатель",types:["Земляной","Боевой"],rarity:"common",habitats:[	"zyffren","route","cave","haradat"],desc:"Кидает отравленные дротики. Славится меткостью и трусостью.",height:1.1,weight:40,category:"Ламхи",stats:{hp:50,attack:55,defense:40,spAtk:60,spDef:45,speed:75},shape:"lamhi_thrower",evolvesTo:1174,evolveLevel:20},
+{id:1174,name:"Ламхи-Отравитель",types:["Земляной","Ядовитый"],rarity:"rare",habitats:["cave","uurion","totsar"],desc:"Мастер ядов и алхимии. Его дротики парализуют даже огров.",height:1.4,weight:70,category:"Ламхи",stats:{hp:75,attack:80,defense:65,spAtk:115,spDef:80,speed:100},shape:"lamhi_poisoner"},
+
+{id:1175,name:"Ламхи-Жрец Тьмы",types:["Тёмный","Нежить"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Служитель подземного бога-крысы. Жертвует пленников ради силы клана.",height:1.5,weight:75,category:"Ламхи",stats:{hp:85,attack:60,defense:70,spAtk:110,spDef:95,speed:80},shape:"lamhi_priest",evolvesTo:1176,evolveLevel:38},
+{id:1176,name:"Ламхи-Иерарх Ночи",types:["Тёмный","Нежить"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Проклятый жрец, чьё тело разлагается веками. Повелевает роем крыс-призраков.",height:1.8,weight:90,category:"Ламхи",stats:{hp:120,attack:90,defense:100,spAtk:150,spDef:130,speed:100},shape:"lamhi_hierarch"},
 // ===== НЕЖИТЬ (в духе Warcraft III) =====
-{id:1160,name:"Тень",types:["Нежить","Призрак"],rarity:"uncommon",habitats:["cave","lavender","indigo"],desc:"Тёмный дух, способный становиться невидимым. В тени неуязвим для любых атак.",height:1.2,weight:0.1,category:"Тень",stats:{hp:45,attack:40,defense:35,spAtk:80,spDef:55,speed:95},shape:"shade",evolvesTo:1161,evolveLevel:32},
-{id:1161,name:"Тёмная Тень",types:["Нежить","Призрак"],rarity:"epic",habitats:["cave","lavender","indigo"],desc:"Древний тёмный дух, чьё прикосновение высасывает саму жизнь. Абсолютно невидим.",height:1.6,weight:0.1,category:"Тень",stats:{hp:75,attack:65,defense:60,spAtk:130,spDef:90,speed:125},shape:"dark_shade"},
+{id:1160,name:"Тень",types:["Нежить","Призрак"],rarity:"uncommon",habitats:["cave","totsar","pole_magii"],desc:"Тёмный дух, способный становиться невидимым. В тени неуязвим для любых атак.",height:1.2,weight:0.1,category:"Тень",stats:{hp:45,attack:40,defense:35,spAtk:80,spDef:55,speed:95},shape:"shade",evolvesTo:1161,evolveLevel:32},
+{id:1161,name:"Тёмная Тень",types:["Нежить","Призрак"],rarity:"epic",habitats:["cave","totsar","pole_magii"],desc:"Древний тёмный дух, чьё прикосновение высасывает саму жизнь. Абсолютно невидим.",height:1.6,weight:0.1,category:"Тень",stats:{hp:75,attack:65,defense:60,spAtk:130,spDef:90,speed:125},shape:"dark_shade"},
 
-{id:1162,name:"Банши",types:["Нежить","Призрак"],rarity:"rare",habitats:["cave","lavender","indigo"],desc:"Скорбящий дух эльфийки, чей крик замедляет врагов, а одержимость подчиняет их волю.",height:1.5,weight:0.1,category:"Банши",stats:{hp:60,attack:50,defense:45,spAtk:110,spDef:70,speed:85},shape:"banshee",evolvesTo:1163,evolveLevel:38},
-{id:1163,name:"Королева Банши",types:["Нежить","Призрак"],rarity:"epic",habitats:["indigo","cave"],desc:"Повелительница скорбящих духов. Её крик разрывает разум, а одержимость порабощает героев.",height:1.8,weight:0.1,category:"Банши",stats:{hp:90,attack:75,defense:70,spAtk:155,spDef:110,speed:105},shape:"banshee_queen"},
+{id:1162,name:"Банши",types:["Нежить","Призрак"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Скорбящий дух эльфийки, чей крик замедляет врагов, а одержимость подчиняет их волю.",height:1.5,weight:0.1,category:"Банши",stats:{hp:60,attack:50,defense:45,spAtk:110,spDef:70,speed:85},shape:"banshee",evolvesTo:1163,evolveLevel:38},
+{id:1163,name:"Царица Банши",types:["Нежить","Призрак"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Повелительница скорбящих духов. Её крик разрывает разум, а одержимость порабощает героев.",height:1.8,weight:0.1,category:"Банши",stats:{hp:90,attack:75,defense:70,spAtk:155,spDef:110,speed:105},shape:"banshee_queen"},
 
-{id:1164,name:"Сшивень",types:["Нежить","Боевой"],rarity:"rare",habitats:["cave","lavender","mountain"],desc:"Сшитый из трупов монстр с огромным крюком. Разрывает плоть и восстанавливает силы, пожирая врагов.",height:2.6,weight:350,category:"Сшивень",stats:{hp:140,attack:125,defense:90,spAtk:40,spDef:70,speed:45},shape:"abomination",evolvesTo:1165,evolveLevel:42},
-{id:1165,name:"Мясник",types:["Нежить","Боевой"],rarity:"epic",habitats:["cave","indigo"],desc:"Чудовище из сотни трупов, повелитель крюка. Его мясницкий крюк пронзает даже камень.",height:3.2,weight:600,category:"Мясник",stats:{hp:200,attack:165,defense:120,spAtk:50,spDef:95,speed:55},shape:"butcher"},
+{id:1164,name:"Сшивень",types:["Нежить","Боевой"],rarity:"rare",habitats:["cave","totsar","mountain"],desc:"Сшитый из трупов монстр с огромным крюком. Разрывает плоть и восстанавливает силы, пожирая врагов.",height:2.6,weight:350,category:"Сшивень",stats:{hp:140,attack:125,defense:90,spAtk:40,spDef:70,speed:45},shape:"abomination",evolvesTo:1165,evolveLevel:42},
+{id:1165,name:"Мертвяк",types:["Нежить","Боевой"],rarity:"epic",habitats:["cave","pole_magii"],desc:"Чудовище из сотни трупов, повелитель крюка. Его мясницкий крюк пронзает даже камень.",height:3.2,weight:600,category:"Мясник",stats:{hp:200,attack:165,defense:120,spAtk:50,spDef:95,speed:55},shape:"butcher"},
 
-{id:1166,name:"Лич",types:["Нежить","Психик"],rarity:"rare",habitats:["cave","indigo","lavender"],desc:"Мёртвый маг, обретший бессмертие. Повелевает смертью и восстанавливает силы тёмной магией.",height:1.8,weight:40,category:"Лич",stats:{hp:85,attack:55,defense:70,spAtk:140,spDef:105,speed:75},shape:"lich",evolvesTo:1167,evolveLevel:45},
-{id:1167,name:"Архилич",types:["Нежить","Психик"],rarity:"legendary",habitats:["indigo"],desc:"Древний повелитель мёртвых, чья сила не знает границ. Воскрешает павших и питается их душами.",height:2.2,weight:55,category:"Архилич",stats:{hp:120,attack:80,defense:100,spAtk:175,spDef:140,speed:95},shape:"archlich"},
+{id:1166,name:"Лич",types:["Нежить","Психик"],rarity:"rare",habitats:["cave","pole_magii","totsar"],desc:"Мёртвый маг, обретший бессмертие. Повелевает смертью и восстанавливает силы тёмной магией.",height:1.8,weight:40,category:"Лич",stats:{hp:85,attack:55,defense:70,spAtk:140,spDef:105,speed:75},shape:"lich",evolvesTo:1167,evolveLevel:45},
+{id:1167,name:"Архилич",types:["Нежить","Психик"],rarity:"legendary",habitats:["pole_magii"],desc:"Древний повелитель мёртвых, чья сила не знает границ. Воскрешает павших и питается их душами.",height:2.2,weight:55,category:"Архилич",stats:{hp:120,attack:80,defense:100,spAtk:175,spDef:140,speed:95},shape:"archlich"},
 // ===== ОГРЫ / ОРКИ / ТРОЛЛИ =====
-{id:1152,name:"Огр",types:["ЗЩемляной","Боевой"],rarity:"uncommon",habitats:["mountain","route","pewter","forest"],desc:"Четырёхрукий великан, крушит всё на своём пути дубиной и кулаками.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
-{id:1153,name:"Огр-Вождь",types:["ЗЩемляной","Боевой"],rarity:"epic",habitats:["mountain","volcano"],desc:"Вождь огров, четыре руки держат четыре дубины. Ужас гор.",height:3.5,weight:800,category:"Огр",stats:{hp:170,attack:145,defense:105,spAtk:40,spDef:65,speed:45},shape:"ogr_chief"},
+{id:1152,name:"Огр",types:["Земляной","Боевой"],rarity:"uncommon",habitats:["mountain","route","haradat","forest"],desc:"Четырёхрукий великан, крушит всё на своём пути дубиной и кулаками.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
+{id:1153,name:"Огр-Вождь",types:["Земляной","Боевой"],rarity:"epic",habitats:["mountain","volcano"],desc:"Вождь огров, четыре руки держат четыре дубины. Ужас гор.",height:3.5,weight:800,category:"Огр",stats:{hp:170,attack:145,defense:105,spAtk:40,spDef:65,speed:45},shape:"ogr_chief"},
 
-{id:1154,name:"Огр-Маг",types:["ЗЩемляной","Психический"],rarity:"rare",habitats:["cave","mountain","indigo"],desc:"Синий четырёхрукий огр, владеет грубой боевой магией. Бьёт посохом и заклинаниями.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
-{id:1155,name:"Огр-Архимаг",types:["ЗЩемляной","Психический"],rarity:"epic",habitats:["indigo","cave"],desc:"Древний огр-маг, четыре руки чертят руны в воздухе. Повелевает камнем и разумом.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
+{id:1154,name:"Огр-Маг",types:["Земляной","Психический"],rarity:"rare",habitats:["cave","mountain","pole_magii"],desc:"Синий четырёхрукий огр, владеет грубой боевой магией. Бьёт посохом и заклинаниями.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
+{id:1155,name:"Огр-Архимаг",types:["Земляной","Психический"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Древний огр-маг, четыре руки чертят руны в воздухе. Повелевает камнем и разумом.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
 
 {id:1156,name:"Орк-Громила",types:["Боевой","Тёмный"],rarity:"uncommon",habitats:["mountain","route","desert","forest","volcano"],desc:"Зелёный воин с топором и волчьей шкурой. Яростный и беспощадный.",height:2.0,weight:180,category:"Орк",stats:{hp:90,attack:110,defense:70,spAtk:35,spDef:55,speed:65},shape:"orc_grunt",evolvesTo:1157,evolveLevel:32},
-{id:1157,name:"Орк-Вождь Орды",types:["Боевой","Тёмный"],rarity:"epic",habitats:["volcano","cave","indigo"],desc:"Вождь орков в волчьей мантии, его топор пьёт кровь врагов.",height:2.5,weight:260,category:"Орк",stats:{hp:135,attack:150,defense:100,spAtk:50,spDef:80,speed:80},shape:"orc_warchief"},
+{id:1157,name:"Орк-Военный Вождь",types:["Боевой","Тёмный"],rarity:"epic",habitats:["volcano","cave","pole_magii"],desc:"Вождь орков в волчьей мантии, его топор пьёт кровь врагов.",height:2.5,weight:260,category:"Орк",stats:{hp:135,attack:150,defense:100,spAtk:50,spDef:80,speed:80},shape:"orc_warchief"},
 
 {id:1158,name:"Тролль",types:["Природа","Боевой"],rarity:"uncommon",habitats:["forest","cave","route","mountain"],desc:"Оранжевый шипастый тролль с горящими жёлтыми глазами. Регенерирует раны.",height:2.4,weight:200,category:"Тролль",stats:{hp:130,attack:95,defense:80,spAtk:50,spDef:60,speed:50},shape:"troll",evolvesTo:1159,evolveLevel:34},
 {id:1159,name:"Тролль-Берсерк",types:["Природа","Боевой"],rarity:"epic",habitats:["forest","cave","volcano"],desc:"Древний тролль, покрытый костяными шипами. В ярости не чувствует боли.",height:2.9,weight:280,category:"Тролль",stats:{hp:185,attack:135,defense:100,spAtk:60,spDef:85,speed:65},shape:"troll_berserker"},
 // ===== СТАРТОВЫЕ (выбираются в начале) =====
-{id:1001,name:"Гном",types:["ЗЩемляной"],rarity:"rare",habitats:["forest","mountain","pallet"],desc:"Маленький мастер, куёт волшебные клинки в своей кузнице.",height:1.0,weight:45,category:"Гном",stats:{hp:55,attack:65,defense:70,spAtk:45,spDef:55,speed:35},shape:"gnome_smith",evolvesTo:1002,evolveLevel:16},
-{id:1004,name:"Бес",types:["Огненный","Демон"],rarity:"rare",habitats:["mountain","volcano","pallet"],desc:"Озорной демонёнок, чьи шалости оставляют ожоги.",height:0.8,weight:12,category:"Имп",stats:{hp:45,attack:60,defense:40,spAtk:70,spDef:45,speed:70},shape:"fire_imp",evolvesTo:1005,evolveLevel:16},
-{id:1007,name:"Русалка",types:["Водный"],rarity:"rare",habitats:["water","cerulean","pallet"],desc:"Дочь морской королевы, её песни управляют волнами.",height:1.2,weight:25,category:"Русалка",stats:{hp:50,attack:45,defense:55,spAtk:75,spDef:70,speed:55},shape:"mermaid_fae",evolvesTo:1008,evolveLevel:16},
-{id:1025,name:"Лепрекон",types:["Электрический","Фея"],rarity:"rare",habitats:["forest","route","pallet"],desc:"Хранитель золотого горшка, бьёт молниями из радуги.",height:0.9,weight:18,category:"Лепрекон",stats:{hp:45,attack:55,defense:45,spAtk:65,spDef:55,speed:95},shape:"leprechaun_spark",evolvesTo:1026,evolveLevel:18},
+{id:1001,name:"Гном",types:["Земляной"],rarity:"rare",habitats:["forest","mountain","sid"],desc:"Маленький мастер, куёт волшебные клинки в своей кузнице.",height:1.0,weight:45,category:"Гном",stats:{hp:55,attack:65,defense:70,spAtk:45,spDef:55,speed:35},shape:"gnome_smith",evolvesTo:1002,evolveLevel:16},
+{id:1004,name:"Бес",types:["Демон"],rarity:"rare",habitats:["mountain","volcano","sid"],desc:"Озорной демонёнок, чьи шалости оставляют ожоги.",height:0.8,weight:12,category:"Имп",stats:{hp:45,attack:60,defense:40,spAtk:70,spDef:45,speed:70},shape:"fire_imp",evolvesTo:1005,evolveLevel:16},
+{id:1007,name:"Русалка",types:["Водный"],rarity:"rare",habitats:["water","goch","sid"],desc:"Дочь морской королевы, её песни управляют волнами.",height:1.2,weight:25,category:"Русалка",stats:{hp:50,attack:45,defense:55,spAtk:75,spDef:70,speed:55},shape:"mermaid_fae",evolvesTo:1008,evolveLevel:16},
+{id:1025,name:"Лепрекон",types:["Фея"],rarity:"rare",habitats:["forest","route","sid"],desc:"Хранитель золотого горшка, бьёт молниями из радуги.",height:0.9,weight:18,category:"Лепрекон",stats:{hp:45,attack:55,defense:45,spAtk:65,spDef:55,speed:95},shape:"leprechaun_spark",evolvesTo:1026,evolveLevel:18},
 
 // ===== ЭВОЛЮЦИИ СТАРТОВЫХ =====
-{id:1002,name:"Дварф-Рунный Мастер",types:["ЗЩемляной","Стальной"],rarity:"epic",habitats:["mountain"],desc:"Древний дварф, высекает руны силы на камне.",height:1.4,weight:120,category:"Дварф",stats:{hp:75,attack:90,defense:110,spAtk:60,spDef:80,speed:45},shape:"dwarf_runemaster"},
+{id:1002,name:"Дворф-Рунный Мастер",types:["Земляной","Стальной"],rarity:"epic",habitats:["mountain"],desc:"Древний Дворф, высекает руны силы на камне.",height:1.4,weight:120,category:"Дворф",stats:{hp:75,attack:90,defense:110,spAtk:60,spDef:80,speed:45},shape:"dwarf_runemaster"},
 {id:1005,name:"Крылатый Демон",types:["Огненный","Демон","Летающий"],rarity:"epic",habitats:["volcano","mountain"],desc:"Крылатый демон, чьё дыхание плавит металл.",height:1.8,weight:95,category:"Демон",stats:{hp:65,attack:85,defense:65,spAtk:105,spDef:70,speed:95},shape:"fire_demon"},
-{id:1008,name:"Королева Сирен",types:["Водный","Фея"],rarity:"epic",habitats:["water","seafoam"],desc:"Правительница глубин, голосом усмиряет штормы.",height:1.7,weight:60,category:"Сирена",stats:{hp:75,attack:60,defense:80,spAtk:110,spDef:95,speed:75},shape:"siren_queen"},
-{id:1026,name:"Радужный лепрекон",types:["Электрический","Фея"],rarity:"epic",habitats:["forest","indigo"],desc:"Мастер радужной магии, исполняет желания... за плату.",height:1.1,weight:35,category:"Лепрекон",stats:{hp:60,attack:70,defense:55,spAtk:90,spDef:75,speed:120},shape:"leprechaun_rainbow"},
+{id:1008,name:"Королева Сирен",types:["Водный","Фея"],rarity:"epic",habitats:["water","ostrova_pobezhdennogo"],desc:"Правительница глубин, голосом усмиряет штормы.",height:1.7,weight:60,category:"Сирена",stats:{hp:75,attack:60,defense:80,spAtk:110,spDef:95,speed:75},shape:"siren_queen"},
+{id:1026,name:"Радужный лепрекон",types:["Электрик","Фея"],rarity:"epic",habitats:["forest","pole_magii"],desc:"Мастер радужной магии, исполняет желания... за плату.",height:1.1,weight:35,category:"Лепрекон",stats:{hp:60,attack:70,defense:55,spAtk:90,spDef:75,speed:120},shape:"leprechaun_rainbow"},
 
 // ===== ЛЕСНЫЕ / ОБЫЧНЫЕ =====
-{id:1010,name:"Лесной Гриб",types:["Природа","Ядовитый"],rarity:"common",habitats:["forest","route"],desc:"Ходячий гриб, споры которого усыпляют путников.",height:0.4,weight:5,category:"Гриб",stats:{hp:50,attack:30,defense:45,spAtk:40,spDef:50,speed:25},shape:"mushroom_sprite",evolvesTo:1011,evolveLevel:10},
-{id:1011,name:"Гриб-Королевич",types:["Природа","Ядовитый"],rarity:"uncommon",habitats:["forest"],desc:"Созревший гриб, его шляпка — трон для спор.",height:0.8,weight:18,category:"Гриб",stats:{hp:70,attack:45,defense:65,spAtk:65,spDef:70,speed:30},shape:"mushroom_king"},
+{id:1010,name:"Миконид",types:["Природа","Ядовитый"],rarity:"common",habitats:["forest","route"],desc:"Ходячий гриб, споры которого усыпляют путников.",height:0.4,weight:5,category:"Гриб",stats:{hp:50,attack:30,defense:45,spAtk:40,spDef:50,speed:25},shape:"mushroom_sprite",evolvesTo:1011,evolveLevel:10},
+{id:1011,name:"Миконид-Королевич",types:["Природа","Ядовитый"],rarity:"uncommon",habitats:["forest"],desc:"Созревший миконид, его шляпка — трон для спор.",height:0.8,weight:18,category:"Гриб",stats:{hp:70,attack:45,defense:65,spAtk:65,spDef:70,speed:30},shape:"mushroom_king"},
 {id:1013,name:"Плющий",types:["Природа","Жук"],rarity:"common",habitats:["forest","route"],desc:"Живая лиана, душит неосторожных путников.",height:0.5,weight:3,category:"Растение",stats:{hp:45,attack:40,defense:35,spAtk:30,spDef:35,speed:55},shape:"vine_creeper",evolvesTo:1014,evolveLevel:10},
-{id:1014,name:"Древень-Страж",types:["Природа","ЗЩемляной"],rarity:"uncommon",habitats:["forest"],desc:"Старое дерево, ожившее для защиты леса.",height:1.6,weight:180,category:"Древень",stats:{hp:85,attack:75,defense:90,spAtk:50,spDef:65,speed:25},shape:"treant_guard"},
-{id:1016,name:"Гарпия-Птенец",types:["Обычный","Летающий"],rarity:"common",habitats:["forest","route","pallet","viridian","pewter"],desc:"Молодая гарпия, ещё не научилась летать высоко.",height:0.6,weight:8,category:"Гарпия",stats:{hp:45,attack:50,defense:40,spAtk:40,spDef:40,speed:60},shape:"harpy_chick",evolvesTo:1017,evolveLevel:18},
+{id:1014,name:"Древень",types:["Природа"],rarity:"uncommon",habitats:["forest"],desc:"Дерево, ожившее для охраны леса.",height:1.6,weight:180,category:"Древень",stats:{hp:85,attack:75,defense:90,spAtk:50,spDef:65,speed:25},shape:"treant_guard"},
+{id:1016,name:"Гарпия-Птенец",types:["Обычный","Летающий"],rarity:"common",habitats:["forest","route","sid","haradat"],desc:"Молодая гарпия, ещё не научилась летать высоко.",height:0.6,weight:8,category:"Гарпия",stats:{hp:45,attack:50,defense:40,spAtk:40,spDef:40,speed:60},shape:"harpy_chick",evolvesTo:1017,evolveLevel:18},
 {id:1017,name:"Гарпия-Воительница",types:["Обычный","Летающий"],rarity:"rare",habitats:["forest","route","mountain"],desc:"Взрослая гарпия, её когти рассекают воздух.",height:1.5,weight:45,category:"Гарпия",stats:{hp:65,attack:75,defense:55,spAtk:60,spDef:55,speed:80},shape:"harpy_warrior"},
-{id:1019,name:"Гоблин-Вор",types:["Обычный","Тёмный"],rarity:"common",habitats:["route","pallet","viridian"],desc:"Мелкий пакостник, обожает красть блестящее.",height:0.7,weight:15,category:"Гоблин",stats:{hp:35,attack:60,defense:35,spAtk:30,spDef:35,speed:75},shape:"goblin_thief"},
+{id:1019,name:"Гоблин-Вор",types:["Обычный","Тёмный"],rarity:"common",habitats:["route","sid"],desc:"Мелкий пакостник, обожает красть блестящее.",height:0.7,weight:15,category:"Гоблин",stats:{hp:35,attack:60,defense:35,spAtk:30,spDef:35,speed:75},shape:"goblin_thief"},
 
 // ===== ПЕЩЕРНЫЕ / НОЧНЫЕ =====
-{id:1041,name:"Вампи",types:["Нежить","Летающий"],rarity:"common",habitats:["cave","lavender"],desc:"Пьёт кровь спящих, боится света.",height:0.8,weight:6,category:"Вампир",stats:{hp:45,attack:50,defense:35,spAtk:35,spDef:40,speed:60},shape:"vampire_bat"},
-{id:1074,name:"Каменный Голем",types:["Каменный","ЗЩемляной"],rarity:"common",habitats:["mountain","cave"],desc:"Ожившая скала, медлителен, но невероятно силён.",height:1.2,weight:250,category:"Голем",stats:{hp:60,attack:85,defense:110,spAtk:30,spDef:40,speed:15},shape:"stone_golem",evolvesTo:1075,evolveLevel:25},
+{id:1041,name:"Вампи",types:["Нежить","Летающий"],rarity:"common",habitats:["cave","totsar"],desc:"Пьёт кровь спящих, боится света.",height:0.8,weight:6,category:"Вампир",stats:{hp:45,attack:50,defense:35,spAtk:35,spDef:40,speed:60},shape:"vampire_bat"},
+{id:1074,name:"Каменный Голем",types:["Каменный","Земляной"],rarity:"common",habitats:["mountain","cave"],desc:"Ожившая скала, медлителен, но невероятно силён.",height:1.2,weight:250,category:"Голем",stats:{hp:60,attack:85,defense:110,spAtk:30,spDef:40,speed:15},shape:"stone_golem",evolvesTo:1075,evolveLevel:25},
 {id:1075,name:"Рунный Колосс",types:["Каменный","Стальной"],rarity:"epic",habitats:["mountain","cave"],desc:"Древний голем, на его теле высечены руны древних.",height:2.5,weight:800,category:"Колосс",stats:{hp:95,attack:120,defense:150,spAtk:50,spDef:70,speed:25},shape:"rune_colossus"},
-{id:1092,name:"Банши",types:["Призрак","Нежить"],rarity:"uncommon",habitats:["cave","lavender"],desc:"Дух умершего путника, оплакивает свою судьбу.",height:1.3,weight:0.1,category:"Призрак",stats:{hp:40,attack:40,defense:35,spAtk:100,spDef:45,speed:75},shape:"wailing_ghost",evolvesTo:1094,evolveLevel:25},
-{id:1094,name:"Дух-Пожиратель",types:["Призрак","Тёмный"],rarity:"epic",habitats:["cave","lavender"],desc:"Поглощает души, прячется в тенях.",height:1.6,weight:45,category:"Дух",stats:{hp:70,attack:75,defense:65,spAtk:135,spDef:80,speed:110},shape:"soul_devourer"},
+{id:1092,name:"Банши",types:["Призрак","Нежить"],rarity:"uncommon",habitats:["cave","totsar"],desc:"Дух умершего путника, оплакивает свою судьбу.",height:1.3,weight:0.1,category:"Призрак",stats:{hp:40,attack:40,defense:35,spAtk:100,spDef:45,speed:75},shape:"wailing_ghost",evolvesTo:1094,evolveLevel:25},
+{id:1094,name:"Дух-Пожиратель",types:["Призрак","Тёмный"],rarity:"epic",habitats:["cave","totsar"],desc:"Поглощает души, прячется в тенях.",height:1.6,weight:45,category:"Дух",stats:{hp:70,attack:75,defense:65,spAtk:135,spDef:80,speed:110},shape:"soul_devourer"},
 
 // ===== ВОДНЫЕ =====
 {id:1129,name:"Морской Конёк-Малыш",types:["Водный"],rarity:"common",habitats:["water"],desc:"Крошечный конёк, плавает стаями.",height:0.3,weight:2,category:"Конёк",stats:{hp:30,attack:15,defense:40,spAtk:20,spDef:25,speed:70},shape:"seahorse_baby",evolvesTo:1130,evolveLevel:20},
-{id:1130,name:"Морской Дракон",types:["Водный","Дракон"],rarity:"epic",habitats:["water","seafoam"],desc:"Грозный дракон глубин, топит корабли.",height:5.5,weight:220,category:"Дракон",stats:{hp:95,attack:120,defense:80,spAtk:85,spDef:95,speed:85},shape:"sea_dragon"},
-{id:1054,name:"Утконос-Маг",types:["Водный","Психический"],rarity:"uncommon",habitats:["water","cerulean","viridian"],desc:"Странный зверёк, страдает от видений.",height:0.9,weight:20,category:"Маг",stats:{hp:55,attack:50,defense:50,spAtk:70,spDef:55,speed:50},shape:"platypus_mage"},
-{id:1131,name:"Ледяной Кит",types:["Водный","Ледяной"],rarity:"rare",habitats:["water","seafoam"],desc:"Гигант северных морей, перевозит путников.",height:4.0,weight:400,category:"Кит",stats:{hp:140,attack:80,defense:90,spAtk:90,spDef:100,speed:50},shape:"ice_whale"},
+{id:1130,name:"Морской Дракон",types:["Водный","Дракон"],rarity:"epic",habitats:["water","ostrova_pobezhdennogo"],desc:"Грозный дракон глубин, топит корабли.",height:5.5,weight:220,category:"Дракон",stats:{hp:95,attack:120,defense:80,spAtk:85,spDef:95,speed:85},shape:"sea_dragon"},
+{id:1054,name:"Рири-маг",types:["Водный","Психический"],rarity:"uncommon",habitats:["water","goch",	"zyffren"],desc:"Странный зверёк, страдает от видений.",height:0.9,weight:20,category:"Маг",stats:{hp:55,attack:50,defense:50,spAtk:70,spDef:55,speed:50},shape:"platypus_mage"},
+{id:1131,name:"Ледяной Кит",types:["Водный","Ледяной"],rarity:"rare",habitats:["water","ostrova_pobezhdennogo"],desc:"Гигант северных морей, перевозит путников.",height:4.0,weight:400,category:"Кит",stats:{hp:140,attack:80,defense:90,spAtk:90,spDef:100,speed:50},shape:"ice_whale"},
 
 // ===== ГОРНЫЕ / ОГНЕННЫЕ =====
-{id:1133,name:"Дух-Лисичка",types:["Обычный","Фея"],rarity:"uncommon",habitats:["route","celadon","pallet"],desc:"Маленький дух-лис, может эволюционировать в любую стихию.",height:0.5,weight:7,category:"Дух",stats:{hp:55,attack:55,defense:50,spAtk:50,spDef:65,speed:60},shape:"spirit_fox"},
-{id:1134,name:"Водяная Кицунэ",types:["Водный","Фея"],rarity:"rare",habitats:["water","cerulean","seafoam"],desc:"Лиса-оборотень, управляет водой и туманом.",height:1.2,weight:30,category:"Кицунэ",stats:{hp:125,attack:60,defense:65,spAtk:110,spDef:100,speed:70},shape:"water_kitsune"},
-{id:1135,name:"Огненная Кицунэ",types:["Огненный","Фея"],rarity:"rare",habitats:["volcano","celadon"],desc:"Девятихвостая лиса, чьё пламя — иллюзия.",height:1.2,weight:28,category:"Кицунэ",stats:{hp:65,attack:65,defense:60,spAtk:110,spDef:90,speed:95},shape:"fire_kitsune"},
+{id:1133,name:"Дух-Лисичка",types:["Обычный","Фея"],rarity:"uncommon",habitats:["route","selax","sid"],desc:"Маленький дух-лис, может эволюционировать в любую стихию.",height:0.5,weight:7,category:"Дух",stats:{hp:55,attack:55,defense:50,spAtk:50,spDef:65,speed:60},shape:"spirit_fox"},
+{id:1134,name:"Водяная Кицунэ",types:["Водный","Фея"],rarity:"rare",habitats:["water","goch","ostrova_pobezhdennogo"],desc:"Лиса-оборотень, управляет водой и туманом.",height:1.2,weight:30,category:"Кицунэ",stats:{hp:125,attack:60,defense:65,spAtk:110,spDef:100,speed:70},shape:"water_kitsune"},
+{id:1135,name:"Огненная Кицунэ",types:["Огненный","Фея"],rarity:"rare",habitats:["volcano","selax"],desc:"Девятихвостая лиса, чьё пламя — иллюзия.",height:1.2,weight:28,category:"Кицунэ",stats:{hp:65,attack:65,defense:60,spAtk:110,spDef:90,speed:95},shape:"fire_kitsune"},
 
 // ===== ВОЛШЕБНЫЕ СУЩЕСТВА =====
-{id:1063,name:"Дух-Телепат",types:["Психический"],rarity:"uncommon",habitats:["saffron","cave","pallet"],desc:"Полупрозрачный дух, читает мысли и телепортируется.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
-{id:1065,name:"Архимаг-Дух",types:["Психический","Фея"],rarity:"epic",habitats:["saffron","cave"],desc:"Дух великого мага, его знания безграничны.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
+{id:1063,name:"Дух-Телепат",types:["Психический"],rarity:"uncommon",habitats:["fattolodor","cave","sid"],desc:"Полупрозрачный дух, читает мысли и телепортируется.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
+{id:1065,name:"Архимаг-Дух",types:["Психический","Фея"],rarity:"epic",habitats:["fattolodor","cave"],desc:"Дух великого мага, его знания безграничны.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
 {id:1147,name:"Дракончик-Змей",types:["Дракон"],rarity:"rare",habitats:["water","cave"],desc:"Молодой морской дракон, живёт у водопадов.",height:1.5,weight:4,category:"Змей",stats:{hp:45,attack:65,defense:45,spAtk:55,spDef:50,spSpeed:50},shape:"dragon_snake",evolvesTo:1148,evolveLevel:30},
-{id:1148,name:"Небесный Змей",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","indigo"],desc:"Взрослый дракон, летает среди облаков.",height:3.5,weight:150,category:"Змей",stats:{hp:75,attack:95,defense:70,spAtk:80,spDef:75,speed:75},shape:"sky_serpent"},
+{id:1148,name:"Небесный Змей",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","pole_magii"],desc:"Взрослый дракон, летает среди облаков.",height:3.5,weight:150,category:"Змей",stats:{hp:75,attack:95,defense:70,spAtk:80,spDef:75,speed:75},shape:"sky_serpent"},
 
 // ===== КУЛЬТОВЫЕ / РЕДКИЕ =====
 {id:1143,name:"Лесной Медведь-Соня",types:["Обычный","Природа"],rarity:"rare",habitats:["route","forest","mountain"],desc:"Спит всю зиму, весной становится добрым защитником леса.",height:2.2,weight:380,category:"Медведь",stats:{hp:160,attack:110,defense:70,spAtk:60,spDef:105,speed:30},shape:"sleepy_bear"},
 
 // ===== ЛЕГЕНДАРНЫЕ =====
-{id:1150,name:"Тёмный Владыка",types:["Психический","Нежить"],rarity:"legendary",habitats:["cave","indigo"],desc:"Создан из чистой магии тьмы, его сила не знает границ.",height:2.2,weight:130,category:"Владыка",stats:{hp:110,attack:115,defense:95,spAtk:160,spDef:95,speed:135},shape:"dark_lord"},
-{id:1151,name:"Искра-Создатель",types:["Психический","Фея"],rarity:"legendary",habitats:["forest","indigo"],desc:"Прародитель всех волшебных существ, может принимать любую форму.",height:0.5,weight:4,category:"Создатель",stats:{hp:105,attack:105,defense:105,spAtk:105,spDef:105,speed:105},shape:"creator_spark"},
-{id:1144,name:"Ледяной Феникс",types:["Ледяной","Летающий"],rarity:"legendary",habitats:["water","seafoam"],desc:"Легендарная птица зимы, её перья — кристаллы льда.",height:1.8,weight:60,category:"Феникс",stats:{hp:95,attack:90,defense:105,spAtk:100,spDef:130,speed:90},shape:"ice_phoenix"},
-{id:1145,name:"Грозовой Феникс",types:["Электрический","Летающий"],rarity:"legendary",habitats:["mountain","indigo"],desc:"Легендарная птица бури, повелевает молниями.",height:1.7,weight:55,category:"Феникс",stats:{hp:95,attack:95,defense:90,spAtk:130,spDef:95,speed:105},shape:"storm_phoenix"},
+{id:1150,name:"Тёмный Владыка",types:["Психический","Нежить"],rarity:"legendary",habitats:["cave","pole_magii"],desc:"Создан из чистой магии тьмы, его сила не знает границ.",height:2.2,weight:130,category:"Владыка",stats:{hp:110,attack:115,defense:95,spAtk:160,spDef:95,speed:135},shape:"dark_lord"},
+{id:1151,name:"Искра-Создатель",types:["Психический","Фея"],rarity:"legendary",habitats:["forest","pole_magii"],desc:"Прародитель всех волшебных существ, может принимать любую форму.",height:0.5,weight:4,category:"Создатель",stats:{hp:105,attack:105,defense:105,spAtk:105,spDef:105,speed:105},shape:"creator_spark"},
+{id:1144,name:"Ледяной Феникс",types:["Ледяной","Летающий"],rarity:"legendary",habitats:["water","ostrova_pobezhdennogo"],desc:"Легендарная птица зимы, её перья — кристаллы льда.",height:1.8,weight:60,category:"Феникс",stats:{hp:95,attack:90,defense:105,spAtk:100,spDef:130,speed:90},shape:"ice_phoenix"},
+{id:1145,name:"Грозовой Феникс",types:["Электрик","Летающий"],rarity:"legendary",habitats:["mountain","pole_magii"],desc:"Легендарная птица бури, повелевает молниями.",height:1.7,weight:55,category:"Феникс",stats:{hp:95,attack:95,defense:90,spAtk:130,spDef:95,speed:105},shape:"storm_phoenix"},
 {id:1146,name:"Огненный Феникс",types:["Огненный","Летающий"],rarity:"legendary",habitats:["volcano"],desc:"Легендарная птица огня, возрождается из пепла.",height:2.1,weight:65,category:"Феникс",stats:{hp:95,attack:105,defense:95,spAtk:130,spDef:90,speed:95},shape:"fire_phoenix"},
 
 // ===== ДОПОЛНИТЕЛЬНЫЕ =====
 {id:1068,name:"Каменный Боец",types:["Боевой","Каменный"],rarity:"rare",habitats:["mountain","route"],desc:"Ожившая статуя воина, мастер боевых искусств.",height:1.8,weight:200,category:"Боец",stats:{hp:90,attack:135,defense:85,spAtk:55,spDef:80,speed:55},shape:"stone_fighter"},
-{id:1003,name:"Дварф-Король",types:["ЗЩемляной","Стальной"],rarity:"epic",habitats:["mountain"],desc:"Правитель подгорного царства, его молот дробит скалы.",height:1.5,weight:150,category:"Дварф",stats:{hp:85,attack:95,defense:120,spAtk:70,spDef:90,speed:40},shape:"dwarf_king"},
+{id:1003,name:"Король Дворфов",types:["Земляной","Стальной"],rarity:"epic",habitats:["mountain"],desc:"Правитель подгорного царства, его молот дробит скалы.",height:1.5,weight:150,category:"Дворф",stats:{hp:85,attack:95,defense:120,spAtk:70,spDef:90,speed:40},shape:"dwarf_king"},
 {id:1006,name:"Демон-Владыка",types:["Огненный","Дракон"],rarity:"epic",habitats:["volcano","mountain"],desc:"Повелитель огненных демонов, его ярость сжигает миры.",height:2.0,weight:110,category:"Демон",stats:{hp:85,attack:95,defense:85,spAtk:120,spDef:90,speed:105},shape:"demon_lord"},
-{id:1009,name:"Сирена-Богиня",types:["Водный","Фея"],rarity:"epic",habitats:["water","seafoam"],desc:"Богиня океанов, её слёзы становятся жемчугом.",height:1.9,weight:70,category:"Богиня",stats:{hp:85,attack:85,defense:105,spAtk:95,spDef:110,speed:80},shape:"goddess_siren"},
-{id:1149,name:"Небесный Дракон",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","indigo","seafoam"],desc:"Добрый дракон-хранитель, защищает слабых.",height:2.5,weight:220,category:"Дракон",stats:{hp:95,attack:140,defense:100,spAtk:105,spDef:105,speed:85},shape:"sky_dragon"},
-{id:1055,name:"Упырь",types:["Нежить"],rarity:"uncommon",habitats:["cave","lavender","desert"],desc:"Восставший мертвец, питается плотью живых. Медлителен, но невероятно живуч.",height:1.5,weight:90,category:"Упырь",stats:{hp:30,attack:50,defense:20,spAtk:40,spDef:20,speed:25},shape:"ghoul",evolvesTo:1056,evolveLevel:28},
-{id:1056,name:"Упырь-Пожиратель",types:["Нежить","ЗЩемляной"],rarity:"rare",habitats:["cave","lavender"],desc:"Древний упырь, чьё тело покрыто костяной бронёй. Пожирает всё живое.",height:2.0,weight:180,category:"Упырь",stats:{hp:105,attack:110,defense:95,spAtk:55,spDef:75,speed:35},shape:"ghoul_devourer"},
+{id:1009,name:"Сирена-Богиня",types:["Водный","Фея"],rarity:"epic",habitats:["water","ostrova_pobezhdennogo"],desc:"Богиня океанов, её слёзы становятся жемчугом.",height:1.9,weight:70,category:"Богиня",stats:{hp:85,attack:85,defense:105,spAtk:95,spDef:110,speed:80},shape:"goddess_siren"},
+{id:1149,name:"Небесный Дракон",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","pole_magii","ostrova_pobezhdennogo"],desc:"Добрый дракон-хранитель, защищает слабых.",height:2.5,weight:220,category:"Дракон",stats:{hp:95,attack:140,defense:100,spAtk:105,spDef:105,speed:85},shape:"sky_dragon"},
+{id:1055,name:"Упырь",types:["Нежить"],rarity:"uncommon",habitats:["cave","totsar","desert"],desc:"Восставший мертвец, питается плотью живых. Медлителен, но невероятно живуч.",height:1.5,weight:90,category:"Упырь",stats:{hp:30,attack:50,defense:20,spAtk:40,spDef:20,speed:25},shape:"ghoul",evolvesTo:1056,evolveLevel:28},
+{id:1056,name:"Упырь-Пожиратель",types:["Нежить","Земляной"],rarity:"rare",habitats:["cave","totsar"],desc:"Древний упырь, чьё тело покрыто костяной бронёй. Пожирает всё живое.",height:2.0,weight:180,category:"Упырь",stats:{hp:105,attack:110,defense:95,spAtk:55,spDef:75,speed:35},shape:"ghoul_devourer"},
 
 
 
@@ -1254,7 +1298,7 @@ const Fantasy_DATA=[
 ];
 const RARITY_COLORS={common:"#9ca3af",uncommon:"#4ade80",rare:"#60a5fa",epic:"#a855f7",legendary:"#fbbf24"};
 const RARITY_NAMES={common:"Обычный",uncommon:"Необычный",rare:"Редкий",epic:"Эпический",legendary:"Легендарный"};
-const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрический:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",ЗЩемляной:"#e0c068",Летающий:"#a890f0",Психический:"#f85888",Жук:"#a8b820",Каменный:"#b8a038",Призрак:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#6b21a8",Нежить:"#5b6b5b"};
+const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрик:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",Земляной:"#e0c068",Летающий:"#a890f0",Психический:"#f85888",Жук:"#a8b820",Каменный:"#b8a038",Призрак:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#6b21a8",Нежить:"#5b6b5b"};
 
 // ===================== НАБОРЫ АТАК =====================
 // ===================== НАБОРЫ АТАК (сдвинутые уровни) =====================
@@ -1262,6 +1306,16 @@ const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водн�
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 const LEARNSETS={
+// ===== ЛАМХИ =====
+1170:[{level:1,move:"Крысиный укус"},{level:4,move:"Коготь Ламхи"},{level:8,move:"Крысиный рой"},{level:12,move:"Подземный вой"},{level:16,move:"Норский клинок"},{level:22,move:"Приказ стаи"}],
+1171:[{level:1,move:"Коготь Ламхи"},{level:1,move:"Крысиный рой"},{level:1,move:"Норский клинок"},{level:1,move:"Подземный вой"},{level:1,move:"Приказ стаи"}],
+1172:[{level:1,move:"Норский клинок"},{level:1,move:"Приказ стаи"},{level:1,move:"Крысиный рой"},{level:1,move:"Подземный вой"},{level:1,move:"Волна смерти"}],
+
+1173:[{level:1,move:"Дротик с ядом"},{level:5,move:"Крысиный укус"},{level:10,move:"Токсичный шип"},{level:14,move:"Отравление"},{level:18,move:"Тёмное жертвоприношение"}],
+1174:[{level:1,move:"Дротик с ядом"},{level:1,move:"Токсичный шип"},{level:1,move:"Отравление"},{level:1,move:"Подземный вой"},{level:1,move:"Тёмное жертвоприношение"}],
+
+1175:[{level:1,move:"Крысиный укус"},{level:5,move:"Тёмное жертвоприношение"},{level:10,move:"Проклятие роя"},{level:16,move:"Крик банши"},{level:22,move:"Волна смерти"}],
+1176:[{level:1,move:"Проклятие роя"},{level:1,move:"Тёмное жертвоприношение"},{level:1,move:"Волна смерти"},{level:1,move:"Крик банши"},{level:1,move:"Норский клинок"}],
 // --- Тень ---
 1160:[{level:1,move:"Прикосновение смерти"},{level:4,move:"Шар тьмы"},{level:8,move:"Невидимость"},{level:12,move:"Удар из тени"},{level:16,move:"Луч разума"},{level:22,move:"Пожиратель снов"},{level:28,move:"Волна смерти"}],
 1161:[{level:1,move:"Невидимость"},{level:1,move:"Удар из тени"},{level:1,move:"Шар тьмы"},{level:1,move:"Пожиратель снов"},{level:1,move:"Волна смерти"}],
@@ -1344,7 +1398,7 @@ const LEARNSETS={
 1134:[{level:1,move:"Удар хвостом"},{level:5,move:"Водяной шип"},{level:10,move:"Внезапный выпад"},{level:16,move:"Поток воды"},{level:22,move:"Ледяное копьё"},{level:30,move:"Гидроудар"}],
 1135:[{level:1,move:"Царапка когтем"},{level:5,move:"Искра"},{level:10,move:"Внезапный выпад"},{level:16,move:"Пламенный клык"},{level:22,move:"Струя пламени"},{level:30,move:"Огненный шквал"}],
 
-// --- Утконос ---
+// --- Рири ---
 1054:[{level:1,move:"Водяной шип"},{level:4,move:"Смятение"},{level:9,move:"Поток воды"},{level:14,move:"Взрыв разума"},{level:19,move:"Гидроудар"},{level:24,move:"Природное восстановление"}],
 
 // --- Дух-Телепат ---
@@ -1378,6 +1432,16 @@ const LEARNSETS={
 // ===================== АТАКИ =====================
 // ===================== АТАКИ (ФЭНТЕЗИ) =====================
 const FULL_MOVES={
+// ===== АТАКИ ЛАМХИ =====
+"Крысиный укус":{type:"Тёмный",power:45,cat:"physical",effect:"poison",chance:0.3,desc:"Укус, пропитанный подземной заразой. Может отравить."},
+"Коготь Ламхи":{type:"Земляной",power:70,cat:"physical",desc:"Резкий удар когтями, высекает искры."},
+"Дротик с ядом":{type:"Ядовитый",power:60,cat:"special",effect:"toxic",chance:0.5,desc:"Отравленный дротик. Может сильно отравить."},
+"Подземный вой":{type:"Тёмный",power:null,cat:"status",effect:"confuse",chance:0.75,desc:"Вой из глубин, сбивающий врага с толку."},
+"Крысиный рой":{type:"Тёмный",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз стаей крыс."},
+"Тёмное жертвоприношение":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.4,desc:"Жрец восстанавливает 40% HP, высасывая жизнь из земли."},
+"Проклятие роя":{type:"Нежить",power:100,cat:"special",effect:"drain",drain:0.5,desc:"Тёмная волна крыс-духов, восстанавливает 50% урона."},
+"Норский клинок":{type:"Земляной",power:95,cat:"physical",desc:"Клинок из кости подземного зверя. Мощный и точный."},
+"Приказ стаи":{type:"Тёмный",power:null,cat:"status",effect:"lowerdef",desc:"Стая крыс подгрызает защиту цели."},
 "Поджог":{type:"Огненный",power:70,cat:"physical",effect:"recoil",recoil:0.4,desc:"Имп поджигает и себя, и врага. Отдача 40% нанесённого урона."},
 // --- Нежить ---
 "Каннибализм":{type:"Нежить",power:60,cat:"physical",effect:"drain",drain:0.75,desc:"Вгрызается в плоть врага и восстанавливает 75% нанесённого урона"},
@@ -1416,11 +1480,11 @@ const FULL_MOVES={
 "Луч света":{type:"Природа",power:120,cat:"special"},
 "Спорный сон":{type:"Природа",power:null,cat:"status",effect:"sleep",chance:0.75},
 
-// --- Электрический ---
-"Разряд":{type:"Электрический",power:40,cat:"special"},
-"Грозовой удар":{type:"Электрический",power:90,cat:"special"},
-"Громовая стрела":{type:"Электрический",power:110,cat:"special"},
-"Парализующий разряд":{type:"Электрический",power:null,cat:"status",effect:"paralyze",chance:1.0},
+// --- Электрик ---
+"Разряд":{type:"Электрик",power:40,cat:"special"},
+"Грозовой удар":{type:"Электрик",power:90,cat:"special"},
+"Громовая стрела":{type:"Электрик",power:110,cat:"special"},
+"Парализующий разряд":{type:"Электрик",power:null,cat:"status",effect:"paralyze",chance:1.0},
 
 // --- Ледяной ---
 "Ледяное копьё":{type:"Ледяной",power:90,cat:"special"},
@@ -1437,10 +1501,10 @@ const FULL_MOVES={
 "Тень смерти":{type:"Призрак",power:null,cat:"special"},
 "Пожиратель снов":{type:"Психический",power:100,cat:"special",effect:"dreamdrain"},
 
-// --- Каменный / ЗЩемляной ---
+// --- Каменный / Земляной ---
 "Каменный шип":{type:"Каменный",power:50,cat:"physical"},
 "Обвал":{type:"Каменный",power:75,cat:"physical"},
-"Землетрясение":{type:"ЗЩемляной",power:100,cat:"physical"},
+"Землетрясение":{type:"Земляной",power:100,cat:"physical"},
 
 // --- Летающий ---
 "Удар крылом":{type:"Летающий",power:60,cat:"physical"},
@@ -1476,7 +1540,7 @@ Object.assign(FULL_MOVES, {
   // --- Статусные атаки ---
   "Ядовитыйовитая пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель"},
   "Огненный вихрь":{type:"Огненный",power:35,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь"},
-  "Молния":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать"},
+  "Молния":{type:"Электрик",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать"},
   "Магический сон":{type:"Психический",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель"},
   "Пение сирены":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель"},
   "Морозный ветер":{type:"Ледяной",power:55,cat:"special",effect:"freeze",chance:0.1,desc:"Может заморозить"},
@@ -1493,7 +1557,7 @@ Object.assign(FULL_MOVES, {
   "Ярость дракона":{type:"Дракон",power:20,cat:"physical",effect:"rage",desc:"Растёт при получении урона"},
   "Сокрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона"},
   "Двойной таран":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона"},
-  "Небесная кара":{type:"Электрический",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача"},
+  "Небесная кара":{type:"Электрик",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача"},
   "Взрыв маны":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание"},
   "Жертвенный взрыв":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание"},
 
@@ -1590,7 +1654,7 @@ Object.assign(FULL_MOVES, {
   // --- Статусные атаки ---
   "Ядовитыйовитая пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель"},
   "Огненный вихрь":{type:"Огненный",power:35,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь"},
-  "Разряд молнии":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать"},
+  "Разряд молнии":{type:"Электрик",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать"},
   "Гипноз":{type:"Психический",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель"},
   "Пение":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель"},
   "Ледяной ветер":{type:"Ледяной",power:55,cat:"special",effect:"freeze",chance:0.1,desc:"Может заморозить"},
@@ -1607,7 +1671,7 @@ Object.assign(FULL_MOVES, {
   "Ярость":{type:"Обычный",power:20,cat:"physical",effect:"rage",desc:"Растёт при получении урона"},
   "Разрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона"},
   "Двойное ребро":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона"},
-  "Молния":{type:"Электрический",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача"},
+  "Молния":{type:"Электрик",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача"},
   "Взрыв":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание"},
   "Самоликвидация":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание"},
 
@@ -1648,286 +1712,536 @@ Object.assign(FULL_MOVES, {
   "Обнаружение":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку"},
   "Железная защита":{type:"Стальной",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту"}
 });
+const SPRITES = {/* ===================== ЛАМХИ-ЮНЕЦ ===================== */
+lamhi_young:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="58" rx="12" ry="2.5" fill="rgba(0,0,0,0.3)"/>
+  <path d="M42 46 Q56 44 54 34 Q52 40 44 42" stroke="#8b7355" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M26 48 L24 56 L30 56 L28 48 Z" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2"/>
+  <path d="M38 48 L40 56 L34 56 L36 48 Z" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2"/>
+  <ellipse cx="26" cy="56" rx="4" ry="1.8" fill="#3b2f1e"/>
+  <ellipse cx="38" cy="56" rx="4" ry="1.8" fill="#3b2f1e"/>
+  <ellipse cx="32" cy="40" rx="13" ry="11" fill="#a08968" stroke="#5c4a32" stroke-width="1.4"/>
+  <ellipse cx="32" cy="44" rx="8" ry="6" fill="#c4a882" opacity="0.8"/>
+  <ellipse cx="20" cy="42" rx="3" ry="6" fill="#8b7355" stroke="#5c4a32" stroke-width="1"/>
+  <ellipse cx="44" cy="42" rx="3" ry="6" fill="#8b7355" stroke="#5c4a32" stroke-width="1"/>
+  <path d="M18 47 L16 50 L20 49 Z" fill="#e5e7eb"/>
+  <ellipse cx="32" cy="24" rx="11" ry="10" fill="#a08968" stroke="#5c4a32" stroke-width="1.4"/>
+  <ellipse cx="22" cy="16" rx="5" ry="7" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2" transform="rotate(-20 22 16)"/>
+  <ellipse cx="42" cy="16" rx="5" ry="7" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2" transform="rotate(20 42 16)"/>
+  <ellipse cx="22" cy="16" rx="2.5" ry="4" fill="#f9a8d4" transform="rotate(-20 22 16)"/>
+  <ellipse cx="42" cy="16" rx="2.5" ry="4" fill="#f9a8d4" transform="rotate(20 42 16)"/>
+  <ellipse cx="32" cy="28" rx="6" ry="5" fill="#c4a882"/>
+  <ellipse cx="28" cy="23" rx="2" ry="2.4" fill="#dc2626"/>
+  <ellipse cx="36" cy="23" rx="2" ry="2.4" fill="#dc2626"/>
+  <circle cx="28" cy="23" r="1" fill="#1a1a1a"/>
+  <circle cx="36" cy="23" r="1" fill="#1a1a1a"/>
+  <circle cx="28.4" cy="22.5" r="0.4" fill="#fff"/>
+  <circle cx="36.4" cy="22.5" r="0.4" fill="#fff"/>
+  <ellipse cx="32" cy="28" rx="1.5" ry="1.2" fill="#ec4899"/>
+  <path d="M26 28 L22 27 M26 29 L22 29 M26 30 L22 31" stroke="#3b2f1e" stroke-width="0.5"/>
+  <path d="M38 28 L42 27 M38 29 L42 29 M38 30 L42 31" stroke="#3b2f1e" stroke-width="0.5"/>
+  <path d="M30 32 L30 34 M34 32 L34 34" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+</svg>`,
 
-const SPRITES = {
+/* ===================== ЛАМХИ-КОГОТЬ ===================== */
+lamhi_claw:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.4)"/>
+  <path d="M44 44 Q60 42 58 28 Q54 36 46 40" stroke="#6b5a44" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <rect x="22" y="46" width="7" height="14" rx="2" fill="#6b5a44" stroke="#3b2f1e" stroke-width="1.3"/>
+  <rect x="35" y="46" width="7" height="14" rx="2" fill="#6b5a44" stroke="#3b2f1e" stroke-width="1.3"/>
+  <ellipse cx="25" cy="59" rx="5" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="38" cy="59" rx="5" ry="2" fill="#1a1a1a"/>
+  <rect x="18" y="28" width="28" height="20" rx="5" fill="#a08968" stroke="#3b2f1e" stroke-width="1.5"/>
+  <path d="M18 38 H46 M18 44 H46" stroke="#451a03" stroke-width="2"/>
+  <rect x="30" y="36" width="4" height="10" fill="#fbbf24"/>
+  <rect x="10" y="30" width="8" height="16" rx="3" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2"/>
+  <rect x="46" y="30" width="8" height="16" rx="3" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2"/>
+  <path d="M12 46 L8 52 L12 50 L14 54 L16 49 L20 52" stroke="#e5e7eb" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <path d="M52 46 L56 52 L52 50 L50 54 L48 49 L44 52" stroke="#e5e7eb" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <ellipse cx="32" cy="20" rx="13" ry="12" fill="#a08968" stroke="#3b2f1e" stroke-width="1.5"/>
+  <ellipse cx="20" cy="10" rx="5" ry="8" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2" transform="rotate(-25 20 10)"/>
+  <ellipse cx="44" cy="10" rx="5" ry="8" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2" transform="rotate(25 44 10)"/>
+  <path d="M38 14 L42 22" stroke="#7f1d1d" stroke-width="1.5"/>
+  <ellipse cx="27" cy="19" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="37" cy="19" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="27" cy="19" rx="1" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="19" rx="1" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="32" cy="24" rx="2" ry="1.5" fill="#ec4899"/>
+  <path d="M26 28 Q32 33 38 28" fill="#3b2f1e"/>
+  <polygon points="28,28 27,32 30,29" fill="#fff"/>
+  <polygon points="36,28 37,32 34,29" fill="#fff"/>
+</svg>`,
+
+/* ===================== ЛАМХИ-ВЛАДЫКА НОР ===================== */
+lamhi_lord:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="22" ry="4" fill="rgba(0,0,0,0.5)"/>
+  <ellipse cx="32" cy="36" rx="26" ry="22" fill="#4c1d95" opacity="0.25"/>
+  <path d="M46 44 Q64 40 62 24 Q58 34 48 38" stroke="#4c1d95" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <rect x="20" y="46" width="9" height="14" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.4"/>
+  <rect x="35" y="46" width="9" height="14" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.4"/>
+  <ellipse cx="24" cy="59" rx="6" ry="2.5" fill="#000"/>
+  <ellipse cx="39" cy="59" rx="6" ry="2.5" fill="#000"/>
+  <path d="M14 28 L50 28 L54 56 L10 56 Z" fill="#2d1b4e" stroke="#4c1d95" stroke-width="1.6"/>
+  <path d="M14 28 L50 28 L51 36 L13 36 Z" fill="#4c1d95"/>
+  <path d="M22 32 L42 32 L44 46 L20 46 Z" fill="#1e1b4b" stroke="#a855f7" stroke-width="1.2"/>
+  <circle cx="32" cy="40" r="5" fill="#0a0e1a" stroke="#fbbf24" stroke-width="1.5"/>
+  <path d="M30 38 Q32 36 34 38 Q34 40 32 41 Q30 40 30 38 Z" fill="#fbbf24"/>
+  <path d="M32 41 L32 43" stroke="#fbbf24" stroke-width="1.2"/>
+  <path d="M12 28 L22 24 L22 32 L12 32 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1"/>
+  <path d="M52 28 L42 24 L42 32 L52 32 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1"/>
+  <rect x="8" y="30" width="8" height="20" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="48" y="30" width="8" height="20" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M10 49 L6 55 L10 52 L12 56 L14 51 L18 54" stroke="#a855f7" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M54 49 L58 55 L54 52 L52 56 L50 51 L46 54" stroke="#a855f7" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <ellipse cx="32" cy="18" rx="14" ry="13" fill="#a08968" stroke="#1a1a1a" stroke-width="1.6"/>
+  <ellipse cx="18" cy="8" rx="6" ry="10" fill="#8b7355" stroke="#1a1a1a" stroke-width="1.3" transform="rotate(-30 18 8)"/>
+  <ellipse cx="46" cy="8" rx="6" ry="10" fill="#8b7355" stroke="#1a1a1a" stroke-width="1.3" transform="rotate(30 46 8)"/>
+  <path d="M22 8 L24 0 L28 6 L32 -2 L36 6 L40 0 L42 8 Z" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="32" cy="3" r="1.5" fill="#a855f7"/>
+  <ellipse cx="26" cy="17" rx="3" ry="3.5" fill="#dc2626"/>
+  <ellipse cx="38" cy="17" rx="3" ry="3.5" fill="#dc2626"/>
+  <ellipse cx="26" cy="17" rx="1.2" ry="2.4" fill="#1a1a1a"/>
+  <ellipse cx="38" cy="17" rx="1.2" ry="2.4" fill="#1a1a1a"/>
+  <circle cx="26" cy="17" r="5" fill="#dc2626" opacity="0.4"/>
+  <circle cx="38" cy="17" r="5" fill="#dc2626" opacity="0.4"/>
+  <ellipse cx="32" cy="23" rx="2.5" ry="2" fill="#ec4899"/>
+  <path d="M26 26 Q32 31 38 26" fill="#1a1a1a"/>
+  <polygon points="28,26 27,31 30,28" fill="#fff"/>
+  <polygon points="36,26 37,31 34,28" fill="#fff"/>
+  <path d="M30 29 L32 32 L34 29" stroke="#fff" stroke-width="1" fill="none"/>
+  <path d="M24 23 L18 21 M24 24 L18 25 M24 25 L18 28" stroke="#1a1a1a" stroke-width="0.7"/>
+  <path d="M40 23 L46 21 M40 24 L46 25 M40 25 L46 28" stroke="#1a1a1a" stroke-width="0.7"/>
+</svg>`,
+
+/* ===================== ЛАМХИ-МЕТАТЕЛЬ ===================== */
+lamhi_thrower:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="58" rx="12" ry="2.5" fill="rgba(0,0,0,0.3)"/>
+  <path d="M42 46 Q56 44 54 34 Q52 40 44 42" stroke="#8b7355" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M26 48 L24 56 L30 56 L28 48 Z" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2"/>
+  <path d="M38 48 L40 56 L34 56 L36 48 Z" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2"/>
+  <ellipse cx="26" cy="56" rx="4" ry="1.8" fill="#3b2f1e"/>
+  <ellipse cx="38" cy="56" rx="4" ry="1.8" fill="#3b2f1e"/>
+  <ellipse cx="32" cy="40" rx="13" ry="11" fill="#a08968" stroke="#5c4a32" stroke-width="1.4"/>
+  <path d="M22 34 L42 34 L43 44 L21 44 Z" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="42" y="28" width="6" height="14" rx="2" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M44 28 L43 22 M46 28 L46 22 M48 28 L49 22" stroke="#a855f7" stroke-width="1.5"/>
+  <ellipse cx="20" cy="42" rx="3" ry="6" fill="#8b7355" stroke="#5c4a32" stroke-width="1"/>
+  <ellipse cx="44" cy="42" rx="3" ry="6" fill="#8b7355" stroke="#5c4a32" stroke-width="1"/>
+  <path d="M16 40 L12 44 L18 44 Z" fill="#a855f7" stroke="#4c1d95" stroke-width="0.8"/>
+  <path d="M12 44 L10 46" stroke="#451a03" stroke-width="1.5"/>
+  <ellipse cx="32" cy="24" rx="11" ry="10" fill="#a08968" stroke="#5c4a32" stroke-width="1.4"/>
+  <ellipse cx="22" cy="16" rx="5" ry="7" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2" transform="rotate(-20 22 16)"/>
+  <ellipse cx="42" cy="16" rx="5" ry="7" fill="#8b7355" stroke="#5c4a32" stroke-width="1.2" transform="rotate(20 42 16)"/>
+  <ellipse cx="22" cy="16" rx="2.5" ry="4" fill="#f9a8d4" transform="rotate(-20 22 16)"/>
+  <ellipse cx="42" cy="16" rx="2.5" ry="4" fill="#f9a8d4" transform="rotate(20 42 16)"/>
+  <path d="M22 20 L32 22" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="28" cy="23" r="2" fill="#dc2626"/>
+  <ellipse cx="36" cy="23" rx="2" ry="2.4" fill="#dc2626"/>
+  <circle cx="36" cy="23" r="1" fill="#1a1a1a"/>
+  <ellipse cx="32" cy="28" rx="1.5" ry="1.2" fill="#ec4899"/>
+  <path d="M26 28 L22 27 M26 29 L22 29 M26 30 L22 31" stroke="#3b2f1e" stroke-width="0.5"/>
+  <path d="M38 28 L42 27 M38 29 L42 29 M38 30 L42 31" stroke="#3b2f1e" stroke-width="0.5"/>
+</svg>`,
+
+/* ===================== ЛАМХИ-ОТРАВИТЕЛЬ ===================== */
+lamhi_poisoner:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.4)"/>
+  <circle cx="16" cy="20" r="3" fill="#a855f7" opacity="0.5"/>
+  <circle cx="14" cy="14" r="2" fill="#a855f7" opacity="0.4"/>
+  <circle cx="18" cy="10" r="2.5" fill="#a855f7" opacity="0.3"/>
+  <circle cx="50" cy="22" r="2.5" fill="#22c55e" opacity="0.4"/>
+  <circle cx="52" cy="16" r="2" fill="#22c55e" opacity="0.3"/>
+  <path d="M44 44 Q60 42 58 28 Q54 36 46 40" stroke="#4c1d95" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <rect x="22" y="46" width="7" height="14" rx="2" fill="#6b5a44" stroke="#3b2f1e" stroke-width="1.3"/>
+  <rect x="35" y="46" width="7" height="14" rx="2" fill="#6b5a44" stroke="#3b2f1e" stroke-width="1.3"/>
+  <ellipse cx="25" cy="59" rx="5" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="38" cy="59" rx="5" ry="2" fill="#1a1a1a"/>
+  <path d="M16 28 L48 28 L52 56 L12 56 Z" fill="#2d1b4e" stroke="#4c1d95" stroke-width="1.5"/>
+  <path d="M16 28 L48 28 L49 36 L15 36 Z" fill="#4c1d95"/>
+  <ellipse cx="18" cy="42" rx="3" ry="4" fill="#22c55e" opacity="0.9"/>
+  <rect x="17" y="37" width="2" height="3" fill="#8b5a2b"/>
+  <ellipse cx="46" cy="42" rx="3" ry="4" fill="#a855f7" opacity="0.9"/>
+  <rect x="45" y="37" width="2" height="3" fill="#8b5a2b"/>
+  <rect x="8" y="30" width="8" height="16" rx="3" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2"/>
+  <rect x="48" y="30" width="8" height="16" rx="3" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2"/>
+  <circle cx="10" cy="46" r="4" fill="#22c55e" opacity="0.8"/>
+  <circle cx="10" cy="46" r="2" fill="#86efac"/>
+  <circle cx="9" cy="45" r="0.7" fill="#fff"/>
+  <path d="M8 42 L12 42" stroke="#8b5a2b" stroke-width="1.5"/>
+  <ellipse cx="32" cy="20" rx="13" ry="12" fill="#a08968" stroke="#3b2f1e" stroke-width="1.5"/>
+  <ellipse cx="20" cy="10" rx="5" ry="8" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2" transform="rotate(-25 20 10)"/>
+  <ellipse cx="44" cy="10" rx="5" ry="8" fill="#8b7355" stroke="#3b2f1e" stroke-width="1.2" transform="rotate(25 44 10)"/>
+  <ellipse cx="20" cy="10" rx="2.5" ry="5" fill="#f9a8d4" transform="rotate(-25 20 10)"/>
+  <ellipse cx="44" cy="10" rx="2.5" ry="5" fill="#f9a8d4" transform="rotate(25 44 10)"/>
+  <path d="M18 16 Q20 4 32 4 Q44 4 46 16 Q40 12 32 12 Q24 12 18 16 Z" fill="#4c1d95"/>
+  <ellipse cx="27" cy="20" rx="3" ry="3.5" fill="#1a1a1a" stroke="#fbbf24" stroke-width="1"/>
+  <ellipse cx="37" cy="20" rx="3" ry="3.5" fill="#1a1a1a" stroke="#fbbf24" stroke-width="1"/>
+  <circle cx="27" cy="20" r="1.4" fill="#22c55e"/>
+  <circle cx="37" cy="20" r="1.4" fill="#22c55e"/>
+  <ellipse cx="32" cy="26" rx="2" ry="1.5" fill="#ec4899"/>
+  <path d="M26 29 Q32 33 38 29" fill="#3b2f1e"/>
+  <polygon points="28,29 27,33 30,30" fill="#fff"/>
+  <polygon points="36,29 37,33 34,30" fill="#fff"/>
+</svg>`,
+
+/* ===================== ЛАМХИ-ЖРЕЦ ТЬМЫ ===================== */
+lamhi_priest:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="18" ry="3.5" fill="rgba(0,0,0,0.45)"/>
+  <ellipse cx="32" cy="36" rx="24" ry="20" fill="#4c1d95" opacity="0.25"/>
+  <path d="M44 44 Q60 42 58 28 Q54 36 46 40" stroke="#7c3aed" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <ellipse cx="32" cy="55" rx="18" ry="4" fill="#1e1b4b" stroke="#4c1d95" stroke-width="1.2"/>
+  <path d="M14 30 L50 30 L54 56 L10 56 Z" fill="#1e1b4b" stroke="#4c1d95" stroke-width="1.6"/>
+  <path d="M14 30 L50 30 L51 38 L13 38 Z" fill="#4c1d95"/>
+  <circle cx="32" cy="36" r="5" fill="#0a0e1a" stroke="#a855f7" stroke-width="1.5"/>
+  <path d="M32 32 L32 40 M29 36 L35 36" stroke="#a855f7" stroke-width="1.5"/>
+  <circle cx="32" cy="36" r="1.5" fill="#dc2626"/>
+  <rect x="8" y="32" width="8" height="18" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="48" y="32" width="8" height="18" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="10" cy="49" r="3" fill="#a855f7" opacity="0.8"/>
+  <circle cx="54" cy="49" r="3" fill="#a855f7" opacity="0.8"/>
+  <path d="M10 46 L10 52 M7 49 L13 49" stroke="#e9d5ff" stroke-width="1.2"/>
+  <path d="M54 46 L54 52 M51 49 L57 49" stroke="#e9d5ff" stroke-width="1.2"/>
+  <ellipse cx="32" cy="20" rx="13" ry="12" fill="#a08968" stroke="#1a1a1a" stroke-width="1.5"/>
+  <ellipse cx="20" cy="10" rx="5" ry="8" fill="#8b7355" stroke="#1a1a1a" stroke-width="1.2" transform="rotate(-25 20 10)"/>
+  <ellipse cx="44" cy="10" rx="5" ry="8" fill="#8b7355" stroke="#1a1a1a" stroke-width="1.2" transform="rotate(25 44 10)"/>
+  <path d="M18 14 Q20 2 32 2 Q44 2 46 14 L18 14 Z" fill="#1e1b4b" stroke="#4c1d95" stroke-width="1.4"/>
+  <path d="M22 4 L24 -2 L28 2 L32 -4 L36 2 L40 -2 L42 4 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1"/>
+  <circle cx="32" cy="0" r="1.5" fill="#dc2626"/>
+  <ellipse cx="27" cy="20" rx="2.5" ry="3" fill="#a855f7"/>
+  <ellipse cx="37" cy="20" rx="2.5" ry="3" fill="#a855f7"/>
+  <ellipse cx="27" cy="20" rx="1" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="20" rx="1" ry="2" fill="#1a1a1a"/>
+  <circle cx="27" cy="20" r="5" fill="#a855f7" opacity="0.4"/>
+  <circle cx="37" cy="20" r="5" fill="#a855f7" opacity="0.4"/>
+  <ellipse cx="32" cy="25" rx="2" ry="1.5" fill="#ec4899"/>
+  <path d="M26 28 Q32 32 38 28" fill="#1a1a1a"/>
+  <polygon points="28,28 27,32 30,29" fill="#fff"/>
+  <polygon points="36,28 37,32 34,29" fill="#fff"/>
+  <path d="M24 24 L18 22 M24 25 L18 26 M24 26 L18 29" stroke="#1a1a1a" stroke-width="0.7"/>
+  <path d="M40 24 L46 22 M40 25 L46 26 M40 26 L46 29" stroke="#1a1a1a" stroke-width="0.7"/>
+</svg>`,
+
+/* ===================== ЛАМХИ-ИЕРАРХ НОЧИ ===================== */
+lamhi_hierarch:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="24" ry="4" fill="rgba(0,0,0,0.55)"/>
+  <ellipse cx="32" cy="36" rx="30" ry="26" fill="#4c1d95" opacity="0.3"/>
+  <ellipse cx="32" cy="36" rx="20" ry="16" fill="#7c3aed" opacity="0.25"/>
+  <path d="M46 42 Q66 38 64 20 Q60 32 48 36" stroke="#7c3aed" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M46 42 Q56 46 60 42" stroke="#a855f7" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="32" cy="55" rx="22" ry="5" fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.4"/>
+  <path d="M10 28 L54 28 L60 56 L4 56 Z" fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.8"/>
+  <path d="M10 28 L54 28 L55 38 L9 38 Z" fill="#1e1b4b"/>
+  <path d="M18 32 L46 32 L48 50 L16 50 Z" fill="#1e1b4b" stroke="#a855f7" stroke-width="1.3"/>
+  <circle cx="32" cy="40" r="7" fill="#000" stroke="#dc2626" stroke-width="1.8"/>
+  <path d="M32 34 L32 46 M26 40 L38 40" stroke="#dc2626" stroke-width="1.8"/>
+  <path d="M28 36 Q32 34 36 36 Q36 42 32 44 Q28 42 28 36 Z" fill="#dc2626" opacity="0.6"/>
+  <circle cx="32" cy="40" r="2.5" fill="#fff"/>
+  <circle cx="32" cy="40" r="12" fill="#dc2626" opacity="0.2"/>
+  <path d="M8 28 L20 22 L20 32 L8 32 Z" fill="#1e1b4b" stroke="#a855f7" stroke-width="1.2"/>
+  <path d="M56 28 L44 22 L44 32 L56 32 Z" fill="#1e1b4b" stroke="#a855f7" stroke-width="1.2"/>
+  <path d="M14 24 L16 18 L20 22 Z" fill="#e5e7eb"/>
+  <path d="M50 24 L48 18 L44 22 Z" fill="#e5e7eb"/>
+  <rect x="4" y="30" width="10" height="22" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.4"/>
+  <rect x="50" y="30" width="10" height="22" rx="3" fill="#3b2f1e" stroke="#1a1a1a" stroke-width="1.4"/>
+  <path d="M6 51 L2 58 L6 54 L8 60 L10 54 L14 58" stroke="#a855f7" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M58 51 L62 58 L58 54 L56 60 L54 54 L50 58" stroke="#a855f7" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <ellipse cx="32" cy="16" rx="15" ry="14" fill="#8a7555" stroke="#1a1a1a" stroke-width="1.7"/>
+  <ellipse cx="17" cy="6" rx="6" ry="11" fill="#6b5a44" stroke="#1a1a1a" stroke-width="1.4" transform="rotate(-30 17 6)"/>
+  <ellipse cx="47" cy="6" rx="6" ry="11" fill="#6b5a44" stroke="#1a1a1a" stroke-width="1.4" transform="rotate(30 47 6)"/>
+  <path d="M18 10 L22 0 L26 6 L30 -4 L34 6 L38 0 L42 6 L46 0 L46 10 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1.4" stroke-linejoin="round"/>
+  <circle cx="26" cy="2" r="1.8" fill="#dc2626"/>
+  <circle cx="32" cy="-1" r="2" fill="#dc2626"/>
+  <circle cx="38" cy="2" r="1.8" fill="#dc2626"/>
+  <ellipse cx="26" cy="16" rx="3.5" ry="4" fill="#000"/>
+  <ellipse cx="38" cy="16" rx="3.5" ry="4" fill="#000"/>
+  <ellipse cx="26" cy="16" rx="1.5" ry="2.8" fill="#dc2626"/>
+  <ellipse cx="38" cy="16" rx="1.5" ry="2.8" fill="#dc2626"/>
+  <circle cx="26" cy="16" r="6" fill="#dc2626" opacity="0.45"/>
+  <circle cx="38" cy="16" r="6" fill="#dc2626" opacity="0.45"/>
+  <ellipse cx="32" cy="22" rx="3" ry="2.2" fill="#ec4899"/>
+  <path d="M24 26 Q32 33 40 26" fill="#000"/>
+  <polygon points="27,26 25,32 29,28" fill="#fff"/>
+  <polygon points="31,28 31,34 33,29" fill="#fff"/>
+  <polygon points="37,26 39,32 35,28" fill="#fff"/>
+  <path d="M23 22 L16 20 M23 23 L16 24 M23 24 L16 27" stroke="#000" stroke-width="0.8"/>
+  <path d="M41 22 L48 20 M41 23 L48 24 M41 24 L48 27" stroke="#000" stroke-width="0.8"/>
+</svg>`,
 /* ===================== ТЕНЬ ===================== */
 shade:`<svg viewBox="0 0 64 64">
-  <!-- Полупрозрачная тёмная аура -->
-  <ellipse cx="32" cy="36" rx="22" ry="20" fill="#1a1a2e" opacity="0.45"/>
-  <ellipse cx="32" cy="40" rx="16" ry="14" fill="#0a0e1a" opacity="0.6"/>
-  
-  <!-- Тело-тень с развевающимися лохмотьями -->
-  <path d="M18 42 Q18 18 32 18 Q46 18 46 42 Q46 50 42 54 Q38 48 36 50 Q34 48 32 50 Q30 48 28 50 Q26 48 22 54 Q18 50 18 42 Z" fill="#1a1a2e" stroke="#4c1d95" stroke-width="1.3" opacity="0.92"/>
-  <path d="M22 50 Q24 54 22 54 Q18 52 18 46 Z" fill="#0f172a" opacity="0.85"/>
-  <path d="M42 50 Q40 54 42 54 Q46 52 46 46 Z" fill="#0f172a" opacity="0.85"/>
-  
-  <!-- Пустые глаза-провалы -->
-  <ellipse cx="26" cy="30" rx="3" ry="4" fill="#000"/>
-  <ellipse cx="38" cy="30" rx="3" ry="4" fill="#000"/>
-  <ellipse cx="26" cy="30" rx="1.5" ry="2" fill="#a855f7"/>
-  <ellipse cx="38" cy="30" rx="1.5" ry="2" fill="#a855f7"/>
-  <circle cx="26" cy="30" r="5" fill="#a855f7" opacity="0.3"/>
-  <circle cx="38" cy="30" r="5" fill="#a855f7" opacity="0.3"/>
-  
-  <!-- Рваная пасть -->
-  <path d="M26 38 Q32 42 38 38" stroke="#a855f7" stroke-width="1.2" fill="none" opacity="0.8"/>
-  
-  <!-- Тёмные щупы -->
-  <path d="M14 40 Q8 42 10 48 Q12 44 16 44 Z" fill="#1a1a2e" opacity="0.7"/>
-  <path d="M50 40 Q56 42 54 48 Q52 44 48 44 Z" fill="#1a1a2e" opacity="0.7"/>
-  
-  <!-- Миазмы -->
-  <circle cx="10" cy="24" r="2" fill="#4c1d95" opacity="0.4"/>
-  <circle cx="54" cy="28" r="1.5" fill="#4c1d95" opacity="0.4"/>
-  <circle cx="8" cy="38" r="1.2" fill="#a855f7" opacity="0.35"/>
-  <circle cx="56" cy="40" r="1.2" fill="#a855f7" opacity="0.35"/>
+  <ellipse cx="32" cy="56" rx="20" ry="5" fill="#000" opacity="0.5"/>
+  <ellipse cx="32" cy="56" rx="14" ry="3" fill="#0a0e1a" opacity="0.7"/>
+  <path d="M12 48 Q10 30 20 22 Q28 16 32 16 Q36 16 44 22 Q54 30 52 48 
+           Q48 52 44 50 Q42 46 40 50 Q38 46 36 50 Q34 46 32 50 
+           Q30 46 28 50 Q26 46 24 50 Q22 46 20 50 Q16 52 12 48 Z" 
+        fill="#0a0e1a" stroke="#4c1d95" stroke-width="1.2"/>
+  <path d="M18 44 Q18 32 26 26 Q32 22 38 26 Q46 32 46 44 
+           Q42 46 40 42 Q38 44 36 42 Q34 44 32 42 
+           Q30 44 28 42 Q26 44 24 42 Q22 44 18 44 Z" 
+        fill="#000" opacity="0.6"/>
+  <ellipse cx="26" cy="30" rx="3" ry="1.2" fill="#a855f7"/>
+  <ellipse cx="38" cy="30" rx="3" ry="1.2" fill="#a855f7"/>
+  <ellipse cx="26" cy="30" rx="5" ry="2.5" fill="#a855f7" opacity="0.25"/>
+  <ellipse cx="38" cy="30" rx="5" ry="2.5" fill="#a855f7" opacity="0.25"/>
+  <path d="M16 48 Q14 54 12 58" stroke="#1a1a2e" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M22 50 Q22 56 20 60" stroke="#1a1a2e" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M28 51 Q29 56 27 60" stroke="#1a1a2e" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M36 51 Q35 56 37 60" stroke="#1a1a2e" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M42 50 Q42 56 44 60" stroke="#1a1a2e" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M48 48 Q50 54 52 58" stroke="#1a1a2e" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <circle cx="10" cy="26" r="1.5" fill="#4c1d95" opacity="0.5"/>
+  <circle cx="54" cy="24" r="1.2" fill="#4c1d95" opacity="0.5"/>
+  <circle cx="8" cy="38" r="1" fill="#a855f7" opacity="0.4"/>
+  <circle cx="56" cy="40" r="1" fill="#a855f7" opacity="0.4"/>
+  <circle cx="14" cy="18" r="0.8" fill="#7c3aed" opacity="0.6"/>
+  <circle cx="50" cy="16" r="0.8" fill="#7c3aed" opacity="0.6"/>
 </svg>`,
 
 /* ===================== ТЁМНАЯ ТЕНЬ ===================== */
 dark_shade:`<svg viewBox="0 0 64 64">
-  <!-- Мощная тёмная аура -->
-  <ellipse cx="32" cy="36" rx="28" ry="24" fill="#4c1d95" opacity="0.3"/>
-  <ellipse cx="32" cy="38" rx="20" ry="18" fill="#0a0e1a" opacity="0.7"/>
-  
-  <!-- Тело-тень -->
-  <path d="M16 42 Q16 16 32 16 Q48 16 48 42 Q48 52 42 56 Q38 50 36 52 Q34 50 32 52 Q30 50 28 52 Q26 50 22 56 Q16 52 16 42 Z" fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.5"/>
-  
-  <!-- Острые шипы по краям -->
-  <polygon points="14,36 8,28 18,34" fill="#1a1a2e" stroke="#4c1d95" stroke-width="0.8"/>
-  <polygon points="50,36 56,28 46,34" fill="#1a1a2e" stroke="#4c1d95" stroke-width="0.8"/>
-  <polygon points="18,20 14,10 22,18" fill="#1a1a2e" stroke="#4c1d95" stroke-width="0.8"/>
-  <polygon points="46,20 50,10 42,18" fill="#1a1a2e" stroke="#4c1d95" stroke-width="0.8"/>
-  
-  <!-- Глаза-провалы с яростью -->
-  <ellipse cx="26" cy="30" rx="3.5" ry="4.5" fill="#000"/>
-  <ellipse cx="38" cy="30" rx="3.5" ry="4.5" fill="#000"/>
-  <ellipse cx="26" cy="30" rx="2" ry="2.5" fill="#dc2626"/>
-  <ellipse cx="38" cy="30" rx="2" ry="2.5" fill="#dc2626"/>
-  <circle cx="26" cy="30" r="6" fill="#dc2626" opacity="0.35"/>
-  <circle cx="38" cy="30" r="6" fill="#dc2626" opacity="0.35"/>
-  
-  <!-- Пасть с призрачными зубами -->
-  <path d="M24 38 Q32 44 40 38" stroke="#a855f7" stroke-width="1.5" fill="#0a0e1a"/>
-  <polygon points="26,39 26,42 28,40" fill="#c4b5fd"/>
-  <polygon points="30,41 30,44 32,42" fill="#c4b5fd"/>
-  <polygon points="34,41 34,44 36,42" fill="#c4b5fd"/>
-  <polygon points="38,39 38,42 36,40" fill="#c4b5fd"/>
-  
-  <!-- Длинные щупы -->
-  <path d="M12 42 Q4 46 6 54 Q10 48 14 46 Z" fill="#0a0e1a" opacity="0.85"/>
-  <path d="M52 42 Q60 46 58 54 Q54 48 50 46 Z" fill="#0a0e1a" opacity="0.85"/>
-  
-  <!-- Искры -->
-  <circle cx="8" cy="22" r="1.5" fill="#a855f7" opacity="0.7"/>
-  <circle cx="56" cy="26" r="1.5" fill="#a855f7" opacity="0.7"/>
-  <circle cx="12" cy="30" r="1" fill="#7c3aed" opacity="0.6"/>
-  <circle cx="52" cy="34" r="1" fill="#7c3aed" opacity="0.6"/>
+  <ellipse cx="32" cy="40" rx="28" ry="22" fill="#4c1d95" opacity="0.25"/>
+  <ellipse cx="32" cy="42" rx="20" ry="16" fill="#000" opacity="0.5"/>
+  <ellipse cx="32" cy="58" rx="22" ry="4" fill="#000" opacity="0.6"/>
+  <path d="M10 46 Q6 26 18 16 Q26 10 32 10 Q38 10 46 16 Q58 26 54 46 
+           Q50 52 46 48 Q44 44 42 48 Q40 44 38 48 Q36 44 34 48 
+           Q32 44 30 48 Q28 44 26 48 Q24 44 22 48 Q20 44 18 48 Q14 52 10 46 Z" 
+        fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.5"/>
+  <path d="M18 42 Q18 28 26 22 Q32 18 38 22 Q46 28 46 42 
+           Q42 44 40 40 Q38 42 36 40 Q34 42 32 40 
+           Q30 42 28 40 Q26 42 24 40 Q22 42 18 42 Z" 
+        fill="#000"/>
+  <path d="M18 18 L14 8 L20 16 Z" fill="#1a1a2e" stroke="#4c1d95" stroke-width="1"/>
+  <path d="M32 12 L32 2 L36 12 Z" fill="#1a1a2e" stroke="#4c1d95" stroke-width="1"/>
+  <path d="M46 18 L50 8 L44 16 Z" fill="#1a1a2e" stroke="#4c1d95" stroke-width="1"/>
+  <path d="M32 30 L32 38 M28 34 L36 34" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="32" cy="34" r="5" fill="none" stroke="#a855f7" stroke-width="0.8" opacity="0.6"/>
+  <ellipse cx="26" cy="26" rx="1.5" ry="3" fill="#000"/>
+  <ellipse cx="38" cy="26" rx="1.5" ry="3" fill="#000"/>
+  <ellipse cx="26" cy="26" rx="0.8" ry="2" fill="#dc2626"/>
+  <ellipse cx="38" cy="26" rx="0.8" ry="2" fill="#dc2626"/>
+  <circle cx="26" cy="26" r="4" fill="#dc2626" opacity="0.3"/>
+  <circle cx="38" cy="26" r="4" fill="#dc2626" opacity="0.3"/>
+  <path d="M14 46 Q12 54 10 60" stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="10" cy="60" r="2" fill="#4c1d95"/>
+  <path d="M22 48 Q22 56 20 62" stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="20" cy="62" r="2" fill="#4c1d95"/>
+  <path d="M32 50 Q32 58 30 62" stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="30" cy="62" r="2" fill="#4c1d95"/>
+  <path d="M42 48 Q42 56 44 62" stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="44" cy="62" r="2" fill="#4c1d95"/>
+  <path d="M50 46 Q52 54 54 60" stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="54" cy="60" r="2" fill="#4c1d95"/>
+  <circle cx="6" cy="22" r="1.8" fill="#a855f7" opacity="0.6"/>
+  <circle cx="58" cy="26" r="1.5" fill="#a855f7" opacity="0.6"/>
+  <circle cx="4" cy="36" r="1.2" fill="#7c3aed" opacity="0.5"/>
+  <circle cx="60" cy="40" r="1.2" fill="#7c3aed" opacity="0.5"/>
 </svg>`,
 
 /* ===================== БАНШИ ===================== */
 banshee:`<svg viewBox="0 0 64 64">
-  <!-- Призрачная аура -->
-  <ellipse cx="32" cy="34" rx="24" ry="22" fill="#7c3aed" opacity="0.3"/>
-  <ellipse cx="32" cy="36" rx="16" ry="14" fill="#c084fc" opacity="0.25"/>
-  
-  <!-- Тело-призрак с рваным подолом -->
-  <path d="M18 42 Q18 14 32 14 Q46 14 46 42 Q46 50 42 54 Q38 48 36 50 Q34 46 32 48 Q30 46 28 50 Q26 48 22 54 Q18 50 18 42 Z" fill="#a78bfa" stroke="#4c1d95" stroke-width="1.4" opacity="0.92"/>
-  
-  <!-- Плащ-рвань -->
-  <path d="M22 54 Q24 58 22 58 Q18 56 18 50 Z" fill="#7c3aed" opacity="0.85"/>
-  <path d="M42 54 Q40 58 42 58 Q46 56 46 50 Z" fill="#7c3aed" opacity="0.85"/>
-  <path d="M26 52 Q28 56 26 56 Q24 52 26 52 Z" fill="#7c3aed" opacity="0.7"/>
-  <path d="M38 52 Q36 56 38 56 Q40 52 38 52 Z" fill="#7c3aed" opacity="0.7"/>
-  
-  <!-- Длинные волосы-призрак -->
-  <path d="M20 20 Q18 10 24 8 Q28 14 26 20 Q30 16 32 12 Q34 16 38 20 Q36 14 40 8 Q46 10 44 20 Z" fill="#c4b5fd" opacity="0.75"/>
-  
-  <!-- Лицо -->
-  <ellipse cx="32" cy="24" rx="10" ry="11" fill="#e9d5ff" opacity="0.9"/>
-  
-  <!-- Печальные глаза с текущими слезами -->
-  <ellipse cx="28" cy="23" rx="2" ry="2.5" fill="#4c1d95"/>
-  <ellipse cx="36" cy="23" rx="2" ry="2.5" fill="#4c1d95"/>
-  <ellipse cx="28" cy="23.5" rx="1" ry="1.5" fill="#000"/>
-  <ellipse cx="36" cy="23.5" rx="1" ry="1.5" fill="#000"/>
-  <path d="M28 26 Q27 30 28 32" stroke="#67e8f9" stroke-width="1.2" fill="none" opacity="0.8"/>
-  <path d="M36 26 Q37 30 36 32" stroke="#67e8f9" stroke-width="1.2" fill="none" opacity="0.8"/>
-  
-  <!-- Открытый плачущий рот -->
-  <path d="M28 30 Q32 34 36 30 Q32 32 28 30 Z" fill="#4c1d95"/>
-  
-  <!-- Призрачные руки-щупы -->
-  <path d="M18 36 Q10 40 8 48 Q12 44 18 42 Z" fill="#a78bfa" opacity="0.85"/>
-  <path d="M46 36 Q54 40 56 48 Q52 44 46 42 Z" fill="#a78bfa" opacity="0.85"/>
-  <path d="M6 46 L4 52 M9 48 L8 54 M12 48 L13 54" stroke="#a78bfa" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
-  <path d="M58 46 L60 52 M55 48 L56 54 M52 48 L51 54" stroke="#a78bfa" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
-  
-  <!-- Аура -->
-  <path d="M22 16 Q32 8 42 16" stroke="#c4b5fd" stroke-width="1.2" fill="none" opacity="0.6"/>
-  <path d="M24 12 Q32 4 40 12" stroke="#e9d5ff" stroke-width="1" fill="none" opacity="0.5"/>
+  <ellipse cx="32" cy="36" rx="24" ry="22" fill="#7c3aed" opacity="0.25"/>
+  <ellipse cx="32" cy="38" rx="16" ry="14" fill="#c084fc" opacity="0.2"/>
+  <path d="M20 44 Q18 24 26 18 Q30 14 32 14 Q34 14 38 18 Q46 24 44 44 
+           Q42 50 40 48 Q38 44 36 48 Q34 44 32 48 
+           Q30 44 28 48 Q26 44 24 48 Q22 50 20 44 Z" 
+        fill="#a78bfa" stroke="#4c1d95" stroke-width="1.4" opacity="0.95"/>
+  <path d="M26 22 Q28 34 26 46 M38 22 Q36 34 38 46" 
+        stroke="#7c3aed" stroke-width="0.8" fill="none" opacity="0.6"/>
+  <path d="M20 44 L18 50 L22 46 L24 52 L26 46 L28 52 L30 46 L32 52 L34 46 L36 52 L38 46 L40 52 L42 46 L44 50 L44 44" 
+        fill="#a78bfa" stroke="#4c1d95" stroke-width="1.2"/>
+  <path d="M20 20 Q14 26 16 40 Q18 34 22 28 Z" fill="#c4b5fd" opacity="0.85"/>
+  <path d="M44 20 Q50 26 48 40 Q46 34 42 28 Z" fill="#c4b5fd" opacity="0.85"/>
+  <path d="M22 16 Q26 8 32 6 Q38 8 42 16 Q38 10 32 10 Q26 10 22 16 Z" fill="#c4b5fd" opacity="0.9"/>
+  <ellipse cx="32" cy="22" rx="9" ry="10" fill="#e9d5ff" opacity="0.95"/>
+  <ellipse cx="28" cy="21" rx="2" ry="2.5" fill="#4c1d95"/>
+  <ellipse cx="36" cy="21" rx="2" ry="2.5" fill="#4c1d95"/>
+  <ellipse cx="28" cy="21.5" rx="1" ry="1.5" fill="#000"/>
+  <ellipse cx="36" cy="21.5" rx="1" ry="1.5" fill="#000"/>
+  <path d="M26 19 L25 18 M28 18 L28 17 M30 19 L31 18" stroke="#4c1d95" stroke-width="0.6" stroke-linecap="round"/>
+  <path d="M34 19 L33 18 M36 18 L36 17 M38 19 L39 18" stroke="#4c1d95" stroke-width="0.6" stroke-linecap="round"/>
+  <ellipse cx="26" cy="26" rx="1" ry="1.5" fill="#67e8f9" opacity="0.9"/>
+  <ellipse cx="26" cy="30" rx="0.8" ry="1.2" fill="#67e8f9" opacity="0.6"/>
+  <ellipse cx="38" cy="26" rx="1" ry="1.5" fill="#67e8f9" opacity="0.9"/>
+  <ellipse cx="38" cy="30" rx="0.8" ry="1.2" fill="#67e8f9" opacity="0.6"/>
+  <ellipse cx="32" cy="27" rx="2.5" ry="3" fill="#4c1d95"/>
+  <ellipse cx="32" cy="27" rx="1.5" ry="2" fill="#000"/>
+  <path d="M22 24 Q18 27 22 30" stroke="#c4b5fd" stroke-width="1.2" fill="none" opacity="0.8"/>
+  <path d="M18 21 Q12 27 18 33" stroke="#c4b5fd" stroke-width="1.2" fill="none" opacity="0.6"/>
+  <path d="M14 18 Q6 27 14 36" stroke="#c4b5fd" stroke-width="1.2" fill="none" opacity="0.4"/>
+  <path d="M42 24 Q46 27 42 30" stroke="#c4b5fd" stroke-width="1.2" fill="none" opacity="0.8"/>
+  <path d="M46 21 Q52 27 46 33" stroke="#c4b5fd" stroke-width="1.2" fill="none" opacity="0.6"/>
+  <path d="M50 18 Q58 27 50 36" stroke="#c4b5fd" stroke-width="1.2" fill="none" opacity="0.4"/>
+  <path d="M20 30 Q14 36 12 44" stroke="#a78bfa" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M12 44 L10 50 M12 44 L12 50 M12 44 L14 50" stroke="#a78bfa" stroke-width="1" stroke-linecap="round"/>
+  <path d="M44 30 Q50 36 52 44" stroke="#a78bfa" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M52 44 L50 50 M52 44 L52 50 M52 44 L54 50" stroke="#a78bfa" stroke-width="1" stroke-linecap="round"/>
 </svg>`,
 
-/* ===================== КОРОЛЕВА БАНШИ ===================== */
+/* ===================== ЦАРИЦА БАНШИ ===================== */
 banshee_queen:`<svg viewBox="0 0 64 64">
-  <!-- Королевская аура -->
-  <ellipse cx="32" cy="34" rx="30" ry="26" fill="#4c1d95" opacity="0.3"/>
-  <ellipse cx="32" cy="36" rx="22" ry="18" fill="#c084fc" opacity="0.3"/>
-  <ellipse cx="32" cy="38" rx="14" ry="11" fill="#e9d5ff" opacity="0.25"/>
-  
-  <!-- Тело-призрак с королевским подолом -->
-  <path d="M16 42 Q16 12 32 12 Q48 12 48 42 Q48 52 42 56 Q38 48 36 52 Q34 48 32 50 Q30 48 28 52 Q26 48 22 56 Q16 52 16 42 Z" fill="#a78bfa" stroke="#4c1d95" stroke-width="1.6"/>
-  
-  <!-- Мантия с руной -->
-  <path d="M22 40 Q32 36 42 40 L42 46 Q32 42 22 46 Z" fill="#6d28d9" opacity="0.7"/>
-  <path d="M32 38 L32 46 M28 42 L36 42" stroke="#fbbf24" stroke-width="1.3"/>
-  
-  <!-- Королевская корона из костей -->
-  <path d="M20 14 L22 4 L26 10 L30 2 L32 8 L34 2 L38 10 L42 4 L44 14 Z" fill="#e5e7eb" stroke="#4c1d95" stroke-width="1.2" stroke-linejoin="round"/>
-  <circle cx="32" cy="6" r="1.8" fill="#a855f7"/>
-  <circle cx="24" cy="7" r="1.2" fill="#dc2626"/>
-  <circle cx="40" cy="7" r="1.2" fill="#dc2626"/>
-  
-  <!-- Длинные волосы-щупы -->
-  <path d="M18 18 Q12 12 14 6 Q20 10 22 18 Q18 12 16 6 Q22 8 24 16 Q22 10 20 4 Q26 6 28 14 Z" fill="#c4b5fd" opacity="0.8"/>
-  <path d="M46 18 Q52 12 50 6 Q44 10 42 18 Q46 12 48 6 Q42 8 40 16 Q42 10 44 4 Q38 6 36 14 Z" fill="#c4b5fd" opacity="0.8"/>
-  
-  <!-- Лицо -->
-  <ellipse cx="32" cy="24" rx="11" ry="12" fill="#e9d5ff" opacity="0.92"/>
-  
-  <!-- Глаза-пламя -->
-  <ellipse cx="28" cy="23" rx="2.5" ry="3" fill="#4c1d95"/>
-  <ellipse cx="36" cy="23" rx="2.5" ry="3" fill="#4c1d95"/>
-  <ellipse cx="28" cy="23" rx="1.5" ry="2.2" fill="#a855f7"/>
-  <ellipse cx="36" cy="23" rx="1.5" ry="2.2" fill="#a855f7"/>
-  <circle cx="28" cy="23" r="5" fill="#a855f7" opacity="0.35"/>
-  <circle cx="36" cy="23" r="5" fill="#a855f7" opacity="0.35"/>
-  
-  <!-- Открытый рот с призрачным криком -->
-  <path d="M27 30 Q32 36 37 30 Q32 33 27 30 Z" fill="#4c1d95"/>
-  <path d="M29 31 L29 34 M32 32 L32 35 M35 31 L35 34" stroke="#c4b5fd" stroke-width="0.8"/>
-  
-  <!-- Звуковые волны от крика -->
-  <path d="M50 20 Q54 22 52 26" stroke="#a855f7" stroke-width="1.2" fill="none" opacity="0.7"/>
-  <path d="M52 16 Q58 20 56 28" stroke="#a855f7" stroke-width="1" fill="none" opacity="0.5"/>
-  <path d="M14 20 Q10 22 12 26" stroke="#a855f7" stroke-width="1.2" fill="none" opacity="0.7"/>
-  <path d="M12 16 Q6 20 8 28" stroke="#a855f7" stroke-width="1" fill="none" opacity="0.5"/>
-  
-  <!-- Призрачные руки -->
-  <path d="M16 36 Q8 42 6 50 Q10 46 16 44 Z" fill="#c084fc" opacity="0.85"/>
-  <path d="M48 36 Q56 42 58 50 Q54 46 48 44 Z" fill="#c084fc" opacity="0.85"/>
+  <ellipse cx="32" cy="36" rx="30" ry="26" fill="#4c1d95" opacity="0.25"/>
+  <ellipse cx="32" cy="38" rx="22" ry="18" fill="#c084fc" opacity="0.25"/>
+  <ellipse cx="32" cy="40" rx="14" ry="11" fill="#e9d5ff" opacity="0.2"/>
+  <path d="M14 44 Q12 20 24 12 Q30 8 32 8 Q34 8 40 12 Q52 20 50 44 
+           L54 62 L10 62 Z" 
+        fill="#1e1b4b" stroke="#4c1d95" stroke-width="1.5"/>
+  <path d="M20 44 Q20 24 28 18 Q32 14 36 18 Q44 24 44 44 
+           Q42 50 40 48 Q38 44 36 48 Q34 44 32 48 
+           Q30 44 28 48 Q26 44 24 48 Q22 50 20 44 Z" 
+        fill="#e9d5ff" stroke="#a78bfa" stroke-width="1.2"/>
+  <path d="M16 56 L14 62 L22 58 L20 62 L28 58 L30 62 L34 58 L36 62 L44 58 L42 62 L50 58 L48 62" 
+        fill="#1e1b4b" stroke="#4c1d95" stroke-width="1"/>
+  <ellipse cx="22" cy="52" rx="3" ry="4" fill="#e9d5ff" opacity="0.4"/>
+  <circle cx="21" cy="51" r="0.5" fill="#4c1d95"/>
+  <circle cx="23" cy="51" r="0.5" fill="#4c1d95"/>
+  <ellipse cx="42" cy="54" rx="3" ry="4" fill="#e9d5ff" opacity="0.4"/>
+  <circle cx="41" cy="53" r="0.5" fill="#4c1d95"/>
+  <circle cx="43" cy="53" r="0.5" fill="#4c1d95"/>
+  <circle cx="32" cy="38" r="5" fill="#1e1b4b" stroke="#a855f7" stroke-width="1.2"/>
+  <path d="M32 34 L32 42 M29 38 L35 38" stroke="#fbbf24" stroke-width="1.2"/>
+  <circle cx="32" cy="38" r="1.2" fill="#fbbf24"/>
+  <path d="M20 18 Q12 12 8 4" stroke="#c4b5fd" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="8" cy="4" r="2.5" fill="#c4b5fd"/>
+  <circle cx="8" cy="4" r="1" fill="#dc2626"/>
+  <path d="M18 22 Q10 18 4 14" stroke="#c4b5fd" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="4" cy="14" r="2.5" fill="#c4b5fd"/>
+  <circle cx="4" cy="14" r="1" fill="#dc2626"/>
+  <path d="M44 18 Q52 12 56 4" stroke="#c4b5fd" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="56" cy="4" r="2.5" fill="#c4b5fd"/>
+  <circle cx="56" cy="4" r="1" fill="#dc2626"/>
+  <path d="M46 22 Q54 18 60 14" stroke="#c4b5fd" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="60" cy="14" r="2.5" fill="#c4b5fd"/>
+  <circle cx="60" cy="14" r="1" fill="#dc2626"/>
+  <ellipse cx="32" cy="22" rx="10" ry="11" fill="#e9d5ff"/>
+  <ellipse cx="28" cy="21" rx="2.5" ry="3" fill="#4c1d95"/>
+  <ellipse cx="36" cy="21" rx="2.5" ry="3" fill="#4c1d95"/>
+  <ellipse cx="28" cy="21" rx="1.5" ry="2.2" fill="#a855f7"/>
+  <ellipse cx="36" cy="21" rx="1.5" ry="2.2" fill="#a855f7"/>
+  <circle cx="28" cy="21" r="5" fill="#a855f7" opacity="0.35"/>
+  <circle cx="36" cy="21" r="5" fill="#a855f7" opacity="0.35"/>
+  <path d="M27 28 Q32 34 37 28 Q32 31 27 28 Z" fill="#4c1d95"/>
+  <path d="M29 29 L29 32 M32 30 L32 33 M35 29 L35 32" stroke="#c4b5fd" stroke-width="0.8"/>
+  <path d="M22 24 Q18 27 22 30" stroke="#c4b5fd" stroke-width="1.3" fill="none" opacity="0.9"/>
+  <path d="M18 21 Q12 27 18 33" stroke="#c4b5fd" stroke-width="1.3" fill="none" opacity="0.7"/>
+  <path d="M14 18 Q6 27 14 36" stroke="#c4b5fd" stroke-width="1.3" fill="none" opacity="0.5"/>
+  <path d="M42 24 Q46 27 42 30" stroke="#c4b5fd" stroke-width="1.3" fill="none" opacity="0.9"/>
+  <path d="M46 21 Q52 27 46 33" stroke="#c4b5fd" stroke-width="1.3" fill="none" opacity="0.7"/>
+  <path d="M50 18 Q58 27 50 36" stroke="#c4b5fd" stroke-width="1.3" fill="none" opacity="0.5"/>
+  <path d="M20 12 L22 2 L26 8 L30 0 L32 6 L34 0 L38 8 L42 2 L44 12 Z" 
+        fill="#e5e7eb" stroke="#4c1d95" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="32" cy="4" r="2" fill="#a855f7"/>
+  <circle cx="24" cy="6" r="1.5" fill="#dc2626"/>
+  <circle cx="40" cy="6" r="1.5" fill="#dc2626"/>
+  <circle cx="32" cy="4" r="4" fill="#a855f7" opacity="0.4"/>
+  <rect x="52" y="30" width="3" height="26" fill="#e5e7eb" stroke="#4c1d95" stroke-width="1"/>
+  <circle cx="53.5" cy="28" r="4" fill="#e5e7eb" stroke="#4c1d95" stroke-width="1"/>
+  <circle cx="52" cy="27" r="1" fill="#4c1d95"/>
+  <circle cx="55" cy="27" r="1" fill="#4c1d95"/>
+  <circle cx="53.5" cy="28" r="7" fill="#a855f7" opacity="0.3"/>
 </svg>`,
 
-/* ===================== СШИВЕНЬ (МЯСНИК-ПРЕДШЕСТВЕННИК) ===================== */
+/* ===================== СШИВЕНЬ ===================== */
 abomination:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="61" rx="24" ry="4" fill="rgba(0,0,0,0.5)"/>
-  
-  <!-- Ноги-туши -->
   <ellipse cx="22" cy="56" rx="9" ry="6" fill="#5b6b5b" stroke="#2a332a" stroke-width="1.4"/>
   <ellipse cx="42" cy="56" rx="9" ry="6" fill="#5b6b5b" stroke="#2a332a" stroke-width="1.4"/>
   <ellipse cx="22" cy="58" rx="6" ry="2.5" fill="#1a2a1a"/>
   <ellipse cx="42" cy="58" rx="6" ry="2.5" fill="#1a2a1a"/>
-  
-  <!-- Огромное тело из кусков -->
   <ellipse cx="32" cy="40" rx="20" ry="17" fill="#7a8a7a" stroke="#2a332a" stroke-width="1.6"/>
-  
-  <!-- Швы на теле -->
+  <path d="M16 36 Q20 30 26 34 Q24 42 18 42 Z" fill="#6b7a6b" opacity="0.9"/>
+  <path d="M38 32 Q44 28 48 34 Q46 42 38 44 Z" fill="#8a9a8a" opacity="0.9"/>
+  <path d="M26 46 Q32 42 38 46 Q36 52 30 52 Z" fill="#5b6b5b" opacity="0.9"/>
   <path d="M20 32 L24 36 L22 42 L26 46" stroke="#1a2a1a" stroke-width="1.5" fill="none"/>
-  <path d="M44 32 L40 36 L42 42 L38 46" stroke="#1a2a1a" stroke-width="1.5" fill="none"/>
-  <path d="M26 38 L38 38 M26 44 L38 44" stroke="#1a2a1a" stroke-width="0.8" stroke-dasharray="1.5,1.5"/>
-  
-  <!-- Кишки-щупы -->
-  <path d="M28 50 Q26 54 30 56 Q32 54 30 50" fill="#4a1a1a" opacity="0.8"/>
-  <path d="M36 50 Q38 54 34 56 Q32 54 34 50" fill="#4a1a1a" opacity="0.8"/>
-  
-  <!-- Руки -->
+  <path d="M44 30 L40 36 L42 42 L38 46" stroke="#1a2a1a" stroke-width="1.5" fill="none"/>
+  <path d="M26 36 L38 36 M26 42 L38 42" stroke="#1a2a1a" stroke-width="0.8" stroke-dasharray="1.5,1.5"/>
+  <path d="M28 50 L26 54 M32 50 L32 55 M36 50 L38 54" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
+  <path d="M22 48 Q20 52 24 54 Q26 52 24 48" fill="#4a1a1a" opacity="0.8"/>
+  <path d="M42 48 Q44 52 40 54 Q38 52 40 48" fill="#4a1a1a" opacity="0.8"/>
+  <path d="M24 46 Q32 50 40 46 Q38 50 34 52 Q32 50 30 52 Q26 50 24 46 Z" fill="#7f1d1d" opacity="0.6"/>
   <ellipse cx="10" cy="36" rx="7" ry="11" fill="#5b6b5b" stroke="#2a332a" stroke-width="1.4"/>
   <ellipse cx="54" cy="36" rx="7" ry="11" fill="#5b6b5b" stroke="#2a332a" stroke-width="1.4"/>
-  
-  <!-- МЯСНИЦКИЙ КРЮК в правой руке -->
   <rect x="52" y="14" width="3" height="26" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
   <path d="M53.5 14 Q53.5 8 58 8 Q62 8 62 12 Q62 15 58 15" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
   <circle cx="58" cy="12" r="1" fill="#dc2626"/>
-  
-  <!-- Мясной крюк в левой -->
-  <rect x="9" y="18" width="3" height="22" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
-  <path d="M10.5 18 Q10.5 12 6 12 Q2 12 2 16 Q2 19 6 19" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
-  
-  <!-- Голова — уродливая, сшитая -->
+  <rect x="9" y="18" width="3" height="22" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M2 20 Q6 14 12 18 L10 26 Q4 26 2 20 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
   <circle cx="32" cy="16" r="12" fill="#7a8a7a" stroke="#2a332a" stroke-width="1.5"/>
-  
-  <!-- Шов поперёк головы -->
   <path d="M20 14 L44 14" stroke="#1a2a1a" stroke-width="1.5"/>
   <path d="M24 14 L24 12 M28 14 L28 12 M32 14 L32 12 M36 14 L36 12 M40 14 L40 12" stroke="#1a2a1a" stroke-width="1"/>
-  
-  <!-- Глаза — один большой, один маленький -->
   <ellipse cx="27" cy="18" rx="3" ry="3.5" fill="#0a0e1a"/>
-  <circle cx="27" cy="18" r="1.5" fill="#a855f7"/>
+  <circle cx="27" cy="18" r="1.5" fill="#fbbf24"/>
   <circle cx="27" cy="17.5" r="0.5" fill="#fff"/>
   <ellipse cx="37" cy="19" rx="2" ry="2.5" fill="#0a0e1a"/>
-  <circle cx="37" cy="19" r="1" fill="#a855f7"/>
-  
-  <!-- Огромный рот с клыками -->
+  <circle cx="37" cy="19" r="1" fill="#fbbf24"/>
   <path d="M22 22 Q32 30 42 22" fill="#1a2a1a" stroke="#0a0e1a" stroke-width="1.2"/>
   <polygon points="24,23 23,28 26,25" fill="#e5e7eb"/>
   <polygon points="28,25 28,30 30,26" fill="#e5e7eb"/>
   <polygon points="32,26 32,31 34,27" fill="#e5e7eb"/>
   <polygon points="36,25 36,30 38,26" fill="#e5e7eb"/>
   <polygon points="40,23 41,28 38,25" fill="#e5e7eb"/>
-  
-  <!-- Миазмы -->
-  <circle cx="6" cy="20" r="2" fill="#5b6b5b" opacity="0.4"/>
-  <circle cx="58" cy="24" r="1.5" fill="#5b6b5b" opacity="0.4"/>
+  <circle cx="14" cy="20" r="6" fill="#6b7a6b" stroke="#2a332a" stroke-width="1.2"/>
+  <circle cx="12" cy="19" r="1.2" fill="#dc2626"/>
+  <circle cx="16" cy="20" r="1" fill="#dc2626"/>
+  <path d="M11 24 Q14 26 17 24" stroke="#1a2a1a" stroke-width="0.8" fill="none"/>
+  <circle cx="50" cy="22" r="5" fill="#8a9a8a" stroke="#2a332a" stroke-width="1.2"/>
+  <circle cx="48" cy="21" r="1" fill="#dc2626"/>
+  <circle cx="52" cy="22" r="0.9" fill="#dc2626"/>
+  <path d="M48 25 Q50 27 52 25" stroke="#1a2a1a" stroke-width="0.8" fill="none"/>
+  <circle cx="4" cy="20" r="2" fill="#5b6b5b" opacity="0.4"/>
+  <circle cx="60" cy="26" r="1.5" fill="#5b6b5b" opacity="0.4"/>
 </svg>`,
 
 /* ===================== МЯСНИК ===================== */
 butcher:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="62" rx="28" ry="4" fill="rgba(0,0,0,0.55)"/>
   <ellipse cx="32" cy="36" rx="30" ry="26" fill="#4c1d95" opacity="0.2"/>
-  
-  <!-- Ноги-туши -->
   <ellipse cx="20" cy="57" rx="10" ry="6" fill="#3a4a3a" stroke="#1a2a1a" stroke-width="1.5"/>
   <ellipse cx="44" cy="57" rx="10" ry="6" fill="#3a4a3a" stroke="#1a2a1a" stroke-width="1.5"/>
   <ellipse cx="20" cy="59" rx="7" ry="2.5" fill="#0a0e1a"/>
   <ellipse cx="44" cy="59" rx="7" ry="2.5" fill="#0a0e1a"/>
-  
-  <!-- Огромное тело -->
   <ellipse cx="32" cy="40" rx="24" ry="19" fill="#5b6b5b" stroke="#1a2a1a" stroke-width="1.7"/>
-  
-  <!-- Швы крест-накрест -->
-  <path d="M16 32 L20 36 L18 44 L22 50 M48 32 L44 36 L46 44 L42 50" stroke="#0a0e1a" stroke-width="1.6" fill="none"/>
-  <path d="M22 36 L42 36 M22 42 L42 42" stroke="#0a0e1a" stroke-width="1" stroke-dasharray="2,2"/>
-  
-  <!-- Кишки-щупы -->
-  <path d="M26 52 Q22 58 28 60 Q30 56 28 52" fill="#5c1a1a" opacity="0.9"/>
-  <path d="M38 52 Q42 58 36 60 Q34 56 36 52" fill="#5c1a1a" opacity="0.9"/>
-  
-  <!-- Кровавый подтёк -->
-  <path d="M24 46 Q32 50 40 46 Q38 50 34 52 Q32 50 30 52 Q26 50 24 46 Z" fill="#7f1d1d" opacity="0.7"/>
-  
-  <!-- Руки-туши -->
+  <path d="M14 34 Q20 28 26 32 Q24 42 16 42 Z" fill="#4a5a4a" opacity="0.9"/>
+  <path d="M40 30 Q46 26 50 32 Q48 42 40 44 Z" fill="#6b7a6b" opacity="0.9"/>
+  <path d="M24 48 Q32 44 40 48 Q38 54 32 54 Q26 54 24 48 Z" fill="#3a4a3a" opacity="0.9"/>
+  <path d="M18 30 L22 36 L20 42 L24 48" stroke="#0a0e1a" stroke-width="1.6" fill="none"/>
+  <path d="M46 30 L42 36 L44 42 L40 48" stroke="#0a0e1a" stroke-width="1.6" fill="none"/>
+  <path d="M22 36 L42 36 M22 44 L42 44" stroke="#0a0e1a" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="24" cy="36" r="4" fill="#e5e7eb" stroke="#1a2a1a" stroke-width="1"/>
+  <circle cx="23" cy="35" r="1" fill="#1a2a1a"/>
+  <circle cx="25" cy="35" r="1" fill="#1a2a1a"/>
+  <path d="M22 38 L26 38" stroke="#1a2a1a" stroke-width="0.6"/>
+  <circle cx="32" cy="34" r="4.5" fill="#e5e7eb" stroke="#1a2a1a" stroke-width="1"/>
+  <circle cx="30.5" cy="33" r="1.2" fill="#1a2a1a"/>
+  <circle cx="33.5" cy="33" r="1.2" fill="#1a2a1a"/>
+  <path d="M30 36.5 L34 36.5" stroke="#1a2a1a" stroke-width="0.6"/>
+  <circle cx="40" cy="36" r="4" fill="#e5e7eb" stroke="#1a2a1a" stroke-width="1"/>
+  <circle cx="39" cy="35" r="1" fill="#1a2a1a"/>
+  <circle cx="41" cy="35" r="1" fill="#1a2a1a"/>
+  <path d="M38 38 L42 38" stroke="#1a2a1a" stroke-width="0.6"/>
+  <circle cx="32" cy="46" r="8" fill="#dc2626" opacity="0.25"/>
+  <circle cx="32" cy="46" r="5" fill="#7f1d1d" stroke="#dc2626" stroke-width="1"/>
+  <circle cx="32" cy="46" r="3" fill="#dc2626"/>
+  <circle cx="30" cy="44" r="1" fill="#fca5a5"/>
+  <path d="M22 42 Q20 48 24 52" stroke="#7f1d1d" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M42 42 Q44 48 40 52" stroke="#7f1d1d" stroke-width="2" fill="none" opacity="0.7"/>
   <ellipse cx="8" cy="36" rx="8" ry="12" fill="#3a4a3a" stroke="#1a2a1a" stroke-width="1.5"/>
   <ellipse cx="56" cy="36" rx="8" ry="12" fill="#3a4a3a" stroke="#1a2a1a" stroke-width="1.5"/>
-  
-  <!-- ДВА МЯСНИЦКИХ КРЮКА -->
-  <!-- Правый крюк -->
   <rect x="54" y="10" width="4" height="26" fill="#94a3b8" stroke="#1e293b" stroke-width="1"/>
   <path d="M56 10 Q56 2 62 2 Q66 2 66 8 Q66 12 62 12" fill="none" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round"/>
   <circle cx="62" cy="8" r="1.5" fill="#dc2626"/>
-  
-  <!-- Левый крюк -->
   <rect x="6" y="10" width="4" height="26" fill="#94a3b8" stroke="#1e293b" stroke-width="1"/>
   <path d="M8 10 Q8 2 2 2 Q-2 2 -2 8 Q-2 12 2 12" fill="none" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round"/>
-  
-  <!-- Голова-череп, обтянутый кожей -->
+  <rect x="14" y="14" width="3" height="20" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M8 14 Q12 8 18 12 L16 20 Q10 20 8 14 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
   <ellipse cx="32" cy="16" rx="14" ry="12" fill="#5b6b5b" stroke="#1a2a1a" stroke-width="1.6"/>
-  
-  <!-- Шов -->
   <path d="M18 14 L46 14" stroke="#0a0e1a" stroke-width="1.6"/>
   <path d="M22 14 L22 11 M26 14 L26 11 M30 14 L30 11 M34 14 L34 11 M38 14 L38 11 M42 14 L42 11" stroke="#0a0e1a" stroke-width="1"/>
-  
-  <!-- Большая пасть-мясорубка -->
+  <ellipse cx="26" cy="16" rx="3.5" ry="4" fill="#0a0e1a"/>
+  <ellipse cx="38" cy="16" rx="3.5" ry="4" fill="#0a0e1a"/>
+  <ellipse cx="26" cy="16" rx="2" ry="2.5" fill="#dc2626"/>
+  <ellipse cx="38" cy="16" rx="2" ry="2.5" fill="#dc2626"/>
+  <circle cx="26" cy="16" r="6" fill="#dc2626" opacity="0.35"/>
+  <circle cx="38" cy="16" r="6" fill="#dc2626" opacity="0.35"/>
   <path d="M20 22 Q32 34 44 22" fill="#0a0e1a" stroke="#000" stroke-width="1.5"/>
-  <!-- Клыки сверху и снизу -->
   <polygon points="22,23 21,30 25,25" fill="#e5e7eb"/>
   <polygon points="27,25 27,32 30,26" fill="#e5e7eb"/>
   <polygon points="32,26 32,33 34,27" fill="#e5e7eb"/>
@@ -1936,80 +2250,60 @@ butcher:`<svg viewBox="0 0 64 64">
   <polygon points="24,28 24,33 27,29" fill="#d1d5db"/>
   <polygon points="32,29 32,34 34,30" fill="#d1d5db"/>
   <polygon points="40,28 40,33 37,29" fill="#d1d5db"/>
-  
-  <!-- Яростные глаза -->
-  <ellipse cx="26" cy="16" rx="3.5" ry="4" fill="#0a0e1a"/>
-  <ellipse cx="38" cy="16" rx="3.5" ry="4" fill="#0a0e1a"/>
-  <ellipse cx="26" cy="16" rx="2" ry="2.5" fill="#dc2626"/>
-  <ellipse cx="38" cy="16" rx="2" ry="2.5" fill="#dc2626"/>
-  <circle cx="26" cy="16" r="6" fill="#dc2626" opacity="0.35"/>
-  <circle cx="38" cy="16" r="6" fill="#dc2626" opacity="0.35"/>
-  
-  <!-- Кровавый крест на теле -->
   <path d="M32 36 L32 48 M26 42 L38 42" stroke="#7f1d1d" stroke-width="2" opacity="0.7"/>
+  <circle cx="12" cy="20" r="5" fill="#4a5a4a" stroke="#1a2a1a" stroke-width="1.2"/>
+  <circle cx="10" cy="19" r="1.2" fill="#dc2626"/>
+  <circle cx="14" cy="20" r="1" fill="#dc2626"/>
+  <path d="M9 24 Q12 26 15 24" stroke="#1a2a1a" stroke-width="0.8" fill="none"/>
+  <circle cx="52" cy="22" r="4.5" fill="#6b7a6b" stroke="#1a2a1a" stroke-width="1.2"/>
+  <circle cx="50" cy="21" r="1" fill="#dc2626"/>
+  <circle cx="54" cy="22" r="0.9" fill="#dc2626"/>
+  <path d="M50 25 Q52 27 54 25" stroke="#1a2a1a" stroke-width="0.8" fill="none"/>
+  <circle cx="46" cy="30" r="4" fill="#3a4a3a" stroke="#1a2a1a" stroke-width="1.2"/>
+  <circle cx="44.5" cy="29" r="0.9" fill="#dc2626"/>
+  <circle cx="47.5" cy="30" r="0.8" fill="#dc2626"/>
+  <path d="M44 33 Q46 35 48 33" stroke="#1a2a1a" stroke-width="0.8" fill="none"/>
+  <circle cx="18" cy="30" r="3.5" fill="#4a5a4a" stroke="#1a2a1a" stroke-width="1"/>
+  <circle cx="17" cy="29" r="0.8" fill="#dc2626"/>
+  <circle cx="19" cy="30" r="0.7" fill="#dc2626"/>
+  <path d="M16 33 Q18 35 20 33" stroke="#1a2a1a" stroke-width="0.6" fill="none"/>
 </svg>`,
 
 /* ===================== ЛИЧ ===================== */
 lich:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="18" ry="4" fill="rgba(0,0,0,0.45)"/>
-  
-  <!-- Ледяная аура -->
   <ellipse cx="32" cy="34" rx="26" ry="24" fill="#0369a1" opacity="0.2"/>
   <ellipse cx="32" cy="36" rx="18" ry="15" fill="#7dd3fc" opacity="0.15"/>
-  
-  <!-- Мантия -->
   <path d="M18 32 Q20 22 32 20 Q44 22 46 32 Q48 44 44 52 Q40 48 36 52 Q32 48 28 52 Q24 48 20 52 Q16 44 18 32 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.6"/>
-  
-  <!-- Грудная руна -->
   <circle cx="32" cy="38" r="5" fill="#0f172a" stroke="#67e8f9" stroke-width="1.3"/>
   <path d="M32 34 L32 42 M29 38 L35 38" stroke="#67e8f9" stroke-width="1.3"/>
-  
-  <!-- Воротник -->
   <path d="M18 32 Q22 24 32 22 Q42 24 46 32 Q40 28 32 28 Q24 28 18 32 Z" fill="#0f172a"/>
-  
-  <!-- Посох с черепом -->
   <rect x="6" y="14" width="3" height="40" fill="#0a0e1a" stroke="#000" stroke-width="0.8"/>
   <circle cx="7.5" cy="10" r="5" fill="#e5e7eb" stroke="#0a0e1a" stroke-width="1.2"/>
   <circle cx="6" cy="9.5" r="1.2" fill="#0f172a"/>
   <circle cx="9" cy="9.5" r="1.2" fill="#0f172a"/>
   <path d="M6 12 L9 12" stroke="#0f172a" stroke-width="0.8"/>
   <circle cx="7.5" cy="10" r="8" fill="#67e8f9" opacity="0.35"/>
-  
-  <!-- Ледяная сфера -->
   <circle cx="54" cy="42" r="6" fill="#7dd3fc" opacity="0.8"/>
   <circle cx="54" cy="42" r="3" fill="#e0f2fe"/>
   <circle cx="53" cy="41" r="1" fill="#fff"/>
   <circle cx="54" cy="42" r="9" fill="#67e8f9" opacity="0.3"/>
-  
-  <!-- Руки -->
   <ellipse cx="14" cy="44" rx="4" ry="8" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.3"/>
   <ellipse cx="50" cy="44" rx="4" ry="8" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.3"/>
   <circle cx="12" cy="53" r="3.5" fill="#5b6b5b"/>
   <circle cx="52" cy="53" r="3.5" fill="#5b6b5b"/>
-  
-  <!-- Голова-череп -->
   <ellipse cx="32" cy="16" rx="11" ry="12" fill="#8a9a8a" stroke="#0f172a" stroke-width="1.5"/>
-  
-  <!-- Трещины -->
   <path d="M26 6 L28 10 L25 14 L27 18" stroke="#0f172a" stroke-width="1" fill="none"/>
   <path d="M38 8 L36 12 L39 16" stroke="#0f172a" stroke-width="0.9" fill="none"/>
-  
-  <!-- Глазницы с синим пламенем -->
   <ellipse cx="27" cy="16" rx="3" ry="3.5" fill="#0f172a"/>
   <ellipse cx="37" cy="16" rx="3" ry="3.5" fill="#0f172a"/>
   <ellipse cx="27" cy="16" rx="1.5" ry="2" fill="#67e8f9"/>
   <ellipse cx="37" cy="16" rx="1.5" ry="2" fill="#67e8f9"/>
   <circle cx="27" cy="16" r="5" fill="#67e8f9" opacity="0.4"/>
   <circle cx="37" cy="16" r="5" fill="#67e8f9" opacity="0.4"/>
-  
-  <!-- Пасть -->
   <path d="M26 22 Q32 26 38 22" stroke="#0f172a" stroke-width="1.2" fill="none"/>
   <path d="M28 22 L28 24 M32 23 L32 25 M36 22 L36 24" stroke="#0f172a" stroke-width="0.7"/>
-  
-  <!-- Капюшон-тень -->
   <path d="M18 14 Q20 4 32 4 Q44 4 46 14 Q40 10 32 10 Q24 10 18 14 Z" fill="#0f172a" opacity="0.85"/>
-  
-  <!-- Магические руны вокруг -->
   <circle cx="14" cy="20" r="1.5" fill="#67e8f9" opacity="0.8"/>
   <circle cx="50" cy="24" r="1.5" fill="#67e8f9" opacity="0.8"/>
   <circle cx="12" cy="32" r="1" fill="#67e8f9" opacity="0.7"/>
@@ -2019,65 +2313,40 @@ lich:`<svg viewBox="0 0 64 64">
 /* ===================== АРХИЛИЧ ===================== */
 archlich:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="62" rx="26" ry="4" fill="rgba(0,0,0,0.6)"/>
-  
-  <!-- Мощная аура -->
   <ellipse cx="32" cy="36" rx="32" ry="28" fill="#4c1d95" opacity="0.25"/>
   <ellipse cx="32" cy="36" rx="24" ry="20" fill="#0369a1" opacity="0.25"/>
   <ellipse cx="32" cy="36" rx="16" ry="13" fill="#7dd3fc" opacity="0.2"/>
-  
-  <!-- Королевская мантия -->
   <path d="M14 30 Q18 18 32 16 Q46 18 50 30 L54 58 L10 58 Z" fill="#1e1b4b" stroke="#0a0e1a" stroke-width="1.8"/>
   <path d="M14 30 Q32 26 50 30" stroke="#67e8f9" stroke-width="1.5" fill="none"/>
-  
-  <!-- Руны на мантии -->
   <path d="M18 38 L22 42 L18 46 M46 38 L42 42 L46 46" stroke="#67e8f9" stroke-width="1.3" fill="none"/>
   <circle cx="32" cy="38" r="6" fill="#0a0e1a" stroke="#a855f7" stroke-width="1.5"/>
   <path d="M32 32 L32 44 M26 38 L38 38 M28 34 L36 42 M36 34 L28 42" stroke="#67e8f9" stroke-width="1.2"/>
   <circle cx="32" cy="38" r="2" fill="#fff"/>
   <circle cx="32" cy="38" r="10" fill="#67e8f9" opacity="0.3"/>
-  
-  <!-- Воротник -->
   <path d="M14 30 Q20 20 32 18 Q44 20 50 30 Q44 26 32 26 Q20 26 14 30 Z" fill="#0a0e1a"/>
-  
-  <!-- Два посоха в руках -->
-  <!-- Левый посох -->
   <rect x="4" y="12" width="3" height="42" fill="#0a0e1a" stroke="#000" stroke-width="0.8"/>
   <circle cx="5.5" cy="8" r="4.5" fill="#e5e7eb" stroke="#0a0e1a" stroke-width="1"/>
   <circle cx="4" cy="7.5" r="1" fill="#67e8f9"/>
   <circle cx="7" cy="7.5" r="1" fill="#67e8f9"/>
   <circle cx="5.5" cy="8" r="7" fill="#67e8f9" opacity="0.4"/>
-  
-  <!-- Правый посох -->
   <rect x="57" y="12" width="3" height="42" fill="#0a0e1a" stroke="#000" stroke-width="0.8"/>
   <circle cx="58.5" cy="8" r="4.5" fill="#e5e7eb" stroke="#0a0e1a" stroke-width="1"/>
   <circle cx="57" cy="7.5" r="1" fill="#67e8f9"/>
   <circle cx="60" cy="7.5" r="1" fill="#67e8f9"/>
   <circle cx="58.5" cy="8" r="7" fill="#67e8f9" opacity="0.4"/>
-  
-  <!-- Руки-скелеты -->
   <ellipse cx="12" cy="42" rx="4.5" ry="9" fill="#1e1b4b" stroke="#0a0e1a" stroke-width="1.4"/>
   <ellipse cx="52" cy="42" rx="4.5" ry="9" fill="#1e1b4b" stroke="#0a0e1a" stroke-width="1.4"/>
   <circle cx="10" cy="52" r="4" fill="#5b6b5b"/>
   <circle cx="54" cy="52" r="4" fill="#5b6b5b"/>
-  
-  <!-- Крылья-призраки за спиной -->
   <path d="M10 28 Q-4 20 -2 34 Q4 26 12 30 Z" fill="#1e1b4b" opacity="0.7" stroke="#0a0e1a" stroke-width="1"/>
   <path d="M54 28 Q68 20 66 34 Q60 26 52 30 Z" fill="#1e1b4b" opacity="0.7" stroke="#0a0e1a" stroke-width="1"/>
-  
-  <!-- Голова-череп -->
   <ellipse cx="32" cy="16" rx="12" ry="13" fill="#8a9a8a" stroke="#0a0e1a" stroke-width="1.7"/>
-  
-  <!-- Трещины -->
   <path d="M24 6 L27 10 L23 14 L26 20" stroke="#0a0e1a" stroke-width="1.2" fill="none"/>
   <path d="M40 6 L38 11 L41 15 L39 20" stroke="#0a0e1a" stroke-width="1" fill="none"/>
-  
-  <!-- Корона-руны из костей -->
   <path d="M20 10 L22 0 L26 6 L30 -2 L32 4 L34 -2 L38 6 L42 0 L44 10 Z" fill="#e5e7eb" stroke="#0a0e1a" stroke-width="1.2" stroke-linejoin="round"/>
   <circle cx="32" cy="2" r="2" fill="#a855f7"/>
   <circle cx="24" cy="4" r="1.4" fill="#67e8f9"/>
   <circle cx="40" cy="4" r="1.4" fill="#67e8f9"/>
-  
-  <!-- Глазницы с двойным пламенем -->
   <ellipse cx="26" cy="16" rx="3.5" ry="4" fill="#0a0e1a"/>
   <ellipse cx="38" cy="16" rx="3.5" ry="4" fill="#0a0e1a"/>
   <ellipse cx="26" cy="16" rx="2" ry="2.8" fill="#a855f7"/>
@@ -2086,217 +2355,129 @@ archlich:`<svg viewBox="0 0 64 64">
   <ellipse cx="38" cy="16" rx="0.8" ry="2" fill="#fff"/>
   <circle cx="26" cy="16" r="6" fill="#a855f7" opacity="0.4"/>
   <circle cx="38" cy="16" r="6" fill="#a855f7" opacity="0.4"/>
-  
-  <!-- Пасть с мелкими зубами -->
   <path d="M24 24 Q32 30 40 24" stroke="#0a0e1a" stroke-width="1.3" fill="none"/>
   <path d="M26 25 L26 27 M28 26 L28 28 M30 27 L30 29 M34 27 L34 29 M36 26 L36 28 M38 25 L38 27" stroke="#e5e7eb" stroke-width="0.8"/>
-  
-  <!-- Ледяные осколки вокруг -->
   <path d="M8 12 L6 8 L10 10 Z" fill="#7dd3fc" opacity="0.8"/>
   <path d="M56 12 L58 8 L54 10 Z" fill="#7dd3fc" opacity="0.8"/>
   <path d="M6 26 L4 22 L8 24 Z" fill="#7dd3fc" opacity="0.7"/>
   <path d="M58 26 L60 22 L56 24 Z" fill="#7dd3fc" opacity="0.7"/>
 </svg>`,
 
-/* ===================== ОГР (четырёхрукий) ===================== */
+/* ===================== ОГР ===================== */
 ogr:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="61" rx="24" ry="3.5" fill="rgba(0,0,0,0.4)"/>
-  
-  <!-- Ноги -->
   <ellipse cx="24" cy="56" rx="7" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1.4"/>
   <ellipse cx="40" cy="56" rx="7" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1.4"/>
   <ellipse cx="24" cy="58" rx="5" ry="2" fill="#3f2a12"/>
   <ellipse cx="40" cy="58" rx="5" ry="2" fill="#3f2a12"/>
-  
-  <!-- Туловище -->
   <ellipse cx="32" cy="40" rx="16" ry="14" fill="#ca8a04" stroke="#713f12" stroke-width="1.5"/>
   <ellipse cx="32" cy="44" rx="10" ry="8" fill="#fcd34d" opacity="0.55"/>
-  
-  <!-- Волчья шкура на поясе -->
   <path d="M16 48 Q32 52 48 48 L48 54 Q32 58 16 54 Z" fill="#78350f" stroke="#3f2a12" stroke-width="1"/>
-  
-  <!-- ===== НИЖНЯЯ ПАРА РУК (опущены вниз) ===== -->
-  <!-- левая нижняя -->
   <path d="M18 38 Q8 44 6 52 Q8 55 12 54 Q16 48 20 44 Z" fill="#a16207" stroke="#713f12" stroke-width="1.3"/>
   <circle cx="9" cy="53" r="3.5" fill="#ca8a04" stroke="#713f12" stroke-width="1"/>
-  <!-- правая нижняя -->
   <path d="M46 38 Q56 44 58 52 Q56 55 52 54 Q48 48 44 44 Z" fill="#a16207" stroke="#713f12" stroke-width="1.3"/>
   <circle cx="55" cy="53" r="3.5" fill="#ca8a04" stroke="#713f12" stroke-width="1"/>
-  
-  <!-- ===== ВЕРХНЯЯ ПАРА РУК (подняты в стороны) ===== -->
-  <!-- левая верхняя (сжимает кулак) -->
   <path d="M20 32 Q10 24 8 16 Q10 13 14 14 Q18 22 22 28 Z" fill="#a16207" stroke="#713f12" stroke-width="1.3"/>
   <circle cx="10" cy="15" r="4" fill="#ca8a04" stroke="#713f12" stroke-width="1"/>
   <path d="M7 13 L5 12 M7 16 L4 16 M9 18 L7 20" stroke="#3f2a12" stroke-width="1" stroke-linecap="round"/>
-  
-  <!-- правая верхняя (держит дубину) -->
   <path d="M44 32 Q54 24 56 16 Q54 13 50 14 Q46 22 42 28 Z" fill="#a16207" stroke="#713f12" stroke-width="1.3"/>
   <circle cx="54" cy="15" r="4" fill="#ca8a04" stroke="#713f12" stroke-width="1"/>
-  
-  <!-- Дубина (вертикально, ближе к телу) -->
   <rect x="52" y="0" width="4" height="18" rx="1.5" fill="#78350f" stroke="#3f2a12" stroke-width="1"/>
   <ellipse cx="54" cy="2" rx="5" ry="4" fill="#4a2c14" stroke="#2a1a0c" stroke-width="1"/>
   <circle cx="56" cy="1" r="1" fill="#94a3b8"/>
   <circle cx="52" cy="3" r="1" fill="#94a3b8"/>
   <circle cx="55" cy="4" r="0.8" fill="#94a3b8"/>
-  
-  <!-- Голова -->
   <circle cx="32" cy="20" r="13" fill="#ca8a04" stroke="#713f12" stroke-width="1.5"/>
-  
-  <!-- Уши -->
   <ellipse cx="20" cy="18" rx="3" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1"/>
   <ellipse cx="44" cy="18" rx="3" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1"/>
-  
-  <!-- Брови -->
   <path d="M22 14 L28 15 M36 15 L42 14" stroke="#3f2a12" stroke-width="1.8" stroke-linecap="round"/>
-  
-  <!-- Глаза -->
   <circle cx="27" cy="18" r="2.5" fill="#1a1a1a"/>
   <circle cx="37" cy="18" r="2.5" fill="#1a1a1a"/>
   <circle cx="27.7" cy="17.2" r="0.8" fill="#fbbf24"/>
   <circle cx="37.7" cy="17.2" r="0.8" fill="#fbbf24"/>
-  
-  <!-- Нос -->
   <ellipse cx="32" cy="22" rx="2.5" ry="2" fill="#713f12"/>
-  
-  <!-- Пасть с клыками -->
   <path d="M24 26 Q32 34 40 26" fill="#fef3c7" stroke="#713f12" stroke-width="1.2"/>
   <polygon points="26,26 25,32 28,28" fill="#fff" stroke="#713f12" stroke-width="0.5"/>
   <polygon points="38,26 39,32 36,28" fill="#fff" stroke="#713f12" stroke-width="0.5"/>
 </svg>`,
+
+/* ===================== ОГР-ВОЖДЬ ===================== */
 ogr_chief:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="61" rx="26" ry="4" fill="rgba(0,0,0,0.45)"/>
-  
-  <!-- Ноги -->
   <ellipse cx="22" cy="56" rx="9" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1.5"/>
   <ellipse cx="42" cy="56" rx="9" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1.5"/>
   <ellipse cx="22" cy="58" rx="6" ry="2.5" fill="#1a1a1a"/>
   <ellipse cx="42" cy="58" rx="6" ry="2.5" fill="#1a1a1a"/>
-  
-  <!-- Туловище -->
   <ellipse cx="32" cy="40" rx="20" ry="16" fill="#b45309" stroke="#451a03" stroke-width="1.6"/>
   <ellipse cx="32" cy="44" rx="12" ry="10" fill="#fbbf24" opacity="0.5"/>
-  
-  <!-- Красная накидка -->
   <path d="M12 38 Q32 36 52 38 L54 52 Q32 56 10 52 Z" fill="#7f1d1d" stroke="#450a0a" stroke-width="1.3"/>
   <path d="M12 38 Q32 36 52 38" stroke="#dc2626" stroke-width="1.2" fill="none"/>
-  
-  <!-- ===== НИЖНЯЯ ПАРА РУК ===== -->
-  <!-- левая нижняя -->
   <path d="M16 40 Q6 46 4 54 Q6 57 10 56 Q14 50 18 46 Z" fill="#92400e" stroke="#451a03" stroke-width="1.3"/>
   <circle cx="7" cy="55" r="4" fill="#b45309" stroke="#451a03" stroke-width="1"/>
-  <!-- правая нижняя -->
   <path d="M48 40 Q58 46 60 54 Q58 57 54 56 Q50 50 46 46 Z" fill="#92400e" stroke="#451a03" stroke-width="1.3"/>
   <circle cx="57" cy="55" r="4" fill="#b45309" stroke="#451a03" stroke-width="1"/>
-  
-  <!-- ===== ВЕРХНЯЯ ПАРА РУК ===== -->
-  <!-- левая верхняя (с дубиной) -->
   <path d="M18 34 Q8 24 6 14 Q8 11 12 12 Q16 22 20 28 Z" fill="#92400e" stroke="#451a03" stroke-width="1.3"/>
   <circle cx="8" cy="13" r="4.5" fill="#b45309" stroke="#451a03" stroke-width="1"/>
-  <!-- Дубина левая -->
   <rect x="0" y="0" width="4" height="16" rx="1.5" fill="#4a2c14" stroke="#2a1a0c" stroke-width="1"/>
   <ellipse cx="2" cy="2" rx="5" ry="4" fill="#2a1a0c" stroke="#1a0e05" stroke-width="1"/>
-  
-  <!-- правая верхняя (с дубиной) -->
   <path d="M46 34 Q56 24 58 14 Q56 11 52 12 Q48 22 44 28 Z" fill="#92400e" stroke="#451a03" stroke-width="1.3"/>
   <circle cx="56" cy="13" r="4.5" fill="#b45309" stroke="#451a03" stroke-width="1"/>
-  <!-- Дубина правая -->
   <rect x="60" y="0" width="4" height="16" rx="1.5" fill="#4a2c14" stroke="#2a1a0c" stroke-width="1"/>
   <ellipse cx="62" cy="2" rx="5" ry="4" fill="#2a1a0c" stroke="#1a0e05" stroke-width="1"/>
-  
-  <!-- Голова -->
   <circle cx="32" cy="18" r="14" fill="#b45309" stroke="#451a03" stroke-width="1.6"/>
-  
-  <!-- Уши -->
   <ellipse cx="19" cy="16" rx="3.5" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1"/>
   <ellipse cx="45" cy="16" rx="3.5" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1"/>
-  
-  <!-- Костяной шлем -->
   <path d="M20 10 L22 0 L26 6 L30 -2 L32 4 L34 -2 L38 6 L42 0 L44 10 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="1.2" stroke-linejoin="round"/>
   <circle cx="32" cy="2" r="1.5" fill="#dc2626"/>
-  
-  <!-- Брови -->
   <path d="M20 11 L27 13 M37 13 L44 11" stroke="#451a03" stroke-width="2" stroke-linecap="round"/>
-  
-  <!-- Глаза -->
   <circle cx="26" cy="16" r="3" fill="#1a1a1a"/>
   <circle cx="38" cy="16" r="3" fill="#1a1a1a"/>
   <circle cx="26.8" cy="15.2" r="1" fill="#dc2626"/>
   <circle cx="38.8" cy="15.2" r="1" fill="#dc2626"/>
-  
-  <!-- Пасть с клыками -->
   <path d="M23 26 Q32 36 41 26" fill="#fef3c7" stroke="#451a03" stroke-width="1.3"/>
   <polygon points="25,26 24,33 27,28" fill="#fff" stroke="#451a03" stroke-width="0.5"/>
   <polygon points="39,26 40,33 37,28" fill="#fff" stroke="#451a03" stroke-width="0.5"/>
+  <path d="M22 42 L26 46 L24 50 M42 42 L38 46 L40 50" stroke="#450a0a" stroke-width="1.5" fill="none" opacity="0.7"/>
 </svg>`,
+
+/* ===================== ОГР-МАГ ===================== */
 ogr_mage:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="61" rx="24" ry="3.5" fill="rgba(0,0,0,0.4)"/>
-  
-  <!-- Магическая аура -->
   <ellipse cx="32" cy="36" rx="28" ry="24" fill="#3b82f6" opacity="0.15"/>
-  
-  <!-- Ноги -->
   <ellipse cx="24" cy="56" rx="7" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.4"/>
   <ellipse cx="40" cy="56" rx="7" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.4"/>
   <ellipse cx="24" cy="58" rx="5" ry="2" fill="#0f172a"/>
   <ellipse cx="40" cy="58" rx="5" ry="2" fill="#0f172a"/>
-  
-  <!-- Туловище -->
   <ellipse cx="32" cy="40" rx="16" ry="14" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.5"/>
-  
-  <!-- Руна на груди -->
   <circle cx="32" cy="40" r="5.5" fill="#1e3a8a" stroke="#67e8f9" stroke-width="1.3"/>
   <path d="M32 36 L32 44 M28 40 L36 40" stroke="#67e8f9" stroke-width="1.3"/>
   <circle cx="32" cy="40" r="1.8" fill="#67e8f9"/>
   <circle cx="32" cy="40" r="8" fill="#67e8f9" opacity="0.25"/>
-  
-  <!-- Набедренная повязка -->
   <path d="M16 48 Q32 52 48 48 L48 54 Q32 58 16 54 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1"/>
-  
-  <!-- ===== НИЖНЯЯ ПАРА РУК ===== -->
-  <!-- левая нижняя -->
   <path d="M18 38 Q8 44 6 52 Q8 55 12 54 Q16 48 20 44 Z" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.3"/>
   <circle cx="9" cy="53" r="3.5" fill="#2563eb" stroke="#1e3a8a" stroke-width="1"/>
-  <!-- правая нижняя (держит сферу) -->
   <path d="M46 38 Q56 44 58 52 Q56 55 52 54 Q48 48 44 44 Z" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.3"/>
-  <!-- Магическая сфера -->
   <circle cx="55" cy="52" r="5" fill="#a855f7" opacity="0.8"/>
   <circle cx="55" cy="52" r="2.5" fill="#e9d5ff"/>
   <circle cx="54" cy="51" r="0.8" fill="#fff"/>
-  
-  <!-- ===== ВЕРХНЯЯ ПАРА РУК ===== -->
-  <!-- левая верхняя (с посохом) -->
   <path d="M20 32 Q10 24 8 16 Q10 13 14 14 Q18 22 22 28 Z" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.3"/>
   <circle cx="10" cy="15" r="4" fill="#2563eb" stroke="#1e3a8a" stroke-width="1"/>
-  
-  <!-- Посох -->
   <rect x="6" y="0" width="3" height="18" rx="1" fill="#78350f" stroke="#451a03" stroke-width="1"/>
   <path d="M7.5 -2 L4 4 L7.5 8 L11 4 Z" fill="#67e8f9" stroke="#0369a1" stroke-width="1"/>
   <circle cx="7.5" cy="3" r="3" fill="#67e8f9" opacity="0.7"/>
   <circle cx="7.5" cy="3" r="1.2" fill="#fff"/>
-  
-  <!-- правая верхняя (магический жест) -->
   <path d="M44 32 Q54 24 56 16 Q54 13 50 14 Q46 22 42 28 Z" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.3"/>
   <circle cx="54" cy="15" r="4" fill="#2563eb" stroke="#1e3a8a" stroke-width="1"/>
-  <!-- Искры вокруг пальцев -->
   <circle cx="58" cy="12" r="1.5" fill="#67e8f9" opacity="0.8"/>
   <circle cx="60" cy="16" r="1" fill="#67e8f9" opacity="0.7"/>
   <circle cx="56" cy="9" r="1" fill="#67e8f9" opacity="0.7"/>
-  
-  <!-- Голова -->
   <circle cx="32" cy="20" r="13" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.5"/>
-  
-  <!-- Уши -->
   <ellipse cx="20" cy="18" rx="3" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1"/>
   <ellipse cx="44" cy="18" rx="3" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1"/>
-  
-  <!-- Третий глаз на лбу -->
   <circle cx="32" cy="11" r="2.5" fill="#0f172a"/>
   <circle cx="32" cy="11" r="1.5" fill="#67e8f9"/>
   <circle cx="32" cy="11" r="0.5" fill="#fff"/>
   <circle cx="32" cy="11" r="5" fill="#67e8f9" opacity="0.3"/>
-  
-  <!-- Глаза светящиеся -->
   <circle cx="27" cy="20" r="2.5" fill="#0f172a"/>
   <circle cx="37" cy="20" r="2.5" fill="#0f172a"/>
   <circle cx="27" cy="20" r="1.5" fill="#67e8f9"/>
@@ -2305,98 +2486,60 @@ ogr_mage:`<svg viewBox="0 0 64 64">
   <circle cx="37.5" cy="19.3" r="0.6" fill="#fff"/>
   <circle cx="27" cy="20" r="5" fill="#67e8f9" opacity="0.25"/>
   <circle cx="37" cy="20" r="5" fill="#67e8f9" opacity="0.25"/>
-  
-  <!-- Нос -->
   <ellipse cx="32" cy="24" rx="2.5" ry="2" fill="#1e3a8a"/>
-  
-  <!-- Пасть с клыками -->
   <path d="M24 26 Q32 34 40 26" fill="#dbeafe" stroke="#1e3a8a" stroke-width="1.2"/>
   <polygon points="26,26 25,32 28,28" fill="#fff" stroke="#1e3a8a" stroke-width="0.5"/>
   <polygon points="38,26 39,32 36,28" fill="#fff" stroke="#1e3a8a" stroke-width="0.5"/>
 </svg>`,
+
+/* ===================== ОГР-АРХИМАГ ===================== */
 ogr_archmage:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="61" rx="28" ry="4" fill="rgba(0,0,0,0.5)"/>
-  
-  <!-- Аура -->
   <ellipse cx="32" cy="36" rx="30" ry="26" fill="#7c3aed" opacity="0.2"/>
   <ellipse cx="32" cy="36" rx="22" ry="18" fill="#3b82f6" opacity="0.25"/>
-  
-  <!-- Ноги -->
   <ellipse cx="22" cy="56" rx="9" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.5"/>
   <ellipse cx="42" cy="56" rx="9" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.5"/>
   <ellipse cx="22" cy="58" rx="6" ry="2.5" fill="#000"/>
   <ellipse cx="42" cy="58" rx="6" ry="2.5" fill="#000"/>
-  
-  <!-- Туловище -->
   <ellipse cx="32" cy="40" rx="20" ry="16" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.6"/>
-  
-  <!-- Мантия -->
   <path d="M12 40 Q32 36 52 40 L54 54 Q32 58 10 54 Z" fill="#312e81" stroke="#1e1b4b" stroke-width="1.3"/>
   <path d="M12 40 Q32 36 52 40" stroke="#67e8f9" stroke-width="1.2" fill="none"/>
-  
-  <!-- Звёзды на мантии -->
   <path d="M18 46 L19 44 L20 46 L22 47 L20 48 L19 50 L18 48 L16 47 Z" fill="#67e8f9" opacity="0.9"/>
   <path d="M44 48 L45 46 L46 48 L48 49 L46 50 L45 52 L44 50 L42 49 Z" fill="#67e8f9" opacity="0.9"/>
-  
-  <!-- Грудная руна -->
   <circle cx="32" cy="40" r="6.5" fill="#0f172a" stroke="#67e8f9" stroke-width="1.5"/>
   <path d="M32 34 L32 46 M26 40 L38 40 M28 36 L36 44 M36 36 L28 44" stroke="#67e8f9" stroke-width="1.3"/>
   <circle cx="32" cy="40" r="2" fill="#fff"/>
   <circle cx="32" cy="40" r="10" fill="#67e8f9" opacity="0.25"/>
-  
-  <!-- ===== НИЖНЯЯ ПАРА РУК ===== -->
-  <!-- левая нижняя -->
   <path d="M14 40 Q4 46 2 54 Q4 57 8 56 Q12 50 16 46 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.3"/>
   <circle cx="5" cy="55" r="4" fill="#1d4ed8" stroke="#0f172a" stroke-width="1"/>
-  <!-- правая нижняя (со сферой) -->
   <path d="M50 40 Q60 46 62 54 Q60 57 56 56 Q52 50 48 46 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.3"/>
   <circle cx="59" cy="55" r="6" fill="#a855f7" opacity="0.75"/>
   <circle cx="59" cy="55" r="3" fill="#e9d5ff"/>
   <circle cx="58" cy="54" r="1" fill="#fff"/>
   <circle cx="59" cy="55" r="9" fill="#a855f7" opacity="0.3"/>
-  
-  <!-- ===== ВЕРХНЯЯ ПАРА РУК ===== -->
-  <!-- левая верхняя (посох с черепом) -->
   <path d="M18 34 Q8 24 6 14 Q8 11 12 12 Q16 22 20 28 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.3"/>
   <circle cx="8" cy="13" r="4.5" fill="#1d4ed8" stroke="#0f172a" stroke-width="1"/>
-  
-  <!-- Посох -->
   <rect x="4" y="0" width="3" height="16" rx="1" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
   <circle cx="5.5" cy="-2" r="4" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="1"/>
   <circle cx="4" cy="-2.5" r="1" fill="#0f172a"/>
   <circle cx="7" cy="-2.5" r="1" fill="#0f172a"/>
   <path d="M4 0 L7 0" stroke="#0f172a" stroke-width="0.6"/>
   <circle cx="5.5" cy="-2" r="7" fill="#67e8f9" opacity="0.3"/>
-  
-  <!-- правая верхняя (магический жест) -->
   <path d="M46 34 Q56 24 58 14 Q56 11 52 12 Q48 22 44 28 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.3"/>
   <circle cx="56" cy="13" r="4.5" fill="#1d4ed8" stroke="#0f172a" stroke-width="1"/>
-  <!-- Искры -->
   <circle cx="60" cy="10" r="1.5" fill="#67e8f9" opacity="0.9"/>
   <circle cx="62" cy="15" r="1.2" fill="#67e8f9" opacity="0.8"/>
   <circle cx="58" cy="7" r="1" fill="#67e8f9" opacity="0.7"/>
-  
-  <!-- Голова -->
   <circle cx="32" cy="18" r="14" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.6"/>
-  
-  <!-- Уши -->
   <ellipse cx="19" cy="16" rx="3.5" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1"/>
   <ellipse cx="45" cy="16" rx="3.5" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1"/>
-  
-  <!-- Корона-руны -->
   <path d="M20 10 L22 0 L26 6 L30 -2 L32 4 L34 -2 L38 6 L42 0 L44 10 Z" fill="#67e8f9" stroke="#0369a1" stroke-width="1.2" stroke-linejoin="round"/>
   <circle cx="32" cy="2" r="1.8" fill="#a855f7"/>
-  
-  <!-- Третий глаз -->
   <circle cx="32" cy="10" r="3" fill="#0f172a"/>
   <circle cx="32" cy="10" r="1.8" fill="#67e8f9"/>
   <circle cx="32" cy="10" r="0.6" fill="#fff"/>
   <circle cx="32" cy="10" r="6" fill="#67e8f9" opacity="0.35"/>
-  
-  <!-- Брови -->
   <path d="M20 11 L28 13 M36 13 L44 11" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
-  
-  <!-- Глаза -->
   <circle cx="26" cy="18" r="3" fill="#0f172a"/>
   <circle cx="38" cy="18" r="3" fill="#0f172a"/>
   <circle cx="26" cy="18" r="1.8" fill="#67e8f9"/>
@@ -2405,8 +2548,6 @@ ogr_archmage:`<svg viewBox="0 0 64 64">
   <circle cx="38.6" cy="17.3" r="0.7" fill="#fff"/>
   <circle cx="26" cy="18" r="6" fill="#67e8f9" opacity="0.3"/>
   <circle cx="38" cy="18" r="6" fill="#67e8f9" opacity="0.3"/>
-  
-  <!-- Пасть -->
   <path d="M23 26 Q32 36 41 26" fill="#dbeafe" stroke="#0f172a" stroke-width="1.3"/>
   <polygon points="25,26 24,33 27,28" fill="#fff" stroke="#0f172a" stroke-width="0.5"/>
   <polygon points="39,26 40,33 37,28" fill="#fff" stroke="#0f172a" stroke-width="0.5"/>
@@ -2807,7 +2948,7 @@ gnome_smith:`<svg viewBox="0 0 64 64">
   <circle cx="42" cy="26" r="2" fill="#ef4444" opacity="0.5"/>
 </svg>`,
 
-/* ===================== ДВАРФ-РУННЫЙ МАСТЕР ===================== */
+/* ===================== Дворф-РУННЫЙ МАСТЕР ===================== */
 dwarf_runemaster:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="18" ry="3.5" fill="rgba(0,0,0,0.35)"/>
   <!-- Ботинки -->
@@ -2849,7 +2990,7 @@ dwarf_runemaster:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="25" rx="2.2" ry="1.8" fill="#d97706"/>
 </svg>`,
 
-/* ===================== ДВАРФ-КОРОЛЬ ===================== */
+/* ===================== Дворф-КОРОЛЬ ===================== */
 dwarf_king:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="20" ry="4" fill="rgba(0,0,0,0.4)"/>
   <ellipse cx="24" cy="56" rx="8" ry="4.5" fill="#1a1a1a" stroke="#000" stroke-width="1.2"/>
@@ -3136,7 +3277,7 @@ goddess_siren:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="34" rx="26" ry="20" fill="none" stroke="#67e8f9" stroke-width="0.8" opacity="0.35"/>
 </svg>`,
 
-/* ===================== ЛЕПРЕКОН-ИСКРА ===================== */
+/* ===================== Лепрекон ===================== */
 leprechaun_spark:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="12" ry="2.5" fill="rgba(0,0,0,0.3)"/>
   <!-- Ножки -->
@@ -3716,7 +3857,7 @@ sea_dragon:`<svg viewBox="0 0 64 64">
   <polygon points="18,41 18,45 20,43" fill="#fff"/>
 </svg>`,
 
-/* ===================== УТКОНОС-МАГ ===================== */
+/* ===================== Рири-маг ===================== */
 platypus_mage:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="58" rx="18" ry="3.5" fill="rgba(0,0,0,0.3)"/>
   <!-- Хвост-бобёр -->
@@ -4378,84 +4519,85 @@ const ITEMS={
 };
 let inventory={Magicball:10,potion:5,superball:0,ultraball:0,superpotion:0,revive:1,antidote:0};
 
-// ===================== ПРОГРЕССИЯ =====================
-const ZONE_ORDER=["pallet","viridian","route","forest","pewter","mountain","cerulean","vermilion","celadon","saffron","lavender","cave","fuchsia","desert","cinnabar","seafoam", "volcano","indigo"];
+const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii", "water"];
 const DEFAULT_UNLOCK={type:"defeat",count:3};
-let unlockedZones=new Set(["pallet"]);
+let unlockedZones=new Set(["sid"]);
 let zoneProgress={};
 let earnedSeals=new Set();
 const WILD_POWER_MULT = 0.7;
 const SOUL_SEALS={
-pewter:{name:"Печать Камня",master:"Торвальд"},
-cerulean:{name:"Печать Воды",master:"Аэлин"},
-vermilion:{name:"Печать Молнии",master:"Заррок"},
-celadon:{name:"Печать Природы",master:"Элирия"},
-fuchsia:{name:"Печать Теней",master:"Когар"},
-saffron:{name:"Печать Разума",master:"Сабирель"},
-cinnabar:{name:"Печать Пламени",master:"Брайнер"},
-viridian:{name:"Печать Земли",master:"Джован"}
-};const SOUL_MASTERS={
-pewter:{
+haradat:{name:"Печать Камня",master:"Торвальд"},
+goch:{name:"Печать Воды",master:"Аэлин"},
+olandir:{name:"Печать Молнии",master:"Заррок"},
+selax:{name:"Печать Природы",master:"Элирия"},
+uurion:{name:"Печать Теней",master:"Когар"},
+fattolodor:{name:"Печать Разума",master:"Сабирель"},
+gozon:{name:"Печать Пламени",master:"Брайнер"},
+zyffren:{name:"Печать Земли",master:"Джован"}
+};
+
+const SOUL_MASTERS={
+haradat:{
   name:"Мастер Камня Торвальд",
   title:"Мастер Душ Камня",
   team:[{id:1074,level:12},{id:1074,level:14}],
-  reward:1500, badge:"pewter",
+  reward:1500, badge:"haradat",
   before:"Я — Торвальд, Мастер Душ Камня. Мои големы высечены из сердца горы!",
   after:"Ты силён, искатель! Прими Печать Камня — знак того, что ты прошёл первое испытание."
 },
-cerulean:{
+goch:{
   name:"Мастерица Воды Аэлин",
   title:"Мастерица Душ Воды",
   team:[{id:1054,level:18},{id:1007,level:20}],
-  reward:2500, badge:"cerulean",
+  reward:2500, badge:"goch",
   before:"Я — Аэлин, Мастерица Душ Воды. Мои сирены поют песни глубин!",
   after:"Впечатляет! Возьми Печать Воды — она откроет тебе путь к морским тайнам."
 },
-vermilion:{
+olandir:{
   name:"Мастер Молний Заррок",
   title:"Мастер Душ Молний",
   team:[{id:1025,level:24},{id:1025,level:26}],
-  reward:3500, badge:"vermilion",
+  reward:3500, badge:"olandir",
   before:"Я — Заррок, Мастер Душ Молний. Мой лепрекон бьёт быстрее, чем ты успеешь моргнуть!",
   after:"Держи Печать Молнии — она хранит искру бури!"
 },
-celadon:{
+selax:{
   name:"Мастерица Природы Элирия",
   title:"Мастерица Душ Природы",
   team:[{id:1001,level:28},{id:1001,level:30}],
-  reward:4500, badge:"celadon",
+  reward:4500, badge:"selax",
   before:"Добро пожаловать в мой сад... Я — Элирия, Мастерица Душ Природы. Здесь всё живое подчиняется мне.",
   after:"Возьми Печать Природы — пусть лес будет тебе другом."
 },
-fuchsia:{
+uurion:{
   name:"Мастер Теней Когар",
   title:"Мастер Душ Теней",
   team:[{id:1041,level:32},{id:1092,level:34}],
-  reward:5500, badge:"fuchsia",
+  reward:5500, badge:"uurion",
   before:"Я — Когар, Мастер Душ Теней. Мои призраки не оставят тебе шансов!",
   after:"Печать Теней — твоя. Ты доказал, что не боишься тьмы."
 },
-saffron:{
+fattolodor:{
   name:"Мастерица Разума Сабирель",
   title:"Мастерица Душ Разума",
   team:[{id:1063,level:36},{id:1150,level:38}],
-  reward:6500, badge:"saffron",
+  reward:6500, badge:"fattolodor",
   before:"Я предвидела твой приход... Я — Сабирель, Мастерица Душ Разума. Разум сильнее меча.",
   after:"Печать Разума твоя, искатель. Ты превзошёл мои ожидания."
 },
-cinnabar:{
+gozon:{
   name:"Мастер Пламени Брайнер",
   title:"Мастер Душ Пламени",
   team:[{id:1146,level:40},{id:1006,level:42}],
-  reward:7500, badge:"cinnabar",
+  reward:7500, badge:"gozon",
   before:"Я — Брайнер, Мастер Душ Пламени! Мои огненные демоны испепелят тебя!",
   after:"Вот Печать Пламени — гори, но не сгорай, искатель!"
 },
-viridian:{
+zyffren:{
   name:"Повелитель Гор Кутар",
   title:"Повелитель Гор Кутар",
   team:[{id:1074,level:10},{id:1129,level:17},{id:1150,level:12}],
-  reward:10000, badge:"viridian",
+  reward:10000, badge:"zyffren",
   before:"Я — Кутар Повелитель Гор. Ты не пройдёшь дальше!",
   after:"Ты победил... Прими Печать Земли — последнюю из восьми Печатей Душ."
 }
@@ -4473,18 +4615,18 @@ const TRAINER_TEMPLATES=[
 // ===================== КВЕСТЫ =====================
 const QUEST_DEFS=[
 // --- Паллет-Таун ---
-{id:"q_catch3",biome:"pallet",npc:"Архимаг",npcPos:{x:550,y:1660},
+{id:"q_catch3",biome:"sid",npc:"Архимаг",npcPos:{x:550,y:1660},
   title:"Первые шаги",desc:"Поймай 1 монстра",
   type:"catch",target:1,reward:{money:500,items:{Magicball:5}},dialogue:"Привет, юный искатель приключений! Помоги моим колдовским исследованиям — поймай 1 монстра."},
-{id:"q_defeat_pallet5",biome:"pallet",npc:"Ведьма",npcPos:{x:650,y:1600},
+{id:"q_defeat_pallet5",biome:"sid",npc:"Ведьма",npcPos:{x:650,y:1600},
   title:"Спаси ведьму",desc:"Победи 2 диких монстров, чтобы стать сильнее.",
   type:"defeat",target:2,reward:{money:300,items:{potion:3}},dialogue:"Здравствуй... искатель приключений. Я в засаде. Расчисти мне дорогу, чтобы я могла продолжить путь."},
 
 // --- Виридиан-Сити ---
-{id:"q_defeat_viridian8",biome:"viridian",npc:"Архимаг",npcPos:{x:520,y:1060},
+{id:"q_defeat_viridian8",biome:	"zyffren",npc:"Архимаг",npcPos:{x:520,y:1060},
   title:"Тренировка в городе",desc:"Победи 3 монстров в Виридиан-Сити.",
   type:"defeat",target:3,reward:{money:800,items:{superball:3}},dialogue:"Эй, новичок! Хочешь стать сильнее? Победи 3 монстров здесь!"},
-{id:"q_catch_pidgey",biome:"viridian",npc:"Дворф Руд",npcPos:{x:750,y:1100},
+{id:"q_catch_pidgey",biome:	"zyffren",npc:"Дворф Руд",npcPos:{x:750,y:1100},
   title:"Птичья коллекция",desc:"Поймай Пиджи или Ратату.",
   type:"catch_specific",targetIds:[16,19],target:1,reward:{money:600,items:{Magicball:5}},dialogue:"Я собираю птиц и мышей! Принеси мне Пиджи или Ратату — и получишь награду."},
 
@@ -4503,15 +4645,15 @@ const QUEST_DEFS=[
 {id:"q_defeat_forest12",biome:"forest",npc:"Лесник",npcPos:{x:800,y:1400},
   title:"Защита леса",desc:"Победи 12 монстров в лесу.",
   type:"defeat",target:12,reward:{money:1500,items:{superball:5}},dialogue:"Дикие монстры распоясались! Победи 12 из них в лесу."},
-{id:"q_catch_pikachu",biome:"forest",npc:"Электрический-фанат",npcPos:{x:650,y:1500},
+{id:"q_catch_pikachu",biome:"forest",npc:"Электрик-фанат",npcPos:{x:650,y:1500},
   title:"Охота на Пикачу",desc:"Поймай Пикачу!",
   type:"catch_specific",targetIds:[25],target:1,reward:{money:2000,items:{ultraball:2}},dialogue:"Пикачу — мечта коллекционера! Поймай его — и получишь щедрую награду."},
 
 // --- Пьютер-Сити ---
-{id:"q_defeat_pewter15",biome:"pewter",npc:"Скалолаз",npcPos:{x:550,y:400},
+{id:"q_defeat_pewter15",biome:"haradat",npc:"Скалолаз",npcPos:{x:550,y:400},
   title:"Каменная твёрдость",desc:"Победи 15 монстров.",
   type:"defeat",target:15,reward:{money:2000,items:{superpotion:3}},dialogue:"Каменный — это сила! Победи 15 монстров, чтобы доказать свою твёрдость."},
-{id:"q_catch_geodude",biome:"pewter",npc:"Коллекционер камней",npcPos:{x:700,y:450},
+{id:"q_catch_geodude",biome:"haradat",npc:"Коллекционер камней",npcPos:{x:700,y:450},
   title:"Каменная коллекция",desc:"Поймай Геодуда.",
   type:"catch_specific",targetIds:[74],target:1,reward:{money:1800,items:{superball:5}},dialogue:"Геодуд — прекрасный образец! Поймай его для моей коллекции."},
 
@@ -4524,42 +4666,42 @@ const QUEST_DEFS=[
   type:"level",target:15,reward:{money:3000,items:{superpotion:5}},dialogue:"Хочешь стать мастером? Доведи монстра до 15 уровня!"},
 
 // --- Церулеан-Сити ---
-{id:"q_defeat_cerulean20",biome:"cerulean",npc:"Пловец",npcPos:{x:1650,y:350},
+{id:"q_defeat_cerulean20",biome:"goch",npc:"Пловец",npcPos:{x:1650,y:350},
   title:"Водные тренировки",desc:"Победи 20 монстров.",
   type:"defeat",target:20,reward:{money:3000,items:{ultraball:2}},dialogue:"Водный — стихия силы! Победи 20 монстров."},
-{id:"q_catch_psyduck",biome:"cerulean",npc:"Рыбак",npcPos:{x:1800,y:400},
+{id:"q_catch_psyduck",biome:"goch",npc:"Рыбак",npcPos:{x:1800,y:400},
   title:"Утиная охота",desc:"Поймай Псайдака.",
   type:"catch_specific",targetIds:[54],target:1,reward:{money:2200,items:{superball:5}},dialogue:"Псайдак — забавный монстр! Поймай его для меня."},
 
 // --- Вермилион-Сити ---
-{id:"q_defeat_vermilion25",biome:"vermilion",npc:"Электрический-тренер",npcPos:{x:1850,y:1450},
-  title:"Электрический шторм",desc:"Победи 25 монстров.",
+{id:"q_defeat_vermilion25",biome:"olandir",npc:"Электрик-тренер",npcPos:{x:1850,y:1450},
+  title:"Электрик шторм",desc:"Победи 25 монстров.",
   type:"defeat",target:25,reward:{money:4000,items:{ultraball:3}},dialogue:"Электричество — моя страсть! Победи 25 монстров."},
-{id:"q_level_team20",biome:"vermilion",npc:"Опытный тренер",npcPos:{x:2000,y:1500},
+{id:"q_level_team20",biome:"olandir",npc:"Опытный тренер",npcPos:{x:2000,y:1500},
   title:"Опытный боец",desc:"Доведи любого монстра до 20 уровня.",
   type:"level",target:20,reward:{money:5000,items:{revive:2}},dialogue:"20 уровень — это серьёзно! Докажи, что ты можешь."},
 
 // --- Селадон-Сити ---
-{id:"q_defeat_celadon30",biome:"celadon",npc:"Модница",npcPos:{x:1450,y:950},
+{id:"q_defeat_celadon30",biome:"selax",npc:"Модница",npcPos:{x:1450,y:950},
   title:"Стильные битвы",desc:"Победи 30 монстров.",
   type:"defeat",target:30,reward:{money:5000,items:{ultraball:5}},dialogue:"Стиль — во всём! Победи 30 монстров стильно!"},
-{id:"q_catch_eevee",biome:"celadon",npc:"Эволюционный эксперт",npcPos:{x:1600,y:1000},
+{id:"q_catch_eevee",biome:"selax",npc:"Эволюционный эксперт",npcPos:{x:1600,y:1000},
   title:"Загадка Иви",desc:"Поймай Иви.",
   type:"catch_specific",targetIds:[133],target:1,reward:{money:4000,items:{superpotion:5}},dialogue:"Иви — загадка эволюции! Поймай его для меня."},
 
 // --- Саффрон-Сити ---
-{id:"q_defeat_saffron35",biome:"saffron",npc:"Психический",npcPos:{x:1950,y:600},
+{id:"q_defeat_saffron35",biome:"fattolodor",npc:"Психический",npcPos:{x:1950,y:600},
   title:"Сила разума",desc:"Победи 35 монстров.",
   type:"defeat",target:35,reward:{money:6000,items:{ultraball:5}},dialogue:"Разум сильнее тела! Победи 35 монстров."},
-{id:"q_catch_abra",biome:"saffron",npc:"Телепат",npcPos:{x:2100,y:650},
+{id:"q_catch_abra",biome:"fattolodor",npc:"Телепат",npcPos:{x:2100,y:650},
   title:"Телепортация",desc:"Поймай Абру.",
   type:"catch_specific",targetIds:[63],target:1,reward:{money:5000,items:{revive:2}},dialogue:"Абра телепортируется! Поймай его, если сможешь."},
 
 // --- Лавандер-Таун ---
-{id:"q_defeat_lavender40",biome:"lavender",npc:"Экзорцист",npcPos:{x:2250,y:1050},
+{id:"q_defeat_lavender40",biome:"totsar",npc:"Экзорцист",npcPos:{x:2250,y:1050},
   title:"Изгнание духов",desc:"Победи 40 монстров.",
   type:"defeat",target:40,reward:{money:7000,items:{ultraball:5}},dialogue:"Призраки повсюду! Победи 40 монстров, чтобы их изгнать."},
-{id:"q_catch_gastly",biome:"lavender",npc:"Охотник за призраками",npcPos:{x:2400,y:1100},
+{id:"q_catch_gastly",biome:"totsar",npc:"Охотник за призраками",npcPos:{x:2400,y:1100},
   title:"Призрачная охота",desc:"Поймай Гастли.",
   type:"catch_specific",targetIds:[92],target:1,reward:{money:6000,items:{superpotion:5}},dialogue:"Гастли — elusive! Поймай его для меня."},
 
@@ -4572,10 +4714,10 @@ const QUEST_DEFS=[
   type:"catch_specific",targetIds:[41],target:1,reward:{money:4000,items:{superball:5}},dialogue:"Зубаты живут в темноте! Поймай одного."},
 
 // --- Фуксия-Сити ---
-{id:"q_defeat_fuchsia50",biome:"fuchsia",npc:"Сафари-гид",npcPos:{x:2650,y:1500},
+{id:"q_defeat_fuchsia50",biome:"uurion",npc:"Сафари-гид",npcPos:{x:2650,y:1500},
   title:"Сафари-марафон",desc:"Победи 50 монстров.",
   type:"defeat",target:50,reward:{money:10000,items:{ultraball:5}},dialogue:"Сафари — это испытание! Победи 50 монстров."},
-{id:"q_catch_dratini",biome:"fuchsia",npc:"Дракон-фанат",npcPos:{x:2800,y:1550},
+{id:"q_catch_dratini",biome:"uurion",npc:"Дракон-фанат",npcPos:{x:2800,y:1550},
   title:"Драконья мечта",desc:"Поймай Дратини.",
   type:"catch_specific",targetIds:[147],target:1,reward:{money:8000,items:{revive:3}},dialogue:"Дратини — будущий дракон! Поймай его для меня."},
 
@@ -4588,10 +4730,10 @@ const QUEST_DEFS=[
   type:"level",target:30,reward:{money:15000,items:{revive:3}},dialogue:"30 уровень — это элита! Докажи свою силу."},
 
 // --- Остров Циннабар ---
-{id:"q_defeat_cinnabar60",biome:"cinnabar",npc:"Вулканолог",npcPos:{x:2250,y:1850},
+{id:"q_defeat_cinnabar60",biome:"gozon",npc:"Вулканолог",npcPos:{x:2250,y:1850},
   title:"Огненное испытание",desc:"Победи 60 монстров.",
   type:"defeat",target:60,reward:{money:15000,items:{ultraball:5}},dialogue:"Вулкан кипит! Победи 60 монстров."},
-{id:"q_catch_lapras",biome:"cinnabar",npc:"Морской капитан",npcPos:{x:2400,y:1900},
+{id:"q_catch_lapras",biome:"gozon",npc:"Морской капитан",npcPos:{x:2400,y:1900},
   title:"Лапрас-легенда",desc:"Поймай Лапраса.",
   type:"catch_specific",targetIds:[131],target:1,reward:{money:10000,items:{revive:3}},dialogue:"Лапрас — редкость! Поймай его для меня."},
 
@@ -4604,10 +4746,10 @@ const QUEST_DEFS=[
   type:"catch_specific",targetIds:[6],target:1,reward:{money:25000,items:{revive:5}},dialogue:"Чаризард — мечта! Поймай его для меня."},
 
 // --- Индиго-Плато ---
-{id:"q_defeat_indigo80",biome:"indigo",npc:"Чемпион",npcPos:{x:200,y:150},
+{id:"q_defeat_indigo80",biome:"pole_magii",npc:"Чемпион",npcPos:{x:200,y:150},
   title:"Путь чемпиона",desc:"Победи 80 монстров.",
   type:"defeat",target:80,reward:{money:30000,items:{ultraball:5}},dialogue:"Я — чемпион! Победи 80 монстров, и я признаю тебя."},
-{id:"q_catch_legendary",biome:"indigo",npc:"Хранитель легенд",npcPos:{x:350,y:200},
+{id:"q_catch_legendary",biome:"pole_magii",npc:"Хранитель легенд",npcPos:{x:350,y:200},
   title:"Легендарная охота",desc:"Поймай любого легендарного монстра.",
   type:"catch_rarity",targetRarity:"legendary",target:1,reward:{money:50000,items:{revive:5}},dialogue:"Легенды существуют! Поймай одну из них."}
 ];
@@ -4727,7 +4869,7 @@ function learnMovesForLevel(pk,level){
     }
   });
   if(pk.moves.length===0){
-    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрический:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Ядовитыйовитое жало",Летающий:"Порыв",Психический:"Конфузия",Жук:"Укус жука",Каменный:"Бросок камня",Призрак:"Лизание",Дракон:"Вихрь",ЗЩемляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
+    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрик:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Ядовитыйовитое жало",Летающий:"Порыв",Психический:"Конфузия",Жук:"Укус жука",Каменный:"Бросок камня",Призрак:"Лизание",Дракон:"Вихрь",Земляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
     pk.moves.push({name:tm||"Захват",level:1});
   }
   if(pk.moves.length>4)pk.moves=pk.moves.slice(-4);
@@ -4855,27 +4997,26 @@ function getZoneBiomeAt(x,y){
   for(const z of BIOME_ZONES){if(isInZone(x,y,z))return z.biome}
   return null;
 }
-
-// ===================== СПАВН =====================
 const ZONE_CONFIG={
-  pallet:    {levels:[1,2],   rarities:{common:14, uncommon:2}},
-  viridian:  {levels:[3,5],   rarities:{common:14, uncommon:3}},
-  route: {levels:[3,6], rarities:{common:10, uncommon:8, rare:1}},
-  forest:    {levels:[5,8],   rarities:{common:10, uncommon:6, rare:2}},
-  pewter:    {levels:[6,9],   rarities:{common:8,  uncommon:7, rare:3}},
-  mountain:  {levels:[8,12],  rarities:{common:6,  uncommon:7, rare:4, epic:1}},
-  cerulean:  {levels:[10,14], rarities:{common:5,  uncommon:7, rare:5, epic:1}},
-  vermilion: {levels:[12,16], rarities:{common:4,  uncommon:6, rare:6, epic:2}},
-  celadon:   {levels:[14,18], rarities:{common:3,  uncommon:5, rare:7, epic:2}},
-  saffron:   {levels:[16,20], rarities:{common:2,  uncommon:4, rare:8, epic:3}},
-  lavender:  {levels:[18,22], rarities:{common:2,  uncommon:4, rare:8, epic:3}},
-  cave:      {levels:[15,19], rarities:{common:3,  uncommon:5, rare:7, epic:2, legendary:1}},
-  fuchsia:   {levels:[20,24], rarities:{common:2,  uncommon:4, rare:8, epic:4}},
-  desert:    {levels:[22,26], rarities:{common:1,  uncommon:3, rare:8, epic:5}},
-  cinnabar:  {levels:[24,28], rarities:{common:1,  uncommon:2, rare:7, epic:6, legendary:1}},
-  volcano:   {levels:[26,30], rarities:{common:0,  uncommon:2, rare:6, epic:7, legendary:1}},
-  indigo:    {levels:[30,35], rarities:{common:0,  uncommon:1, rare:5, epic:8, legendary:2}},
-seafoam: {levels:[26,30], rarities:{common:1, uncommon:3, rare:6, epic:5, legendary:1}}
+  sid:        {levels:[1,2],   rarities:{common:14, uncommon:2}},
+  zyffren:    {levels:[3,5],   rarities:{common:14, uncommon:3, rare:1, epic:0.3}},
+  route:      {levels:[3,6],   rarities:{common:10, uncommon:8, rare:1}},
+  forest:     {levels:[5,8],   rarities:{common:10, uncommon:6, rare:2}},
+  haradat:    {levels:[6,9],   rarities:{common:8,  uncommon:7, rare:3}},
+  mountain:   {levels:[8,12],  rarities:{common:6,  uncommon:7, rare:4, epic:1}},
+  goch:       {levels:[10,14], rarities:{common:5,  uncommon:7, rare:5, epic:1}},
+  olandir:    {levels:[12,16], rarities:{common:4,  uncommon:6, rare:6, epic:2}},
+  selax:      {levels:[14,18], rarities:{common:3,  uncommon:5, rare:7, epic:2}},
+  fattolodor: {levels:[16,20], rarities:{common:2,  uncommon:4, rare:8, epic:3}},
+  totsar:     {levels:[18,22], rarities:{common:2,  uncommon:4, rare:8, epic:3}},
+  cave:       {levels:[15,19], rarities:{common:3,  uncommon:5, rare:7, epic:2, legendary:1}},
+  uurion:     {levels:[20,24], rarities:{common:2,  uncommon:4, rare:8, epic:4}},
+  desert:     {levels:[22,26], rarities:{common:1,  uncommon:3, rare:8, epic:5}},
+  gozon:      {levels:[24,28], rarities:{common:1,  uncommon:2, rare:7, epic:6, legendary:1}},
+  volcano:    {levels:[26,30], rarities:{common:0,  uncommon:2, rare:6, epic:7, legendary:1}},
+  pole_magii: {levels:[30,35], rarities:{common:0,  uncommon:1, rare:5, epic:8, legendary:2}},
+  ostrova_pobezhdennogo:{levels:[26,30], rarities:{common:1, uncommon:3, rare:6, epic:5, legendary:1}},
+water: {levels:[18,22], rarities:{common:20, uncommon:5, rare:4, epic:2, legendary:1}}
 };
 
 function getZoneLevels(biome){
@@ -5093,11 +5234,11 @@ el.style.zIndex = yToZ(pos.y);
 }
 // ЗАМЕНИТЕ НА:
 function spawnSoulSanctuaries(){
-  const POS={
-    pewter:{x:600,y:450},cerulean:{x:1700,y:400},vermilion:{x:1900,y:1500},
-    celadon:{x:1500,y:1000},fuchsia:{x:2700,y:1550},saffron:{x:2000,y:650},
-    cinnabar:{x:2300,y:1850},viridian:{x:600,y:1150}
-  };
+const POS={
+  haradat:{x:600,y:450},goch:{x:1700,y:400},olandir:{x:1900,y:1500},
+  selax:{x:1500,y:1000},uurion:{x:2700,y:1550},fattolodor:{x:2000,y:650},
+  gozon:{x:2300,y:1850},zyffren:{x:600,y:1150}
+};
   Object.keys(POS).forEach(key=>{
     const pos=POS[key];
     const master=SOUL_MASTERS[key];
@@ -5279,8 +5420,8 @@ function pickNpcSvg(npcName){
      n.includes('коллекционер') || n.includes('экзорцист'))
     return NPC_QUEST_FEMALE;
 
-  // === Кузнецы, дварфы, ремесленники — бородатые мастера ===
-  if(n.includes('кузнец') || n.includes('дварф') || n.includes('мастер') ||
+  // === Кузнецы, Дворфы, ремесленники — бородатые мастера ===
+  if(n.includes('кузнец') || n.includes('Дворф') || n.includes('мастер') ||
      n.includes('скалолаз') || n.includes('альпинист') || n.includes('шахтёр') ||
      n.includes('спелеолог') || n.includes('исследователь'))
     return NPC_QUEST_MALE;
@@ -5517,7 +5658,7 @@ function drawBackground(){
   const W = canvas.width, H = canvas.height;
   ctx.clearRect(0,0,W,H);
 
-  // ===================== БАЗОВАЯ ЗЩемляной =====================
+  // ===================== БАЗОВАЯ Земляной =====================
   ctx.fillStyle = '#1a3d2a';
   ctx.fillRect(0,0,W,H);
 
@@ -5575,8 +5716,565 @@ function drawBackground(){
 
   // ===================== НАЗВАНИЯ (в top-слое) =====================
 }
+// ===================== МАГОКРАТИЯ ХАРАДАТ 2.0 =====================
+// Синий магический город: башни, купол, стены, порталы, парящие кристаллы
+
+const MAGIC_CITY_STATE = {
+  crystals: [],   // парящие кристаллы (анимация)
+  portals: [],    // порталы между башнями
+  initialized: false
+};
+
+function drawMagicCity(ctx, x, y, w, h, rnd){
+  const ecx = x + w/2;
+  const ecy = y + h/2;
+  const erx = w/2;
+  const ery = h/2;
+
+  // --- 1. Магическая площадка (синий градиент) ---
+  const grad = ctx.createRadialGradient(ecx, ecy, 0, ecx, ecy, Math.max(erx, ery));
+  grad.addColorStop(0,   'rgba(30, 64, 175, 0.8)');
+  grad.addColorStop(0.4, 'rgba(59, 130, 246, 0.6)');
+  grad.addColorStop(0.75,'rgba(96, 165, 250, 0.4)');
+  grad.addColorStop(1,   'rgba(147, 197, 253, 0)');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy, erx, ery, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // --- 2. Мощение: тёмные каменные плиты ---
+  for(let i=0;i<60;i++){
+    const px = x + rnd()*w;
+    const py = y + rnd()*h;
+    const dx = (px - ecx)/erx;
+    const dy = (py - ecy)/ery;
+    if(dx*dx + dy*dy > 0.9) continue;
+    ctx.fillStyle = `rgba(30, 58, 138, ${0.15 + rnd()*0.2})`;
+    ctx.fillRect(px, py, 6 + rnd()*8, 4 + rnd()*6);
+  }
+
+  // --- 3. Магические кольца на земле ---
+  for(let i=0;i<3;i++){
+    ctx.strokeStyle = `rgba(147, 197, 253, ${0.4 - i*0.08})`;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([10,7]);
+    ctx.beginPath();
+    ctx.ellipse(ecx, ecy, erx*(0.35 + i*0.22), ery*(0.35 + i*0.22), 0, 0, Math.PI*2);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  // --- 4. Светящиеся руны по кругу ---
+  for(let i=0;i<16;i++){
+    const a = (i/16)*Math.PI*2;
+    const rx = ecx + Math.cos(a)*erx*0.88;
+    const ry = ecy + Math.sin(a)*ery*0.88;
+    ctx.fillStyle = 'rgba(103, 232, 249, 0.8)';
+    ctx.beginPath();
+    ctx.arc(rx, ry, 2, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(103, 232, 249, 0.25)';
+    ctx.beginPath();
+    ctx.arc(rx, ry, 7, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // --- 5. Дороги-крест ---
+  ctx.fillStyle = 'rgba(30, 58, 138, 0.9)';
+  ctx.fillRect(x, ecy-7, w, 14);
+  ctx.fillRect(ecx-7, y, 14, h);
+
+  ctx.strokeStyle = '#67e8f9';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([10,10]);
+  ctx.beginPath();
+  ctx.moveTo(x, ecy); ctx.lineTo(x+w, ecy);
+  ctx.moveTo(ecx, y); ctx.lineTo(ecx, y+h);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // --- 6. ГОРОДСКИЕ СТЕНЫ (по границе эллипса) ---
+  drawMagicWalls(ctx, ecx, ecy, erx, ery);
+
+  // --- 7. БАШНИ ---
+  const towers = [
+    {tx: x + w*0.15, ty: y + h*0.35, th: 75, tw: 22, main: false},
+    {tx: x + w*0.85, ty: y + h*0.35, th: 75, tw: 22, main: false},
+    {tx: x + w*0.15, ty: y + h*0.75, th: 85, tw: 24, main: false},
+    {tx: x + w*0.85, ty: y + h*0.75, th: 85, tw: 24, main: false},
+    {tx: ecx - 38,   ty: ecy + 35,   th: 100, tw: 26, main: true},
+    {tx: ecx + 38,   ty: ecy + 35,   th: 100, tw: 26, main: true}
+  ];
+
+  towers.forEach((t, i) => {
+    drawTower(ctx, t.tx, t.ty, t.tw, t.th, t.main);
+
+    // Парящий кристалл над каждой башней
+    if(!MAGIC_CITY_STATE.initialized){
+      MAGIC_CITY_STATE.crystals.push({
+        x: t.tx,
+        y: t.ty - t.th - 30,
+        baseY: t.ty - t.th - 30,
+        phase: Math.random()*Math.PI*2,
+        size: t.main ? 7 : 5,
+        color: t.main ? '#67e8f9' : '#a5f3fc'
+      });
+    }
+  });
+
+  // --- 8. ПОРТАЛЫ между главными башнями ---
+  if(!MAGIC_CITY_STATE.initialized){
+    MAGIC_CITY_STATE.portals.push({
+      x1: ecx - 38, y1: ecy + 35 - 100 - 15,
+      x2: ecx + 38, y2: ecy + 35 - 100 - 15,
+      phase: 0
+    });
+    MAGIC_CITY_STATE.initialized = true;
+  }
+
+  // --- 9. ДОМА между башнями ---
+   const housesToPlace = [];  // пустой массив — обычные дома не спавнятся
+
+  housesToPlace.forEach(ho => {
+    const corners = [
+      [ho.hx, ho.hy - 8],
+      [ho.hx + ho.hw, ho.hy - 8],
+      [ho.hx, ho.hy + ho.hh],
+      [ho.hx + ho.hw, ho.hy + ho.hh]
+    ];
+    let fits = true;
+    for(const [px,py] of corners){
+      const dx = (px - ecx) / erx;
+      const dy = (py - ecy) / ery;
+      if(dx*dx + dy*dy > 0.85){ fits = false; break; }
+    }
+    if(!fits) return;
+
+    housesToSpawn.push({
+      x: ho.hx, y: ho.hy, w: ho.hw, h: ho.hh,
+      wall: '#3b82f6',
+      roof: '#1e40af',
+      sortY: ho.hy + ho.hh
+    });
+  });
+
+  // --- 10. Синие фонари-кристаллы ---
+  for(let i=0;i<8;i++){
+    const a = (i/8)*Math.PI*2 + Math.PI/8;
+    const lx = ecx + Math.cos(a)*erx*0.6;
+    const ly = ecy + Math.sin(a)*ery*0.6;
+
+    ctx.fillStyle = '#1e3a8a';
+    ctx.fillRect(lx-1, ly-14, 2, 14);
+
+    ctx.fillStyle = '#67e8f9';
+    ctx.beginPath();
+    ctx.moveTo(lx, ly-20);
+    ctx.lineTo(lx-3, ly-14);
+    ctx.lineTo(lx, ly-11);
+    ctx.lineTo(lx+3, ly-14);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(103, 232, 249, 0.35)';
+    ctx.beginPath();
+    ctx.arc(lx, ly-15, 7, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // --- 11. МАГИЧЕСКИЙ КУПОЛ (полупрозрачный) ---
+  drawMagicDome(ctx, ecx, ecy, erx, ery);
+}
 
 
+// ===================== ГОРОДСКИЕ СТЕНЫ =====================
+function drawMagicWalls(ctx, cx, cy, rx, ry){
+  const segments = 40;
+  ctx.strokeStyle = '#1e40af';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx*0.95, ry*0.95, 0, 0, Math.PI*2);
+  ctx.stroke();
+
+  // Зубцы стен
+  for(let i=0;i<segments;i++){
+    const a = (i/segments)*Math.PI*2;
+    const px = cx + Math.cos(a)*rx*0.95;
+    const py = cy + Math.sin(a)*ry*0.95;
+
+    // Башенки по кругу стены
+    if(i % 5 === 0){
+      ctx.fillStyle = '#1e3a8a';
+      ctx.beginPath();
+      ctx.moveTo(px - 3, py + 2);
+      ctx.lineTo(px - 3, py - 8);
+      ctx.lineTo(px, py - 12);
+      ctx.lineTo(px + 3, py - 8);
+      ctx.lineTo(px + 3, py + 2);
+      ctx.closePath();
+      ctx.fill();
+
+      // Светящееся окно
+      ctx.fillStyle = '#67e8f9';
+      ctx.beginPath();
+      ctx.arc(px, py - 5, 1.5, 0, Math.PI*2);
+      ctx.fill();
+    } else {
+      // Зубцы
+      ctx.fillStyle = '#1e40af';
+      ctx.fillRect(px - 1.5, py - 4, 3, 4);
+    }
+  }
+}
+
+
+// ===================== МАГИЧЕСКИЙ КУПОЛ =====================
+function drawMagicDome(ctx, cx, cy, rx, ry){
+  // Внешний контур купола
+  const grad = ctx.createRadialGradient(cx, cy - ry*0.3, 0, cx, cy, Math.max(rx, ry));
+  grad.addColorStop(0,   'rgba(103, 232, 249, 0)');
+  grad.addColorStop(0.5, 'rgba(59, 130, 246, 0.05)');
+  grad.addColorStop(0.85,'rgba(96, 165, 250, 0.12)');
+  grad.addColorStop(1,   'rgba(147, 197, 253, 0.25)');
+
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy - ry*0.15, rx*0.98, ry*1.1, 0, Math.PI, Math.PI*2);
+  ctx.fill();
+
+  // Дуги-меридианы (каркас купола)
+  ctx.strokeStyle = 'rgba(103, 232, 249, 0.35)';
+  ctx.lineWidth = 1;
+  for(let i=1;i<5;i++){
+    const t = i/5;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy - ry*0.15, rx*0.98*t, ry*1.1, 0, Math.PI, Math.PI*2);
+    ctx.stroke();
+  }
+
+  // Параллели
+  for(let i=0;i<4;i++){
+    const t = i/4;
+    const ay = cy - ry*0.15 - ry*1.1*t;
+    const aw = rx*0.98 * Math.sqrt(1 - t*t);
+    ctx.beginPath();
+    ctx.ellipse(cx, ay, aw, aw*0.25, 0, 0, Math.PI*2);
+    ctx.stroke();
+  }
+
+  // Вершина купола
+  const topY = cy - ry*0.15 - ry*1.1;
+  ctx.fillStyle = 'rgba(103, 232, 249, 0.9)';
+  ctx.beginPath();
+  ctx.arc(cx, topY, 4, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(103, 232, 249, 0.3)';
+  ctx.beginPath();
+  ctx.arc(cx, topY, 12, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#e0f2fe';
+  ctx.beginPath();
+  ctx.arc(cx, topY, 1.5, 0, Math.PI*2);
+  ctx.fill();
+
+  // Лучи от вершины
+  ctx.strokeStyle = 'rgba(103, 232, 249, 0.5)';
+  ctx.lineWidth = 1;
+  for(let i=0;i<6;i++){
+    const a = (i/6)*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a)*6, topY + Math.sin(a)*3);
+    ctx.lineTo(cx + Math.cos(a)*14, topY + Math.sin(a)*7);
+    ctx.stroke();
+  }
+}
+
+
+// ===================== БАШНЯ =====================
+function drawTower(ctx, cx, baseY, w, h, isMain){
+  const topY = baseY - h;
+  const topW = w * 0.65;
+
+  // Тень башни
+  ctx.fillStyle = 'rgba(0,0,0,0.35)';
+  ctx.beginPath();
+  ctx.ellipse(cx, baseY + 5, w*0.75, 5, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Свечение вокруг башни (магическое)
+  const glowGrad = ctx.createRadialGradient(cx, baseY - h/2, 0, cx, baseY - h/2, w*3);
+  glowGrad.addColorStop(0, 'rgba(59, 130, 246, 0.2)');
+  glowGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+  ctx.fillStyle = glowGrad;
+  ctx.beginPath();
+  ctx.arc(cx, baseY - h/2, w*3, 0, Math.PI*2);
+  ctx.fill();
+
+  // Основание
+  ctx.fillStyle = '#1e40af';
+  ctx.beginPath();
+  ctx.moveTo(cx - w/2, baseY);
+  ctx.lineTo(cx - topW/2, topY);
+  ctx.lineTo(cx + topW/2, topY);
+  ctx.lineTo(cx + w/2, baseY);
+  ctx.closePath();
+  ctx.fill();
+
+  // Светлая грань (левая)
+  ctx.fillStyle = isMain ? '#3b82f6' : '#2563eb';
+  ctx.beginPath();
+  ctx.moveTo(cx - w/2, baseY);
+  ctx.lineTo(cx - topW/2, topY);
+  ctx.lineTo(cx, topY);
+  ctx.lineTo(cx, baseY);
+  ctx.closePath();
+  ctx.fill();
+
+  // Рунные полосы по башне
+  ctx.strokeStyle = 'rgba(103, 232, 249, 0.6)';
+  ctx.lineWidth = 1;
+  for(let i=1;i<7;i++){
+    const ty = baseY - (h/7)*i;
+    const tw = w - (w-topW)*(i/7);
+    ctx.beginPath();
+    ctx.moveTo(cx - tw/2, ty);
+    ctx.lineTo(cx + tw/2, ty);
+    ctx.stroke();
+
+    // Светящиеся точки на полосах
+    ctx.fillStyle = '#67e8f9';
+    ctx.beginPath();
+    ctx.arc(cx - tw/2 + 2, ty, 1, 0, Math.PI*2);
+    ctx.arc(cx + tw/2 - 2, ty, 1, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Окна-бойницы (светящиеся)
+  for(let i=0;i<4;i++){
+    const wy = baseY - h*0.18 - i*h*0.18;
+    const ww = w * 0.18;
+
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.moveTo(cx - ww, wy);
+    ctx.lineTo(cx - ww, wy - 8);
+    ctx.quadraticCurveTo(cx, wy - 12, cx + ww, wy - 8);
+    ctx.lineTo(cx + ww, wy);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#67e8f9';
+    ctx.beginPath();
+    ctx.moveTo(cx - ww + 1.5, wy);
+    ctx.lineTo(cx - ww + 1.5, wy - 7);
+    ctx.quadraticCurveTo(cx, wy - 10.5, cx + ww - 1.5, wy - 7);
+    ctx.lineTo(cx + ww - 1.5, wy);
+    ctx.closePath();
+    ctx.fill();
+
+    // Свечение окна
+    ctx.fillStyle = 'rgba(103, 232, 249, 0.4)';
+    ctx.beginPath();
+    ctx.arc(cx, wy - 4, 6, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Балкон
+  ctx.fillStyle = '#1e3a8a';
+  ctx.fillRect(cx - topW/2 - 5, topY, topW + 10, 5);
+  ctx.strokeStyle = '#67e8f9';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(cx - topW/2 - 5, topY, topW + 10, 5);
+
+  // Зубцы на балконе
+  for(let i=0;i<5;i++){
+    const bx = cx - topW/2 - 5 + (i/4)*(topW + 10);
+    ctx.fillStyle = '#1e40af';
+    ctx.fillRect(bx - 2, topY - 5, 4, 5);
+  }
+
+  // Коническая крыша
+  const roofTopY = topY - h*0.28;
+  ctx.fillStyle = '#312e81';
+  ctx.beginPath();
+  ctx.moveTo(cx - topW/2 - 4, topY);
+  ctx.lineTo(cx, roofTopY);
+  ctx.lineTo(cx + topW/2 + 4, topY);
+  ctx.closePath();
+  ctx.fill();
+
+  // Светлая грань крыши
+  ctx.fillStyle = '#4f46e5';
+  ctx.beginPath();
+  ctx.moveTo(cx - topW/2 - 4, topY);
+  ctx.lineTo(cx, roofTopY);
+  ctx.lineTo(cx, topY);
+  ctx.closePath();
+  ctx.fill();
+
+  // Рунная полоса на крыше
+  ctx.strokeStyle = 'rgba(103, 232, 249, 0.7)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(cx - topW/2, topY - h*0.05);
+  ctx.lineTo(cx, roofTopY + h*0.05);
+  ctx.lineTo(cx + topW/2, topY - h*0.05);
+  ctx.stroke();
+
+  // Кристалл-шпиль на вершине
+  const spireTop = roofTopY;
+
+  // Свечение кристалла
+  ctx.fillStyle = 'rgba(103, 232, 249, 0.5)';
+  ctx.beginPath();
+  ctx.arc(cx, spireTop - 8, isMain ? 14 : 10, 0, Math.PI*2);
+  ctx.fill();
+
+  // Кристалл
+  ctx.fillStyle = '#67e8f9';
+  ctx.beginPath();
+  ctx.moveTo(cx, spireTop - 20);
+  ctx.lineTo(cx - 5, spireTop - 6);
+  ctx.lineTo(cx, spireTop + 2);
+  ctx.lineTo(cx + 5, spireTop - 6);
+  ctx.closePath();
+  ctx.fill();
+
+  // Внутренний блик
+  ctx.fillStyle = '#e0f2fe';
+  ctx.beginPath();
+  ctx.moveTo(cx, spireTop - 16);
+  ctx.lineTo(cx - 2, spireTop - 6);
+  ctx.lineTo(cx, spireTop - 1);
+  ctx.lineTo(cx + 2, spireTop - 6);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx, spireTop - 7, 1.5, 0, Math.PI*2);
+  ctx.fill();
+
+  // Штандарт флага на главных башнях
+  if(isMain){
+    ctx.strokeStyle = '#451a03';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx, spireTop - 20);
+    ctx.lineTo(cx, spireTop - 38);
+    ctx.stroke();
+
+    // Флаг
+    ctx.fillStyle = '#60a5fa';
+    ctx.beginPath();
+    ctx.moveTo(cx, spireTop - 38);
+    ctx.lineTo(cx + 14, spireTop - 34);
+    ctx.lineTo(cx + 10, spireTop - 30);
+    ctx.lineTo(cx + 14, spireTop - 26);
+    ctx.lineTo(cx, spireTop - 30);
+    ctx.closePath();
+    ctx.fill();
+
+    // Символ на флаге
+    ctx.fillStyle = '#e0f2fe';
+    ctx.beginPath();
+    ctx.arc(cx + 7, spireTop - 32, 1.5, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
+
+// ===================== АНИМАЦИЯ ПАРЯЩИХ КРИСТАЛЛОВ И ПОРТАЛОВ =====================
+function drawMagicCityAnimation(ctx, time){
+  if(!MAGIC_CITY_STATE.initialized) return;
+
+  // Парящие кристаллы над башнями
+  MAGIC_CITY_STATE.crystals.forEach(c => {
+    const offsetY = Math.sin(time*1.5 + c.phase) * 6;
+    const cy = c.baseY + offsetY;
+
+    // Свечение
+    const glow = ctx.createRadialGradient(c.x, cy, 0, c.x, cy, c.size*3);
+    glow.addColorStop(0, 'rgba(103, 232, 249, 0.6)');
+    glow.addColorStop(0.5, 'rgba(103, 232, 249, 0.2)');
+    glow.addColorStop(1, 'rgba(103, 232, 249, 0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(c.x, cy, c.size*3, 0, Math.PI*2);
+    ctx.fill();
+
+    // Кристалл (вращается вокруг своей оси — рисуем ромбом)
+    const rotation = time*0.8 + c.phase;
+    const sx = Math.cos(rotation) * c.size;
+    const sy = c.size;
+
+    ctx.fillStyle = c.color;
+    ctx.beginPath();
+    ctx.moveTo(c.x, cy - sy);
+    ctx.lineTo(c.x - sx*0.7, cy);
+    ctx.lineTo(c.x, cy + sy);
+    ctx.lineTo(c.x + sx*0.7, cy);
+    ctx.closePath();
+    ctx.fill();
+
+    // Блик
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(c.x - 1, cy - c.size*0.4, 1, 0, Math.PI*2);
+    ctx.fill();
+
+    // Лучи вокруг
+    ctx.strokeStyle = 'rgba(103, 232, 249, 0.4)';
+    ctx.lineWidth = 1;
+    for(let i=0;i<4;i++){
+      const a = (i/4)*Math.PI*2 + rotation;
+      ctx.beginPath();
+      ctx.moveTo(c.x + Math.cos(a)*c.size*1.2, cy + Math.sin(a)*c.size*1.2);
+      ctx.lineTo(c.x + Math.cos(a)*c.size*1.8, cy + Math.sin(a)*c.size*1.8);
+      ctx.stroke();
+    }
+  });
+
+  // Портал между главными башнями
+  MAGIC_CITY_STATE.portals.forEach(p => {
+    const mx = (p.x1 + p.x2) / 2;
+    const my = (p.y1 + p.y2) / 2;
+    const pulse = 1 + Math.sin(time*2 + p.phase) * 0.15;
+
+    // Свечение портала
+    const portalGlow = ctx.createRadialGradient(mx, my, 0, mx, my, 30*pulse);
+    portalGlow.addColorStop(0, 'rgba(167, 139, 250, 0.7)');
+    portalGlow.addColorStop(0.5, 'rgba(103, 232, 249, 0.3)');
+    portalGlow.addColorStop(1, 'rgba(103, 232, 249, 0)');
+    ctx.fillStyle = portalGlow;
+    ctx.beginPath();
+    ctx.ellipse(mx, my, 25*pulse, 18*pulse, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // Ядро портала
+    ctx.fillStyle = '#a78bfa';
+    ctx.beginPath();
+    ctx.ellipse(mx, my, 12*pulse, 8*pulse, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle = '#e9d5ff';
+    ctx.beginPath();
+    ctx.ellipse(mx, my, 6*pulse, 4*pulse, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // Искры вокруг портала
+    for(let i=0;i<6;i++){
+      const a = (i/6)*Math.PI*2 + time*2;
+      const r = 18 + Math.sin(time*3 + i)*3;
+      const sx = mx + Math.cos(a)*r;
+      const sy = my + Math.sin(a)*r*0.6;
+      ctx.fillStyle = 'rgba(167, 139, 250, 0.8)';
+      ctx.beginPath();
+      ctx.arc(sx, sy, 1.5, 0, Math.PI*2);
+      ctx.fill();
+    }
+  });
+}
 function drawBiomeTexture(ctx, biome, zone){
   const seed = mulberry32(zone.x*31 + zone.y*17 + zone.w*7);
   const {x,y,w,h} = zone;
@@ -5589,10 +6287,12 @@ function drawBiomeTexture(ctx, biome, zone){
     case 'cave':     drawCave(ctx,x,y,w,h,seed); break;
     case 'volcano':  drawVolcano(ctx,x,y,w,h,seed); break;
     case 'route':    drawRoute(ctx,x,y,w,h,seed); break;
-    default:
-      if(['pallet','viridian','pewter','cerulean','celadon','saffron','lavender','vermilion','fuchsia','cinnabar','indigo'].includes(biome)){
-        drawCity(ctx,x,y,w,h,seed,biome);
-      }
+  default:
+  if(biome === 'haradat'){
+    drawMagicCity(ctx, x, y, w, h, seed, 'haradat');
+  } else if(['sid','zyffren','goch','selax','fattolodor','totsar','olandir','uurion','gozon','pole_magii'].includes(biome)){
+    drawCity(ctx,x,y,w,h,seed,biome);
+  }
   }
 }
 function drawForest(ctx,x,y,w,h,rnd){
@@ -6034,7 +6734,7 @@ function drawDesert(ctx,x,y,w,h,rnd){
     ctx.stroke();
   }
 }function drawVolcano(ctx,x,y,w,h,rnd){
-  // Тёмная ЗЩемляной
+  // Тёмная Земляной
   ctx.fillStyle = '#3f1d1d';
   ctx.beginPath();
   ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);
@@ -6162,7 +6862,7 @@ function drawRoute(ctx,x,y,w,h,rnd){
 }
 // ---------- ГОРОД ----------
 function drawCity(ctx,x,y,w,h,rnd,biome){
-  // ЗЩемляной-площадка
+  // Земляной-площадка
   ctx.fillStyle = 'rgba(200,190,160,0.6)';
   ctx.beginPath();
   ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);
@@ -6186,19 +6886,19 @@ function drawCity(ctx,x,y,w,h,rnd,biome){
   ctx.setLineDash([]);
 
   // Цвета домов по биому
-  const houseColors = {
-    pallet:   ['#fca5a5','#fef3c7'],
-    viridian: ['#86efac','#bbf7d0'],
-    pewter:   ['#d6d3d1','#a8a29e'],
-    cerulean: ['#7dd3fc','#bae6fd'],
-    celadon:  ['#f9a8d4','#fbcfe8'],
-    saffron:  ['#fcd34d','#fef08a'],
-    lavender: ['#c4b5fd','#ddd6fe'],
-    vermilion:['#fca5a5','#fecaca'],
-    fuchsia:  ['#f472b6','#fbcfe8'],
-    cinnabar: ['#f87171','#fecaca'],
-    indigo:   ['#fbbf24','#fde68a']
-  };
+const houseColors = {
+  sid:        ['#a3e635','#d9f99d'],
+  zyffren:    ['#86efac','#bbf7d0'],
+  haradat:     ['#3b82f6','#1e40af'],
+  goch:       ['#7dd3fc','#bae6fd'],
+  selax:      ['#f9a8d4','#fbcfe8'],
+  fattolodor: ['#fcd34d','#fef08a'],
+  totsar:     ['#c4b5fd','#ddd6fe'],
+  olandir:    ['#fca5a5','#fecaca'],
+  uurion:     ['#f472b6','#fbcfe8'],
+  gozon:      ['#f87171','#fecaca'],
+  pole_magii: ['#fbbf24','#fde68a']
+};
   const colors = houseColors[biome] || ['#d6d3d1','#e5e7eb'];
 
   // Центр и радиусы эллипса
@@ -6340,19 +7040,19 @@ function drawHouse(ctx,x,y,w,h,wallColor,roofColor){
 
 // ---------- ДОРОГИ МЕЖДУ ГОРОДАМИ ----------
 function drawRoads(ctx){
-  const cityOrder = ['pallet','viridian','pewter','cerulean','vermilion','celadon','saffron','lavender','fuchsia','cinnabar','indigo'];
+const cityOrder = ['sid','zyffren','haradat','goch','olandir','selax','fattolodor','totsar','uurion','gozon','pole_magii'];
   const centers = {};
   BIOME_ZONES.forEach(z=>{
     if(cityOrder.includes(z.biome)){
       centers[z.biome] = {x:z.x+z.w/2, y:z.y+z.h/2};
     }
   });
-  const links = [
-    ['pallet','viridian'],['viridian','pewter'],['pewter','cerulean'],
-    ['cerulean','vermilion'],['vermilion','celadon'],['celadon','saffron'],
-    ['saffron','lavender'],['lavender','fuchsia'],['fuchsia','cinnabar'],
-    ['cinnabar','indigo']
-  ];
+ const links = [
+  ['sid','zyffren'],['zyffren','haradat'],['haradat','goch'],
+  ['goch','olandir'],['olandir','selax'],['selax','fattolodor'],
+  ['fattolodor','totsar'],['totsar','uurion'],['uurion','gozon'],
+  ['gozon','pole_magii']
+];
   ctx.strokeStyle = 'rgba(120,113,108,0.55)';
   ctx.lineWidth = 5;
   ctx.setLineDash([15,10]);
@@ -6532,7 +7232,7 @@ const NPC_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <!-- Значок на груди -->
   <circle cx="42" cy="33" r="2.5" fill="#fbbf24" stroke="#b45309" stroke-width="0.8"/>
 </svg>`;
-// Старый дварф-кузнец (заменяет NPC_QUEST_MALE)
+// Старый Дворф-кузнец (заменяет NPC_QUEST_MALE)
 const NPC_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ботинки -->
@@ -6923,10 +7623,52 @@ function drawTopLayer(){
 }
 
 function animateFog(now){
-  if(now-lastFogFrame>80){
+  if(now-lastFogFrame>60){
     lastFogFrame=now;
     fogAnimTime=now/1000;
     drawFog();
+
+    // === АНИМАЦИЯ ПАРЯЩИХ КРИСТАЛЛОВ ХАРАДАТА ===
+    const canvas = document.getElementById('top');
+    if(canvas && MAGIC_CITY_STATE.initialized){
+      const ctx = canvas.getContext('2d');
+      // Очищаем только область Харадата (чтобы не затирать названия других зон)
+      const haradatZones = BIOME_ZONES.filter(z => z.biome === 'haradat');
+      haradatZones.forEach(zone => {
+        ctx.clearRect(zone.x - 20, zone.y - 80, zone.w + 40, zone.h + 80);
+      });
+
+      // Перерисовываем рамку Харадата
+      haradatZones.forEach(zone => {
+        const h = HABITATS.haradat;
+        if(!unlockedZones.has('haradat')) return;
+        const cx = zone.x + zone.w/2;
+        const cy = zone.y + zone.h/2;
+
+        ctx.strokeStyle = h.color;
+        ctx.globalAlpha = 0.6;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([14,10]);
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, zone.w/2, zone.h/2, 0, 0, Math.PI*2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 1;
+
+        // Название
+        ctx.font = '900 15px "Fantasy Classic", "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0,0,0,0.95)';
+        ctx.shadowBlur = 8;
+        ctx.fillStyle = h.color;
+        ctx.fillText(h.name.toUpperCase(), cx, zone.y+24);
+        ctx.shadowBlur = 0;
+      });
+
+      // Анимация кристаллов и порталов
+      drawMagicCityAnimation(ctx, fogAnimTime);
+    }
   }
 }
 
@@ -7270,7 +8012,7 @@ function closeMyFantasyDetail(){document.getElementById('myFantasyDetail').class
 function openMagicdexFromTeam(i){const pk=playerTeam[i];if(!pk)return;closeMyFantasyDetail();openMagicdex(pk.data,pk)}
 
 // ===================== СТАРТ =====================
-const STARTERS=[{id:1001},{id:1004},{id:1007},{id:1055}];
+const STARTERS=[{id:1001},{id:1004},{id:1024},{id:1055},{id:1025}];
 function showStarterScreen(){
   const grid=document.getElementById('starterGrid');
   grid.innerHTML='';
@@ -7722,7 +8464,7 @@ function showBattleLog(text,dur){
   el._timeout=setTimeout(()=>el.classList.remove('show'),dur);
 }
 function calcDamage(attacker,defender,move){
-  const special=['Огненный','Водный','Природа','Электрический','Ледяной','Психический','Призрак','Дракон'];
+  const special=['Огненный','Водный','Природа','Электрик','Ледяной','Психический','Призрак','Дракон'];
   const isSpecial=move.cat==='special'||special.includes(move.type);
   const atk=isSpecial?attacker.spAtk:attacker.atk;
   const def=isSpecial?defender.spDef:defender.def;
@@ -8763,7 +9505,36 @@ if(!loaded || !hasTeam){
     updateMusic();      // стартовик не выбран — музыка не играет
   }
 
+// === ПРИНУДИТЕЛЬНЫЙ СПАВН МОРЯ СИРЕН ===
+if (ZONE_CONFIG.water && !FantasysOnMap.some(p => p.biome === 'water')) {
+  const waterZones = BIOME_ZONES.filter(z => z.biome === 'water');
+  console.log(`🌊 Принудительный спавн воды: зон найдено ${waterZones.length}`);
 
+  if (waterZones.length > 0) {
+    // Спавним по 3 монстра каждой доступной редкости
+    ['common', 'uncommon', 'rare', 'epic', 'legendary'].forEach(rarity => {
+      const weight = ZONE_CONFIG.water.rarities[rarity] || 0;
+      if (weight <= 0) return;
+
+      const pool = Fantasy_DATA.filter(p =>
+        p.rarity === rarity && p.habitats.includes('water')
+      );
+      if (!pool.length) {
+        console.log(`  ⚠️ Нет монстров редкости "${rarity}" для воды`);
+        return;
+      }
+
+      const count = Math.max(1, Math.round(weight));
+      for (let i = 0; i < count; i++) {
+        const p = pool[Math.floor(Math.random() * pool.length)];
+        const zone = waterZones[Math.floor(Math.random() * waterZones.length)];
+        spawnFantasyInZone(p, 'water', zone);
+      }
+    });
+
+    console.log(`🌊 Заспавнено монстров в воде: ${FantasysOnMap.filter(p => p.biome === 'water').length}`);
+  }
+}
 
 }
 
