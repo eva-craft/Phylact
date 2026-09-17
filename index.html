@@ -2966,6 +2966,11 @@ display:none;
 <div id="toast"></div>
 
 <script>
+const heavenlyBuildings = [];  // летающие здания (в SVG-спрайтах)
+const heavenlyObelisks = [];   // светящиеся обелиски
+const heavenlyClouds = [];
+
+
 
 function hideMenuButtons() {
   ['teamBtn', 'shopBtn', 'invBtn', 'questBtn', 'bestiaryBtn'].forEach(id => {
@@ -3020,7 +3025,8 @@ uurion:{name:"Город Уурион",color:"#f472b6",bg:"rgba(200,120,160,0.4)
 fattolodor:{name:"Город Фаттолодор",color:"#fcd34d",bg:"rgba(220,180,100,0.4)",type:"city"},
 gozon:{name:"Город Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
 pole_magii:{name:"Поле магии",color:"#fbbf24",bg:"rgba(200,160,80,0.4)",type:"city"},
-ostrova_pobezhdennogo:{name:"Острова Побежденного",color:"#67e8f9",bg:"rgba(60,140,180,0.55)",type:"nature"}
+ostrova_pobezhdennogo:{name:"Острова Побежденного",color:"#67e8f9",bg:"rgba(60,140,180,0.55)",type:"nature"},
+heavenly_edge:{name:"Божественный Край",color:"#fef3c7",bg:"rgba(255, 250, 220, 0.5)",type:"divine"}
 };
 const BIOME_ZONES=[
 {biome:"water",x:100,y:1700,w:2800,h:300},{biome:"water",x:100,y:900,w:250,h:900},
@@ -3037,6 +3043,7 @@ const BIOME_ZONES=[
 {biome:"goch",x:1600,y:300,w:300,h:200},
 {biome:"selax",x:1400,y:900,w:300,h:200},
 {biome:"fattolodor",x:1900,y:550,w:300,h:200},
+{biome:"heavenly_edge",x:1950,y:200,w:650,h:350},
 {biome:"totsar",x:2200,y:1000,w:300,h:200},
 {biome:"olandir",x:1800,y:1400,w:300,h:200},
 {biome:"uurion",x:2600,y:1450,w:300,h:200},
@@ -3044,6 +3051,77 @@ const BIOME_ZONES=[
 {biome:"pole_magii",x:150,y:100,w:400,h:250},
 {biome:"ostrova_pobezhdennogo",x:1200,y:1500,w:400,h:250}
 ];
+
+
+// --- Генерация объектов Божественного Края ---
+function generateHeavenlyEdgeObjects() {
+  heavenlyClouds.length = 0;
+  heavenlyBuildings.length = 0;
+  heavenlyObelisks.length = 0;
+
+  const zones = BIOME_ZONES.filter(z => z.biome === 'heavenly_edge');
+  if (!zones.length) return;
+
+  const rnd = mulberry32(777777);
+
+  zones.forEach(zone => {
+    const cx = zone.x + zone.w / 2;
+    const cy = zone.y + zone.h / 2;
+    const rx = zone.w / 2;
+    const ry = zone.h / 2;
+
+    // ===== 1. ОБЛАКА (крупные, парящие) =====
+    for (let i = 0; i < 14; i++) {
+      const a = rnd() * Math.PI * 2;
+      const r = Math.sqrt(rnd()) * 0.85;
+      heavenlyClouds.push({
+        x: cx + Math.cos(a) * rx * r,
+        y: cy + Math.sin(a) * ry * r,
+        baseY: cy + Math.sin(a) * ry * r,
+        r: 30 + rnd() * 45,
+        phase: rnd() * Math.PI * 2,
+        speed: 0.3 + rnd() * 0.5,
+        driftX: (rnd() - 0.5) * 0.3,
+        puffs: Math.floor(4 + rnd() * 4)
+      });
+    }
+
+    // ===== 2. ЛЕТАЮЩИЕ ЗДАНИЯ (парят над землёй) =====
+    for (let i = 0; i < 5; i++) {
+      const a = (i / 5) * Math.PI * 2 + rnd() * 0.5;
+      const r = 0.4 + rnd() * 0.35;
+      heavenlyBuildings.push({
+        x: cx + Math.cos(a) * rx * r,
+        y: cy + Math.sin(a) * ry * r,
+        baseY: cy + Math.sin(a) * ry * r,
+        w: 50 + rnd() * 25,
+        h: 60 + rnd() * 30,
+        phase: rnd() * Math.PI * 2,
+        speed: 0.4 + rnd() * 0.4,
+        floatY: 8 + rnd() * 8,   // амплитуда парения
+        type: Math.floor(rnd() * 3) // 0,1,2 — разные типы зданий
+      });
+    }
+
+    // ===== 3. ОБЕЛИСКИ (по краю эллипса) =====
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      const r = 0.88;
+      heavenlyObelisks.push({
+        x: cx + Math.cos(a) * rx * r,
+        y: cy + Math.sin(a) * ry * r,
+        h: 50 + rnd() * 20,
+        w: 8 + rnd() * 3,
+        phase: rnd() * Math.PI * 2,
+        glowColor: ['#fbbf24', '#67e8f9', '#e9d5ff'][Math.floor(rnd() * 3)]
+      });
+    }
+  });
+
+  console.log(`✨ Божественный Край: ${heavenlyClouds.length} облаков, ${heavenlyBuildings.length} зданий, ${heavenlyObelisks.length} обелисков`);
+}
+
+
 const TYPE_CHART={
 Обычный:{Каменный:0.5,Бесплотный:0,Стальной:0.5,Демон:1,Нежить:0.5,Священный:1,Вооруженный:1},
 Огненный:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:2,Низший:2,Каменный:0.5,Дракон:0.5,Стальной:2,Демон:1,Нежить:2,Священный:1,Вооруженный:0.5},
@@ -3158,9 +3236,9 @@ function getTypeEff(moveType,defTypes){
 const Fantasy_DATA=[
 
 // ===== СВЯЩЕННЫЕ (Ангелы, Серафимы, Духи Света) =====
-{id:1200,name:"Ангел-Хранитель",types:["Священный","Летающий"],rarity:"rare",habitats:["haradat","pole_magii","sid","fattolodor"],desc:"Небесный защитник смертных. Его перья светятся божественным светом.",height:1.8,weight:40,category:"Ангел",stats:{hp:85,attack:70,defense:90,spAtk:105,spDef:110,speed:80},shape:"guardian_angel",evolvesTo:1201,evolveLevel:32},
-{id:1201,name:"Архангел Света",types:["Священный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Верховный воин Небес. Одним взмахом меча очищает земли от скверны.",height:2.3,weight:80,category:"Архангел",stats:{hp:130,attack:120,defense:115,spAtk:150,spDef:145,speed:110},shape:"archangel"},
-{id:1202,name:"Серафим",types:["Священный","Огненный"],rarity:"epic",habitats:["pole_magii","volcano"],desc:"Шестикрылый пламенный дух. Его взгляд испепеляет грешников.",height:2.0,weight:60,category:"Серафим",stats:{hp:115,attack:100,defense:95,spAtk:160,spDef:120,speed:105},shape:"seraphim"},
+{id:1200,name:"Ангел-Хранитель",types:["Священный","Летающий"],rarity:"rare",habitats:["haradat","pole_magii","sid","fattolodor", "heavenly_edge"],desc:"Небесный защитник смертных. Его перья светятся божественным светом.",height:1.8,weight:40,category:"Ангел",stats:{hp:85,attack:70,defense:90,spAtk:105,spDef:110,speed:80},shape:"guardian_angel",evolvesTo:1201,evolveLevel:32},
+{id:1201,name:"Архангел Света",types:["Священный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii",  "heavenly_edge"],desc:"Верховный воин Небес. Одним взмахом меча очищает земли от скверны.",height:2.3,weight:80,category:"Архангел",stats:{hp:130,attack:120,defense:115,spAtk:150,spDef:145,speed:110},shape:"archangel"},
+{id:1202,name:"Серафим",types:["Священный","Огненный"],rarity:"epic",habitats:["pole_magii","volcano",  "heavenly_edge"],desc:"Шестикрылый пламенный дух. Его взгляд испепеляет грешников.",height:2.0,weight:60,category:"Серафим",stats:{hp:115,attack:100,defense:95,spAtk:160,spDef:120,speed:105},shape:"seraphim"},
 {id:1203,name:"Небесный Каратель",types:["Священный","Боевой"],rarity:"rare",habitats:["haradat","mountain","pole_magii"],desc:"Гнев Небес в обличии воина. Карает падших без пощады.",height:2.1,weight:95,category:"Каратель",stats:{hp:110,attack:135,defense:105,spAtk:85,spDef:90,speed:95},shape:"heavenly_punisher",evolvesTo:1204,evolveLevel:40},
 {id:1204,name:"Экзекутор Света",types:["Священный","Стальной"],rarity:"legendary",habitats:["pole_magii"],desc:"Высший судья душ. Его клинок рассекает саму тьму.",height:2.6,weight:140,category:"Экзекутор",stats:{hp:145,attack:165,defense:140,spAtk:110,spDef:120,speed:100},shape:"light_executor"},
 {id:1205,name:"Дух Света",types:["Священный","Бесплотный"],rarity:"uncommon",habitats:["forest","route","sid","selax","goch"],desc:"Благословенный дух, приносящий удачу путникам.",height:0.9,weight:2,category:"Дух Света",stats:{hp:55,attack:45,defense:60,spAtk:95,spDef:90,speed:100},shape:"light_spirit",evolvesTo:1206,evolveLevel:28},
@@ -7626,7 +7704,7 @@ const ITEMS={
 };
 let inventory={Plylact:10,potion:5,medalion:0,ultraball:0,superpotion:0,revive:1,antidote:0};
 
-const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii", "water"];
+const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii", "water", "heavenly_edge"];
 const DEFAULT_UNLOCK={type:"defeat",count:3};
 let unlockedZones=new Set(["sid"]);
 let zoneProgress={};
@@ -7719,6 +7797,11 @@ const TRAINER_TEMPLATES=[
 {name:"Рейнджер Сальвис",team:[{id:1014,level:1},{id:1010,level:1}],reward:1000}
 ];// ===================== КВЕСТЫ (ПОЛНОСТЬЮ ФЭНТЕЗИЙНЫЕ) =====================
 const QUEST_DEFS=[
+// ========== БОЖЕСТВЕННЫЙ КРАЙ (ФИНАЛ) ==========
+{id:"q_heavenly_gate",biome:"heavenly_edge",nps:"Хранитель Врат",npsPos:{x:2050,y:400},
+  title:"Врата в Божественный Край",desc:"Победи 5 существ Божественного Края, чтобы доказать свою чистоту.",target:5,
+  type:"defeat",reward:{money:50000,items:{revive:5,ultraball:10}},
+  dialogue:"Смертный, ты дошёл до врат Небес. Но не каждый достоин войти. Победи пять святых существ, чтобы очиститься."},
 // ========== ГОРОД СИД (стартовый) ==========
 {id:"q_first_hunt",biome:"sid",nps:"Старейшина Орн",npsPos:{x:550,y:1660},
   title:"Первая охота",desc:"Победи 2 существ на окраинах Сида, чтобы доказать свою готовность.",target:2,
@@ -8209,6 +8292,7 @@ const ZONE_CONFIG={
   gozon:      {levels:[24,28], rarities:{common:1,  uncommon:2, rare:7, epic:6, legendary:1}},
   volcano:    {levels:[26,30], rarities:{common:0,  uncommon:2, rare:6, epic:7, legendary:1}},
   pole_magii: {levels:[30,35], rarities:{common:0,  uncommon:1, rare:5, epic:8, legendary:2}},
+ heavenly_edge: {levels:[38, 45], rarities:{common:0, uncommon:0, rare:6, epic:12, legendary:3}},
   ostrova_pobezhdennogo:{levels:[26,30], rarities:{common:1, uncommon:3, rare:6, epic:5, legendary:1}},
 water: {levels:[18,22], rarities:{common:20, uncommon:5, rare:4, epic:2, legendary:1}}
 };
@@ -8637,7 +8721,8 @@ const NPS_QUEST_SVGS = {
      n.includes('вулканолог') || n.includes('старейшина') ||
      n.includes('мастер')     || n.includes('магистр'))
     return NPS_QUEST_MALE;
-
+  if (n.includes('хранитель врат') || n.includes('врат'))
+    return NPS_HEAVENLY_GUARDIAN;
   // === 5. Стражи, воины, рыцари — бойцы ===
   if(n.includes('стражник') || n.includes('воин') ||
      n.includes('рыцарь')   || n.includes('громовержец') ||
@@ -9048,7 +9133,254 @@ function generateForestTrees(){
   const TREE_R = 18;                    // «радиус» дерева для проверок
   const MAX_ATTEMPTS = 6000;
   const TARGET_COUNT = 450;
+// ===================== БОЖЕСТВЕННЫЙ КРАЙ: ОБЛАКА, ЗДАНИЯ, ОБЕЛИСКИ =====================
+const heavenlyClouds = [];     // парящие облака
 
+function drawHeavenlyEdgeObjects(ctx, time) {
+  if (!unlockedZones.has('heavenly_edge')) return;
+  if (heavenlyClouds.length + heavenlyBuildings.length + heavenlyObelisks.length === 0) {
+    // Автогенерация, если забыли вызвать generateHeavenlyEdgeObjects()
+    generateHeavenlyEdgeObjects();
+    return;
+  }
+
+  // ===== 1. ОБЕЛИСКИ =====
+  heavenlyObelisks.forEach(function(o) {
+    var pulse = 0.7 + Math.sin(time * 2 + o.phase) * 0.3;
+
+    // Свечение
+    var glow = ctx.createRadialGradient(o.x, o.y - o.h / 2, 0, o.x, o.y - o.h / 2, o.w * 5);
+    glow.addColorStop(0, o.glowColor + '99');
+    glow.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(o.x, o.y - o.h / 2, o.w * 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Тень
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
+    ctx.beginPath();
+    ctx.ellipse(o.x, o.y + 3, o.w * 1.6, o.w * 0.6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Основание
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    ctx.ellipse(o.x, o.y, o.w * 1.3, o.w * 0.55, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Тело (мрамор)
+    var grad = ctx.createLinearGradient(o.x - o.w / 2, 0, o.x + o.w / 2, 0);
+    grad.addColorStop(0, '#f8fafc');
+    grad.addColorStop(0.5, '#ffffff');
+    grad.addColorStop(1, '#cbd5e1');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(o.x - o.w / 2, o.y);
+    ctx.lineTo(o.x - o.w / 2 + 1, o.y - o.h + 10);
+    ctx.lineTo(o.x, o.y - o.h);
+    ctx.lineTo(o.x + o.w / 2 - 1, o.y - o.h + 10);
+    ctx.lineTo(o.x + o.w / 2, o.y);
+    ctx.closePath();
+    ctx.fill();
+
+    // Светящаяся руна
+    ctx.strokeStyle = o.glowColor;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = pulse;
+    ctx.beginPath();
+    ctx.arc(o.x, o.y - o.h * 0.6, o.w * 0.7, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(o.x, o.y - o.h * 0.6 - o.w * 0.6);
+    ctx.lineTo(o.x, o.y - o.h * 0.6 + o.w * 0.6);
+    ctx.moveTo(o.x - o.w * 0.5, o.y - o.h * 0.6);
+    ctx.lineTo(o.x + o.w * 0.5, o.y - o.h * 0.6);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Кристалл сверху
+    ctx.fillStyle = o.glowColor;
+    ctx.globalAlpha = pulse;
+    ctx.beginPath();
+    ctx.moveTo(o.x, o.y - o.h - 8);
+    ctx.lineTo(o.x - 5, o.y - o.h);
+    ctx.lineTo(o.x, o.y - o.h + 5);
+    ctx.lineTo(o.x + 5, o.y - o.h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+
+  // ===== 2. ОБЛАКА =====
+  heavenlyClouds.forEach(function(c) {
+    var dy = Math.sin(time * c.speed + c.phase) * 4;
+    var dx = Math.sin(time * 0.1 + c.phase) * 8 + c.driftX * time * 5;
+    var cx = c.x + dx;
+    var cy = c.baseY + dy;
+
+    // Пуховые комки
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+    for (var i = 0; i < c.puffs; i++) {
+      var a = (i / c.puffs) * Math.PI * 2;
+      var pr = c.r * (0.5 + 0.3 * Math.sin(i * 1.3));
+      var px = cx + Math.cos(a) * c.r * 0.5;
+      var py = cy + Math.sin(a) * c.r * 0.25;
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Блик
+    var g = ctx.createRadialGradient(cx, cy - c.r * 0.2, 0, cx, cy, c.r);
+    g.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+    g.addColorStop(0.6, 'rgba(255, 255, 255, 0.45)');
+    g.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, c.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // ===== 3. ЛЕТАЮЩИЕ ЗДАНИЯ =====
+  heavenlyBuildings.forEach(function(b) {
+    var dy = Math.sin(time * b.speed + b.phase) * b.floatY;
+    var bx = b.x;
+    var by = b.baseY + dy;
+
+    // Тень на "земле"
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(bx, b.baseY + b.h / 2 + 25, b.w * 0.6, b.w * 0.2, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Аура
+    var aura = ctx.createRadialGradient(bx, by, 0, bx, by, b.w * 1.5);
+    aura.addColorStop(0, 'rgba(255, 245, 200, 0.4)');
+    aura.addColorStop(1, 'rgba(255, 245, 200, 0)');
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(bx, by, b.w * 1.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Парящая платформа
+    ctx.fillStyle = '#e0f2fe';
+    ctx.beginPath();
+    ctx.moveTo(bx - b.w * 0.55, by + b.h / 2);
+    ctx.lineTo(bx + b.w * 0.55, by + b.h / 2);
+    ctx.lineTo(bx + b.w * 0.4, by + b.h / 2 + 10);
+    ctx.lineTo(bx - b.w * 0.4, by + b.h / 2 + 10);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#bae6fd';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    if (b.type === 0) {
+      // ===== БАШНЯ =====
+      ctx.fillStyle = '#fef3c7';
+      ctx.beginPath();
+      ctx.moveTo(bx - b.w * 0.35, by + b.h / 2);
+      ctx.lineTo(bx - b.w * 0.25, by - b.h / 2 + 10);
+      ctx.lineTo(bx + b.w * 0.25, by - b.h / 2 + 10);
+      ctx.lineTo(bx + b.w * 0.35, by + b.h / 2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // Купол
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.h / 2 + 10, b.w * 0.28, Math.PI, 0);
+      ctx.fill();
+
+      // Окна
+      ctx.fillStyle = '#67e8f9';
+      for (var i = 0; i < 3; i++) {
+        ctx.fillRect(bx - 3, by + b.h / 2 - 18 - i * 14, 6, 9);
+      }
+
+      // Шпиль
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(bx, by - b.h / 2 - b.w * 0.28);
+      ctx.lineTo(bx, by - b.h / 2 - b.w * 0.55);
+      ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.h / 2 - b.w * 0.55, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    else if (b.type === 1) {
+      // ===== ХРАМ =====
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(bx - b.w * 0.4, by - b.h / 2 + 12, b.w * 0.8, b.h - 18);
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.8;
+      ctx.strokeRect(bx - b.w * 0.4, by - b.h / 2 + 12, b.w * 0.8, b.h - 18);
+
+      // Колонны
+      ctx.fillStyle = '#fef3c7';
+      for (var i2 = 0; i2 < 4; i2++) {
+        var cx2 = bx - b.w * 0.3 + i2 * (b.w * 0.2);
+        ctx.fillRect(cx2 - 2, by - b.h / 2 + 18, 4, b.h - 28);
+      }
+
+      // Крыша
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.moveTo(bx - b.w * 0.5, by - b.h / 2 + 12);
+      ctx.lineTo(bx, by - b.h / 2 - 10);
+      ctx.lineTo(bx + b.w * 0.5, by - b.h / 2 + 12);
+      ctx.closePath();
+      ctx.fill();
+
+      // Символ
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.h / 2 + 4, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    else {
+      // ===== ПАВИЛЬОН =====
+      ctx.fillStyle = '#fef3c7';
+      ctx.beginPath();
+      ctx.arc(bx, by, b.w * 0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.w * 0.1, b.w * 0.42, Math.PI, 0);
+      ctx.fill();
+
+      // Внутреннее свечение
+      var innerGlow = ctx.createRadialGradient(bx, by, 0, bx, by, b.w * 0.4);
+      innerGlow.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+      innerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = innerGlow;
+      ctx.beginPath();
+      ctx.arc(bx, by, b.w * 0.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Колонны по кругу
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.5;
+      for (var i3 = 0; i3 < 8; i3++) {
+        var a4 = (i3 / 8) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(bx + Math.cos(a4) * b.w * 0.45, by + Math.sin(a4) * b.w * 0.45 * 0.3);
+        ctx.lineTo(bx + Math.cos(a4) * b.w * 0.45, by + b.h / 2 + 8);
+        ctx.stroke();
+      }
+    }
+  });
+}
   // Сетка для быстрой проверки пересечений
   const grid = new Map();
   const CELL = 60;
@@ -9685,6 +10017,7 @@ function drawBiomeTexture(ctx, biome, zone){
     case 'cave':     drawCave(ctx,x,y,w,h,seed); break;
     case 'volcano':  drawVolcano(ctx,x,y,w,h,seed); break;
     case 'route':    drawRoute(ctx,x,y,w,h,seed); break;
+case 'heavenly_edge': drawHeavenlyEdge(ctx,x,y,w,h,seed); break; // <-- ДОБАВИТЬ
   default:
   if(biome === 'haradat'){
     drawMagicCity(ctx, x, y, w, h, seed, 'haradat');
@@ -9693,6 +10026,64 @@ function drawBiomeTexture(ctx, biome, zone){
   }
   }
 }
+
+function drawHeavenlyEdge(ctx,x,y,w,h,rnd){
+  // Небесное сияние
+  const g = ctx.createRadialGradient(x+w/2, y+h/2, 0, x+w/2, y+h/2, w/2);
+  g.addColorStop(0, 'rgba(255, 250, 220, 0.9)');
+  g.addColorStop(0.6, 'rgba(255, 235, 180, 0.7)');
+  g.addColorStop(1, 'rgba(255, 220, 150, 0)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(x+w/2, y+h/2, w/2, h/2, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Облака
+  for (let i = 0; i < 15; i++) {
+    const cx = x + rnd() * w;
+    const cy = y + rnd() * h;
+    const cr = 15 + rnd() * 20;
+    const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr);
+    cg.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+    cg.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = cg;
+    ctx.beginPath();
+    ctx.arc(cx, cy, cr, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Лучи света
+  for (let i = 0; i < 8; i++) {
+    const angle = rnd() * Math.PI * 2;
+    const rayW = 5 + rnd() * 10;
+    ctx.strokeStyle = `rgba(255, 245, 200, ${0.2 + rnd()*0.3})`;
+    ctx.lineWidth = rayW;
+    ctx.beginPath();
+    ctx.moveTo(x+w/2, y+h/2);
+    ctx.lineTo(x+w/2 + Math.cos(angle)*w, y+h/2 + Math.sin(angle)*h);
+    ctx.stroke();
+  }
+
+  // Парящие кристаллы
+  for (let i = 0; i < 6; i++) {
+    const cx = x + rnd() * w;
+    const cy = y + rnd() * h;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - 8);
+    ctx.lineTo(cx - 4, cy);
+    ctx.lineTo(cx, cy + 8);
+    ctx.lineTo(cx + 4, cy);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 250, 220, 0.4)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 12, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
+
 function drawForest(ctx,x,y,w,h,rnd){
   // Природа
   for(let i=0;i<200;i++){
@@ -10888,6 +11279,51 @@ const BUILDING_SOUL_SANCTUARY = `<svg viewBox="0 0 64 64">
   <path d="M10 38 L8 32 L12 34 Z" fill="#67e8f9" opacity="0.8"/>
   <path d="M54 38 L56 32 L52 34 Z" fill="#67e8f9" opacity="0.8"/>
 </svg>`;
+
+
+// Ангел-Хранитель Врат (Божественный Край)
+const NPS_HEAVENLY_GUARDIAN = `<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <!-- Сияющая аура -->
+  <ellipse cx="32" cy="34" rx="26" ry="22" fill="#fef3c7" opacity="0.3"/>
+  <ellipse cx="32" cy="34" rx="18" ry="14" fill="#fde68a" opacity="0.25"/>
+  <!-- Крылья -->
+  <path d="M22 26 Q0 8 4 30 Q12 20 20 26 Q2 14 22 26 Z" fill="#fff" stroke="#d97706" stroke-width="1.3"/>
+  <path d="M42 26 Q64 8 60 30 Q52 20 44 26 Q62 14 42 26 Z" fill="#fff" stroke="#d97706" stroke-width="1.3"/>
+  <path d="M22 30 Q8 22 10 32 Q14 26 22 30 Z" fill="#fef3c7"/>
+  <path d="M42 30 Q56 22 54 32 Q50 26 42 30 Z" fill="#fef3c7"/>
+  <!-- Белая мантия -->
+  <path d="M20 30 Q20 24 32 22 Q44 24 44 30 L48 58 L16 58 Z" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M24 34 L40 34 L42 54 L22 54 Z" fill="#fff" stroke="#b45309" stroke-width="1"/>
+  <!-- Золотой пояс -->
+  <path d="M20 42 Q32 44 44 42" stroke="#fbbf24" stroke-width="2" fill="none"/>
+  <!-- Нимб -->
+  <ellipse cx="32" cy="10" rx="12" ry="3" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+  <ellipse cx="32" cy="10" rx="8" ry="2" fill="none" stroke="#fff" stroke-width="1"/>
+  <!-- Голова -->
+  <circle cx="32" cy="20" r="11" fill="#fde68a" stroke="#b45309" stroke-width="1.4"/>
+  <!-- Глаза добрые -->
+  <ellipse cx="28" cy="20" rx="2" ry="2.4" fill="#1e3a8a"/>
+  <ellipse cx="36" cy="20" rx="2" ry="2.4" fill="#1e3a8a"/>
+  <circle cx="28.5" cy="19.3" r="0.7" fill="#fff"/>
+  <circle cx="36.5" cy="19.3" r="0.7" fill="#fff"/>
+  <!-- Улыбка -->
+  <path d="M29 25 Q32 27 35 25" stroke="#b45309" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- Золотой ключ в руке -->
+  <rect x="10" y="36" width="3" height="14" rx="1" fill="#fbbf24" stroke="#b45309" stroke-width="0.8"/>
+  <circle cx="11.5" cy="35" r="3" fill="none" stroke="#fbbf24" stroke-width="2"/>
+  <rect x="11" y="46" width="4" height="2" fill="#fbbf24"/>
+  <rect x="11" y="49" width="3" height="2" fill="#fbbf24"/>
+  <!-- Светящиеся лучи -->
+  <path d="M32 4 L32 -2 M20 6 L16 0 M44 6 L48 0" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+</svg>`;
+
+
+
+
+
+
+
 // ===================== ОБЛАКА ТУМАНА ВОЙНЫ =====================
 const fogClouds=[];
 let fogAnimTime=0;
@@ -11003,6 +11439,257 @@ function drawFog(){
   fogClouds.forEach(cloud=>drawCloud(ctx,cloud,fogAnimTime));
 }
 
+
+
+
+function drawHeavenlyEdgeObjects(ctx, time) {
+  if (!unlockedZones.has('heavenly_edge')) return;
+  if (heavenlyClouds.length + heavenlyBuildings.length + heavenlyObelisks.length === 0) {
+    // Автогенерация, если забыли вызвать generateHeavenlyEdgeObjects()
+    generateHeavenlyEdgeObjects();
+    return;
+  }
+
+  // ===== 1. ОБЕЛИСКИ =====
+  heavenlyObelisks.forEach(function(o) {
+    var pulse = 0.7 + Math.sin(time * 2 + o.phase) * 0.3;
+
+    // Свечение
+    var glow = ctx.createRadialGradient(o.x, o.y - o.h / 2, 0, o.x, o.y - o.h / 2, o.w * 5);
+    glow.addColorStop(0, o.glowColor + '99');
+    glow.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(o.x, o.y - o.h / 2, o.w * 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Тень
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
+    ctx.beginPath();
+    ctx.ellipse(o.x, o.y + 3, o.w * 1.6, o.w * 0.6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Основание
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    ctx.ellipse(o.x, o.y, o.w * 1.3, o.w * 0.55, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Тело (мрамор)
+    var grad = ctx.createLinearGradient(o.x - o.w / 2, 0, o.x + o.w / 2, 0);
+    grad.addColorStop(0, '#f8fafc');
+    grad.addColorStop(0.5, '#ffffff');
+    grad.addColorStop(1, '#cbd5e1');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(o.x - o.w / 2, o.y);
+    ctx.lineTo(o.x - o.w / 2 + 1, o.y - o.h + 10);
+    ctx.lineTo(o.x, o.y - o.h);
+    ctx.lineTo(o.x + o.w / 2 - 1, o.y - o.h + 10);
+    ctx.lineTo(o.x + o.w / 2, o.y);
+    ctx.closePath();
+    ctx.fill();
+
+    // Светящаяся руна
+    ctx.strokeStyle = o.glowColor;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = pulse;
+    ctx.beginPath();
+    ctx.arc(o.x, o.y - o.h * 0.6, o.w * 0.7, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(o.x, o.y - o.h * 0.6 - o.w * 0.6);
+    ctx.lineTo(o.x, o.y - o.h * 0.6 + o.w * 0.6);
+    ctx.moveTo(o.x - o.w * 0.5, o.y - o.h * 0.6);
+    ctx.lineTo(o.x + o.w * 0.5, o.y - o.h * 0.6);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Кристалл сверху
+    ctx.fillStyle = o.glowColor;
+    ctx.globalAlpha = pulse;
+    ctx.beginPath();
+    ctx.moveTo(o.x, o.y - o.h - 8);
+    ctx.lineTo(o.x - 5, o.y - o.h);
+    ctx.lineTo(o.x, o.y - o.h + 5);
+    ctx.lineTo(o.x + 5, o.y - o.h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+
+  // ===== 2. ОБЛАКА =====
+  heavenlyClouds.forEach(function(c) {
+    var dy = Math.sin(time * c.speed + c.phase) * 4;
+    var dx = Math.sin(time * 0.1 + c.phase) * 8 + c.driftX * time * 5;
+    var cx = c.x + dx;
+    var cy = c.baseY + dy;
+
+    // Пуховые комки
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    for (var i = 0; i < c.puffs; i++) {
+      var a = (i / c.puffs) * Math.PI * 2;
+      var pr = c.r * (0.5 + 0.3 * Math.sin(i * 1.3));
+      var px = cx + Math.cos(a) * c.r * 0.5;
+      var py = cy + Math.sin(a) * c.r * 0.25;
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Блик
+    var g = ctx.createRadialGradient(cx, cy - c.r * 0.2, 0, cx, cy, c.r);
+    g.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
+    g.addColorStop(0.6, 'rgba(255, 255, 255, 0.45)');
+    g.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, c.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // ===== 3. ЛЕТАЮЩИЕ ЗДАНИЯ =====
+  heavenlyBuildings.forEach(function(b) {
+    var dy = Math.sin(time * b.speed + b.phase) * b.floatY;
+    var bx = b.x;
+    var by = b.baseY + dy;
+
+    // Тень на "земле"
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(bx, b.baseY + b.h / 2 + 25, b.w * 0.6, b.w * 0.2, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Аура
+    var aura = ctx.createRadialGradient(bx, by, 0, bx, by, b.w * 1.5);
+    aura.addColorStop(0, 'rgba(255, 245, 200, 0.4)');
+    aura.addColorStop(1, 'rgba(255, 245, 200, 0)');
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(bx, by, b.w * 1.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Парящая платформа
+    ctx.fillStyle = '#e0f2fe';
+    ctx.beginPath();
+    ctx.moveTo(bx - b.w * 0.55, by + b.h / 2);
+    ctx.lineTo(bx + b.w * 0.55, by + b.h / 2);
+    ctx.lineTo(bx + b.w * 0.4, by + b.h / 2 + 10);
+    ctx.lineTo(bx - b.w * 0.4, by + b.h / 2 + 10);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#bae6fd';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    if (b.type === 0) {
+      // ===== БАШНЯ =====
+      ctx.fillStyle = '#fef3c7';
+      ctx.beginPath();
+      ctx.moveTo(bx - b.w * 0.35, by + b.h / 2);
+      ctx.lineTo(bx - b.w * 0.25, by - b.h / 2 + 10);
+      ctx.lineTo(bx + b.w * 0.25, by - b.h / 2 + 10);
+      ctx.lineTo(bx + b.w * 0.35, by + b.h / 2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // Купол
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.h / 2 + 10, b.w * 0.28, Math.PI, 0);
+      ctx.fill();
+
+      // Окна
+      ctx.fillStyle = '#67e8f9';
+      for (var i = 0; i < 3; i++) {
+        ctx.fillRect(bx - 3, by + b.h / 2 - 18 - i * 14, 6, 9);
+      }
+
+      // Шпиль
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(bx, by - b.h / 2 - b.w * 0.28);
+      ctx.lineTo(bx, by - b.h / 2 - b.w * 0.55);
+      ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.h / 2 - b.w * 0.55, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    else if (b.type === 1) {
+      // ===== ХРАМ =====
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(bx - b.w * 0.4, by - b.h / 2 + 12, b.w * 0.8, b.h - 18);
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.8;
+      ctx.strokeRect(bx - b.w * 0.4, by - b.h / 2 + 12, b.w * 0.8, b.h - 18);
+
+      // Колонны
+      ctx.fillStyle = '#fef3c7';
+      for (var i2 = 0; i2 < 4; i2++) {
+        var cx2 = bx - b.w * 0.3 + i2 * (b.w * 0.2);
+        ctx.fillRect(cx2 - 2, by - b.h / 2 + 18, 4, b.h - 28);
+      }
+
+      // Крыша
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.moveTo(bx - b.w * 0.5, by - b.h / 2 + 12);
+      ctx.lineTo(bx, by - b.h / 2 - 10);
+      ctx.lineTo(bx + b.w * 0.5, by - b.h / 2 + 12);
+      ctx.closePath();
+      ctx.fill();
+
+      // Символ
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.h / 2 + 4, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    else {
+      // ===== ПАВИЛЬОН =====
+      ctx.fillStyle = '#fef3c7';
+      ctx.beginPath();
+      ctx.arc(bx, by, b.w * 0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(bx, by - b.w * 0.1, b.w * 0.42, Math.PI, 0);
+      ctx.fill();
+
+      // Внутреннее свечение
+      var innerGlow = ctx.createRadialGradient(bx, by, 0, bx, by, b.w * 0.4);
+      innerGlow.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+      innerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = innerGlow;
+      ctx.beginPath();
+      ctx.arc(bx, by, b.w * 0.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Колонны по кругу
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.5;
+      for (var i3 = 0; i3 < 8; i3++) {
+        var a4 = (i3 / 8) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(bx + Math.cos(a4) * b.w * 0.45, by + Math.sin(a4) * b.w * 0.45 * 0.3);
+        ctx.lineTo(bx + Math.cos(a4) * b.w * 0.45, by + b.h / 2 + 8);
+        ctx.stroke();
+      }
+    }
+  });
+}
+
+
+
 function drawTopLayer(){
   const canvas=document.getElementById('top');
   if(!canvas)return;
@@ -11051,6 +11738,7 @@ function animateFog(now){
         ctx.clearRect(zone.x - 20, zone.y - 80, zone.w + 40, zone.h + 80);
       });
 
+
       // Перерисовываем рамку Харадата
       haradatZones.forEach(zone => {
         const h = HABITATS.haradat;
@@ -11081,7 +11769,21 @@ function animateFog(now){
 
       // Анимация кристаллов и порталов
       drawMagicCityAnimation(ctx, fogAnimTime);
+    // === АНИМАЦИЯ БОЖЕСТВЕННОГО КРАЯ ===
+    if (unlockedZones.has('heavenly_edge')) {
+      const heZones = BIOME_ZONES.filter(z => z.biome === 'heavenly_edge');
+      if (heZones.length) {
+        const canvas = document.getElementById('top');
+        const ctx = canvas.getContext('2d');
+        heZones.forEach(z => {
+          ctx.clearRect(z.x - 80, z.y - 150, z.w + 160, z.h + 180);
+        });
+        drawHeavenlyEdgeObjects(ctx, fogAnimTime);
+      }
     }
+
+    }
+
   }
 }
 
@@ -13155,7 +13857,8 @@ function initGame(){
   drawBackground();
   spawnHouses();
   generateForestTrees();   // ← добавляем после домов
-  drawBackground();        // ← перерисовываем фон уже с деревьями
+generateHeavenlyEdgeObjects();  
+drawBackground();        // ← перерисовываем фон уже с деревьями
   drawTopLayer();
   rebuildFogClouds();
   // Сначала фиксированные объекты — занимают позиции
