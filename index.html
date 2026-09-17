@@ -5954,7 +5954,7 @@ game.addEventListener('touchmove',e=>{
 },{passive:false});
 game.addEventListener('touchend',()=>{isDragging=false;saveProgress()});
 
-// ===================== ПОКЕДЕКС =====================
+
 function statBar(name,value,max,color){
   const pct=Math.min(100,(value/max)*100);
   return `<div class="bar-row"><span class="name">${name}</span><div class="bar"><div class="fill" style="width:${pct}%;background:${color}"></div></div><span class="val">${value}</span></div>`;
@@ -6155,7 +6155,7 @@ function openMyFantasyDetail(index){
     <div class="mpd-moves">${moves.map(m=>`<div class="mpd-move" style="border-left-color:${TYPE_COLORS[m.type]||'#777'}"><div><span class="mname">${m.name}</span>${m.desc?`<div style="font-size:10px;color:#94a3b8;margin-top:2px">${m.desc}</div>`:''}<span class="learn-lvl">(ур. ${m.learnLevel})</span></div><div style="display:flex;gap:8px;align-items:center"><span class="mtype" style="background:${TYPE_COLORS[m.type]||'#777'}">${m.type}</span><span class="mpower">${m.power?'⚡'+m.power:'—'}</span></div></div>`).join('')}</div>
     ${futureMoves.length>0?`<div class="mpd-section-title">📖 Будущие атаки</div><div class="mpd-moves">${futureMoves.map(m=>`<div class="mpd-move locked" style="border-left-color:${TYPE_COLORS[m.type]||'#777'}"><div><span class="mname">${m.name}</span>${m.desc?`<div style="font-size:10px;color:#64748b;margin-top:2px">${m.desc}</div>`:''}<span class="learn-lvl">на ур. ${m.learnLevel}</span></div><div style="display:flex;gap:8px;align-items:center"><span class="mtype" style="background:${TYPE_COLORS[m.type]||'#777'}">${m.type}</span><span class="mpower">${m.power?'⚡'+m.power:'—'}</span></div></div>`).join('')}</div>`:''}
     <div style="display:flex;gap:8px;margin-top:12px">
-      <button class="mpd-close" style="flex:1;background:#3b82f6;color:#fff;box-shadow:0 4px 0 #1e40af" onclick="openMagicdexFromTeam(${index})">📕 Покедекс</button>
+      <button class="mpd-close" style="flex:1;background:#3b82f6;color:#fff;box-shadow:0 4px 0 #1e40af" onclick="openMagicdexFromTeam(${index})">📕 Бестиарий</button>
       <button class="mpd-close" style="flex:1" onclick="closeMyFantasyDetail()">Закрыть ✕</button>
     </div>`;
   document.getElementById('myFantasyDetail').classList.add('active');
