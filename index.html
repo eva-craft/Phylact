@@ -2555,6 +2555,203 @@ display:none;
   z-index: 999999999 !important;
 }
 
+/* ===== ПОЛНЫЙ БЕСТИАРИЙ ===== */
+#BestiaryScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1950;
+  background: rgba(0,0,0,.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#BestiaryScreen.active { display: flex; }
+
+.bestiary-screen-device {
+  width: 760px;
+  max-width: 95vw;
+  max-height: 92vh;
+  background: linear-gradient(160deg, #1a2a4a, #0a1628);
+  border-radius: 24px;
+  padding: 20px;
+  border: 3px solid #3a6b8a;
+  box-shadow: 0 20px 60px rgba(0,0,0,.8),
+              inset 0 0 0 3px rgba(255,255,255,.08);
+  overflow-y: auto;
+  position: relative;
+}
+.bestiary-screen-device h2 {
+  color: #ffcb05;
+  font-size: 24px;
+  text-align: center;
+  text-shadow: 2px 2px 0 #2a5aa8;
+  margin-bottom: 4px;
+}
+.bestiary-screen-sub {
+  text-align: center;
+  color: #b8d4e8;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+/* Поиск */
+.bs-search {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid #3a6b8a;
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 14px;
+  transition: border-color .15s;
+}
+.bs-search:focus { border-color: #ffcb05; }
+
+/* Блок фильтров */
+.bs-filter-block { margin-bottom: 12px; }
+.bs-filter-title {
+  font-size: 11px;
+  color: #ffcb05;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.bs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.bs-chip {
+  padding: 4px 11px;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  background: rgba(30,50,70,.8);
+  border: 1px solid #3a6b8a;
+  color: #b8d4e8;
+  transition: all .12s;
+  user-select: none;
+}
+.bs-chip:hover { border-color: #ffcb05; color: #fff; }
+.bs-chip.active {
+  background: #ffcb05;
+  color: #1a2a4a;
+  border-color: #fff3b0;
+  box-shadow: 0 0 8px rgba(255,203,5,.6);
+}
+
+.bs-reset {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid #6b7280;
+  background: rgba(60,70,90,.6);
+  color: #d4c8a8;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+.bs-reset:hover { background: rgba(90,100,120,.7); color: #fff; }
+
+/* Список существ */
+.bs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.bs-card {
+  background: rgba(0,0,0,.3);
+  border: 2px solid #3a6b8a;
+  border-radius: 14px;
+  padding: 8px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+  position: relative;
+}
+.bs-card:hover {
+  border-color: #ffcb05;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(255,203,5,.25);
+}
+.bs-card svg { width: 56px; height: 56px; display: block; margin: 0 auto; }
+.bs-card .bs-name {
+  font-size: 11px;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 4px;
+  line-height: 1.2;
+  word-break: break-word;
+  min-height: 26px;
+}
+.bs-card .bs-id {
+  font-size: 9px;
+  color: #94a3b8;
+}
+.bs-card .bs-rarity-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.6);
+}
+.bs-card.locked {
+  filter: grayscale(0.85);
+  opacity: 0.55;
+}
+.bs-card.locked .bs-name { color: #94a3b8; }
+.bs-card.undead-card {
+  box-shadow: 0 0 8px rgba(168,85,247,.5);
+}
+.bs-card.undead-card::after {
+  content: '💀';
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: 10px;
+}
+
+.bs-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #94a3b8;
+  padding: 30px;
+  font-size: 14px;
+}
+
+#bestiaryBtn {
+  position: fixed;
+  z-index: 5000;
+  border-radius: 14px;
+  padding: 12px 18px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all .15s;
+  bottom: 16px;
+  right: 1130px;
+  background: linear-gradient(180deg, #16a34a, #065f46);
+  border: 2px solid #86efac;
+  box-shadow: 0 4px 0 #064e3b;
+}
+#bestiaryBtn:hover { transform: translateY(-2px); }
+#BestiaryScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1950;   /* ← замените на 6000 или выше */
+  background: rgba(0,0,0,.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
 </style>
 </head>
 <body>
@@ -2589,7 +2786,7 @@ display:none;
 <button id="shopBtn">🏪 Магазин</button>
 <button id="invBtn">🎒 Инвентарь</button>
 <button id="questBtn">📜 Квесты<span class="qbadge" id="questBadge" style="display:none">0</span></button>
-
+<button id="bestiaryBtn">📕 Бестиарий</button>
 <div id="hint">
   <b>Управление:</b><br>
   🖱 Перетаскивай карту<br>
@@ -2615,6 +2812,47 @@ display:none;
   <div class="row"><span class="dot" style="background:#a855f7"></span> 📜 NPS с квестом</div>
 </div>
 
+<!-- ===== ПОЛНЫЙ БЕСТИАРИЙ ===== -->
+<div id="BestiaryScreen">
+  <div class="bestiary-screen-device">
+    <h2>📕 Бестиарий Филакта</h2>
+    <div class="bestiary-screen-sub" id="bestiarySub">Существ: 0 / 0</div>
+
+    <!-- Поиск -->
+    <input type="text" id="bestiarySearch" class="bs-search"
+           placeholder="🔍 Поиск по имени..." autocomplete="off">
+
+    <!-- Фильтры: типы -->
+    <div class="bs-filter-block">
+      <div class="bs-filter-title">Тип</div>
+      <div class="bs-chips" id="bsTypeFilter"></div>
+    </div>
+
+    <!-- Фильтры: редкость -->
+    <div class="bs-filter-block">
+      <div class="bs-filter-title">Редкость</div>
+      <div class="bs-chips" id="bsRarityFilter"></div>
+    </div>
+
+    <!-- Фильтры: статус -->
+    <div class="bs-filter-block">
+      <div class="bs-filter-title">Статус</div>
+      <div class="bs-chips" id="bsStatusFilter">
+        <div class="bs-chip active" data-status="all">Все</div>
+        <div class="bs-chip" data-status="caught">Пойманные</div>
+        <div class="bs-chip" data-status="uncaught">Не пойманные</div>
+      </div>
+    </div>
+
+    <!-- Сброс -->
+    <button class="bs-reset" id="bsResetBtn">✕ Сбросить фильтры</button>
+
+    <!-- Список существ -->
+    <div class="bs-list" id="bsList"></div>
+
+    <button class="mpd-close" onclick="closeBestiaryScreen()">Закрыть ✕</button>
+  </div>
+</div>
 <div id="Bestiary"><div class="bestiary-tome" id="bestiaryContent"></div></div>
 
 <div id="battleScreen">
@@ -2729,21 +2967,18 @@ display:none;
 
 <script>
 
-// ===================== СКРЫТИЕ/ПОКАЗ КНОПОК МЕНЮ =====================
 function hideMenuButtons() {
-  ['teamBtn', 'shopBtn', 'invBtn', 'questBtn'].forEach(id => {
+  ['teamBtn', 'shopBtn', 'invBtn', 'questBtn', 'bestiaryBtn'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });
 }
 function showMenuButtons() {
-  ['teamBtn', 'shopBtn', 'invBtn', 'questBtn'].forEach(id => {
+  ['teamBtn', 'shopBtn', 'invBtn', 'questBtn', 'bestiaryBtn'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = '';
   });
 }
-
-
 function closeAllScreens() {
   document.getElementById('Bestiary').classList.remove('active');
   document.getElementById('teamScreen').classList.remove('active');
@@ -2814,22 +3049,22 @@ const TYPE_CHART={
 Огненный:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:2,Низший:2,Каменный:0.5,Дракон:0.5,Стальной:2,Демон:1,Нежить:2},
 Водный:{Огненный:2,Водный:0.5,Природа:0.5,Земляной:2,Каменный:2,Дракон:0.5,Демон:1,Нежить:1},
 Природа:{Огненный:0.5,Водный:2,Природа:0.5,Ядовитый:0.5,Земляной:2,Летающий:0.5,Низший:0.5,Каменный:2,Дракон:0.5,Стальной:0.5,Демон:1,Нежить:1},
-Электрик:{Водный:2,Электрик:0.5,Природа:0.5,Земляной:0,Летающий:2,Дракон:0.5,Демон:1,Нежить:1},
+Электрический:{Водный:2,Электрический:0.5,Природа:0.5,Земляной:0,Летающий:2,Дракон:0.5,Демон:1,Нежить:1},
 Ледяной:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:0.5,Земляной:2,Летающий:2,Дракон:2,Стальной:0.5,Демон:1,Нежить:0.5},
 Боевой:{Обычный:2,Ледяной:2,Ядовитый:0.5,Летающий:0.5,Ментальный:0.5,Низший:0.5,Каменный:2,Бесплотный:0,Тёмный:2,Стальной:2,Фея:0.5,Демон:0.5,Нежить:0.5},
 Ядовитый:{Природа:2,Ядовитый:0.5,Земляной:0.5,Каменный:0.5,Бесплотный:0.5,Стальной:0,Фея:2,Демон:1,Нежить:0.5},
-Земляной:{Огненный:2,Электрик:2,Природа:0.5,Ядовитый:2,Летающий:0,Низший:0.5,Каменный:2,Стальной:2,Демон:1,Нежить:1},
-Летающий:{Электрик:0.5,Природа:2,Боевой:2,Низший:2,Каменный:0.5,Стальной:0.5,Демон:1,Нежить:1},
+Земляной:{Огненный:2,Электрический:2,Природа:0.5,Ядовитый:2,Летающий:0,Низший:0.5,Каменный:2,Стальной:2,Демон:1,Нежить:1},
+Летающий:{Электрический:0.5,Природа:2,Боевой:2,Низший:2,Каменный:0.5,Стальной:0.5,Демон:1,Нежить:1},
 Ментальный:{Боевой:2,Ядовитый:2,Ментальный:0.5,Тёмный:0,Стальной:0.5,Демон:2,Нежить:0.5},
 Низший:{Огненный:0.5,Природа:2,Боевой:0.5,Ядовитый:0.5,Летающий:0.5,Ментальный:2,Бесплотный:0.5,Тёмный:2,Стальной:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
 Каменный:{Огненный:2,Ледяной:2,Боевой:0.5,Земляной:0.5,Летающий:2,Низший:2,Стальной:0.5,Демон:1,Нежить:1},
 Бесплотный:{Обычный:0,Ментальный:2,Бесплотный:2,Тёмный:0.5,Демон:1,Нежить:0},
 Дракон:{Дракон:2,Стальной:0.5,Фея:0,Демон:1,Нежить:1},
 Тёмный:{Боевой:0.5,Ментальный:2,Бесплотный:2,Тёмный:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
-Стальной:{Огненный:0.5,Водный:0.5,Электрик:0.5,Ледяной:2,Каменный:2,Стальной:0.5,Фея:2,Демон:1,Нежить:0.5},
+Стальной:{Огненный:0.5,Водный:0.5,Электрический:0.5,Ледяной:2,Каменный:2,Стальной:0.5,Фея:2,Демон:1,Нежить:0.5},
 Фея:{Огненный:0.5,Боевой:2,Ядовитый:0.5,Дракон:2,Тёмный:2,Стальной:0.5,Демон:2,Нежить:1},
-Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрик:1,Ледяной:1,Боевой:2,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:0.5,Низший:1,Каменный:1,Бесплотный:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2},
-Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрик:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:2,Низший:1,Каменный:1,Бесплотный:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5}
+Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрический:1,Ледяной:1,Боевой:2,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:0.5,Низший:1,Каменный:1,Бесплотный:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2},
+Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрический:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:2,Низший:1,Каменный:1,Бесплотный:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5}
 };
 
 
@@ -2849,7 +3084,7 @@ function closePause(){
   document.getElementById('pauseScreen').classList.remove('active');
   updateMusic();   // возобновит музыку, если стартовик выбран
 }
-
+document.getElementById('bestiaryBtn').addEventListener('click', openBestiaryScreen);
 // Кнопки
 document.getElementById('pauseResumeBtn').addEventListener('click', closePause);
 document.getElementById('pauseRestartBtn').addEventListener('click', async ()=>{
@@ -2963,7 +3198,7 @@ const Fantasy_DATA=[
 {id:1002,name:"Дворф-Рунный Мастер",types:["Земляной","Стальной"],rarity:"epic",habitats:["mountain"],desc:"Древний Дворф, высекает руны силы на камне.",height:1.4,weight:120,category:"Дворф",stats:{hp:75,attack:90,defense:110,spAtk:60,spDef:80,speed:45},shape:"dwarf_runemaster"},
 {id:1005,name:"Крылатый Демон",types:["Огненный","Демон","Летающий"],rarity:"epic",habitats:["volcano","mountain"],desc:"Крылатый демон, чьё дыхание плавит металл.",height:1.8,weight:95,category:"Демон",stats:{hp:65,attack:85,defense:65,spAtk:105,spDef:70,speed:95},shape:"fire_demon"},
 {id:1008,name:"Королева Сирен",types:["Водный","Фея"],rarity:"epic",habitats:["water","ostrova_pobezhdennogo"],desc:"Правительница глубин, голосом усмиряет штормы.",height:1.7,weight:60,category:"Сирена",stats:{hp:75,attack:60,defense:80,spAtk:110,spDef:95,speed:75},shape:"siren_queen"},
-{id:1026,name:"Радужный лепрекон",types:["Электрик","Фея"],rarity:"epic",habitats:["forest","pole_magii"],desc:"Мастер радужной магии, исполняет желания... за плату.",height:1.1,weight:35,category:"Лепрекон",stats:{hp:60,attack:70,defense:55,spAtk:90,spDef:75,speed:120},shape:"leprechaun_rainbow"},
+{id:1026,name:"Радужный лепрекон",types:["Электрический","Фея"],rarity:"epic",habitats:["forest","pole_magii"],desc:"Мастер радужной магии, исполняет желания... за плату.",height:1.1,weight:35,category:"Лепрекон",stats:{hp:60,attack:70,defense:55,spAtk:90,spDef:75,speed:120},shape:"leprechaun_rainbow"},
 
 // ===== ЛЕСНЫЕ / ОБЫЧНЫЕ =====
 {id:1010,name:"Миконид",types:["Природа","Ядовитый"],rarity:"common",habitats:["forest","route"],desc:"Ходячий гриб, споры которого усыпляют путников.",height:0.4,weight:5,category:"Гриб",stats:{hp:50,attack:30,defense:45,spAtk:40,spDef:50,speed:25},shape:"mushroom_sprite",evolvesTo:1011,evolveLevel:10},
@@ -3005,7 +3240,7 @@ const Fantasy_DATA=[
 {id:1150,name:"Тёмный Владыка",types:["Ментальный","Нежить"],rarity:"legendary",habitats:["cave","pole_magii"],desc:"Создан из чистой магии тьмы, его сила не знает границ.",height:2.2,weight:130,category:"Владыка",stats:{hp:110,attack:115,defense:95,spAtk:160,spDef:95,speed:135},shape:"dark_lord"},
 {id:1151,name:"Искра-Создатель",types:["Ментальный","Фея"],rarity:"legendary",habitats:["forest","pole_magii"],desc:"Прародитель всех волшебных существ, может принимать любую форму.",height:0.5,weight:4,category:"Создатель",stats:{hp:105,attack:105,defense:105,spAtk:105,spDef:105,speed:105},shape:"creator_spark"},
 {id:1144,name:"Ледяной Феникс",types:["Ледяной","Летающий"],rarity:"legendary",habitats:["water","ostrova_pobezhdennogo"],desc:"Легендарная птица зимы, её перья — кристаллы льда.",height:1.8,weight:60,category:"Феникс",stats:{hp:95,attack:90,defense:105,spAtk:100,spDef:130,speed:90},shape:"ice_phoenix"},
-{id:1145,name:"Грозовой Феникс",types:["Электрик","Летающий"],rarity:"legendary",habitats:["mountain","pole_magii"],desc:"Легендарная птица бури, повелевает молниями.",height:1.7,weight:55,category:"Феникс",stats:{hp:95,attack:95,defense:90,spAtk:130,spDef:95,speed:105},shape:"storm_phoenix"},
+{id:1145,name:"Грозовой Феникс",types:["Электрический","Летающий"],rarity:"legendary",habitats:["mountain","pole_magii"],desc:"Легендарная птица бури, повелевает молниями.",height:1.7,weight:55,category:"Феникс",stats:{hp:95,attack:95,defense:90,spAtk:130,spDef:95,speed:105},shape:"storm_phoenix"},
 {id:1146,name:"Огненный Феникс",types:["Огненный","Летающий"],rarity:"legendary",habitats:["volcano"],desc:"Легендарная птица огня, возрождается из пепла.",height:2.1,weight:65,category:"Феникс",stats:{hp:95,attack:105,defense:95,spAtk:130,spDef:90,speed:95},shape:"fire_phoenix"},
 
 // ===== ДОПОЛНИТЕЛЬНЫЕ =====
@@ -3032,7 +3267,7 @@ const Fantasy_DATA=[
 ];
 const RARITY_COLORS={common:"#9ca3af",uncommon:"#4ade80",rare:"#60a5fa",epic:"#a855f7",legendary:"#fbbf24"};
 const RARITY_NAMES={common:"Обычный",uncommon:"Необычный",rare:"Редкий",epic:"Эпический",legendary:"Легендарный"};
-const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрик:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",Земляной:"#e0c068",Летающий:"#a890f0",Низший:"#a8b820",Каменный:"#b8a038",Бесплотный:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#c03028",Нежить:"#a855f7", Ментальный:"#f85888"};
+const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрический:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",Земляной:"#e0c068",Летающий:"#a890f0",Низший:"#a8b820",Каменный:"#b8a038",Бесплотный:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#c03028",Нежить:"#a855f7", Ментальный:"#f85888"};
 
 // ===================== НАБОРЫ АТАК =====================
 // ===================== НАБОРЫ АТАК (сдвинутые уровни) =====================
@@ -3249,14 +3484,14 @@ const FULL_MOVES={
 "Град семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
 "Природное восстановление":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
 
-// ===== ЭЛЕКТРИК =====
-"Разряд":{type:"Электрик",power:40,cat:"special"},
-"Грозовой удар":{type:"Электрик",power:90,cat:"special"},
-"Громовая стрела":{type:"Электрик",power:110,cat:"special"},
-"Парализующий разряд":{type:"Электрик",power:null,cat:"status",effect:"paralyze",chance:1.0},
-"Молния":{type:"Электрик",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
-"Небесная кара":{type:"Электрик",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача."},
-"Разряд молнии":{type:"Электрик",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
+// ===== Электрический =====
+"Разряд":{type:"Электрический",power:40,cat:"special"},
+"Грозовой удар":{type:"Электрический",power:90,cat:"special"},
+"Громовая стрела":{type:"Электрический",power:110,cat:"special"},
+"Парализующий разряд":{type:"Электрический",power:null,cat:"status",effect:"paralyze",chance:1.0},
+"Молния":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
+"Небесная кара":{type:"Электрический",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача."},
+"Разряд молнии":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
 
 // ===== ЛЕДЯНОЙ =====
 "Ледяное копьё":{type:"Ледяной",power:90,cat:"special"},
@@ -6652,7 +6887,7 @@ function learnMovesForLevel(pk,level){
     }
   });
   if(pk.moves.length===0){
-    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрик:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Отравленное жало",Летающий:"Порыв",Ментальный:"Конфузия",Низший:"Укус жука",Каменный:"Бросок камня",Бесплотный:"Лизание",Дракон:"Вихрь",Земляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
+    const tm={Обычный:"Захват",Огненный:"Уголёк",Водный:"Водяной пистолет",Природа:"Хлыст лозой",Электрический:"Электрошок",Ледяной:"Ледяной луч",Ядовитый:"Отравленное жало",Летающий:"Порыв",Ментальный:"Конфузия",Низший:"Укус жука",Каменный:"Бросок камня",Бесплотный:"Лизание",Дракон:"Вихрь",Земляной:"Землетрясение",Тёмный:"Укус"}[pk.data.types[0]];
     pk.moves.push({name:tm||"Захват",level:1});
   }
   if(pk.moves.length>4)pk.moves=pk.moves.slice(-4);
@@ -6946,12 +7181,10 @@ el.addEventListener('click', e => {
   }
   startBattle(p, biome, { el, x: pos.x, y: pos.y, data: p, biome, zone: zoneRef });
 });
-  el.addEventListener('contextmenu', e => {
-    e.preventDefault(); e.stopPropagation();
-    openBestiary(p);
-    caughtSet.add(p.id);
-    updateHUD(); saveProgress();
-  });
+ el.addEventListener('contextmenu', e => {
+  e.preventDefault(); e.stopPropagation();
+  openBestiary(p);   // только просмотр
+});
    world.appendChild(el);
 
 el.addEventListener('mouseenter', () => {
@@ -9988,6 +10221,216 @@ let allMovesHTML = '';
 }
 function closeBestiary(){document.getElementById('Bestiary').classList.remove('active');  showMenuButtons();  }
 
+
+
+// ===================== ПОЛНЫЙ БЕСТИАРИЙ =====================
+let bsFilters = {
+  search: '',
+  types: new Set(),       // пусто = все
+  rarities: new Set(),    // пусто = все
+  status: 'all'           // 'all' | 'caught' | 'uncaught'
+};
+
+function openBestiaryScreen(){
+  renderBestiaryScreen();
+  document.getElementById('BestiaryScreen').classList.add('active');
+  hideMenuButtons();
+}
+function closeBestiaryScreen(){
+  document.getElementById('BestiaryScreen').classList.remove('active');
+  showMenuButtons();
+}
+
+// Инициализация фильтров-чипов
+function initBestiaryFilters(){
+  // Типы
+  const typeBox = document.getElementById('bsTypeFilter');
+  typeBox.innerHTML = '';
+  Object.keys(TYPE_COLORS).sort().forEach(t => {
+    const chip = document.createElement('div');
+    chip.className = 'bs-chip';
+    chip.dataset.type = t;
+    chip.textContent = t;
+    chip.style.borderColor = TYPE_COLORS[t];
+    chip.style.color = TYPE_COLORS[t];
+    chip.addEventListener('click', () => {
+      if(bsFilters.types.has(t)) bsFilters.types.delete(t);
+      else bsFilters.types.add(t);
+      chip.classList.toggle('active');
+      if(chip.classList.contains('active')){
+        chip.style.background = TYPE_COLORS[t];
+        chip.style.color = '#1a2a4a';
+      } else {
+        chip.style.background = '';
+        chip.style.color = TYPE_COLORS[t];
+      }
+      renderBestiaryList();
+    });
+    typeBox.appendChild(chip);
+  });
+
+  // Редкости
+  const rarBox = document.getElementById('bsRarityFilter');
+  rarBox.innerHTML = '';
+  Object.keys(RARITY_NAMES).forEach(r => {
+    const chip = document.createElement('div');
+    chip.className = 'bs-chip';
+    chip.dataset.rarity = r;
+    chip.textContent = RARITY_NAMES[r];
+    chip.style.borderColor = RARITY_COLORS[r];
+    chip.style.color = RARITY_COLORS[r];
+    chip.addEventListener('click', () => {
+      if(bsFilters.rarities.has(r)) bsFilters.rarities.delete(r);
+      else bsFilters.rarities.add(r);
+      chip.classList.toggle('active');
+      if(chip.classList.contains('active')){
+        chip.style.background = RARITY_COLORS[r];
+        chip.style.color = '#1a2a4a';
+      } else {
+        chip.style.background = '';
+        chip.style.color = RARITY_COLORS[r];
+      }
+      renderBestiaryList();
+    });
+    rarBox.appendChild(chip);
+  });
+
+  // Статус
+  document.querySelectorAll('#bsStatusFilter .bs-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#bsStatusFilter .bs-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      bsFilters.status = chip.dataset.status;
+      renderBestiaryList();
+    });
+  });
+
+  // Поиск
+  const search = document.getElementById('bestiarySearch');
+  search.addEventListener('input', () => {
+    bsFilters.search = search.value.trim().toLowerCase();
+    renderBestiaryList();
+  });
+
+  // Сброс
+  document.getElementById('bsResetBtn').addEventListener('click', () => {
+    bsFilters = { search: '', types: new Set(), rarities: new Set(), status: 'all' };
+    search.value = '';
+    document.querySelectorAll('#bsTypeFilter .bs-chip, #bsRarityFilter .bs-chip').forEach(c => {
+      c.classList.remove('active');
+      c.style.background = '';
+      // вернуть исходный цвет
+      if(c.dataset.type) c.style.color = TYPE_COLORS[c.dataset.type];
+      if(c.dataset.rarity) c.style.color = RARITY_COLORS[c.dataset.rarity];
+    });
+    document.querySelectorAll('#bsStatusFilter .bs-chip').forEach(c => c.classList.remove('active'));
+    document.querySelector('#bsStatusFilter .bs-chip[data-status="all"]').classList.add('active');
+    renderBestiaryList();
+  });
+}
+
+function renderBestiaryScreen(){
+  // === Собираем все ID, которые нужно показать ===
+  // 1. Сами пойманные существа
+  const visibleIds = new Set(caughtSet);
+
+  // 2. Добавляем все эволюционные формы пойманных существ
+  //    (и предыдущие, и последующие в цепочке)
+  caughtSet.forEach(id => {
+    const p = Fantasy_DATA.find(x => x.id === id);
+    if (!p) return;
+
+    // Следующие эволюции (вверх по цепочке)
+    let current = p;
+    while (current && current.evolvesTo) {
+      visibleIds.add(current.evolvesTo);
+      current = Fantasy_DATA.find(x => x.id === current.evolvesTo);
+    }
+
+    // Предыдущие эволюции (вниз по цепочке) — ищем, кто эволюционирует в это существо
+    let prev = Fantasy_DATA.find(x => x.evolvesTo === id);
+    while (prev) {
+      visibleIds.add(prev.id);
+      prev = Fantasy_DATA.find(x => x.evolvesTo === prev.id);
+    }
+  });
+
+  // === Сохраняем видимые ID в глобальную переменную для renderBestiaryList ===
+  window._bestiaryVisibleIds = visibleIds;
+
+  // === Обновляем подпись ===
+  const total = Fantasy_DATA.length;
+  const caught = caughtSet.size;
+  const visibleCount = visibleIds.size;
+  document.getElementById('bestiarySub').textContent =
+    `Поймано: ${caught} / ${total} (${Math.round(caught/total*100)}%) · Показано: ${visibleCount}`;
+
+  initBestiaryFilters();
+  renderBestiaryList();
+
+  // === Скрываем фильтры "статус" и "редкость", так как они теряют смысл ===
+  const statusFilter = document.getElementById('bsStatusFilter');
+  if (statusFilter) statusFilter.style.display = 'none';
+
+  const rarityFilter = document.getElementById('bsRarityFilter');
+  if (rarityFilter) rarityFilter.parentElement.style.display = 'none';
+}
+
+function renderBestiaryList(){
+  const list = document.getElementById('bsList');
+  list.innerHTML = '';
+
+  const filtered = Fantasy_DATA.filter(p => {
+    // Поиск
+    if(bsFilters.search && !p.name.toLowerCase().includes(bsFilters.search)) return false;
+    // Типы (хотя бы один из выбранных должен быть у существа)
+    if(bsFilters.types.size > 0){
+      const hasType = p.types.some(t => bsFilters.types.has(t));
+      if(!hasType) return false;
+    }
+    // Редкости
+    if(bsFilters.rarities.size > 0 && !bsFilters.rarities.has(p.rarity)) return false;
+    // Статус
+    const isCaught = caughtSet.has(p.id);
+    if(bsFilters.status === 'caught' && !isCaught) return false;
+    if(bsFilters.status === 'uncaught' && isCaught) return false;
+    return true;
+  }).sort((a,b) => a.id - b.id);
+
+  if(filtered.length === 0){
+    list.innerHTML = '<div class="bs-empty">Ничего не найдено 🔍<br>Попробуй изменить фильтры</div>';
+    return;
+  }
+
+  filtered.forEach(p => {
+    const isCaught = caughtSet.has(p.id);
+    const card = document.createElement('div');
+    card.className = 'bs-card' + (isCaught ? '' : ' locked');
+    if(isUndead(p)) card.classList.add('undead-card');
+
+    card.innerHTML = `
+      <div class="bs-rarity-dot" style="background:${RARITY_COLORS[p.rarity]}"
+           title="${RARITY_NAMES[p.rarity]}"></div>
+      ${getSprite(p.shape)}
+      <div class="bs-name">${isCaught ? p.name : '???'}</div>
+      <div class="bs-id">#${String(p.id).padStart(3,'0')}</div>
+    `;
+
+ card.addEventListener('click', () => {
+  // Открываем подробную карточку — без записи в caughtSet
+  closeBestiaryScreen();
+  openBestiary(p);
+});
+
+    list.appendChild(card);
+  });
+}
+
+window.openBestiaryScreen = openBestiaryScreen;
+window.closeBestiaryScreen = closeBestiaryScreen;
+
+
+
 // ===================== КОМАНДА =====================
 function openTeamScreen(){
   if(playerTeam.length===0){showToast("У тебя пока нет существ!");return}
@@ -10526,7 +10969,7 @@ function showBattleLog(text,dur){
   el._timeout=setTimeout(()=>el.classList.remove('show'),dur);
 }
 function calcDamage(attacker,defender,move){
-  const special=['Огненный','Водный','Природа','Электрик','Ледяной','Ментальный','Бесплотный','Дракон'];
+  const special=['Огненный','Водный','Природа','Электрический','Ледяной','Ментальный','Бесплотный','Дракон'];
   const isSpecial=move.cat==='special'||special.includes(move.type);
   const atk=isSpecial?attacker.spAtk:attacker.atk;
   const def=isSpecial?defender.spDef:defender.def;
