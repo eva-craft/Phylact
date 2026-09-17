@@ -3378,7 +3378,7 @@ const QUEST_DEFS=[
 {id:"q_defeat_viridian8",biome:"viridian",npc:"Архимаг",npcPos:{x:520,y:1060},
   title:"Тренировка в городе",desc:"Победи 3 монстров в Виридиан-Сити.",
   type:"defeat",target:3,reward:{money:800,items:{superball:3}},dialogue:"Эй, новичок! Хочешь стать сильнее? Победи 3 монстров здесь!"},
-{id:"q_catch_pidgey",biome:"viridian",npc:"Птицелов Тим",npcPos:{x:750,y:1100},
+{id:"q_catch_pidgey",biome:"viridian",npc:"Крестьянин Руд",npcPos:{x:750,y:1100},
   title:"Птичья коллекция",desc:"Поймай Пиджи или Ратату.",
   type:"catch_specific",targetIds:[16,19],target:1,reward:{money:600,items:{Magicball:5}},dialogue:"Я собираю птиц и мышей! Принеси мне Пиджи или Ратату — и получишь награду."},
 
@@ -4164,14 +4164,13 @@ function pickNpcSvg(npcName){
   const n = npcName.toLowerCase();
 
   // === Архимаг / профессор / хранитель / чемпион ===
-  if(n.includes('профессор') || n.includes('оук') || n.includes('архимаг') ||
+  if(n.includes('профессор')  || n.includes('архимаг') ||
      n.includes('хранитель') || n.includes('чемпион'))
     return NPC_PROFESSOR;
 
   // === Женские образы: жрицы, ведуньи, магички ===
-  if(n.includes('ведьма') || n.includes('мама') || n.includes('жрица') ||
-     n.includes('модница') || n.includes('эрика') || n.includes('сабрина') ||
-     n.includes('мисти') || n.includes('коллекционер') || n.includes('экзорцист'))
+  if(n.includes('ведьма') || n.includes('жрица') ||
+     n.includes('коллекционер') || n.includes('экзорцист'))
     return NPC_QUEST_FEMALE;
 
   // === Кузнецы, дварфы, ремесленники — бородатые мастера ===
@@ -4181,7 +4180,7 @@ function pickNpcSvg(npcName){
     return NPC_QUEST_MALE;
 
   // === Тренеры / бойцы ===
-  if(n.includes('тренер') || n.includes('рейнджер') || n.includes('воин') ||
+  if(n.includes('рейнджер') || n.includes('воин') ||
      n.includes('стражник') || n.includes('охотник'))
     return NPC_TRAINER_MALE;
 
@@ -6463,21 +6462,7 @@ function startTrainerBattle(tmpl,pos){
   });
 }
 // НАЙДИТЕ:
-function startGymBattle(gymKey){
-  if(playerTeam.length===0){showToast("У тебя нет монстров!");return}
-  if(earnedBadges.has(gymKey)){showToast("Ты уже победил этого гим-лидера!");return}
-  if(!playerTeam.some(p=>p.currentHP>0)){showToast("Все монстры без сознания!");return}
-  const gym=GYM_LEADERS[gymKey];
-  const team=gym.team.map(t=>{const d=Fantasy_DATA.find(x=>x.id===t.id);return d?createPlayerFantasy(d,t.level):null}).filter(Boolean);
-  closeAllScreens();
-  hideMenuButtons();
-showDialog(gym.name,`${gym.before}\n\n(Лидер гимна ${HABITATS[gymKey].name})`,()=>{
-    battleState={enemy:team[0],playerIndex:playerTeam.findIndex(p=>p.currentHP>0),turn:'player',busy:false,isTrainer:true,isGym:true,enemyTeam:team,enemyIndex:0,trainerName:gym.name,reward:gym.reward,gymKey,playerProtect:false,enemyProtect:false,lastPlayerDamage:0,lastEnemyDamage:0,lastPlayerMove:null,lastEnemyMove:null};
-    document.getElementById('battleScreen').classList.add('active');
-    updateBattleUI();
-    showBattleLog(`${gym.name}: ${team[0].data.name}, вперёд!`);
-  });
-}
+
 
 // ЗАМЕНИТЕ НА:
 function startSoulMasterBattle(soulKey){
