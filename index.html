@@ -235,23 +235,23 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 .quest-item .q-reward{font-size:12px;color:#fde68a;margin-top:6px;display:flex;justify-content:space-between;align-items:center}
 .quest-item .q-claim{padding:6px 14px;border-radius:8px;border:none;background:#4ade80;color:#0a2a15;font-weight:bold;cursor:pointer;font-size:12px}
 .quest-item .q-claim:disabled{background:#6b7280;color:#9ca3af;cursor:not-allowed}
-.nhealer-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:14;top:0;left:0;margin-left:-30px;margin-top:-30px}
-.nhealer-quest svg{width:100%;height:100%}
-.nhealer-quest .qmark{position:absolute;top:-8px;right:-8px;font-size:22px;filter:drop-shadow(0 0 4px #fbbf24);animation:qmarkBounce 1s infinite}
+.nps-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-inbest:14;top:0;left:0;margin-left:-30px;margin-top:-30px}
+.nps-quest svg{width:100%;height:100%}
+.nps-quest .qmark{position:absolute;top:-8px;right:-8px;font-size:22px;filter:drop-shadow(0 0 4px #fbbf24);animation:qmarkBounce 1s infinite}
 @keyframes qmarkBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.nhealer-quest .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
-.nhealer-quest:hover .label{opacity:1}
+.nps-quest .label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;opacity:0;transition:opacity .15s;pointer-events:none}
+.nps-quest:hover .label{opacity:1}
 #questBtn{position:fixed;z-inbest:5000;border-radius:14px;padding:12px 18px;color:#fff;font-size:14px;font-weight:bold;cursor:pointer;text-transform:uppercase;transition:all .15s;bottom:16px;right:595px;background:linear-gradient(180deg,#a855f7,#7c3aed);border:2px solid #d8b4fe;box-shadow:0 4px 0 #4c1d95}
 #questBtn:hover{transform:translateY(-2px)}
 #questBtn .qbadge{position:absolute;top:-6px;right:-6px;background:#ef4444;color:#fff;font-size:11px;font-weight:bold;border-radius:10px;padding:1px 6px;min-width:18px;text-align:center;border:2px solid #fff}
 
 #dialogScreen{position:fixed;bottom:0;left:0;right:0;z-inbest:6000;padding:20px;display:none}
 #dialogScreen.active{display:block}
-/* Nhealer с квестами — всегда поверх всех объектов */
-.nhealer-quest {
+/* NPS с квестами — всегда поверх всех объектов */
+.nps-quest {
   z-inbest: 100 !important;
 }
-.nhealer-quest .label {
+.nps-quest .label {
   z-inbest: 101 !important;
   opacity: 0.6;              /* подпись всегда видна, а не только при наведении */
   font-weight: bold;
@@ -290,18 +290,18 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
 
 
 /* СТАЛО */
-.nhealer-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;top:0;left:0;margin-left:-30px;margin-top:-30px}
+.nps-quest{position:absolute;width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;top:0;left:0;margin-left:-30px;margin-top:-30px}
 
 /* Y-сортировка: базовый слой для игровых объектов */
-.Fantasy, .trainer, .nhealer-quest {
+.Fantasy, .trainer, .nps-quest {
   z-inbest: 1; /* будет переопределён в JS */
 }
 /* Hover — поверх всех */
-.Fantasy:hover, .trainer:hover, .nhealer-quest:hover {
+.Fantasy:hover, .trainer:hover, .nps-quest:hover {
   z-inbest: 99999 !important;
 }
 /* Подпись при hover */
-.Fantasy .label, .trainer .label, .nhealer-quest .label {
+.Fantasy .label, .trainer .label, .nps-quest .label {
   z-inbest: 100000 !important;
 }
 
@@ -374,7 +374,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   box-shadow: 0 0 8px rgba(168,85,247,.8);
 }
 
-.nhealer-quest {
+.nps-quest {
   position: absolute;
   width: 60px;
   height: 60px;
@@ -389,7 +389,7 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   margin-top: -30px;
 }
 
-.nhealer-quest .label {
+.nps-quest .label {
   position: absolute;
   bottom: -20px;
   left: 50%;
@@ -416,10 +416,10 @@ html,body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;overflow:hidden;c
   z-inbest: 950000;   /* ← было 500000 */
 }
 
-/* Nhealer с квестами — поверх всех объектов мира.
+/* NPS с квестами — поверх всех объектов мира.
    !important нужен, потому что у .Fantasy/.trainer тоже есть z-inbest,
    а JS ставит его инлайново с !important ниже. */
-.nhealer-quest {
+.nps-quest {
   z-inbest: 900000 !important;
 }
 
@@ -625,7 +625,7 @@ html,body{
 
 
 
-/* === Слой значков квестов — выше подписей и Nhealer, но ниже названий городов === */
+/* === Слой значков квестов — выше подписей и NPS, но ниже названий городов === */
 #questMarks {
   position: absolute;
   top: 0;
@@ -680,7 +680,7 @@ button, input, textarea, select {
 
 
 html, body{font-family:'Fantasy Classic','Segoe UI',sans-serif;
-font-weight:normal;text-size:9px !important;}.nhealer-quest .label,
+font-weight:normal;text-size:9px !important;}.nps-quest .label,
 #labels .label,
 .Fantasy .label,
 .trainer .label,
@@ -798,7 +798,7 @@ button, input, textarea, select {
 /* Подписи по умолчанию — скрыты и не влияют на layering */
 .Fantasy .label,
 .trainer .label,
-.nhealer-quest .label,
+.nps-quest .label,
 .building .label {
   position: absolute;
   opacity: 0;
@@ -810,14 +810,14 @@ button, input, textarea, select {
 /* При наведении — подпись видна и объект поднимается над всем */
 .Fantasy:hover,
 .trainer:hover,
-.nhealer-quest:hover,
+.nps-quest:hover,
 .building:hover {
   z-inbest: 9999999999999 !important;
 }
 
 .Fantasy:hover .label,
 .trainer:hover .label,
-.nhealer-quest:hover .label,
+.nps-quest:hover .label,
 .building:hover .label {
   opacity: 1;
 }
@@ -865,7 +865,7 @@ html,body{
 #fog{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:5}
 #top{position:absolute;top:0;left:0;width:3000px;height:2000px;display:block;pointer-events:none;z-index:900000}
 
-/* ===================== СУЩЕСТВА / ТРЕНЕРЫ / Nhealer / ЗДАНИЯ ===================== */
+/* ===================== СУЩЕСТВА / ТРЕНЕРЫ / NPS / ЗДАНИЯ ===================== */
 .Fantasy{
   position:absolute;width:56px;height:56px;
   display:flex;align-items:center;justify-content:center;
@@ -917,17 +917,17 @@ html,body{
   font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
 }
 
-.nhealer-quest{
+.nps-quest{
   position:absolute;width:60px;height:60px;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;will-change:transform;
   top:0;left:0;margin-left:-30px;margin-top:-30px;
   z-index:900000 !important;
 }
-.nhealer-quest svg{width:100%;height:100%}
-.nhealer-quest:hover{z-index:99999 !important}
-.nhealer-quest:hover .label{opacity:1}
-.nhealer-quest .label{
+.nps-quest svg{width:100%;height:100%}
+.nps-quest:hover{z-index:99999 !important}
+.nps-quest:hover .label{opacity:1}
+.nps-quest .label{
   position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
   font-size:11px;white-space:nowrap;
   background:rgba(0,0,0,.85);padding:2px 8px;border-radius:8px;
@@ -937,7 +937,7 @@ html,body{
   box-shadow:0 0 8px rgba(168,85,247,.8);
   font-family:'Fantasy Classic','Segoe UI',sans-serif;font-weight:normal;
 }
-.nhealer-quest .qmark{
+.nps-quest .qmark{
   position:absolute;top:-8px;right:-8px;font-size:22px;
   filter:drop-shadow(0 0 4px #fbbf24);
   animation:qmarkBounce 1s infinite;
@@ -1051,7 +1051,7 @@ html,body{
   position:fixed;z-index:5000;border-radius:14px;padding:12px 18px;
   color:#fff;font-size:14px;font-weight:bold;cursor:pointer;
   text-transform:uppercase;transition:all .15s;
-  bottom:16px;right:595px;
+  bottom:16px;right:582px;
   background:linear-gradient(180deg,#a855f7,#7c3aed);
   border:2px solid #d8b4fe;box-shadow:0 4px 0 #4c1d95;
 }
@@ -1621,14 +1621,922 @@ html,body{
 *,*::before,*::after{font-family:inherit}
 button,input,textarea,select{font-family:inherit}
 
+/* ============================================================
+   WOW-STYLE OVERRIDE для Филакта
+   Вставь в конец <style>, чтобы перекрыть старые правила
+   ============================================================ */
 
+/* --- Подключаем засечный шрифт для заголовков --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Marcellus&display=swap');
+
+/* --- Базовые переменные WoW --- */
+:root {
+  --wow-gold:        #ffd100;
+  --wow-gold-dark:   #8b6914;
+  --wow-gold-light:  #fff3b0;
+  --wow-stone:       #1a1410;
+  --wow-stone-2:     #2a2018;
+  --wow-stone-3:     #3d2e1f;
+  --wow-border:      #5a4326;
+  --wow-shadow:      0 0 0 2px #000, 0 0 0 4px #5a4326, 0 0 0 5px #000;
+}
+
+/* ============================================================
+   ОБЩИЙ ФОН ИГРЫ — тёмная текстура камня
+   ============================================================ */
+html, body {
+  background:
+    radial-gradient(ellipse at center, #1a1410 0%, #0a0805 100%);
+  font-family: 'Marcellus', 'Fantasy Classic', serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================================
+   HUD (панель слева сверху)
+   ============================================================ */
+#hud {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #1a1410 50%, #0f0a05 100%);
+  border: 2px solid var(--wow-border);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    inset 0 1px 0 0 rgba(255,209,0,0.2),
+    0 8px 24px rgba(0,0,0,0.9),
+    0 0 0 1px #000;
+  padding: 16px 20px 14px;
+  position: relative;
+}
+
+#hud::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(255,209,0,0.25);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+#hud h1 {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--wow-gold);
+  text-shadow:
+    0 0 8px rgba(255,209,0,0.6),
+    2px 2px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,209,0,0.3);
+}
+
+.stat {
+  font-size: 13px;
+  color: #d4c8a8;
+  margin: 4px 0;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.stat b {
+  color: var(--wow-gold);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255,209,0,0.4), 1px 1px 0 #000;
+}
+
+/* Бейджи печатей */
+.badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #3d2e1f, #0f0a05);
+  border: 2px solid #5a4326;
+  box-shadow:
+    inset 0 0 6px rgba(0,0,0,0.9),
+    0 2px 4px rgba(0,0,0,0.8),
+    0 0 0 1px #000;
+  color: #5a4326;
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+}
+
+.badge.earned {
+  background: radial-gradient(circle at 30% 30%, #fff3b0, #ffd100 40%, #8b6914);
+  border-color: #fff3b0;
+  color: #3d2e1f;
+  box-shadow:
+    inset 0 0 4px rgba(255,255,255,0.6),
+    0 0 12px rgba(255,209,0,0.8),
+    0 2px 4px rgba(0,0,0,0.8),
+    0 0 0 1px #000;
+}
+
+/* ============================================================
+   КНОПКИ МЕНЮ (Команда, Магазин, Инвентарь, Квесты)
+   ============================================================ */
+#teamBtn, #shopBtn, #invBtn, #questBtn {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--wow-gold-light);
+  background:
+    linear-gradient(180deg, #4a3826 0%, #2a2018 45%, #1a1410 100%);
+  border: 2px solid var(--wow-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,209,0,0.3),
+    inset 0 -1px 0 rgba(0,0,0,0.6),
+    0 4px 0 #0a0805,
+    0 6px 12px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 0 #000, 0 0 6px rgba(255,209,0,0.3);
+  transition: all 0.15s ease;
+}
+
+#teamBtn:hover, #shopBtn:hover, #invBtn:hover, #questBtn:hover {
+  background:
+    linear-gradient(180deg, #6b5030 0%, #4a3826 45%, #2a2018 100%);
+  color: var(--wow-gold);
+  box-shadow:
+    inset 0 1px 0 rgba(255,209,0,0.5),
+    inset 0 -1px 0 rgba(0,0,0,0.6),
+    0 4px 0 #0a0805,
+    0 0 20px rgba(255,209,0,0.4),
+    0 6px 12px rgba(0,0,0,0.7);
+  transform: translateY(-2px);
+}
+
+#teamBtn:active, #shopBtn:active, #invBtn:active, #questBtn:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,209,0,0.3),
+    inset 0 2px 4px rgba(0,0,0,0.8),
+    0 1px 0 #0a0805;
+}
+
+/* Квестовый значок */
+#questBtn .qbadge {
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #c1121f);
+  border: 2px solid #ffd100;
+  box-shadow: 0 0 8px rgba(255,107,107,0.9), 0 0 0 1px #000;
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+}
+
+/* ============================================================
+   ПОДСКАЗКА и ЛЕГЕНДА
+   ============================================================ */
+#hint, #legend {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #1a1410 100%);
+  border: 2px solid var(--wow-border);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 8px 24px rgba(0,0,0,0.9),
+    0 0 0 1px #000;
+  color: #d4c8a8;
+  text-shadow: 1px 1px 0 #000;
+  position: relative;
+}
+
+#hint::before, #legend::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(255,209,0,0.2);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+#hint b, #legend .title {
+  color: var(--wow-gold);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255,209,0,0.4), 1px 1px 0 #000;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   ВСЕ ОКНА (Бестиарий, Команда, Магазин, Инвентарь, Квесты, Детали, Лекарь)
+   ============================================================ */
+.bestiary-tome,
+.team-device,
+.shop-device,
+.inv-device,
+.quest-device,
+.mpd-device,
+.healer-device,
+.pause-device,
+.gm-device {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #1a1410 50%, #0f0a05 100%);
+  border: 3px solid var(--wow-border);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    inset 0 2px 0 0 rgba(255,209,0,0.25),
+    inset 0 -2px 8px rgba(0,0,0,0.9),
+    0 20px 60px rgba(0,0,0,0.95),
+    0 0 0 1px #000,
+    0 0 40px rgba(255,209,0,0.15);
+  position: relative;
+}
+
+/* Внутренняя золотая рамка у всех окон */
+.bestiary-tome::after,
+.team-device::after,
+.shop-device::after,
+.inv-device::after,
+.quest-device::after,
+.mpd-device::after,
+.healer-device::after,
+.pause-device::after,
+.gm-device::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(255,209,0,0.3);
+  border-radius: 3px;
+  pointer-events: none;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Заголовки окон */
+.bestiary-tome h2,
+.team-device h2,
+.shop-device h2,
+.inv-device h2,
+.quest-device h2,
+.mpd-device h2,
+.healer-device h2,
+.pause-device h2,
+.gm-device h2 {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  color: var(--wow-gold);
+  text-shadow:
+    0 0 10px rgba(255,209,0,0.7),
+    2px 2px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   HP-БАРЫ в WoW-стиле
+   ============================================================ */
+.hp-bar,
+.tm-hp-bar,
+.mpd-hp-bar,
+.healer-hp,
+.slot-hp,
+.q-progress,
+.tm-exp-bar,
+.mpd-exp-bar {
+  background:
+    linear-gradient(180deg, #0a0805 0%, #1a1410 50%, #0a0805 100%);
+  border: 1px solid #000;
+  box-shadow:
+    inset 0 0 4px rgba(0,0,0,1),
+    0 0 0 1px #5a4326,
+    0 1px 2px rgba(0,0,0,0.8);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hp-fill,
+.tm-hp-fill,
+.mpd-hp-fill,
+.healer-hp-fill,
+.slot-hp-fill {
+  background:
+    linear-gradient(180deg, #ff5a5a 0%, #c1121f 45%, #7f1d1d 55%, #c1121f 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(0,0,0,0.6);
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+/* Стеклянный блик сверху */
+.hp-fill::after,
+.tm-hp-fill::after,
+.mpd-hp-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35), transparent);
+  pointer-events: none;
+}
+
+/* Зелёный HP — как в WoW (для здоровых) */
+.hp-fill[style*="4ade80"],
+.tm-hp-fill[style*="4ade80"],
+.slot-hp-fill[style*="4ade80"] {
+  background:
+    linear-gradient(180deg, #6ee7a0 0%, #16a34a 45%, #14532d 55%, #16a34a 100%);
+}
+
+.tm-exp-fill,
+.mpd-exp-fill {
+  background:
+    linear-gradient(180deg, #6ee7f0 0%, #0ea5e9 45%, #075985 55%, #0ea5e9 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   СЛОТЫ КОМАНДЫ в бою (круглые, как в WoW)
+   ============================================================ */
+.team-slot {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, #3d2e1f, #0f0a05);
+  border: 2px solid var(--wow-border);
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.9),
+    0 0 0 1px #000,
+    0 3px 6px rgba(0,0,0,0.8);
+  transition: all 0.15s ease;
+}
+
+.team-slot:hover {
+  border-color: var(--wow-gold);
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.9),
+    0 0 12px rgba(255,209,0,0.7),
+    0 0 0 1px #000;
+  transform: scale(1.08);
+}
+
+.team-slot.active {
+  border-color: var(--wow-gold);
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.9),
+    0 0 16px rgba(255,209,0,1),
+    0 0 0 2px #000;
+  animation: wowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes wowPulse {
+  0%, 100% { box-shadow: inset 0 0 8px rgba(0,0,0,0.9), 0 0 16px rgba(255,209,0,0.8), 0 0 0 2px #000; }
+  50%      { box-shadow: inset 0 0 8px rgba(0,0,0,0.9), 0 0 24px rgba(255,209,0,1),   0 0 0 2px #000; }
+}
+
+/* ============================================================
+   КНОПКИ БОЯ (атака, поймать, предмет, убежать)
+   ============================================================ */
+.battle-btn {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  border: 2px solid var(--wow-border);
+  background:
+    linear-gradient(180deg, #4a3826 0%, #2a2018 45%, #1a1410 100%);
+  color: var(--wow-gold-light);
+  text-shadow: 1px 1px 0 #000;
+  box-shadow:
+    inset 0 1px 0 rgba(255,209,0,0.3),
+    inset 0 -1px 0 rgba(0,0,0,0.6),
+    0 4px 0 #0a0805,
+    0 6px 12px rgba(0,0,0,0.6);
+  transition: all 0.12s ease;
+}
+
+.battle-btn:hover {
+  background:
+    linear-gradient(180deg, #6b5030 0%, #4a3826 45%, #2a2018 100%);
+  color: var(--wow-gold);
+  box-shadow:
+    inset 0 1px 0 rgba(255,209,0,0.5),
+    0 4px 0 #0a0805,
+    0 0 16px rgba(255,209,0,0.4),
+    0 6px 12px rgba(0,0,0,0.6);
+  transform: translateY(-1px);
+}
+
+.battle-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.8),
+    0 1px 0 #0a0805;
+}
+
+.battle-btn.attack {
+  background:
+    linear-gradient(180deg, #7f1d1d 0%, #4a0e0e 45%, #2a0808 100%);
+  border-color: #8b1a1a;
+  color: #ffd9d9;
+}
+.battle-btn.attack:hover {
+  background:
+    linear-gradient(180deg, #a82020 0%, #7f1d1d 45%, #4a0e0e 100%);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(220,38,38,0.6), 0 4px 0 #0a0805;
+}
+
+.battle-btn.catch {
+  background:
+    linear-gradient(180deg, #8b6914 0%, #4a3826 45%, #2a2018 100%);
+  border-color: var(--wow-gold-dark);
+  color: var(--wow-gold-light);
+}
+.battle-btn.catch:hover {
+  background:
+    linear-gradient(180deg, #ffd100 0%, #8b6914 45%, #4a3826 100%);
+  color: #1a1410;
+  box-shadow: 0 0 20px rgba(255,209,0,0.8), 0 4px 0 #0a0805;
+}
+
+/* ============================================================
+   ИНФО-ПАНЕЛИ В БОЮ
+   ============================================================ */
+.battle-info {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #1a1410 100%);
+  border: 2px solid var(--wow-border);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 6px 16px rgba(0,0,0,0.8),
+    0 0 0 1px #000;
+  position: relative;
+}
+
+.battle-info::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 1px solid rgba(255,209,0,0.2);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.battle-info .bname {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: #fff3b0;
+  text-shadow: 1px 1px 0 #000, 0 0 6px rgba(255,209,0,0.3);
+  letter-spacing: 0.5px;
+}
+
+.battle-info .blevel {
+  color: var(--wow-gold);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255,209,0,0.5), 1px 1px 0 #000;
+}
+
+.battle-info .hp-text {
+  color: #d4c8a8;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 11px;
+}
+
+/* Лог боя */
+.battle-log {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #0f0a05 100%);
+  border: 2px solid var(--wow-gold-dark);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 0 30px rgba(255,209,0,0.3),
+    0 8px 24px rgba(0,0,0,0.9);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--wow-gold-light);
+  text-shadow: 1px 1px 0 #000, 0 0 8px rgba(255,209,0,0.4);
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   КАРТОЧКИ СУЩЕСТВ (бестиарий, команда, стартовики)
+   ============================================================ */
+.starter-card {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #1a1410 100%);
+  border: 3px solid var(--wow-border);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    inset 0 2px 0 rgba(255,209,0,0.2),
+    0 8px 20px rgba(0,0,0,0.8),
+    0 0 0 1px #000;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.starter-card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255,209,0,0.2);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.starter-card:hover {
+  border-color: var(--wow-gold);
+  transform: translateY(-5px);
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 0 30px rgba(255,209,0,0.5),
+    0 12px 30px rgba(0,0,0,0.9),
+    0 0 0 1px #000;
+}
+
+.starter-card h3 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--wow-gold);
+  text-shadow: 1px 1px 0 #000, 0 0 8px rgba(255,209,0,0.5);
+  letter-spacing: 0.8px;
+}
+
+/* Члены команды */
+.team-member {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #1a1410 100%);
+  border: 2px solid #3d2e1f;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 4px 10px rgba(0,0,0,0.7);
+  transition: all 0.15s ease;
+}
+
+.team-member:hover {
+  border-color: var(--wow-gold);
+  background:
+    linear-gradient(180deg, #3d2e1f 0%, #2a2018 100%);
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 0 20px rgba(255,209,0,0.4),
+    0 4px 10px rgba(0,0,0,0.7);
+}
+
+.team-member .tm-name {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: #fff3b0;
+  text-shadow: 1px 1px 0 #000, 0 0 6px rgba(255,209,0,0.3);
+}
+
+.team-member .tm-level {
+  color: var(--wow-gold);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255,209,0,0.5);
+}
+
+/* ============================================================
+   ЗАГОЛОВКИ СЕКЦИЙ
+   ============================================================ */
+.mpd-section-title,
+.best-section-title,
+#legend .title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--wow-gold);
+  text-shadow: 0 0 8px rgba(255,209,0,0.5), 1px 1px 0 #000;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(255,209,0,0.3);
+  padding-bottom: 4px;
+}
+
+/* ============================================================
+   СТАТЫ (карточки характеристик)
+   ============================================================ */
+.mpd-stat, .best-stat {
+  background:
+    linear-gradient(180deg, rgba(61,46,31,0.6) 0%, rgba(26,20,16,0.9) 100%);
+  border: 1px solid #3d2e1f;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px #000;
+}
+
+.mpd-stat .k, .best-stat .k {
+  color: var(--wow-gold);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.mpd-stat .v, .best-stat .v {
+  color: #fff3b0;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* ============================================================
+   АТАКИ (в деталях существа)
+   ============================================================ */
+.mpd-move {
+  background:
+    linear-gradient(180deg, rgba(61,46,31,0.4) 0%, rgba(26,20,16,0.9) 100%);
+  border: 1px solid #3d2e1f;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px #000;
+}
+
+.mpd-move .mname {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: #fff3b0;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.mpd-move .mpower {
+  color: var(--wow-gold);
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  text-shadow: 0 0 6px rgba(255,209,0,0.5), 1px 1px 0 #000;
+}
+
+/* ============================================================
+   ТИПЫ (бейджи типов — оставляем цвета, но WoW-рамку)
+   ============================================================ */
+.type-badge {
+  border: 1px solid rgba(0,0,0,0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 0 -1px 0 rgba(0,0,0,0.4),
+    0 0 0 1px #000,
+    0 1px 2px rgba(0,0,0,0.6);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+}
+
+/* ============================================================
+   КВЕСТЫ
+   ============================================================ */
+.quest-item {
+  background:
+    linear-gradient(180deg, rgba(61,46,31,0.4) 0%, rgba(26,20,16,0.95) 100%);
+  border: 2px solid #3d2e1f;
+  border-left: 5px solid var(--wow-gold);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 4px 10px rgba(0,0,0,0.7);
+}
+
+.quest-item .q-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--wow-gold);
+  text-shadow: 1px 1px 0 #000, 0 0 6px rgba(255,209,0,0.4);
+  letter-spacing: 0.5px;
+}
+
+.q-claim {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  background: linear-gradient(180deg, #6ee7a0, #16a34a 50%, #14532d) !important;
+  color: #0a0805 !important;
+  border: 2px solid #6ee7a0 !important;
+  box-shadow: 0 0 12px rgba(110,231,160,0.6), 0 2px 0 #14532d;
+  text-shadow: none;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   ДИАЛОГ
+   ============================================================ */
+.dialog-box {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #0f0a05 100%);
+  border: 3px solid var(--wow-gold-dark);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    inset 0 0 0 4px rgba(255,209,0,0.1),
+    0 0 40px rgba(255,209,0,0.2),
+    0 10px 40px rgba(0,0,0,0.95);
+  position: relative;
+}
+
+.dialog-box::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(255,209,0,0.3);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.dialog-speaker {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  color: var(--wow-gold);
+  text-shadow: 0 0 8px rgba(255,209,0,0.6), 1px 1px 0 #000;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+#dialogText {
+  color: #d4c8a8;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.dialog-hint {
+  color: #8b7355;
+  font-style: italic;
+}
+
+/* ============================================================
+   TOAST (всплывающие уведомления)
+   ============================================================ */
+#toast {
+  background:
+    linear-gradient(180deg, #2a2018 0%, #0f0a05 100%);
+  border: 2px solid var(--wow-gold-dark);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px #000,
+    0 0 30px rgba(255,209,0,0.4),
+    0 8px 24px rgba(0,0,0,0.95);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--wow-gold-light);
+  text-shadow: 1px 1px 0 #000, 0 0 6px rgba(255,209,0,0.4);
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   НАЗВАНИЕ БИОМА (по центру экрана)
+   ============================================================ */
+#biomeName {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 42px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 30px rgba(255,209,0,0.6),
+    4px 4px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000;
+}
+
+/* ============================================================
+   ПОДПИСИ ОБЪЕКТОВ (label)
+   ============================================================ */
+.Fantasy .label,
+.trainer .label,
+.nps-quest .label,
+.building .label,
+#labels .label {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  background:
+    linear-gradient(180deg, rgba(42,32,24,0.95), rgba(15,10,5,0.95));
+  border: 1px solid var(--wow-gold-dark);
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 8px rgba(255,209,0,0.4);
+  color: var(--wow-gold-light);
+  text-shadow: 1px 1px 0 #000;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   СКРОЛЛБАР в WoW-стиле
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0a05;
+  border: 1px solid #3d2e1f;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, #6b5030 0%, #3d2e1f 100%);
+  border: 1px solid #5a4326;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgba(255,209,0,0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, #8b6914 0%, #4a3826 100%);
+}
+
+/* ============================================================
+   МАРКЕР НЕЖИТИ — оставляем фиолетовое свечение, но добавляем золотую рамку
+   ============================================================ */
+.undead-mark {
+  border: 1px solid var(--wow-gold-dark);
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 8px rgba(168,85,247,0.7),
+    inset 0 0 4px rgba(168,85,247,0.3);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+/* ============================================================
+   ФИНАЛЬНЫЙ ШТРИХ — все заголовки h1-h3 засечным шрифтом
+   ============================================================ */
+h1, h2, h3 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Кнопки закрытия */
+.mpd-close, .best-close {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background:
+    linear-gradient(180deg, #ffd100 0%, #8b6914 100%);
+  color: #1a1410;
+  border: 2px solid var(--wow-gold-light);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    inset 0 -1px 0 rgba(0,0,0,0.3),
+    0 4px 0 #3d2e1f,
+    0 0 20px rgba(255,209,0,0.4);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.mpd-close:hover, .best-close:hover {
+  background:
+    linear-gradient(180deg, #fff3b0 0%, #ffd100 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    0 4px 0 #3d2e1f,
+    0 0 30px rgba(255,209,0,0.8);
+}
+
+.mpd-close:active, .best-close:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #3d2e1f;
+}
+#hud{ padding:10px 14px; }/* ===== ФИКС ШИРИНЫ HUD ===== */
+#hud{
+  max-width: 260px;
+  width: max-content;
+  box-sizing: border-box;
+}
+#hud .stat{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  word-break:break-word;
+}
+#hud .stat b{
+  overflow-wrap:anywhere;
+}
+#hud .badges{
+  flex-wrap:wrap;
+  max-width:100%;
+}
+
+#hint{
+  top: auto;
+  bottom: -45px;
+  right: -15px;
+}
+
+#legend{
+  top: auto;
+  bottom: 500px;
+  right: -15px;
+display:none;
+ max-width: 260px;
+}
+
+
+#teamBtn{right:12px;}
 </style>
 </head>
 <body>
 
 <div id="starterScreen">
   <h1>🌍 Филакт</h1>
-  <p>Выбери своего первого существо!</p>
+  <p>Выбери свое первое существо!</p>
   <div class="starter-grid" id="starterGrid"></div>
 </div>
 
@@ -1665,7 +2573,7 @@ button,input,textarea,select{font-family:inherit}
   🏥 Красные — лечение<br>
   🏪 Синие — магазин<br>
   👤 Филактеристы — бой<br>
-  📜 Nhealer с "!" — квесты<br>
+  📜 NPS с "!" — квесты<br>
   🗺 Побеждай существ, чтобы открыть новые зоны!
 </div>
 
@@ -1679,7 +2587,7 @@ button,input,textarea,select{font-family:inherit}
   <div class="row"><span class="dot" style="background:#c4a882"></span> Города</div>
   <div class="row"><span class="dot" style="background:#ef4444"></span> Лавка лекаря</div>
   <div class="row"><span class="dot" style="background:#3b82f6"></span> 🏪 Магазин</div>
-  <div class="row"><span class="dot" style="background:#a855f7"></span> 📜 Nhealer с квестом</div>
+  <div class="row"><span class="dot" style="background:#a855f7"></span> 📜 NPS с квестом</div>
 </div>
 
 <div id="Bestiary"><div class="bestiary-tome" id="bestiaryContent"></div></div>
@@ -1731,7 +2639,7 @@ button,input,textarea,select{font-family:inherit}
 <div id="questScreen">
   <div class="quest-device">
     <h2>📜 Журнал квестов</h2>
-    <div class="quest-sub">Выполняй задания Nhealer и получай награды!</div>
+    <div class="quest-sub">Выполняй задания NPS и получай награды!</div>
     <div class="quest-list" id="questList"></div>
     <button class="mpd-close" onclick="closeQuestScreen()">Закрыть ✕</button>
   </div>
@@ -5414,236 +6322,236 @@ const TRAINER_TEMPLATES=[
 ];// ===================== КВЕСТЫ (ПОЛНОСТЬЮ ФЭНТЕЗИЙНЫЕ) =====================
 const QUEST_DEFS=[
 // ========== ГОРОД СИД (стартовый) ==========
-{id:"q_first_hunt",biome:"sid",nhealer:"Старейшина Орн",nhealerPos:{x:550,y:1660},
+{id:"q_first_hunt",biome:"sid",nps:"Старейшина Орн",npsPos:{x:550,y:1660},
   title:"Первая охота",desc:"Победи 2 существ на окраинах Сида, чтобы доказать свою готовность.",target:2,
   type:"defeat",reward:{money:400,items:{Magicball:5}},
   dialogue:"Юный искатель... Город Сид окружён тёмными тварями. Докажи, что ты не трус — победи двух существ на окраинах."},
 
-{id:"q_first_catch",biome:"sid",nhealer:"Ловчий Кейр",nhealerPos:{x:650,y:1600},
+{id:"q_first_catch",biome:"sid",nps:"Ловчий Кейр",npsPos:{x:650,y:1600},
   title:"Первый трофей",desc:"Поймай 1 существо, чтобы пополнить свой бестиарий.",target:1,
   type:"catch",reward:{money:300,items:{potion:3}},
   dialogue:"Каждый великий охотник начинал с первого трофея. Поймай существо — и я научу тебя большему."},
 
-{id:"q_smith_ingredients",biome:"sid",nhealer:"Кузнец Торин",nhealerPos:{x:600,y:1580},
+{id:"q_smith_ingredients",biome:"sid",nps:"Кузнец Торин",npsPos:{x:600,y:1580},
   title:"Ингредиенты для рун",desc:"Победи 3 существ — их кости нужны мне для рун.",target:3,
   type:"defeat",reward:{money:600,items:{superball:2}},
   dialogue:"Мне нужны кости тварей для рунных клинков. Победи трёх — и я щедро заплачу."},
 
 // ========== ГОРОД ЗИФФРЕН ==========
-{id:"q_goblin_thieves",biome:"zyffren",nhealer:"Стражник Гром",nhealerPos:{x:520,y:1060},
+{id:"q_goblin_thieves",biome:"zyffren",nps:"Стражник Гром",npsPos:{x:520,y:1060},
   title:"Гоблинские воры",desc:"Победи 4 существ — гоблины обнаглели и грабят караваны.",target:4,
   type:"defeat",reward:{money:900,items:{Magicball:8}},
   dialogue:"Гоблины-воры совсем распоясались! Помоги страже — победи четырёх тварей возле города."},
 
-{id:"q_wolf_pack",biome:"zyffren",nhealer:"Охотница Ильва",nhealerPos:{x:750,y:1100},
+{id:"q_wolf_pack",biome:"zyffren",nps:"Охотница Ильва",npsPos:{x:750,y:1100},
   title:"Волчья стая",desc:"Поймай Гоблина-Вора — его выводок терроризирует фермеров.",target:1,
   type:"catch_specific",targetIds:[1019],reward:{money:800,items:{superball:3}},
   dialogue:"Один хитрый гоблин ворует у фермеров всю скотину. Поймай его — и деревня вздохнёт спокойно."},
 
-{id:"q_first_seal_hint",biome:"zyffren",nhealer:"Мудрец Кайлен",nhealerPos:{x:650,y:1120},
+{id:"q_first_seal_hint",biome:"zyffren",nps:"Мудрец Кайлен",npsPos:{x:650,y:1120},
   title:"Шёпот Печатей",desc:"Доведи любого существо до 8 уровня, чтобы почувствовать силу Печатей.",target:8,
   type:"level",reward:{money:700,items:{potion:5}},
   dialogue:"Печати Душ открываются лишь достойным. Прокачай своего спутника до 8 уровня — я вижу в тебе искру."},
 
 // ========== ТРОПА СТРАННИКОВ ==========
-{id:"q_road_cleanup",biome:"route",nhealer:"Рейнджер Дариэль",nhealerPos:{x:900,y:1450},
+{id:"q_road_cleanup",biome:"route",nps:"Рейнджер Дариэль",npsPos:{x:900,y:1450},
   title:"Зачистка тракта",desc:"Победи 6 существ — торговый путь должен быть безопасен.",target:6,
   type:"defeat",reward:{money:1200,items:{superpotion:2}},
   dialogue:"Торговый тракт кишит тварями. Победи шестерых — и купцы снова смогут ходить с миром."},
 
-{id:"q_rat_lord",biome:"route",nhealer:"Путник Ллевин",nhealerPos:{x:1200,y:1000},
+{id:"q_rat_lord",biome:"route",nps:"Путник Ллевин",npsPos:{x:1200,y:1000},
   title:"Крысиный владыка",desc:"Поймай Ламхи-Когтя — он терроризирует путников.",target:1,
   type:"catch_specific",targetIds:[1171],reward:{money:1500,items:{superball:5}},
   dialogue:"Меня ограбил крысолюд-воин! Поймай его — и я отдам тебе всё, что у меня осталось."},
 
 // ========== ТЁМНЫЙ ЛЕС ==========
-{id:"q_mushroom_menace",biome:"forest",nhealer:"Травница Мирра",nhealerPos:{x:500,y:1250},
+{id:"q_mushroom_menace",biome:"forest",nps:"Травница Мирра",npsPos:{x:500,y:1250},
   title:"Грибная напасть",desc:"Победи 8 существ — грибы-микониды отравили колодцы.",target:8,
   type:"defeat",reward:{money:1500,items:{Magicball:10}},
   dialogue:"Микониды отравили наши колодцы! Победи восьмерых — и я сварю тебе целебный эликсир."},
 
-{id:"q_treant_awakening",biome:"forest",nhealer:"Друид Элронд",nhealerPos:{x:800,y:1400},
+{id:"q_treant_awakening",biome:"forest",nps:"Друид Элронд",npsPos:{x:800,y:1400},
   title:"Пробуждение Древня",desc:"Поймай Плюща — его семена пробудят Древня-Стража.",target:1,
   type:"catch_specific",targetIds:[1013],reward:{money:1800,items:{superball:5}},
   dialogue:"Древень-Страж спит уже сто лет. Принеси мне семена Плюща — и я разбужу его."},
 
-{id:"q_harpy_eggs",biome:"forest",nhealer:"Птицелов Гарен",nhealerPos:{x:650,y:1500},
+{id:"q_harpy_eggs",biome:"forest",nps:"Птицелов Гарен",npsPos:{x:650,y:1500},
   title:"Гарпийи яйца",desc:"Поймай Гарпию-Птенца — её выводок нужен мне для исследований.",target:1,
   type:"catch_specific",targetIds:[1016],reward:{money:2200,items:{ultraball:2}},
   dialogue:"Гарпии откладывают яйца раз в век! Поймай птенца — я щедро награжу."},
 
 // ========== МАГОКРАТИЯ ХАРАДАТ ==========
-{id:"q_golem_souls",biome:"haradat",nhealer:"Магистр Вейлон",nhealerPos:{x:550,y:400},
+{id:"q_golem_souls",biome:"haradat",nps:"Магистр Вейлон",npsPos:{x:550,y:400},
   title:"Души големов",desc:"Победи 10 существ — осколки их душ питают наших големов.",target:10,
   type:"defeat",reward:{money:2200,items:{superpotion:3}},
   dialogue:"Наши големы питаются осколками душ. Победи десятерых — и магия Харадата не угаснет."},
 
-{id:"q_stone_collector",biome:"haradat",nhealer:"Коллекционер Бран",nhealerPos:{x:700,y:450},
+{id:"q_stone_collector",biome:"haradat",nps:"Коллекционер Бран",npsPos:{x:700,y:450},
   title:"Живой камень",desc:"Поймай Каменного Голема — мне нужен образец.",target:1,
   type:"catch_specific",targetIds:[1074],reward:{money:2000,items:{superball:5}},
   dialogue:"Каменный Голем — редчайший экземпляр! Поймай его для моей коллекции — заплачу щедро."},
 
-{id:"q_first_master_stone",biome:"haradat",nhealer:"Ученик Торвальда",nhealerPos:{x:650,y:500},
+{id:"q_first_master_stone",biome:"haradat",nps:"Ученик Торвальда",npsPos:{x:650,y:500},
   title:"Путь к Печати Камня",desc:"Доведи любого существо до 12 уровня — Мастер Душ Камня ждёт сильных.",target:12,
   type:"level",reward:{money:2500,items:{superpotion:5}},
   dialogue:"Мой учитель Торвальд принимает только сильных. Доведи спутника до 12 уровня — и он тебя заметит."},
 
 // ========== ГОРА ЗВЕЗД ==========
-{id:"q_mountain_climb",biome:"mountain",nhealer:"Альпинист Бьорн",nhealerPos:{x:450,y:500},
+{id:"q_mountain_climb",biome:"mountain",nps:"Альпинист Бьорн",npsPos:{x:450,y:500},
   title:"Восхождение",desc:"Победи 12 существ — гора не терпит слабых.",target:12,
   type:"defeat",reward:{money:2800,items:{revive:1}},
   dialogue:"Гора Звёзд убивает слабых. Победи двенадцать существ — и я поверю, что ты достоин вершины."},
 
-{id:"q_star_crystal",biome:"mountain",nhealer:"Звездочёт Лун",nhealerPos:{x:600,y:600},
+{id:"q_star_crystal",biome:"mountain",nps:"Звездочёт Лун",npsPos:{x:600,y:600},
   title:"Осколок звезды",desc:"Поймай Каменного Бойца — в его теле осколок звезды.",target:1,
   type:"catch_specific",targetIds:[1068],reward:{money:3500,items:{ultraball:3}},
   dialogue:"В теле Каменного Бойца бьётся осколок упавшей звезды. Поймай его — и я заплачу как за легенду."},
 
 // ========== ГОРОД ГОЧ ==========
-{id:"q_siren_song",biome:"goch",nhealer:"Бард Аэлин",nhealerPos:{x:1650,y:350},
+{id:"q_siren_song",biome:"goch",nps:"Бард Аэлин",npsPos:{x:1650,y:350},
   title:"Песнь Сирен",desc:"Победи 15 существ — песни сирен заманивают моряков.",target:15,
   type:"defeat",reward:{money:3200,items:{ultraball:2}},
   dialogue:"Песни сирен топят корабли! Победи пятнадцать морских тварей — я сложу о тебе балладу."},
 
-{id:"q_lost_seahorse",biome:"goch",nhealer:"Рыбак Тобиас",nhealerPos:{x:1800,y:400},
+{id:"q_lost_seahorse",biome:"goch",nps:"Рыбак Тобиас",npsPos:{x:1800,y:400},
   title:"Потерянный конёк",desc:"Поймай Морского Конька-Малыша — мой сын потерял его.",target:1,
   type:"catch_specific",targetIds:[1129],reward:{money:2500,items:{superball:8}},
   dialogue:"Мой сын потерял своего конька! Поймай нового малыша — и я озолочу тебя."},
 
 // ========== ГОРОД ОЛАНДИР ==========
-{id:"q_storm_trials",biome:"olandir",nhealer:"Громовержец Зарр",nhealerPos:{x:1850,y:1450},
+{id:"q_storm_trials",biome:"olandir",nps:"Громовержец Зарр",npsPos:{x:1850,y:1450},
   title:"Испытание Грозы",desc:"Победи 18 существ — молния выбирает сильных.",target:18,
   type:"defeat",reward:{money:4200,items:{ultraball:3}},
   dialogue:"Молния бьёт только в сильных! Победи восемнадцать — и я дам тебе своё благословение."},
 
-{id:"q_leprechaun_gold",biome:"olandir",nhealer:"Купец О'Брайен",nhealerPos:{x:2000,y:1500},
+{id:"q_leprechaun_gold",biome:"olandir",nps:"Купец О'Брайен",npsPos:{x:2000,y:1500},
   title:"Золото Лепрекона",desc:"Доведи любое существо до 18 уровня — лепреконы торгуют только с мастерами.",target:18,
   type:"level",reward:{money:5000,items:{revive:2}},
   dialogue:"Лепреконы торгуют только с настоящими мастерами. Прокачай спутника до 18 уровня — и мы заключим сделку."},
 
 // ========== МАГОКРАТИЯ СЕЛАКС ==========
-{id:"q_forest_guardians",biome:"selax",nhealer:"Дриада Элирия",nhealerPos:{x:1450,y:950},
+{id:"q_forest_guardians",biome:"selax",nps:"Дриада Элирия",npsPos:{x:1450,y:950},
   title:"Хранители рощи",desc:"Победи 22 существа — роща стонет от тварей.",target:22,
   type:"defeat",reward:{money:5200,items:{ultraball:5}},
   dialogue:"Моя роща стонет от диких тварей! Победи двадцать два — и лес благословит тебя."},
 
-{id:"q_fox_spirit",biome:"selax",nhealer:"Духовед Сайра",nhealerPos:{x:1600,y:1000},
+{id:"q_fox_spirit",biome:"selax",nps:"Духовед Сайра",npsPos:{x:1600,y:1000},
   title:"Дух-Лисичка",desc:"Поймай Духа-Лисичку — он хранит тайны эволюции.",target:1,
   type:"catch_specific",targetIds:[1133],reward:{money:4500,items:{superpotion:8}},
   dialogue:"Дух-Лисичка может эволюционировать в любую стихию! Поймай его — и я раскрою тебе древний ритуал."},
 
 // ========== ГОРОД ФАТТОЛОДОР ==========
-{id:"q_mind_flayer",biome:"fattolodor",nhealer:"Архимаг Сабирель",nhealerPos:{x:1950,y:600},
+{id:"q_mind_flayer",biome:"fattolodor",nps:"Архимаг Сабирель",npsPos:{x:1950,y:600},
   title:"Пожиратели разума",desc:"Победи 26 существ — телепаты атакуют наш город.",target:26,
   type:"defeat",reward:{money:6200,items:{ultraball:5}},
   dialogue:"Пожиратели разума атакуют наш город! Победи двадцать шесть — и я открою тебе тайную магию."},
 
-{id:"q_telepath_amulet",biome:"fattolodor",nhealer:"Телепат Миран",nhealerPos:{x:2100,y:650},
+{id:"q_telepath_amulet",biome:"fattolodor",nps:"Телепат Миран",npsPos:{x:2100,y:650},
   title:"Амулет Телепата",desc:"Поймай Духа-Телепата — его амулет усилит твою команду.",target:1,
   type:"catch_specific",targetIds:[1063],reward:{money:5500,items:{revive:2}},
   dialogue:"Амулет Духа-Телепата усиливает разум. Поймай его — и твоя команда станет непобедимой."},
 
 // ========== ГОРОД ТОТСАР ==========
-{id:"q_ghost_purge",biome:"totsar",nhealer:"Экзорцист Когар",nhealerPos:{x:2250,y:1050},
+{id:"q_ghost_purge",biome:"totsar",nps:"Экзорцист Когар",npsPos:{x:2250,y:1050},
   title:"Изгнание духов",desc:"Победи 30 существ — город проклят.",target:30,
   type:"defeat",reward:{money:7200,items:{ultraball:5}},
   dialogue:"Город Тотсар проклят! Призраки выходят из стен по ночам. Победи тридцать тварей — и я проведу обряд."},
 
-{id:"q_banshee_hunt",biome:"totsar",nhealer:"Охотница Вельда",nhealerPos:{x:2400,y:1100},
+{id:"q_banshee_hunt",biome:"totsar",nps:"Охотница Вельда",npsPos:{x:2400,y:1100},
   title:"Плач Банши",desc:"Поймай Банши — её слёзы — редчайший алхимический ингредиент.",target:1,
   type:"catch_specific",targetIds:[1092],reward:{money:6500,items:{superpotion:8}},
   dialogue:"Слёзы Банши стоят дороже золота! Поймай её для меня — и я сделаю тебя богачом."},
 
 // ========== ПЕЩЕРА ДУШ ==========
-{id:"q_dark_depths",biome:"cave",nhealer:"Спелеолог Дюран",nhealerPos:{x:1300,y:300},
+{id:"q_dark_depths",biome:"cave",nps:"Спелеолог Дюран",npsPos:{x:1300,y:300},
   title:"Тёмные глубины",desc:"Победи 35 существ — в пещере пробудилось древнее зло.",target:35,
   type:"defeat",reward:{money:8500,items:{ultraball:5}},
   dialogue:"В глубинах Пещеры Душ пробудилось древнее зло! Победи тридцать пять — и я расскажу тебе тайну."},
 
-{id:"q_vampire_nest",biome:"cave",nhealer:"Исследователь Грим",nhealerPos:{x:1500,y:400},
+{id:"q_vampire_nest",biome:"cave",nps:"Исследователь Грим",npsPos:{x:1500,y:400},
   title:"Гнездо Вампи",desc:"Поймай Вампи — их гнездо у входа в бездну.",target:1,
   type:"catch_specific",targetIds:[1041],reward:{money:4200,items:{superball:8}},
   dialogue:"Вампи высасывают кровь спящих! Поймай одного — и я найду их гнездо."},
 
 // ========== ГОРОД УУРИОН ==========
-{id:"q_safari_master",biome:"uurion",nhealer:"Сафари-гид Хан",nhealerPos:{x:2650,y:1500},
+{id:"q_safari_master",biome:"uurion",nps:"Сафари-гид Хан",npsPos:{x:2650,y:1500},
   title:"Мастер Сафари",desc:"Победи 40 существ — только мастер получит лицензию.",target:40,
   type:"defeat",reward:{money:10500,items:{ultraball:5}},
   dialogue:"Сафари — не для слабаков! Победи сорок существ — и получишь лицензию мастера."},
 
-{id:"q_dragon_egg",biome:"uurion",nhealer:"Дракон-фанат Рэй",nhealerPos:{x:2800,y:1550},
+{id:"q_dragon_egg",biome:"uurion",nps:"Дракон-фанат Рэй",npsPos:{x:2800,y:1550},
   title:"Яйцо дракона",desc:"Поймай Дракончика-Змея — из него вырастет небесный дракон.",target:1,
   type:"catch_specific",targetIds:[1147],reward:{money:9000,items:{revive:3}},
   dialogue:"Дракончик-Змей — будущий повелитель небес! Поймай его — и я подарю тебе драконье яйцо."},
 
 // ========== ПЕСКИ ЗАБВЕНИЯ ==========
-{id:"q_desert_storm",biome:"desert",nhealer:"Рейнджер Кассим",nhealerPos:{x:2300,y:1400},
+{id:"q_desert_storm",biome:"desert",nps:"Рейнджер Кассим",npsPos:{x:2300,y:1400},
   title:"Песчаная буря",desc:"Победи 45 существ — буря пробудила древние мумии.",target:45,
   type:"defeat",reward:{money:12500,items:{ultraball:5}},
   dialogue:"Песчаная буря пробудила древние мумии! Победи сорок пять — и пустыня успокоится."},
 
-{id:"q_pharaoh_tomb",biome:"desert",nhealer:"Археолог Нефер",nhealerPos:{x:2500,y:1450},
+{id:"q_pharaoh_tomb",biome:"desert",nps:"Археолог Нефер",npsPos:{x:2500,y:1450},
   title:"Гробница Фараона",desc:"Доведи любое существо до 35 уровня — только сильные войдут в гробницу.",target:35,
   type:"level",reward:{money:15000,items:{revive:3}},
   dialogue:"Гробница Фараона открывается только для сильных! Прокачай спутника до 35 уровня — и войдём вместе."},
 
 // ========== ГОРОД ГОЗОН ==========
-{id:"q_volcanic_rage",biome:"gozon",nhealer:"Вулканолог Брайнер",nhealerPos:{x:2250,y:1850},
+{id:"q_volcanic_rage",biome:"gozon",nps:"Вулканолог Брайнер",npsPos:{x:2250,y:1850},
   title:"Ярость вулкана",desc:"Победи 50 существ — вулкан вот-вот взорвётся.",target:50,
   type:"defeat",reward:{money:15500,items:{ultraball:5}},
   dialogue:"Вулкан вот-вот взорвётся! Победи пятьдесят тварей — и я научу тебя усмирять пламя."},
 
-{id:"q_ice_whale_song",biome:"gozon",nhealer:"Морской капитан Морган",nhealerPos:{x:2400,y:1900},
+{id:"q_ice_whale_song",biome:"gozon",nps:"Морской капитан Морган",npsPos:{x:2400,y:1900},
   title:"Песнь Ледяного Кита",desc:"Поймай Ледяного Кита — его песнь успокаивает моря.",target:1,
   type:"catch_specific",targetIds:[1131],reward:{money:11000,items:{revive:3}},
   dialogue:"Ледяной Кит поёт песнь, что успокаивает штормы. Поймай его — и я отдам тебе свой корабль."},
 
 // ========== ОСТРОВ ХЭДРОН ==========
-{id:"q_phoenix_rising",biome:"volcano",nhealer:"Огненный мастер Игнис",nhealerPos:{x:2000,y:1700},
+{id:"q_phoenix_rising",biome:"volcano",nps:"Огненный мастер Игнис",npsPos:{x:2000,y:1700},
   title:"Восход Феникса",desc:"Победи 60 существ — только пламя очистит остров.",target:60,
   type:"defeat",reward:{money:20000,items:{ultraball:5}},
   dialogue:"Огонь — это жизнь! Победи шестьдесят тварей — и пламя благословит тебя."},
 
-{id:"q_fire_phoenix_feather",biome:"volcano",nhealer:"Коллекционер легенд Ксандр",nhealerPos:{x:2150,y:1750},
+{id:"q_fire_phoenix_feather",biome:"volcano",nps:"Коллекционер легенд Ксандр",npsPos:{x:2150,y:1750},
   title:"Перо Огненного Феникса",desc:"Поймай Огненного Феникса — его перо дарует бессмертие.",target:1,
   type:"catch_specific",targetIds:[1146],reward:{money:26000,items:{revive:5}},
   dialogue:"Перо Огненного Феникса дарует бессмертие! Поймай его — и я сделаю тебя легендой."},
 
 // ========== ПОЛЕ МАГИИ (финал) ==========
-{id:"q_champion_path",biome:"pole_magii",nhealer:"Чемпион Аркадиус",nhealerPos:{x:200,y:150},
+{id:"q_champion_path",biome:"pole_magii",nps:"Чемпион Аркадиус",npsPos:{x:200,y:150},
   title:"Путь Чемпиона",desc:"Победи 80 существ — докажи, что ты достоин трона.",target:80,
   type:"defeat",reward:{money:35000,items:{ultraball:5}},
   dialogue:"Я — Чемпион Аркадиус! Победи восемьдесят существ — и я лично признаю тебя равным."},
 
-{id:"q_legendary_hunt",biome:"pole_magii",nhealer:"Хранитель Легенд Аэлон",nhealerPos:{x:350,y:200},
+{id:"q_legendary_hunt",biome:"pole_magii",nps:"Хранитель Легенд Аэлон",npsPos:{x:350,y:200},
   title:"Легендарная охота",desc:"Поймай любое легендарное существо — стань легендой Филакта.",target:1,
   type:"catch_rarity",targetRarity:"legendary",reward:{money:60000,items:{revive:5}},
   dialogue:"Легенды Филакта — Тёмный Владыка, Искра-Создатель, Фениксы... Поймай одного — и твоё имя впишут в вечность."},
 
 // ========== ОСТРОВА ПОБЕЖДЁННОГО ==========
-{id:"q_lost_civilization",biome:"ostrova_pobezhdennogo",nhealer:"Мореход Сайлас",nhealerPos:{x:1300,y:1550},
+{id:"q_lost_civilization",biome:"ostrova_pobezhdennogo",nps:"Мореход Сайлас",npsPos:{x:1300,y:1550},
   title:"Затерянная цивилизация",desc:"Победи 45 существ — острова хранят проклятие древних.",target:45,
   type:"defeat",reward:{money:13000,items:{ultraball:5}},
   dialogue:"На этих островах погибла целая цивилизация! Победи сорок пять тварей — и я расскажу тебе её историю."},
 
-{id:"q_sea_dragon_pearl",biome:"ostrova_pobezhdennogo",nhealer:"Жемчужница Лиара",nhealerPos:{x:1400,y:1650},
+{id:"q_sea_dragon_pearl",biome:"ostrova_pobezhdennogo",nps:"Жемчужница Лиара",npsPos:{x:1400,y:1650},
   title:"Жемчужина Морского Дракона",desc:"Поймай Морского Дракона — его жемчужина стоит королевство.",target:1,
   type:"catch_specific",targetIds:[1130],reward:{money:14000,items:{revive:3}},
   dialogue:"В сердце Морского Дракона — жемчужина, что стоит королевство! Поймай его — и мы разделим богатство."},
 
 // ========== МОРЕ СИРЕН ==========
-{id:"q_deep_sea_treasure",biome:"water",nhealer:"Капитан Немо",nhealerPos:{x:1300,y:1250},
+{id:"q_deep_sea_treasure",biome:"water",nps:"Капитан Немо",npsPos:{x:1300,y:1250},
   title:"Сокровища глубин",desc:"Победи 20 морских существ — пираты ищут клад на дне.",target:20,
   type:"defeat",reward:{money:6000,items:{ultraball:3}},
   dialogue:"На дне Моря Сирен лежит клад пиратов! Победи двадцать тварей — и мы спустимся за ним."},
 
-{id:"q_siren_queen_crown",biome:"water",nhealer:"Искательница Марго",nhealerPos:{x:1400,y:1350},
+{id:"q_siren_queen_crown",biome:"water",nps:"Искательница Марго",npsPos:{x:1400,y:1350},
   title:"Корона Королевы Сирен",desc:"Поймай Русалку — её корона откроет путь в подводный город.",target:1,
   type:"catch_specific",targetIds:[1007],reward:{money:5500,items:{superball:8}},
   dialogue:"Корона Королевы Сирен открывает путь в подводный город! Поймай Русалку — и я последую за тобой."}
 ];
 let activeQuests={}; // id -> {progress, completed, claimed}
-let nhealerQuestRefs=[]; // {el, quest, pos}
+let npsQuestRefs=[]; // {el, quest, pos}
 
 // ===================== СОСТОЯНИЕ =====================
 let playerTeam=[];
@@ -6106,7 +7014,7 @@ function spawnTrainers(){
     const tmpl=TRAINER_TEMPLATES[i%TRAINER_TEMPLATES.length];
     const el=document.createElement('div');
     el.className='trainer';
-   el.innerHTML = (i % 2 === 0) ? Nhealer_TRAINER_MALE : Nhealer_TRAINER_FEMALE;
+   el.innerHTML = (i % 2 === 0) ? NPS_TRAINER_MALE : NPS_TRAINER_FEMALE;
 const label = document.createElement('div');
 label.className = 'label';
 label.textContent = tmpl.name;
@@ -6192,9 +7100,9 @@ function spawnHealerHuts(){
     if(typeof reserveSpawnPoint === 'function') reserveSpawnPoint(cx, cy);
   });
 }
-// ===================== SVG Nhealer ДЛЯ КВЕСТОВ =====================
+// ===================== SVG NPS ДЛЯ КВЕСТОВ =====================
 
-const Nhealer_QUEST_SVGS = {
+const NPS_QUEST_SVGS = {
   professor: `<svg viewBox="0 0 64 64">
     <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
     <rect x="26" y="46" width="5" height="12" rx="2" fill="#1e3a8a"/>
@@ -6298,46 +7206,46 @@ const Nhealer_QUEST_SVGS = {
     <circle cx="32" cy="6" r="1.5" fill="#fbbf24"/>
   </svg>`
 };
-function pickNhealerSvg(nhealerName){
-  const n = nhealerName.toLowerCase();
+function pickNPSSvg(npsName){
+  const n = npsName.toLowerCase();
 
   // === Архимаг / профессор / хранитель / чемпион ===
   if(n.includes('профессор')  || n.includes('архимаг') ||
      n.includes('хранитель') || n.includes('чемпион'))
-    return Nhealer_PROFESSOR;
+    return NPS_PROFESSOR;
 
   // === Женские образы: жрицы, ведуньи, магички ===
   if(n.includes('ведьма') || n.includes('жрица') ||
      n.includes('коллекционер') || n.includes('экзорцист'))
-    return Nhealer_QUEST_FEMALE;
+    return NPS_QUEST_FEMALE;
 
   // === Кузнецы, Дворфы, ремесленники — бородатые мастера ===
   if(n.includes('кузнец') || n.includes('Дворф') || n.includes('мастер') ||
      n.includes('скалолаз') || n.includes('альпинист') || n.includes('шахтёр') ||
      n.includes('спелеолог') || n.includes('исследователь'))
-    return Nhealer_QUEST_MALE;
+    return NPS_QUEST_MALE;
 
   // === Тренеры / бойцы ===
   if(n.includes('рейнджер') || n.includes('воин') ||
      n.includes('стражник') || n.includes('охотник'))
-    return Nhealer_TRAINER_MALE;
+    return NPS_TRAINER_MALE;
 
-  // === По умолчанию — мужской квестовый Nhealer ===
-  return Nhealer_QUEST_MALE;
+  // === По умолчанию — мужской квестовый NPS ===
+  return NPS_QUEST_MALE;
 }
-// ===================== СПАВН Nhealer С КВЕСТАМИ =====================
-function spawnQuestNhealers(){
+// ===================== СПАВН NPS С КВЕСТАМИ =====================
+function spawnQuestNPSs(){
   // Очистка старых ссылок (на случай перезапуска)
-    nhealerQuestRefs.forEach(ref => {
+    npsQuestRefs.forEach(ref => {
     if(ref.el && ref.el.parentNode) ref.el.parentNode.removeChild(ref.el);
     if(ref.el && ref.el._labelEl && ref.el._labelEl.parentNode){
       ref.el._labelEl.parentNode.removeChild(ref.el._labelEl);
     }
   });
-  nhealerQuestRefs = [];
+  npsQuestRefs = [];
 
   QUEST_DEFS.forEach(q => {
-    const pos = q.nhealerPos;
+    const pos = q.npsPos;
     if(!pos) return;
 
     
@@ -6350,23 +7258,23 @@ function spawnQuestNhealers(){
 
     // Создаём контейнер
     const el = document.createElement('div');
-    el.className = 'nhealer-quest';
+    el.className = 'nps-quest';
     el.dataset.questId = q.id;
     el.dataset.biome = q.biome;
 
-    // SVG по типу Nhealer + восклицательный знак
-   const svg = pickNhealerSvg(q.nhealer);
+    // SVG по типу NPS + восклицательный знак
+   const svg = pickNPSSvg(q.nps);
 el.innerHTML = svg;
 
     // Подпись с именем
    // Подпись кладём в отдельный слой, чтобы она была поверх зданий
 const label = document.createElement('div');
 label.className = 'label';
-label.textContent = q.nhealer;
+label.textContent = q.nps;
 label.style.left = spawnX + 'px';
-label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра Nhealer
+label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPS
 label.style.zInbest = 900001;                // ← поверх всех
-label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра Nhealer
+label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPS
 document.getElementById('labels').appendChild(label);
 
 // сохраняем ссылку, чтобы двигать/удалять
@@ -6432,7 +7340,7 @@ document.getElementById('questMarks').appendChild(qmark);
     // чтобы значки ❗ / ✅ / … / ✓ были видны
     el.style.zInbest = 900000;
     // Сохраняем ссылку
-    nhealerQuestRefs.push({
+    npsQuestRefs.push({
       el,
       quest: q,
       pos: { x: spawnX, y: spawnY },
@@ -6448,7 +7356,7 @@ document.getElementById('questMarks').appendChild(qmark);
   // Обновляем маркеры (❗ / … / ✅ / ✓)
   updateQuestMarkers();
 
-  console.log(`📜 Заспавнено Nhealer с квестами: ${nhealerQuestRefs.length}`);
+  console.log(`📜 Заспавнено NPS с квестами: ${npsQuestRefs.length}`);
 }function updateQuestMarkers(){
   QUEST_DEFS.forEach(q=>{
     const mark = document.getElementById('qmark_' + q.id);
@@ -8010,8 +8918,8 @@ ctx.font = '15px "Fantasy Classic", "Segoe UI", sans-serif';
   });
 }
 
-// Маг-подмастерье (заменяет Nhealer_TRAINER_MALE)
-const Nhealer_TRAINER_MALE = `<svg viewBox="0 0 64 64">
+// Маг-подмастерье (заменяет NPS_TRAINER_MALE)
+const NPS_TRAINER_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Мантия -->
   <path d="M22 30 L42 30 L46 58 L18 58 Z" fill="#3b82f6"/>
@@ -8040,8 +8948,8 @@ const Nhealer_TRAINER_MALE = `<svg viewBox="0 0 64 64">
   <!-- Звёздочка-искра -->
   <path d="M52 14 L53 12 L54 14 L56 15 L54 16 L53 18 L52 16 L50 15 Z" fill="#fbbf24" opacity="0.9"/>
 </svg>`;
-// Эльфийка-лучница (заменяет Nhealer_TRAINER_FEMALE)
-const Nhealer_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
+// Эльфийка-лучница (заменяет NPS_TRAINER_FEMALE)
+const NPS_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#065f46"/>
@@ -8084,8 +8992,8 @@ const Nhealer_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
   <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
   <path d="M30 24 Q32 26 34 24" stroke="#dc2626" stroke-width="1" fill="none" stroke-linecap="round"/>
 </svg>`;
-// Тёмный культист (заменяет Nhealer_GYM_LEADER)
-const Nhealer_GYM_LEADER = `<svg viewBox="0 0 64 64">
+// Тёмный культист (заменяет NPS_GYM_LEADER)
+const NPS_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="15" ry="3" fill="rgba(0,0,0,0.4)"/>
   <!-- Аура -->
   <ellipse cx="32" cy="36" rx="24" ry="20" fill="#7c3aed" opacity="0.25"/>
@@ -8125,8 +9033,8 @@ const Nhealer_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <!-- Значок на груди -->
   <circle cx="42" cy="33" r="2.5" fill="#fbbf24" stroke="#b45309" stroke-width="0.8"/>
 </svg>`;
-// Старый Дворф-кузнец (заменяет Nhealer_QUEST_MALE)
-const Nhealer_QUEST_MALE = `<svg viewBox="0 0 64 64">
+// Старый Дворф-кузнец (заменяет NPS_QUEST_MALE)
+const NPS_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ботинки -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#451a03"/>
@@ -8162,8 +9070,8 @@ const Nhealer_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="23" rx="2" ry="1.6" fill="#d97706"/>
 </svg>`;
 
-// Жрица-целительница (заменяет Nhealer_QUEST_FEMALE)
-const Nhealer_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
+// Жрица-целительница (заменяет NPS_QUEST_FEMALE)
+const NPS_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#fef3c7"/>
@@ -8201,8 +9109,8 @@ const Nhealer_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
   <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
   <path d="M30 24 Q32 26 34 24" stroke="#dc2626" stroke-width="1" fill="none" stroke-linecap="round"/>
 </svg>`;
-// Верховный архимаг (заменяет Nhealer_PROFESSOR)
-const Nhealer_PROFESSOR = `<svg viewBox="0 0 64 64">
+// Верховный архимаг (заменяет NPS_PROFESSOR)
+const NPS_PROFESSOR = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
   <rect x="26" y="46" width="5" height="12" rx="2" fill="#1e1b4b"/>
@@ -8619,13 +9527,13 @@ function applyYSorting() {
   for (const t of trainersOnMap) {
     if (t.el) t.el.style.zInbest = yToZ(t.y);
   }
-  // Nhealer с квестами
-  for (const n of nhealerQuestRefs) {
+  // NPS с квестами
+  for (const n of npsQuestRefs) {
     if (n.el && n.pos) n.el.style.zInbest = yToZ(n.pos.y);
   }
   // Медцентры и гимы — им тоже можно назначить z-inbest
   // (они не хранятся в массивах с y, поэтому берём из transform)
-  document.querySelectorAll('#world > .Fantasy, #world > .trainer, #world > .nhealer-quest').forEach(el => {
+  document.querySelectorAll('#world > .Fantasy, #world > .trainer, #world > .nps-quest').forEach(el => {
     // уже обработаны выше, но на случай "осиротевших" — пропускаем
   });
 }
@@ -8649,7 +9557,7 @@ function animate(now){
   tr.el.style.display = visible ? 'flex' : 'none';
   if (tr.el._labelEl) tr.el._labelEl.style.display = visible ? 'block' : 'none';
 });
-   nhealerQuestRefs.forEach(n=>{
+   npsQuestRefs.forEach(n=>{
   const visible = unlockedZones.has(n.quest.biome);
   n.el.style.display = visible ? 'flex' : 'none';
   if (n.el._labelEl) n.el._labelEl.style.display = visible ? 'block' : 'none';
@@ -8662,7 +9570,7 @@ function animate(now){
 const game=document.getElementById('game');
 let startX,startY,vx=0,vy=0,lastMX=0,lastMY=0,lastMT=0;
 game.addEventListener('mousedown',e=>{
-  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.nhealer-quest'))return;
+  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.nps-quest'))return;
   isDragging=true;
   startX=e.clientX-camX;startY=e.clientY-camY;
   lastMX=e.clientX;lastMY=e.clientY;lastMT=Date.now();
@@ -8685,7 +9593,7 @@ window.addEventListener('mouseup',()=>{
   inertia();
 });
 game.addEventListener('touchstart',e=>{
-  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.nhealer-quest'))return;
+  if(e.target.closest('.Fantasy')||e.target.closest('.trainer')||e.target.closest('.nps-quest'))return;
   if(e.touches.length===1){isDragging=true;startX=e.touches[0].clientX-camX;startY=e.touches[0].clientY-camY}
 },{passive:true});
 game.addEventListener('touchmove',e=>{
@@ -8988,7 +9896,7 @@ function checkUnlockNextZone(currentBiome){
     // 3. Перестроить туман
     rebuildFogClouds();
     drawFog();
-    // 4. Показать Nhealer/тренеров/медцентры в новой зоне
+    // 4. Показать NPS/тренеров/медцентры в новой зоне
     refreshWorldVisibility();
     // 5. Обновить маркеры квестов
     updateQuestMarkers();
@@ -9020,8 +9928,8 @@ function refreshWorldVisibility(){
     if (tr.el._labelEl) tr.el._labelEl.style.display = visible ? 'block' : 'none';
   });
 
-  // Nhealer с квестами
-  nhealerQuestRefs.forEach(n => {
+  // NPS с квестами
+  npsQuestRefs.forEach(n => {
     const visible = unlockedZones.has(n.quest.biome);
     n.el.style.display = visible ? 'flex' : 'none';
     if (n.el._labelEl) n.el._labelEl.style.display = visible ? 'block' : 'none';
@@ -9082,21 +9990,21 @@ function updateQuestBadge(){
 function openQuestDialog(q){
   const st=activeQuests[q.id];
   if(st&&st.claimed){
-    showDialog(q.nhealer,`Спасибо за помощь! Квест "${q.title}" уже выполнен.`);
+    showDialog(q.nps,`Спасибо за помощь! Квест "${q.title}" уже выполнен.`);
     return;
   }
   if(st&&st.completed){
-    showDialog(q.nhealer,`Отлично! Ты выполнил "${q.title}"! Держи награду.`,()=>{
+    showDialog(q.nps,`Отлично! Ты выполнил "${q.title}"! Держи награду.`,()=>{
       claimQuestReward(q.id);
     });
     return;
   }
   if(st){
-    showDialog(q.nhealer,`Как дела с квестом "${q.title}"?\nПрогресс: ${st.progress}/${q.target}\n\n${q.desc}`);
+    showDialog(q.nps,`Как дела с квестом "${q.title}"?\nПрогресс: ${st.progress}/${q.target}\n\n${q.desc}`);
     return;
   }
   // Новый квест
-  showDialog(q.nhealer,`${q.dialogue}\n\n📜 Квест: ${q.title}\n${q.desc}\n\nНаграда: ${formatReward(q.reward)}`,()=>{
+  showDialog(q.nps,`${q.dialogue}\n\n📜 Квест: ${q.title}\n${q.desc}\n\nНаграда: ${formatReward(q.reward)}`,()=>{
     activeQuests[q.id]={progress:0,completed:false,claimed:false};
     // Проверка на уже выполненное условие
     checkQuestAutoComplete(q);
@@ -9150,7 +10058,7 @@ function renderQuestScreen(){
   list.innerHTML='';
   const accepted=QUEST_DEFS.filter(q=>activeQuests[q.id]);
   if(!accepted.length){
-    list.innerHTML='<div style="text-align:center;color:#c4b5fd;padding:30px">Пока нет активных квестов.<br>Найди Nhealer с "❗" на карте!</div>';
+    list.innerHTML='<div style="text-align:center;color:#c4b5fd;padding:30px">Пока нет активных квестов.<br>Найди NPS с "❗" на карте!</div>';
     return;
   }
   accepted.forEach(q=>{
@@ -9167,7 +10075,7 @@ function renderQuestScreen(){
       <div class="q-desc">${q.desc}</div>
       <div class="q-progress"><div class="q-progress-fill" style="width:${healert}%"></div></div>
       <div class="q-reward"><span>Прогресс: ${st.progress}/${q.target} · Награда: ${formatReward(q.reward)}</span>${st.completed&&!st.claimed?`<button class="q-claim" onclick="claimQuestReward('${q.id}');renderQuestScreen()">Забрать</button>`:''}</div>
-      <div style="font-size:11px;color:#94a3b8;margin-top:4px">📍 ${q.nhealer} · ${HABITATS[q.biome].name}</div>`;
+      <div style="font-size:11px;color:#94a3b8;margin-top:4px">📍 ${q.nps} · ${HABITATS[q.biome].name}</div>`;
     list.appendChild(el);
   });
 }
@@ -10365,7 +11273,7 @@ spawnHouses();
   spawnHealerHuts();
 spawnSoulSanctuaries();
 spawnTrainers();
-  spawnQuestNhealers();
+  spawnQuestNPSs();
   // Потом дикие существа — ищут свободные места
   spawnAllFantasy();
   if(!loaded){
