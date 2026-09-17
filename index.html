@@ -776,7 +776,25 @@ button, input, textarea, select {
   word-break: break-word;
   line-height: 1.2;
 }
-
+#biomeName{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:36px;
+  font-weight:bold;
+  color:#fff;
+  text-shadow:0 0 20px #000,2px 2px 0 #000;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .4s;
+  z-index:50;
+  white-space:nowrap;        /* ← запрет переноса */
+  word-break:keep-all;
+  overflow-wrap:normal;
+  hyphens:none;
+  max-width:95vw;            /* чтобы не вылезало за экран */
+}
 </style>
 </head>
 <body>
@@ -1133,9 +1151,21 @@ function getTypeEff(moveType,defTypes){
   return m;
 }// ===================== ФЭНТЕЗИ-СУЩЕСТВА =====================
 const Fantasy_DATA=[
+// ===== ОГРЫ / ОРКИ / ТРОЛЛИ =====
+{id:1152,name:"Огр",types:["Земля","Боевой"],rarity:"uncommon",habitats:["mountain","route","pewter","forest"],desc:"Четырёхрукий великан, крушит всё на своём пути дубиной и кулаками.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
+{id:1153,name:"Огр-Вождь",types:["Земля","Боевой"],rarity:"epic",habitats:["mountain","volcano"],desc:"Вождь огров, четыре руки держат четыре дубины. Ужас гор.",height:3.5,weight:800,category:"Огр",stats:{hp:170,attack:145,defense:105,spAtk:40,spDef:65,speed:45},shape:"ogr_chief"},
+
+{id:1154,name:"Огр-Маг",types:["Земля","Психик"],rarity:"rare",habitats:["cave","mountain","indigo"],desc:"Синий четырёхрукий огр, владеет грубой боевой магией. Бьёт посохом и заклинаниями.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
+{id:1155,name:"Огр-Архимаг",types:["Земля","Психик"],rarity:"epic",habitats:["indigo","cave"],desc:"Древний огр-маг, четыре руки чертят руны в воздухе. Повелевает камнем и разумом.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
+
+{id:1156,name:"Орк-Громила",types:["Боевой","Тёмный"],rarity:"uncommon",habitats:["mountain","route","desert","forest","volcano"],desc:"Зелёный воин с топором и волчьей шкурой. Яростный и беспощадный.",height:2.0,weight:180,category:"Орк",stats:{hp:90,attack:110,defense:70,spAtk:35,spDef:55,speed:65},shape:"orc_grunt",evolvesTo:1157,evolveLevel:32},
+{id:1157,name:"Орк-Вождь Орды",types:["Боевой","Тёмный"],rarity:"epic",habitats:["volcano","cave","indigo"],desc:"Вождь орков в волчьей мантии, его топор пьёт кровь врагов.",height:2.5,weight:260,category:"Орк",stats:{hp:135,attack:150,defense:100,spAtk:50,spDef:80,speed:80},shape:"orc_warchief"},
+
+{id:1158,name:"Тролль",types:["Трава","Боевой"],rarity:"uncommon",habitats:["forest","cave","route","mountain"],desc:"Оранжевый шипастый тролль с горящими жёлтыми глазами. Регенерирует раны.",height:2.4,weight:200,category:"Тролль",stats:{hp:130,attack:95,defense:80,spAtk:50,spDef:60,speed:50},shape:"troll",evolvesTo:1159,evolveLevel:34},
+{id:1159,name:"Тролль-Берсерк",types:["Трава","Боевой"],rarity:"epic",habitats:["forest","cave","volcano"],desc:"Древний тролль, покрытый костяными шипами. В ярости не чувствует боли.",height:2.9,weight:280,category:"Тролль",stats:{hp:185,attack:135,defense:100,spAtk:60,spDef:85,speed:65},shape:"troll_berserker"},
 // ===== СТАРТОВЫЕ (выбираются в начале) =====
 {id:1001,name:"Гном",types:["Земля"],rarity:"rare",habitats:["forest","mountain","pallet"],desc:"Маленький мастер, куёт волшебные клинки в своей кузнице.",height:1.0,weight:45,category:"Гном",stats:{hp:55,attack:65,defense:70,spAtk:45,spDef:55,speed:35},shape:"gnome_smith",evolvesTo:1002,evolveLevel:16},
-{id:1004,name:"Имп",types:["Огонь","Демон"],rarity:"rare",habitats:["mountain","volcano","pallet"],desc:"Озорной демонёнок, чьи шалости оставляют ожоги.",height:0.8,weight:12,category:"Имп",stats:{hp:45,attack:60,defense:40,spAtk:70,spDef:45,speed:70},shape:"fire_imp",evolvesTo:1005,evolveLevel:16},
+{id:1004,name:"Бес",types:["Огонь","Демон"],rarity:"rare",habitats:["mountain","volcano","pallet"],desc:"Озорной демонёнок, чьи шалости оставляют ожоги.",height:0.8,weight:12,category:"Имп",stats:{hp:45,attack:60,defense:40,spAtk:70,spDef:45,speed:70},shape:"fire_imp",evolvesTo:1005,evolveLevel:16},
 {id:1007,name:"Русалка",types:["Вода"],rarity:"rare",habitats:["water","cerulean","pallet"],desc:"Дочь морской королевы, её песни управляют волнами.",height:1.2,weight:25,category:"Русалка",stats:{hp:50,attack:45,defense:55,spAtk:75,spDef:70,speed:55},shape:"mermaid_fae",evolvesTo:1008,evolveLevel:16},
 {id:1025,name:"Лепрекон",types:["Электрик","Фея"],rarity:"rare",habitats:["forest","route","pallet"],desc:"Хранитель золотого горшка, бьёт молниями из радуги.",height:0.9,weight:18,category:"Лепрекон",stats:{hp:45,attack:55,defense:45,spAtk:65,spDef:55,speed:95},shape:"leprechaun_spark",evolvesTo:1026,evolveLevel:18},
 
@@ -1220,7 +1250,21 @@ const TYPE_COLORS={Обычный:"#a8a878",Огонь:"#f08030",Вода:"#6890
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 const LEARNSETS={
+// --- Огры ---
+1152:[{level:1,move:"Удар кулаком"},{level:4,move:"Каменный шип"},{level:8,move:"Грубая сила"},{level:12,move:"Землетрясение"},{level:16,move:"Сокрушение"},{level:22,move:"Обвал"},{level:28,move:"Тройной удар"}],
+1153:[{level:1,move:"Грубая сила"},{level:1,move:"Землетрясение"},{level:1,move:"Сокрушение"},{level:1,move:"Обвал"},{level:1,move:"Тройной удар"}],
 
+// --- Огры-маги ---
+1154:[{level:1,move:"Удар посохом"},{level:4,move:"Смятение"},{level:8,move:"Каменный шип"},{level:12,move:"Луч разума"},{level:16,move:"Взрыв разума"},{level:22,move:"Обвал"},{level:28,move:"Магический барьер"}],
+1155:[{level:1,move:"Взрыв разума"},{level:1,move:"Обвал"},{level:1,move:"Магический барьер"},{level:1,move:"Сфера ауры"},{level:1,move:"Шар тьмы"}],
+
+// --- Орки ---
+1156:[{level:1,move:"Царапка когтем"},{level:4,move:"Внезапный выпад"},{level:8,move:"Укус тьмы"},{level:12,move:"Клык зверя"},{level:16,move:"Грубая сила"},{level:20,move:"Контрудар"},{level:26,move:"Сокрушение"}],
+1157:[{level:1,move:"Грубая сила"},{level:1,move:"Клык зверя"},{level:1,move:"Сокрушение"},{level:1,move:"Тройной удар"},{level:1,move:"Контрудар"}],
+
+// --- Тролли ---
+1158:[{level:1,move:"Царапка когтем"},{level:4,move:"Удар лозой"},{level:8,move:"Высасывание жизни"},{level:12,move:"Клык зверя"},{level:16,move:"Природное восстановление"},{level:20,move:"Грубая сила"},{level:26,move:"Землетрясение"}],
+1159:[{level:1,move:"Высасывание жизни"},{level:1,move:"Грубая сила"},{level:1,move:"Землетрясение"},{level:1,move:"Сокрушение"},{level:1,move:"Природное восстановление"}],
 // ЗАМЕНИТЕ НА:
 1055:[{level:1,move:"Каннибализм"},{level:5,move:"Костяной шип"},{level:10,move:"Пожирание плоти"},{level:16,move:"Землетрясение"},{level:22,move:"Проклятие мертвеца"},{level:28,move:"Обвал"}],
 1056:[{level:1,move:"Каннибализм"},{level:1,move:"Костяной шип"},{level:10,move:"Пожирание плоти"},{level:16,move:"Землетрясение"},{level:22,move:"Проклятие мертвеца"},{level:28,move:"Обвал"}],
@@ -1230,7 +1274,7 @@ const LEARNSETS={
 1002:[{level:1,move:"Землетрясение"},{level:1,move:"Клык зверя"},{level:16,move:"Тройной удар"},{level:20,move:"Сокрушение"},{level:24,move:"Луч маны"}],
 1003:[{level:1,move:"Луч маны"},{level:1,move:"Землетрясение"},{level:1,move:"Сокрушение"},{level:1,move:"Тройной удар"}],
 
-1004:[{level:1,move:"Царапка когтем"},{level:4,move:"Искра"},{level:8,move:"Пламенный клык"},{level:12,move:"Струя пламени"},{level:16,move:"Огненный шквал"},{level:20,move:"Огненный вихрь"},{level:24,move:"Вспышка пламени"}],
+1004:[{level:1,move:"Царапка когтем"},{level:1,move:"Поджог"},{level:4,move:"Искра"},{level:8,move:"Пламенный клык"},{level:12,move:"Струя пламени"},{level:16,move:"Огненный шквал"},{level:20,move:"Огненный вихрь"},{level:24,move:"Вспышка пламени"}],
 1005:[{level:1,move:"Струя пламени"},{level:1,move:"Пламенный клык"},{level:12,move:"Огненный шквал"},{level:16,move:"Искра"},{level:20,move:"Огненный вихрь"},{level:24,move:"Вспышка пламени"}],
 1006:[{level:1,move:"Струя пламени"},{level:1,move:"Воздушный клинок"},{level:1,move:"Огненный шквал"},{level:1,move:"Драконий натиск"},{level:1,move:"Вспышка пламени"}],
 
@@ -1305,6 +1349,7 @@ const LEARNSETS={
 // ===================== АТАКИ =====================
 // ===================== АТАКИ (ФЭНТЕЗИ) =====================
 const FULL_MOVES={
+"Поджог":{type:"Огонь",power:70,cat:"physical",effect:"recoil",recoil:0.4,desc:"Имп поджигает и себя, и врага. Отдача 40% нанесённого урона."},
 // --- Нежить ---
 "Каннибализм":{type:"Нежить",power:60,cat:"physical",effect:"drain",drain:0.75,desc:"Вгрызается в плоть врага и восстанавливает 75% нанесённого урона"},
 // --- Обычные ---
@@ -1526,6 +1571,462 @@ Object.assign(FULL_MOVES, {
 });
 
 const SPRITES = {
+/* ===================== ОГР (четырёхрукий) ===================== */
+ogr:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="22" ry="3.5" fill="rgba(0,0,0,0.4)"/>
+  <!-- Ноги -->
+  <ellipse cx="24" cy="56" rx="7" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1.4"/>
+  <ellipse cx="40" cy="56" rx="7" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1.4"/>
+  <ellipse cx="24" cy="58" rx="5" ry="2" fill="#3f2a12"/>
+  <ellipse cx="40" cy="58" rx="5" ry="2" fill="#3f2a12"/>
+  <!-- Туловище-брюхо -->
+  <ellipse cx="32" cy="42" rx="18" ry="16" fill="#ca8a04" stroke="#713f12" stroke-width="1.5"/>
+  <ellipse cx="32" cy="46" rx="12" ry="10" fill="#fcd34d" opacity="0.6"/>
+  <!-- Волчья шкура на поясе -->
+  <path d="M16 50 Q32 54 48 50 L48 56 Q32 60 16 56 Z" fill="#78350f" stroke="#3f2a12" stroke-width="1"/>
+  <!-- Верхняя пара рук (подняты с дубиной) -->
+  <ellipse cx="12" cy="34" rx="5" ry="9" fill="#ca8a04" stroke="#713f12" stroke-width="1.3"/>
+  <ellipse cx="52" cy="34" rx="5" ry="9" fill="#ca8a04" stroke="#713f12" stroke-width="1.3"/>
+  <!-- Дубина в правой верхней руке -->
+  <rect x="50" y="20" width="5" height="22" rx="2" fill="#78350f" stroke="#3f2a12" stroke-width="1" transform="rotate(20 52 30)"/>
+  <ellipse cx="56" cy="22" rx="6" ry="5" fill="#4a2c14" stroke="#2a1a0c" stroke-width="1" transform="rotate(20 56 22)"/>
+  <circle cx="58" cy="20" r="1.2" fill="#94a3b8"/>
+  <circle cx="54" cy="24" r="1" fill="#94a3b8"/>
+  <!-- Кулак в левой верхней руке -->
+  <circle cx="12" cy="42" r="4" fill="#ca8a04" stroke="#713f12" stroke-width="1"/>
+  <!-- Нижняя пара рук -->
+  <ellipse cx="14" cy="46" rx="4" ry="7" fill="#ca8a04" stroke="#713f12" stroke-width="1.2"/>
+  <ellipse cx="50" cy="46" rx="4" ry="7" fill="#ca8a04" stroke="#713f12" stroke-width="1.2"/>
+  <circle cx="13" cy="53" r="3.5" fill="#ca8a04"/>
+  <circle cx="51" cy="53" r="3.5" fill="#ca8a04"/>
+  <!-- Голова -->
+  <circle cx="32" cy="22" r="13" fill="#ca8a04" stroke="#713f12" stroke-width="1.5"/>
+  <!-- Уши -->
+  <ellipse cx="20" cy="20" rx="3" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1"/>
+  <ellipse cx="44" cy="20" rx="3" ry="5" fill="#a16207" stroke="#713f12" stroke-width="1"/>
+  <!-- Челюсть с клыками -->
+  <path d="M24 28 Q32 36 40 28" fill="#fef3c7" stroke="#713f12" stroke-width="1.2"/>
+  <polygon points="26,28 25,34 28,30" fill="#fff" stroke="#713f12" stroke-width="0.5"/>
+  <polygon points="38,28 39,34 36,30" fill="#fff" stroke="#713f12" stroke-width="0.5"/>
+  <!-- Глаза -->
+  <circle cx="27" cy="20" r="2.5" fill="#1a1a1a"/>
+  <circle cx="37" cy="20" r="2.5" fill="#1a1a1a"/>
+  <circle cx="27.7" cy="19.2" r="0.8" fill="#fbbf24"/>
+  <circle cx="37.7" cy="19.2" r="0.8" fill="#fbbf24"/>
+  <!-- Брови -->
+  <path d="M22 16 L28 17 M36 17 L42 16" stroke="#3f2a12" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Нос -->
+  <ellipse cx="32" cy="24" rx="2.5" ry="2" fill="#713f12"/>
+</svg>`,
+
+/* ===================== ОГР-ВОЖДЬ ===================== */
+ogr_chief:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="26" ry="4" fill="rgba(0,0,0,0.45)"/>
+  <!-- Ноги -->
+  <ellipse cx="22" cy="56" rx="9" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1.5"/>
+  <ellipse cx="42" cy="56" rx="9" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1.5"/>
+  <ellipse cx="22" cy="58" rx="6" ry="2.5" fill="#1a1a1a"/>
+  <ellipse cx="42" cy="58" rx="6" ry="2.5" fill="#1a1a1a"/>
+  <!-- Туловище -->
+  <ellipse cx="32" cy="42" rx="22" ry="18" fill="#b45309" stroke="#451a03" stroke-width="1.6"/>
+  <ellipse cx="32" cy="46" rx="14" ry="12" fill="#fbbf24" opacity="0.5"/>
+  <!-- Красная накидка -->
+  <path d="M10 40 Q32 38 54 40 L56 54 Q32 58 8 54 Z" fill="#7f1d1d" stroke="#450a0a" stroke-width="1.3"/>
+  <path d="M10 40 Q32 38 54 40" stroke="#dc2626" stroke-width="1.2" fill="none"/>
+  <!-- Кости-украшения -->
+  <ellipse cx="20" cy="50" rx="3" ry="1.5" fill="#e5e7eb" transform="rotate(20 20 50)"/>
+  <ellipse cx="44" cy="50" rx="3" ry="1.5" fill="#e5e7eb" transform="rotate(-20 44 50)"/>
+  <!-- Верхняя пара рук с дубинами -->
+  <ellipse cx="8" cy="32" rx="6" ry="10" fill="#b45309" stroke="#451a03" stroke-width="1.4"/>
+  <ellipse cx="56" cy="32" rx="6" ry="10" fill="#b45309" stroke="#451a03" stroke-width="1.4"/>
+  <!-- Дубина правая -->
+  <rect x="54" y="14" width="6" height="26" rx="2" fill="#4a2c14" stroke="#2a1a0c" stroke-width="1.2" transform="rotate(18 57 26)"/>
+  <ellipse cx="60" cy="16" rx="7" ry="6" fill="#2a1a0c" transform="rotate(18 60 16)"/>
+  <circle cx="62" cy="14" r="1.5" fill="#94a3b8"/>
+  <circle cx="58" cy="18" r="1.2" fill="#94a3b8"/>
+  <!-- Дубина левая -->
+  <rect x="4" y="14" width="6" height="26" rx="2" fill="#4a2c14" stroke="#2a1a0c" stroke-width="1.2" transform="rotate(-18 7 26)"/>
+  <ellipse cx="4" cy="16" rx="7" ry="6" fill="#2a1a0c" transform="rotate(-18 4 16)"/>
+  <!-- Нижняя пара рук -->
+  <ellipse cx="12" cy="46" rx="5" ry="8" fill="#b45309" stroke="#451a03" stroke-width="1.2"/>
+  <ellipse cx="52" cy="46" rx="5" ry="8" fill="#b45309" stroke="#451a03" stroke-width="1.2"/>
+  <circle cx="11" cy="54" r="4" fill="#b45309"/>
+  <circle cx="53" cy="54" r="4" fill="#b45309"/>
+  <!-- Голова -->
+  <circle cx="32" cy="20" r="14" fill="#b45309" stroke="#451a03" stroke-width="1.6"/>
+  <!-- Уши -->
+  <ellipse cx="19" cy="18" rx="3.5" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1"/>
+  <ellipse cx="45" cy="18" rx="3.5" ry="6" fill="#92400e" stroke="#451a03" stroke-width="1"/>
+  <!-- Костяной шлем-корона -->
+  <path d="M20 12 L22 2 L26 8 L30 0 L32 6 L34 0 L38 8 L42 2 L44 12 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="32" cy="4" r="1.5" fill="#dc2626"/>
+  <!-- Челюсть с клыками -->
+  <path d="M23 28 Q32 38 41 28" fill="#fef3c7" stroke="#451a03" stroke-width="1.3"/>
+  <polygon points="25,28 24,35 27,30" fill="#fff" stroke="#451a03" stroke-width="0.5"/>
+  <polygon points="39,28 40,35 37,30" fill="#fff" stroke="#451a03" stroke-width="0.5"/>
+  <!-- Глаза -->
+  <circle cx="26" cy="18" r="3" fill="#1a1a1a"/>
+  <circle cx="38" cy="18" r="3" fill="#1a1a1a"/>
+  <circle cx="26.8" cy="17.2" r="1" fill="#dc2626"/>
+  <circle cx="38.8" cy="17.2" r="1" fill="#dc2626"/>
+  <!-- Брови -->
+  <path d="M20 13 L27 15 M37 15 L44 13" stroke="#451a03" stroke-width="2" stroke-linecap="round"/>
+</svg>`,
+
+/* ===================== ОГР-МАГ (синий, четырёхрукий) ===================== */
+ogr_mage:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="22" ry="3.5" fill="rgba(0,0,0,0.4)"/>
+  <!-- Магическая аура -->
+  <ellipse cx="32" cy="36" rx="26" ry="22" fill="#3b82f6" opacity="0.15"/>
+  <!-- Ноги -->
+  <ellipse cx="24" cy="56" rx="7" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.4"/>
+  <ellipse cx="40" cy="56" rx="7" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1.4"/>
+  <ellipse cx="24" cy="58" rx="5" ry="2" fill="#0f172a"/>
+  <ellipse cx="40" cy="58" rx="5" ry="2" fill="#0f172a"/>
+  <!-- Туловище -->
+  <ellipse cx="32" cy="42" rx="18" ry="16" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.5"/>
+  <!-- Магические руны на груди -->
+  <circle cx="32" cy="42" r="6" fill="#1e3a8a" stroke="#67e8f9" stroke-width="1.3"/>
+  <path d="M32 37 L32 47 M27 42 L37 42" stroke="#67e8f9" stroke-width="1.3"/>
+  <circle cx="32" cy="42" r="2" fill="#67e8f9"/>
+  <circle cx="32" cy="42" r="9" fill="#67e8f9" opacity="0.25"/>
+  <!-- Набедренная повязка -->
+  <path d="M16 50 Q32 54 48 50 L48 56 Q32 60 16 56 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="1"/>
+  <path d="M20 52 L44 52" stroke="#67e8f9" stroke-width="0.8" opacity="0.7"/>
+  <!-- Верхняя пара рук: левая с посохом, правая с магией -->
+  <ellipse cx="12" cy="34" rx="5" ry="9" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.3"/>
+  <ellipse cx="52" cy="34" rx="5" ry="9" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.3"/>
+  <!-- Посох -->
+  <rect x="8" y="18" width="3" height="30" rx="1" fill="#78350f" stroke="#451a03" stroke-width="1"/>
+  <path d="M9 12 L5 20 L9 24 L13 20 Z" fill="#67e8f9" stroke="#0369a1" stroke-width="1"/>
+  <circle cx="9" cy="18" r="3" fill="#67e8f9" opacity="0.7"/>
+  <circle cx="9" cy="18" r="1.2" fill="#fff"/>
+  <!-- Магическая сфера в правой руке -->
+  <circle cx="56" cy="42" r="5" fill="#a855f7" opacity="0.7"/>
+  <circle cx="56" cy="42" r="2.5" fill="#e9d5ff"/>
+  <circle cx="55" cy="41" r="0.8" fill="#fff"/>
+  <!-- Нижняя пара рук -->
+  <ellipse cx="14" cy="46" rx="4" ry="7" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.2"/>
+  <ellipse cx="50" cy="46" rx="4" ry="7" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.2"/>
+  <circle cx="13" cy="53" r="3.5" fill="#2563eb"/>
+  <circle cx="51" cy="53" r="3.5" fill="#2563eb"/>
+  <!-- Голова -->
+  <circle cx="32" cy="22" r="13" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.5"/>
+  <!-- Уши -->
+  <ellipse cx="20" cy="20" rx="3" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1"/>
+  <ellipse cx="44" cy="20" rx="3" ry="5" fill="#1e40af" stroke="#1e3a8a" stroke-width="1"/>
+  <!-- Магический третий глаз на лбу -->
+  <circle cx="32" cy="14" r="2.5" fill="#0f172a"/>
+  <circle cx="32" cy="14" r="1.5" fill="#67e8f9"/>
+  <circle cx="32" cy="14" r="0.5" fill="#fff"/>
+  <circle cx="32" cy="14" r="5" fill="#67e8f9" opacity="0.3"/>
+  <!-- Челюсть с клыками -->
+  <path d="M24 28 Q32 36 40 28" fill="#dbeafe" stroke="#1e3a8a" stroke-width="1.2"/>
+  <polygon points="26,28 25,34 28,30" fill="#fff" stroke="#1e3a8a" stroke-width="0.5"/>
+  <polygon points="38,28 39,34 36,30" fill="#fff" stroke="#1e3a8a" stroke-width="0.5"/>
+  <!-- Глаза светящиеся -->
+  <circle cx="27" cy="22" r="2.5" fill="#0f172a"/>
+  <circle cx="37" cy="22" r="2.5" fill="#0f172a"/>
+  <circle cx="27" cy="22" r="1.5" fill="#67e8f9"/>
+  <circle cx="37" cy="22" r="1.5" fill="#67e8f9"/>
+  <circle cx="27.5" cy="21.3" r="0.6" fill="#fff"/>
+  <circle cx="37.5" cy="21.3" r="0.6" fill="#fff"/>
+  <circle cx="27" cy="22" r="5" fill="#67e8f9" opacity="0.25"/>
+  <circle cx="37" cy="22" r="5" fill="#67e8f9" opacity="0.25"/>
+</svg>`,
+
+/* ===================== ОГР-АРХИМАГ ===================== */
+ogr_archmage:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="26" ry="4" fill="rgba(0,0,0,0.5)"/>
+  <!-- Мощная аура -->
+  <ellipse cx="32" cy="36" rx="30" ry="26" fill="#7c3aed" opacity="0.2"/>
+  <ellipse cx="32" cy="36" rx="22" ry="18" fill="#3b82f6" opacity="0.25"/>
+  <!-- Ноги -->
+  <ellipse cx="22" cy="56" rx="9" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.5"/>
+  <ellipse cx="42" cy="56" rx="9" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1.5"/>
+  <ellipse cx="22" cy="58" rx="6" ry="2.5" fill="#000"/>
+  <ellipse cx="42" cy="58" rx="6" ry="2.5" fill="#000"/>
+  <!-- Туловище -->
+  <ellipse cx="32" cy="42" rx="22" ry="18" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.6"/>
+  <!-- Мантия -->
+  <path d="M10 42 Q32 38 54 42 L56 56 Q32 60 8 56 Z" fill="#312e81" stroke="#1e1b4b" stroke-width="1.3"/>
+  <path d="M10 42 Q32 38 54 42" stroke="#67e8f9" stroke-width="1.2" fill="none"/>
+  <!-- Звёзды на мантии -->
+  <path d="M18 48 L19 46 L20 48 L22 49 L20 50 L19 52 L18 50 L16 49 Z" fill="#67e8f9" opacity="0.9"/>
+  <path d="M44 50 L45 48 L46 50 L48 51 L46 52 L45 54 L44 52 L42 51 Z" fill="#67e8f9" opacity="0.9"/>
+  <!-- Грудная руна -->
+  <circle cx="32" cy="42" r="7" fill="#0f172a" stroke="#67e8f9" stroke-width="1.5"/>
+  <path d="M32 36 L32 48 M26 42 L38 42 M28 38 L36 46 M36 38 L28 46" stroke="#67e8f9" stroke-width="1.3"/>
+  <circle cx="32" cy="42" r="2" fill="#fff"/>
+  <circle cx="32" cy="42" r="11" fill="#67e8f9" opacity="0.25"/>
+  <!-- Верхняя пара рук -->
+  <ellipse cx="8" cy="32" rx="6" ry="10" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.4"/>
+  <ellipse cx="56" cy="32" rx="6" ry="10" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.4"/>
+  <!-- Посох с черепом -->
+  <rect x="4" y="14" width="3" height="34" rx="1" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="5.5" cy="10" r="4" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="4" cy="9.5" r="1" fill="#0f172a"/>
+  <circle cx="7" cy="9.5" r="1" fill="#0f172a"/>
+  <path d="M4 12 L7 12" stroke="#0f172a" stroke-width="0.6"/>
+  <circle cx="5.5" cy="10" r="7" fill="#67e8f9" opacity="0.3"/>
+  <!-- Магическая сфера -->
+  <circle cx="58" cy="42" r="6" fill="#a855f7" opacity="0.75"/>
+  <circle cx="58" cy="42" r="3" fill="#e9d5ff"/>
+  <circle cx="57" cy="41" r="1" fill="#fff"/>
+  <circle cx="58" cy="42" r="9" fill="#a855f7" opacity="0.3"/>
+  <!-- Нижняя пара рук -->
+  <ellipse cx="12" cy="46" rx="5" ry="8" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.2"/>
+  <ellipse cx="52" cy="46" rx="5" ry="8" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.2"/>
+  <circle cx="11" cy="54" r="4" fill="#1d4ed8"/>
+  <circle cx="53" cy="54" r="4" fill="#1d4ed8"/>
+  <!-- Голова -->
+  <circle cx="32" cy="20" r="14" fill="#1d4ed8" stroke="#0f172a" stroke-width="1.6"/>
+  <!-- Уши -->
+  <ellipse cx="19" cy="18" rx="3.5" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1"/>
+  <ellipse cx="45" cy="18" rx="3.5" ry="6" fill="#1e3a8a" stroke="#0f172a" stroke-width="1"/>
+  <!-- Корона-руны -->
+  <path d="M20 12 L22 2 L26 8 L30 0 L32 6 L34 0 L38 8 L42 2 L44 12 Z" fill="#67e8f9" stroke="#0369a1" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="32" cy="4" r="1.8" fill="#a855f7"/>
+  <!-- Третий глаз -->
+  <circle cx="32" cy="13" r="3" fill="#0f172a"/>
+  <circle cx="32" cy="13" r="1.8" fill="#67e8f9"/>
+  <circle cx="32" cy="13" r="0.6" fill="#fff"/>
+  <circle cx="32" cy="13" r="6" fill="#67e8f9" opacity="0.35"/>
+  <!-- Челюсть -->
+  <path d="M23 28 Q32 38 41 28" fill="#dbeafe" stroke="#0f172a" stroke-width="1.3"/>
+  <polygon points="25,28 24,35 27,30" fill="#fff" stroke="#0f172a" stroke-width="0.5"/>
+  <polygon points="39,28 40,35 37,30" fill="#fff" stroke="#0f172a" stroke-width="0.5"/>
+  <!-- Глаза -->
+  <circle cx="26" cy="21" r="3" fill="#0f172a"/>
+  <circle cx="38" cy="21" r="3" fill="#0f172a"/>
+  <circle cx="26" cy="21" r="1.8" fill="#67e8f9"/>
+  <circle cx="38" cy="21" r="1.8" fill="#67e8f9"/>
+  <circle cx="26.6" cy="20.3" r="0.7" fill="#fff"/>
+  <circle cx="38.6" cy="20.3" r="0.7" fill="#fff"/>
+  <circle cx="26" cy="21" r="6" fill="#67e8f9" opacity="0.3"/>
+  <circle cx="38" cy="21" r="6" fill="#67e8f9" opacity="0.3"/>
+</svg>`,
+
+/* ===================== ОРК-ГРОМИЛА (Warcraft III) ===================== */
+orc_grunt:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.35)"/>
+  <!-- Ноги -->
+  <rect x="24" y="46" width="7" height="12" rx="2" fill="#4d7c0f" stroke="#365314" stroke-width="1.3"/>
+  <rect x="33" y="46" width="7" height="12" rx="2" fill="#4d7c0f" stroke="#365314" stroke-width="1.3"/>
+  <ellipse cx="27" cy="58" rx="5" ry="2.5" fill="#3f2a12"/>
+  <ellipse cx="37" cy="58" rx="5" ry="2.5" fill="#3f2a12"/>
+  <!-- Туловище -->
+  <path d="M20 28 L44 28 L46 50 L18 50 Z" fill="#65a30d" stroke="#365314" stroke-width="1.5"/>
+  <!-- Кожаный ремень с черепом -->
+  <rect x="18" y="42" width="28" height="4" fill="#78350f" stroke="#451a03" stroke-width="0.8"/>
+  <circle cx="32" cy="44" r="2.5" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="0.8"/>
+  <circle cx="31" cy="43.5" r="0.6" fill="#1a1a1a"/>
+  <circle cx="33" cy="43.5" r="0.6" fill="#1a1a1a"/>
+  <!-- Нагрудный ремень -->
+  <path d="M22 30 L42 46 M42 30 L22 46" stroke="#78350f" stroke-width="2.5"/>
+  <!-- Волчья шкура на плече -->
+  <path d="M20 28 Q18 22 22 20 Q26 24 24 28 Z" fill="#3f2a12" stroke="#1a1a1a" stroke-width="0.8"/>
+  <circle cx="21" cy="21" r="1" fill="#dc2626"/>
+  <!-- Руки -->
+  <rect x="12" y="30" width="8" height="16" rx="3" fill="#65a30d" stroke="#365314" stroke-width="1.2"/>
+  <rect x="44" y="30" width="8" height="16" rx="3" fill="#65a30d" stroke="#365314" stroke-width="1.2"/>
+  <circle cx="16" cy="47" r="3.5" fill="#4d7c0f"/>
+  <circle cx="48" cy="47" r="3.5" fill="#4d7c0f"/>
+  <!-- Топор -->
+  <rect x="10" y="20" width="3" height="22" rx="1" fill="#78350f" stroke="#451a03" stroke-width="0.8" transform="rotate(-15 11 31)"/>
+  <path d="M4 18 Q10 12 16 18 Q14 24 8 26 Q4 24 4 18 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <path d="M6 20 Q10 16 14 20" stroke="#e5e7eb" stroke-width="0.8" fill="none"/>
+  <circle cx="10" cy="22" r="1" fill="#475569"/>
+  <!-- Голова -->
+  <circle cx="32" cy="20" r="11" fill="#65a30d" stroke="#365314" stroke-width="1.5"/>
+  <!-- Уши -->
+  <path d="M22 16 L14 10 L20 18 Z" fill="#4d7c0f" stroke="#365314" stroke-width="1"/>
+  <path d="M42 16 L50 10 L44 18 Z" fill="#4d7c0f" stroke="#365314" stroke-width="1"/>
+  <!-- Косичка -->
+  <path d="M32 9 Q34 2 38 4 Q36 8 34 10 Z" fill="#1a2e05"/>
+  <!-- Челюсть с клыками -->
+  <path d="M24 26 Q32 33 40 26" fill="#365314" stroke="#1a2e05" stroke-width="1"/>
+  <polygon points="27,26 26,31 29,28" fill="#fff" stroke="#1a2e05" stroke-width="0.5"/>
+  <polygon points="37,26 38,31 35,28" fill="#fff" stroke="#1a2e05" stroke-width="0.5"/>
+  <!-- Глаза -->
+  <ellipse cx="28" cy="19" rx="2" ry="2.4" fill="#fbbf24"/>
+  <ellipse cx="36" cy="19" rx="2" ry="2.4" fill="#fbbf24"/>
+  <ellipse cx="28" cy="19" rx="0.8" ry="1.8" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="19" rx="0.8" ry="1.8" fill="#1a1a1a"/>
+  <!-- Брови -->
+  <path d="M23 15 L29 16 M35 16 L41 15" stroke="#1a2e05" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Нос -->
+  <ellipse cx="32" cy="22" rx="2" ry="1.5" fill="#365314"/>
+</svg>`,
+
+/* ===================== ОРК-ВОЖДЬ ОРДЫ ===================== */
+orc_warchief:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="20" ry="4" fill="rgba(0,0,0,0.45)"/>
+  <!-- Ноги -->
+  <rect x="22" y="46" width="8" height="13" rx="2" fill="#3f6212" stroke="#1a2e05" stroke-width="1.4"/>
+  <rect x="34" y="46" width="8" height="13" rx="2" fill="#3f6212" stroke="#1a2e05" stroke-width="1.4"/>
+  <ellipse cx="26" cy="59" rx="6" ry="3" fill="#1a1a1a"/>
+  <ellipse cx="38" cy="59" rx="6" ry="3" fill="#1a1a1a"/>
+  <!-- Туловище -->
+  <path d="M18 26 L46 26 L48 50 L16 50 Z" fill="#4d7c0f" stroke="#1a2e05" stroke-width="1.6"/>
+  <!-- Чёрная броня -->
+  <path d="M22 28 L42 28 L44 44 L20 44 Z" fill="#1c1917" stroke="#44403c" stroke-width="1.2"/>
+  <path d="M26 30 L38 30 L38 42 L26 42 Z" fill="#292524"/>
+  <!-- Символ Орды (щит) -->
+  <path d="M32 32 L28 36 L32 40 L36 36 Z" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/>
+  <path d="M32 33 L30 36 L32 39 L34 36 Z" fill="#fbbf24"/>
+  <!-- Плечи-накладки -->
+  <path d="M14 28 Q16 22 22 24 L22 30 Q16 30 14 28 Z" fill="#44403c" stroke="#1c1917" stroke-width="1.2"/>
+  <path d="M50 28 Q48 22 42 24 L42 30 Q48 30 50 28 Z" fill="#44403c" stroke="#1c1917" stroke-width="1.2"/>
+  <circle cx="18" cy="26" r="1.5" fill="#dc2626"/>
+  <circle cx="46" cy="26" r="1.5" fill="#dc2626"/>
+  <!-- Руки -->
+  <rect x="10" y="30" width="8" height="18" rx="3" fill="#4d7c0f" stroke="#1a2e05" stroke-width="1.2"/>
+  <rect x="46" y="30" width="8" height="18" rx="3" fill="#4d7c0f" stroke="#1a2e05" stroke-width="1.2"/>
+  <circle cx="14" cy="49" r="4" fill="#3f6212"/>
+  <circle cx="50" cy="49" r="4" fill="#3f6212"/>
+  <!-- Двойной топор -->
+  <rect x="8" y="18" width="3" height="24" rx="1" fill="#451a03" stroke="#1a1a1a" stroke-width="0.8" transform="rotate(-15 9 30)"/>
+  <path d="M2 14 Q10 8 18 14 Q16 22 8 24 Q2 22 2 14 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.3"/>
+  <path d="M4 18 Q9 13 15 18" stroke="#e5e7eb" stroke-width="0.9" fill="none"/>
+  <path d="M8 12 L8 6 L11 10 L13 6 L14 12" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.7"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="12" fill="#4d7c0f" stroke="#1a2e05" stroke-width="1.5"/>
+  <!-- Уши -->
+  <path d="M21 14 L12 6 L19 16 Z" fill="#3f6212" stroke="#1a2e05" stroke-width="1"/>
+  <path d="M43 14 L52 6 L45 16 Z" fill="#3f6212" stroke="#1a2e05" stroke-width="1"/>
+  <!-- Косички -->
+  <path d="M28 8 Q24 0 22 2 Q26 6 28 10 Z" fill="#1a2e05"/>
+  <path d="M36 8 Q40 0 42 2 Q38 6 36 10 Z" fill="#1a2e05"/>
+  <!-- Красная боевая раскраска -->
+  <path d="M22 14 Q28 12 32 16 Q36 12 42 14" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+  <!-- Челюсть с огромными клыками -->
+  <path d="M23 24 Q32 33 41 24" fill="#1a2e05" stroke="#000" stroke-width="1.2"/>
+  <polygon points="25,24 23,31 28,27" fill="#fff" stroke="#1a2e05" stroke-width="0.6"/>
+  <polygon points="39,24 41,31 36,27" fill="#fff" stroke="#1a2e05" stroke-width="0.6"/>
+  <polygon points="30,27 30,32 33,28" fill="#fff" stroke="#1a2e05" stroke-width="0.6"/>
+  <!-- Глаза -->
+  <ellipse cx="27" cy="17" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="37" cy="17" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="27" cy="17" rx="1" ry="2.2" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="17" rx="1" ry="2.2" fill="#1a1a1a"/>
+  <circle cx="27" cy="17" r="5" fill="#dc2626" opacity="0.25"/>
+  <circle cx="37" cy="17" r="5" fill="#dc2626" opacity="0.25"/>
+  <!-- Брови -->
+  <path d="M22 12 L29 14 M35 14 L42 12" stroke="#1a2e05" stroke-width="1.8" stroke-linecap="round"/>
+</svg>`,
+
+/* ===================== ТРОЛЛЬ (оранжевый, шипастый, без зрачков) ===================== */
+troll:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="18" ry="3.5" fill="rgba(0,0,0,0.35)"/>
+  <!-- Шипастые ноги -->
+  <path d="M22 46 L20 58 L28 58 L26 46 Z" fill="#ea580c" stroke="#7c2d12" stroke-width="1.3"/>
+  <path d="M42 46 L44 58 L36 58 L38 46 Z" fill="#ea580c" stroke="#7c2d12" stroke-width="1.3"/>
+  <path d="M20 50 L16 48 L20 52 Z" fill="#c2410c"/>
+  <path d="M44 50 L48 48 L44 52 Z" fill="#c2410c"/>
+  <ellipse cx="24" cy="58" rx="5" ry="2.5" fill="#3f2a12"/>
+  <ellipse cx="40" cy="58" rx="5" ry="2.5" fill="#3f2a12"/>
+  <!-- Туловище с шипами -->
+  <path d="M18 28 L46 28 L48 50 L16 50 Z" fill="#f97316" stroke="#7c2d12" stroke-width="1.5"/>
+  <!-- Спинные шипы -->
+  <path d="M20 28 L16 20 L22 26 Z" fill="#c2410c" stroke="#7c2d12" stroke-width="0.8"/>
+  <path d="M26 27 L24 18 L30 25 Z" fill="#ea580c" stroke="#7c2d12" stroke-width="0.8"/>
+  <path d="M32 26 L32 16 L36 25 Z" fill="#c2410c" stroke="#7c2d12" stroke-width="0.8"/>
+  <path d="M38 27 L40 18 L44 26 Z" fill="#ea580c" stroke="#7c2d12" stroke-width="0.8"/>
+  <path d="M44 28 L48 22 L46 30 Z" fill="#c2410c" stroke="#7c2d12" stroke-width="0.8"/>
+  <!-- Нагрудные шипы -->
+  <path d="M24 34 L20 32 L24 36 Z" fill="#c2410c"/>
+  <path d="M40 34 L44 32 L40 36 Z" fill="#c2410c"/>
+  <!-- Полосы -->
+  <path d="M22 40 Q32 42 42 40 M22 45 Q32 47 42 45" stroke="#c2410c" stroke-width="1" fill="none" opacity="0.7"/>
+  <!-- Руки -->
+  <rect x="10" y="30" width="9" height="18" rx="3" fill="#f97316" stroke="#7c2d12" stroke-width="1.3"/>
+  <rect x="45" y="30" width="9" height="18" rx="3" fill="#f97316" stroke="#7c2d12" stroke-width="1.3"/>
+  <!-- Когти -->
+  <path d="M12 48 L10 54 M15 49 L14 55 M18 48 L19 54" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M46 48 L45 54 M49 49 L50 55 M52 48 L54 54" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Голова -->
+  <circle cx="32" cy="20" r="13" fill="#f97316" stroke="#7c2d12" stroke-width="1.5"/>
+  <!-- Уши-шипы -->
+  <path d="M20 14 L12 6 L22 16 Z" fill="#ea580c" stroke="#7c2d12" stroke-width="1"/>
+  <path d="M44 14 L52 6 L42 16 Z" fill="#ea580c" stroke="#7c2d12" stroke-width="1"/>
+  <!-- Шипы на голове -->
+  <path d="M26 8 L24 0 L28 7 Z" fill="#c2410c"/>
+  <path d="M32 6 L32 -2 L35 6 Z" fill="#ea580c"/>
+  <path d="M38 8 L40 0 L36 7 Z" fill="#c2410c"/>
+  <!-- Челюсть с клыками -->
+  <path d="M24 26 Q32 34 40 26" fill="#fef3c7" stroke="#7c2d12" stroke-width="1.2"/>
+  <polygon points="26,26 25,32 28,28" fill="#fff" stroke="#7c2d12" stroke-width="0.5"/>
+  <polygon points="32,28 32,33 34,29" fill="#fff" stroke="#7c2d12" stroke-width="0.5"/>
+  <polygon points="38,26 39,32 36,28" fill="#fff" stroke="#7c2d12" stroke-width="0.5"/>
+  <!-- ГЛАЗА БЕЗ ЗРАЧКОВ (горящие жёлтые) -->
+  <circle cx="27" cy="19" r="3.5" fill="#fbbf24"/>
+  <circle cx="37" cy="19" r="3.5" fill="#fbbf24"/>
+  <circle cx="27" cy="19" r="2" fill="#fde047"/>
+  <circle cx="37" cy="19" r="2" fill="#fde047"/>
+  <circle cx="27" cy="19" r="5" fill="#fbbf24" opacity="0.35"/>
+  <circle cx="37" cy="19" r="5" fill="#fbbf24" opacity="0.35"/>
+  <!-- Брови -->
+  <path d="M22 14 L28 16 M36 16 L42 14" stroke="#7c2d12" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Нос -->
+  <ellipse cx="32" cy="22" rx="2.5" ry="2" fill="#c2410c"/>
+</svg>`,
+
+/* ===================== ТРОЛЛЬ-БЕРСЕРК ===================== */
+troll_berserker:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="22" ry="4" fill="rgba(0,0,0,0.45)"/>
+  <!-- Яростная аура -->
+  <ellipse cx="32" cy="36" rx="28" ry="24" fill="#dc2626" opacity="0.15"/>
+  <!-- Ноги -->
+  <path d="M20 46 L18 58 L28 58 L26 46 Z" fill="#c2410c" stroke="#7c2d12" stroke-width="1.4"/>
+  <path d="M44 46 L46 58 L36 58 L38 46 Z" fill="#c2410c" stroke="#7c2d12" stroke-width="1.4"/>
+  <path d="M18 50 L12 46 L18 52 Z" fill="#9a3412"/>
+  <path d="M46 50 L52 46 L46 52 Z" fill="#9a3412"/>
+  <ellipse cx="23" cy="58" rx="6" ry="3" fill="#1a1a1a"/>
+  <ellipse cx="41" cy="58" rx="6" ry="3" fill="#1a1a1a"/>
+  <!-- Туловище -->
+  <path d="M16 26 L48 26 L50 50 L14 50 Z" fill="#ea580c" stroke="#7c2d12" stroke-width="1.6"/>
+  <!-- Костяные шипы на спине -->
+  <path d="M18 26 L14 16 L20 24 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="0.8"/>
+  <path d="M24 25 L22 14 L28 23 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="0.8"/>
+  <path d="M32 24 L32 12 L36 23 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="0.8"/>
+  <path d="M40 25 L42 14 L46 23 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="0.8"/>
+  <path d="M46 26 L50 16 L48 24 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="0.8"/>
+  <!-- Костяные наросты на груди -->
+  <path d="M22 34 L18 30 L24 36 Z" fill="#e5e7eb"/>
+  <path d="M42 34 L46 30 L40 36 Z" fill="#e5e7eb"/>
+  <!-- Шрамы -->
+  <path d="M26 40 L30 44 M36 40 L32 44" stroke="#7c2d12" stroke-width="1.2"/>
+  <!-- Руки -->
+  <rect x="8" y="28" width="10" height="20" rx="3" fill="#ea580c" stroke="#7c2d12" stroke-width="1.4"/>
+  <rect x="46" y="28" width="10" height="20" rx="3" fill="#ea580c" stroke="#7c2d12" stroke-width="1.4"/>
+  <!-- Когти -->
+  <path d="M10 48 L8 56 M14 49 L13 57 M18 48 L19 56" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M46 48 L45 56 M50 49 L51 57 M54 48 L56 56" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="14" fill="#ea580c" stroke="#7c2d12" stroke-width="1.6"/>
+  <!-- Уши-шипы -->
+  <path d="M18 12 L8 2 L20 14 Z" fill="#c2410c" stroke="#7c2d12" stroke-width="1"/>
+  <path d="M46 12 L56 2 L44 14 Z" fill="#c2410c" stroke="#7c2d12" stroke-width="1"/>
+  <!-- Костяная корона -->
+  <path d="M22 8 L24 -2 L28 4 L32 -4 L36 4 L40 -2 L42 8 Z" fill="#e5e7eb" stroke="#78716c" stroke-width="1.2" stroke-linejoin="round"/>
+  <!-- Челюсть с огромными клыками -->
+  <path d="M22 24 Q32 34 42 24" fill="#1a1a1a" stroke="#000" stroke-width="1.3"/>
+  <polygon points="24,24 22,32 27,28" fill="#fff" stroke="#1a1a1a" stroke-width="0.6"/>
+  <polygon points="40,24 42,32 37,28" fill="#fff" stroke="#1a1a1a" stroke-width="0.6"/>
+  <polygon points="30,28 30,34 34,29" fill="#fff" stroke="#1a1a1a" stroke-width="0.6"/>
+  <!-- ГЛАЗА БЕЗ ЗРАЧКОВ (яростные жёлтые) -->
+  <circle cx="26" cy="17" r="4" fill="#fbbf24"/>
+  <circle cx="38" cy="17" r="4" fill="#fbbf24"/>
+  <circle cx="26" cy="17" r="2.5" fill="#fde047"/>
+  <circle cx="38" cy="17" r="2.5" fill="#fde047"/>
+  <circle cx="26" cy="17" r="6" fill="#fbbf24" opacity="0.4"/>
+  <circle cx="38" cy="17" r="6" fill="#fbbf24" opacity="0.4"/>
+  <!-- Кровавые брови -->
+  <path d="M20 12 L27 14 M37 14 L44 12" stroke="#7c2d12" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Яростный нос -->
+  <ellipse cx="32" cy="20" rx="3" ry="2" fill="#9a3412"/>
+</svg>`,
 /* ===================== УПЫРЬ ===================== */
 /* ===================== УПЫРЬ (в духе Warcraft III) ===================== */
 ghoul:`<svg viewBox="0 0 64 64">
@@ -3754,7 +4255,7 @@ function getZoneBiomeAt(x,y){
 const ZONE_CONFIG={
   pallet:    {levels:[1,2],   rarities:{common:14, uncommon:2}},
   viridian:  {levels:[3,5],   rarities:{common:14, uncommon:3}},
-  route:     {levels:[3,6],   rarities:{common:12, uncommon:5, rare:1}},
+  route: {levels:[3,6], rarities:{common:10, uncommon:8, rare:1}},
   forest:    {levels:[5,8],   rarities:{common:10, uncommon:6, rare:2}},
   pewter:    {levels:[6,9],   rarities:{common:8,  uncommon:7, rare:3}},
   mountain:  {levels:[8,12],  rarities:{common:6,  uncommon:7, rare:4, epic:1}},
