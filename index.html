@@ -874,7 +874,7 @@ button, input, textarea, select {
   <div class="row"><span class="dot" style="background:#38bdf8"></span> Океан / Реки</div>
   <div class="row"><span class="dot" style="background:#a8a29e"></span> Горы Звезд</div>
   <div class="row"><span class="dot" style="background:#fcd34d"></span> Поле</div>
-  <div class="row"><span class="dot" style="background:#7c3aed"></span> Пещера</div>
+  <div class="row"><span class="dot" style="background:#7c3aed"></span> Пещера Душ</div>
   <div class="row"><span class="dot" style="background:#c4a882"></span> Города</div>
   <div class="row"><span class="dot" style="background:#ef4444"></span> Лавка лекаря</div>
   <div class="row"><span class="dot" style="background:#3b82f6"></span> 🏪 Магазин</div>
@@ -1035,7 +1035,7 @@ forest:{name:"Темный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:
 water:{name:"Море Сирен",color:"#38bdf8",bg:"rgba(30,91,138,0.6)",type:"nature"},
 mountain:{name:"Гора Звезд",color:"#a8a29e",bg:"rgba(90,90,90,0.6)",type:"nature"},
 desert:{name:"Пески Забвения",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",type:"nature"},
-cave:{name:"Пещера Душ",color:"#7c3aed",bg:"rgba(40,20,60,0.7)",type:"nature"},
+cave:{name:"Пещера Душ Душ",color:"#7c3aed",bg:"rgba(40,20,60,0.7)",type:"nature"},
 route:{name:"Тропа Странников",color:"#a3e635",bg:"rgba(120,160,80,0.4)",type:"nature"},
 volcano:{name:"Остров Хэдрон",color:"#ef4444",bg:"rgba(120,40,20,0.5)",type:"nature"},
 
@@ -4614,7 +4614,7 @@ const TRAINER_TEMPLATES=[
 
 // ===================== КВЕСТЫ =====================
 const QUEST_DEFS=[
-// --- Паллет-Таун ---
+// --- Город Сид ---
 {id:"q_catch3",biome:"sid",npc:"Архимаг",npcPos:{x:550,y:1660},
   title:"Первые шаги",desc:"Поймай 1 монстра",
   type:"catch",target:1,reward:{money:500,items:{Magicball:5}},dialogue:"Привет, юный искатель приключений! Помоги моим колдовским исследованиям — поймай 1 монстра."},
@@ -4622,9 +4622,9 @@ const QUEST_DEFS=[
   title:"Спаси ведьму",desc:"Победи 2 диких монстров, чтобы стать сильнее.",
   type:"defeat",target:2,reward:{money:300,items:{potion:3}},dialogue:"Здравствуй... искатель приключений. Я в засаде. Расчисти мне дорогу, чтобы я могла продолжить путь."},
 
-// --- Виридиан-Сити ---
+// --- Город Зиффрен ---
 {id:"q_defeat_viridian8",biome:	"zyffren",npc:"Архимаг",npcPos:{x:520,y:1060},
-  title:"Тренировка в городе",desc:"Победи 3 монстров в Виридиан-Сити.",
+  title:"Тренировка в городе",desc:"Победи 3 монстров в Город Зиффрен.",
   type:"defeat",target:3,reward:{money:800,items:{superball:3}},dialogue:"Эй, новичок! Хочешь стать сильнее? Победи 3 монстров здесь!"},
 {id:"q_catch_pidgey",biome:	"zyffren",npc:"Дворф Руд",npcPos:{x:750,y:1100},
   title:"Птичья коллекция",desc:"Поймай Пиджи или Ратату.",
@@ -4638,7 +4638,7 @@ const QUEST_DEFS=[
   title:"Сильная команда",desc:"Доведи любого монстра до 10 уровня.",
   type:"level",target:10,reward:{money:1200,items:{revive:1}},dialogue:"Настоящий тренер должен иметь сильного монстра! Доведи кого-нибудь до 10 уровня."},
 
-// --- Лес Виридиан ---
+// --- Темный Лес ---
 {id:"q_catch_caterpie",biome:"forest",npc:"Ловец жуков",npcPos:{x:500,y:1250},
   title:"Жучий инстинкт",desc:"Поймай Катерпи или Видла.",
   type:"catch_specific",targetIds:[10,13],target:1,reward:{money:700,items:{Magicball:8}},dialogue:"Жуки — моя страсть! Принеси мне Катерпи или Видла!"},
@@ -4649,7 +4649,7 @@ const QUEST_DEFS=[
   title:"Охота на Пикачу",desc:"Поймай Пикачу!",
   type:"catch_specific",targetIds:[25],target:1,reward:{money:2000,items:{ultraball:2}},dialogue:"Пикачу — мечта коллекционера! Поймай его — и получишь щедрую награду."},
 
-// --- Пьютер-Сити ---
+// --- Магократия Харадат ---
 {id:"q_defeat_pewter15",biome:"haradat",npc:"Скалолаз",npcPos:{x:550,y:400},
   title:"Каменная твёрдость",desc:"Победи 15 монстров.",
   type:"defeat",target:15,reward:{money:2000,items:{superpotion:3}},dialogue:"Каменный — это сила! Победи 15 монстров, чтобы доказать свою твёрдость."},
@@ -4657,15 +4657,15 @@ const QUEST_DEFS=[
   title:"Каменная коллекция",desc:"Поймай Геодуда.",
   type:"catch_specific",targetIds:[74],target:1,reward:{money:1800,items:{superball:5}},dialogue:"Геодуд — прекрасный образец! Поймай его для моей коллекции."},
 
-// --- Гора Луны ---
+// --- Гора Звезд ---
 {id:"q_defeat_mountain18",biome:"mountain",npc:"Альпинист",npcPos:{x:450,y:500},
   title:"Покоритель гор",desc:"Победи 18 монстров в горах.",
-  type:"defeat",target:18,reward:{money:2500,items:{revive:1}},dialogue:"Гора Луны — суровое место! Победи 18 монстров здесь."},
+  type:"defeat",target:18,reward:{money:2500,items:{revive:1}},dialogue:"Гора Звезд — суровое место! Победи 18 монстров здесь."},
 {id:"q_level_team15",biome:"mountain",npc:"Мастер тренировок",npcPos:{x:600,y:600},
   title:"Путь мастера",desc:"Доведи любого монстра до 15 уровня.",
   type:"level",target:15,reward:{money:3000,items:{superpotion:5}},dialogue:"Хочешь стать мастером? Доведи монстра до 15 уровня!"},
 
-// --- Церулеан-Сити ---
+// --- Город Гоч ---
 {id:"q_defeat_cerulean20",biome:"goch",npc:"Пловец",npcPos:{x:1650,y:350},
   title:"Водные тренировки",desc:"Победи 20 монстров.",
   type:"defeat",target:20,reward:{money:3000,items:{ultraball:2}},dialogue:"Водный — стихия силы! Победи 20 монстров."},
@@ -4673,7 +4673,7 @@ const QUEST_DEFS=[
   title:"Утиная охота",desc:"Поймай Псайдака.",
   type:"catch_specific",targetIds:[54],target:1,reward:{money:2200,items:{superball:5}},dialogue:"Псайдак — забавный монстр! Поймай его для меня."},
 
-// --- Вермилион-Сити ---
+// --- Город Оландир ---
 {id:"q_defeat_vermilion25",biome:"olandir",npc:"Электрик-тренер",npcPos:{x:1850,y:1450},
   title:"Электрик шторм",desc:"Победи 25 монстров.",
   type:"defeat",target:25,reward:{money:4000,items:{ultraball:3}},dialogue:"Электричество — моя страсть! Победи 25 монстров."},
@@ -4681,7 +4681,7 @@ const QUEST_DEFS=[
   title:"Опытный боец",desc:"Доведи любого монстра до 20 уровня.",
   type:"level",target:20,reward:{money:5000,items:{revive:2}},dialogue:"20 уровень — это серьёзно! Докажи, что ты можешь."},
 
-// --- Селадон-Сити ---
+// --- Магократия Селакс ---
 {id:"q_defeat_celadon30",biome:"selax",npc:"Модница",npcPos:{x:1450,y:950},
   title:"Стильные битвы",desc:"Победи 30 монстров.",
   type:"defeat",target:30,reward:{money:5000,items:{ultraball:5}},dialogue:"Стиль — во всём! Победи 30 монстров стильно!"},
@@ -4689,7 +4689,7 @@ const QUEST_DEFS=[
   title:"Загадка Иви",desc:"Поймай Иви.",
   type:"catch_specific",targetIds:[133],target:1,reward:{money:4000,items:{superpotion:5}},dialogue:"Иви — загадка эволюции! Поймай его для меня."},
 
-// --- Саффрон-Сити ---
+// --- Город Фаттолодор ---
 {id:"q_defeat_saffron35",biome:"fattolodor",npc:"Психический",npcPos:{x:1950,y:600},
   title:"Сила разума",desc:"Победи 35 монстров.",
   type:"defeat",target:35,reward:{money:6000,items:{ultraball:5}},dialogue:"Разум сильнее тела! Победи 35 монстров."},
@@ -4697,7 +4697,7 @@ const QUEST_DEFS=[
   title:"Телепортация",desc:"Поймай Абру.",
   type:"catch_specific",targetIds:[63],target:1,reward:{money:5000,items:{revive:2}},dialogue:"Абра телепортируется! Поймай его, если сможешь."},
 
-// --- Лавандер-Таун ---
+// --- Город Тотсар ---
 {id:"q_defeat_lavender40",biome:"totsar",npc:"Экзорцист",npcPos:{x:2250,y:1050},
   title:"Изгнание духов",desc:"Победи 40 монстров.",
   type:"defeat",target:40,reward:{money:7000,items:{ultraball:5}},dialogue:"Призраки повсюду! Победи 40 монстров, чтобы их изгнать."},
@@ -4705,7 +4705,7 @@ const QUEST_DEFS=[
   title:"Призрачная охота",desc:"Поймай Гастли.",
   type:"catch_specific",targetIds:[92],target:1,reward:{money:6000,items:{superpotion:5}},dialogue:"Гастли — elusive! Поймай его для меня."},
 
-// --- Пещера ---
+// --- Пещера Душ ---
 {id:"q_defeat_cave45",biome:"cave",npc:"Спелеолог",npcPos:{x:1300,y:300},
   title:"Глубины пещер",desc:"Победи 45 монстров.",
   type:"defeat",target:45,reward:{money:8000,items:{ultraball:5}},dialogue:"Пещеры полны тайн! Победи 45 монстров."},
@@ -4713,7 +4713,7 @@ const QUEST_DEFS=[
   title:"Летучие мыши",desc:"Поймай Зубата.",
   type:"catch_specific",targetIds:[41],target:1,reward:{money:4000,items:{superball:5}},dialogue:"Зубаты живут в темноте! Поймай одного."},
 
-// --- Фуксия-Сити ---
+// --- Город Уурион ---
 {id:"q_defeat_fuchsia50",biome:"uurion",npc:"Сафари-гид",npcPos:{x:2650,y:1500},
   title:"Сафари-марафон",desc:"Победи 50 монстров.",
   type:"defeat",target:50,reward:{money:10000,items:{ultraball:5}},dialogue:"Сафари — это испытание! Победи 50 монстров."},
@@ -4721,7 +4721,7 @@ const QUEST_DEFS=[
   title:"Драконья мечта",desc:"Поймай Дратини.",
   type:"catch_specific",targetIds:[147],target:1,reward:{money:8000,items:{revive:3}},dialogue:"Дратини — будущий дракон! Поймай его для меня."},
 
-// --- Сафари-зона ---
+// --- Пески Забвения ---
 {id:"q_defeat_desert55",biome:"desert",npc:"Пустынный рейнджер",npcPos:{x:2300,y:1400},
   title:"Песчаная буря",desc:"Победи 55 монстров.",
   type:"defeat",target:55,reward:{money:12000,items:{ultraball:5}},dialogue:"Пустыня жестока! Победи 55 монстров."},
@@ -4729,7 +4729,7 @@ const QUEST_DEFS=[
   title:"30 уровень",desc:"Доведи любого монстра до 30 уровня.",
   type:"level",target:30,reward:{money:15000,items:{revive:3}},dialogue:"30 уровень — это элита! Докажи свою силу."},
 
-// --- Остров Циннабар ---
+// --- Остров Шёпота ---
 {id:"q_defeat_cinnabar60",biome:"gozon",npc:"Вулканолог",npcPos:{x:2250,y:1850},
   title:"Огненное испытание",desc:"Победи 60 монстров.",
   type:"defeat",target:60,reward:{money:15000,items:{ultraball:5}},dialogue:"Вулкан кипит! Победи 60 монстров."},
@@ -4737,7 +4737,7 @@ const QUEST_DEFS=[
   title:"Лапрас-легенда",desc:"Поймай Лапраса.",
   type:"catch_specific",targetIds:[131],target:1,reward:{money:10000,items:{revive:3}},dialogue:"Лапрас — редкость! Поймай его для меня."},
 
-// --- Остров Вулкана ---
+// --- Остров Хэдрон ---
 {id:"q_defeat_volcano70",biome:"volcano",npc:"Огненный мастер",npcPos:{x:2000,y:1700},
   title:"Пламенный путь",desc:"Победи 70 монстров.",
   type:"defeat",target:70,reward:{money:20000,items:{ultraball:5}},dialogue:"Огненный — моя жизнь! Победи 70 монстров."},
@@ -4745,7 +4745,7 @@ const QUEST_DEFS=[
   title:"Чаризард!",desc:"Поймай Чаризарда.",
   type:"catch_specific",targetIds:[6],target:1,reward:{money:25000,items:{revive:5}},dialogue:"Чаризард — мечта! Поймай его для меня."},
 
-// --- Индиго-Плато ---
+// --- Поле Магии ---
 {id:"q_defeat_indigo80",biome:"pole_magii",npc:"Чемпион",npcPos:{x:200,y:150},
   title:"Путь чемпиона",desc:"Победи 80 монстров.",
   type:"defeat",target:80,reward:{money:30000,items:{ultraball:5}},dialogue:"Я — чемпион! Победи 80 монстров, и я признаю тебя."},
