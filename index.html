@@ -2528,7 +2528,25 @@ display:none;
  max-width: 260px;
 }
 
-
+#labels .label {
+  position: absolute;
+  transform: translate(-50%, 0);
+  font-size: 11px;
+  white-space: nowrap;
+  background: rgba(0,0,0,.85);
+  padding: 2px 8px;
+  border-radius: 8px;
+  color: #fff;
+  pointer-events: none;
+  opacity: 0;                      /* ← скрыто по умолчанию */
+  transition: opacity .15s;        /* ← плавное появление */
+  border: 1px solid #a855f7;
+  box-shadow: 0 0 8px rgba(168,85,247,.8);
+  z-index: 950001;
+}
+#labels .label.visible {           /* ← класс, который включает показ */
+  opacity: 1;
+}
 #teamBtn{right:12px;}
 </style>
 </head>
@@ -2743,7 +2761,7 @@ const HABITATS={
 forest:{name:"Темный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:"nature"},
 water:{name:"Море Сирен",color:"#38bdf8",bg:"rgba(30,91,138,0.6)",type:"nature"},
 mountain:{name:"Гора Звезд",color:"#a8a29e",bg:"rgba(90,90,90,0.6)",type:"nature"},
-desert:{name:"Пески Забвения",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",type:"nature"},
+desert:{name:"Арам'Набау",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",type:"nature"},
 cave:{name:"Пещера Душ",color:"#7c3aed",bg:"rgba(40,20,60,0.7)",type:"nature"},
 route:{name:"Тропа Странников",color:"#a3e635",bg:"rgba(120,160,80,0.4)",type:"nature"},
 volcano:{name:"Остров Хэдрон",color:"#ef4444",bg:"rgba(120,40,20,0.5)",type:"nature"},
@@ -6893,27 +6911,20 @@ if (isUndead(p)) el.classList.add('undead');   // ← добавили
 el.innerHTML = getSprite(p.shape);
 const label = document.createElement('div');
 label.className = 'label';
-// Подпись с иконкой черепа для нежити
 label.innerHTML = isUndead(p) ? '💀 ' + p.name : p.name;
-
-label.className = 'label';
 label.id = 'flabel_' + (p.id + '_' + Date.now());
 
 const primaryType = p.types[0];
 const labelColor = TYPE_COLORS[primaryType] || '#ffd100';
 
-label.innerHTML = isUndead(p) ? '💀 ' + p.name : p.name;
 label.style.color = labelColor;
 label.style.borderColor = labelColor;
 label.style.textShadow = `1px 1px 0 #000, 0 0 6px ${labelColor}`;
 label.style.boxShadow = `0 0 0 1px #000, 0 0 8px ${labelColor}99`;
 label.style.left = pos.x + 'px';
-label.style.top  = (pos.y + 22) + 'px';   // на 22px ниже центра
-label.style.zInbest = 900001;
-label.style.display = 'none';              // покажем при hover
+label.style.top  = (pos.y + 22) + 'px';
+label.style.zIndex = 900001;
 document.getElementById('labels').appendChild(label);
-
-// Сохраняем ссылку на подпись в объекте
 el._labelEl = label;
 el.style.transform = `translate(${pos.x}px,${pos.y}px)`;
 if (p.rarity === 'legendary') el.style.filter = 'drop-shadow(0 0 10px #fbbf24)';
@@ -6935,6 +6946,13 @@ el.addEventListener('click', e => {
     updateHUD(); saveProgress();
   });
    world.appendChild(el);
+
+el.addEventListener('mouseenter', () => {
+  if (el._labelEl) el._labelEl.classList.add('visible');
+});
+el.addEventListener('mouseleave', () => {
+  if (el._labelEl) el._labelEl.classList.remove('visible');
+});
   el.style.zInbest = yToZFantasy(pos.y);
 
   FantasysOnMap.push({ el, x: pos.x, y: pos.y, data: p, hidden: false, biome, zone: zoneRef });
@@ -7008,6 +7026,12 @@ el._labelEl = label;
     el.addEventListener('click',e=>{e.stopPropagation();startTrainerBattle(tmpl,pos)});
      world.appendChild(el);
 el.style.zInbest = yToZ(pos.y);
+el.addEventListener('mouseenter', () => {
+  if (el._labelEl) el._labelEl.classList.add('visible');
+});
+el.addEventListener('mouseleave', () => {
+  if (el._labelEl) el._labelEl.classList.remove('visible');
+});
     trainersOnMap.push({el,x:pos.x,y:pos.y,data:tmpl,biome:pos.biome});
     reserveSpawnPoint(pos.x, pos.y);
   });
@@ -7257,7 +7281,12 @@ label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPS
 label.style.zInbest = 900001;                // ← поверх всех
 label.style.top  = (spawnY + 22) + 'px';   // 22px ниже центра NPS
 document.getElementById('labels').appendChild(label);
-
+el.addEventListener('mouseenter', () => {
+  if (el._labelEl) el._labelEl.classList.add('visible');
+});
+el.addEventListener('mouseleave', () => {
+  if (el._labelEl) el._labelEl.classList.remove('visible');
+});
 // сохраняем ссылку, чтобы двигать/удалять
 el._labelEl = label;
 
@@ -9609,7 +9638,7 @@ function openBestiary(p,playerPk){
   if(weaks[4].length)weakHTML+=`<div class="best-section-title">Слабости ×4</div><div class="weak-grid">${weaks[4].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]}">${t} ×4</div>`).join('')}</div>`;
   if(weaks[2].length)weakHTML+=`<div class="best-section-title">Слабости ×2</div><div class="weak-grid">${weaks[2].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]}">${t} ×2</div>`).join('')}</div>`;
   if(weaks[0.5].length)weakHTML+=`<div class="best-section-title">Сопротивления</div><div class="weak-grid">${weaks[0.5].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]};opacity:.7">${t} ×0.5</div>`).join('')}</div>`;
-  if(weaks[0].length)weakHTML+=`<div class="best-section-title">Иммунитеты</div><div class="weak-grid">${weaks[0].map(t=>`<div class="weak-item" style="background:${TYPE_COLORS[t]};">${t} ×0</div>`).join('')}</div>`;
+  if(weaks[0].length)weakHTML+=`<div class="best-section-title">Иммунитеты</div><div class="weak-grid">${weaks[0].map(t=>`<div class="weak-item" style="background:#333">${t} ×0</div>`).join('')}</div>`;
   let playerMovesHTML='';
   if(playerPk){
     const moves=getMovesWithData(playerPk);
