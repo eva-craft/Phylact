@@ -3045,26 +3045,28 @@ const BIOME_ZONES=[
 {biome:"ostrova_pobezhdennogo",x:1200,y:1500,w:400,h:250}
 ];
 const TYPE_CHART={
-Обычный:{Каменный:0.5,Бесплотный:0,Стальной:0.5,Демон:1,Нежить:0.5},
-Огненный:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:2,Низший:2,Каменный:0.5,Дракон:0.5,Стальной:2,Демон:1,Нежить:2},
-Водный:{Огненный:2,Водный:0.5,Природа:0.5,Земляной:2,Каменный:2,Дракон:0.5,Демон:1,Нежить:1},
-Природа:{Огненный:0.5,Водный:2,Природа:0.5,Ядовитый:0.5,Земляной:2,Летающий:0.5,Низший:0.5,Каменный:2,Дракон:0.5,Стальной:0.5,Демон:1,Нежить:1},
-Электрический:{Водный:2,Электрический:0.5,Природа:0.5,Земляной:0,Летающий:2,Дракон:0.5,Демон:1,Нежить:1},
-Ледяной:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:0.5,Земляной:2,Летающий:2,Дракон:2,Стальной:0.5,Демон:1,Нежить:0.5},
-Боевой:{Обычный:2,Ледяной:2,Ядовитый:0.5,Летающий:0.5,Ментальный:0.5,Низший:0.5,Каменный:2,Бесплотный:0,Тёмный:2,Стальной:2,Фея:0.5,Демон:0.5,Нежить:0.5},
-Ядовитый:{Природа:2,Ядовитый:0.5,Земляной:0.5,Каменный:0.5,Бесплотный:0.5,Стальной:0,Фея:2,Демон:1,Нежить:0.5},
-Земляной:{Огненный:2,Электрический:2,Природа:0.5,Ядовитый:2,Летающий:0,Низший:0.5,Каменный:2,Стальной:2,Демон:1,Нежить:1},
-Летающий:{Электрический:0.5,Природа:2,Боевой:2,Низший:2,Каменный:0.5,Стальной:0.5,Демон:1,Нежить:1},
-Ментальный:{Боевой:2,Ядовитый:2,Ментальный:0.5,Тёмный:0,Стальной:0.5,Демон:2,Нежить:0.5},
-Низший:{Огненный:0.5,Природа:2,Боевой:0.5,Ядовитый:0.5,Летающий:0.5,Ментальный:2,Бесплотный:0.5,Тёмный:2,Стальной:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
-Каменный:{Огненный:2,Ледяной:2,Боевой:0.5,Земляной:0.5,Летающий:2,Низший:2,Стальной:0.5,Демон:1,Нежить:1},
-Бесплотный:{Обычный:0,Ментальный:2,Бесплотный:2,Тёмный:0.5,Демон:1,Нежить:0},
-Дракон:{Дракон:2,Стальной:0.5,Фея:0,Демон:1,Нежить:1},
-Тёмный:{Боевой:0.5,Ментальный:2,Бесплотный:2,Тёмный:0.5,Фея:0.5,Демон:0.5,Нежить:0.5},
-Стальной:{Огненный:0.5,Водный:0.5,Электрический:0.5,Ледяной:2,Каменный:2,Стальной:0.5,Фея:2,Демон:1,Нежить:0.5},
-Фея:{Огненный:0.5,Боевой:2,Ядовитый:0.5,Дракон:2,Тёмный:2,Стальной:0.5,Демон:2,Нежить:1},
-Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрический:1,Ледяной:1,Боевой:2,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:0.5,Низший:1,Каменный:1,Бесплотный:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2},
-Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрический:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:2,Низший:1,Каменный:1,Бесплотный:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5}
+Обычный:{Каменный:0.5,Бесплотный:0,Стальной:0.5,Демон:1,Нежить:0.5,Священный:1,Вооруженный:1},
+Огненный:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:2,Низший:2,Каменный:0.5,Дракон:0.5,Стальной:2,Демон:1,Нежить:2,Священный:1,Вооруженный:0.5},
+Водный:{Огненный:2,Водный:0.5,Природа:0.5,Земляной:2,Каменный:2,Дракон:0.5,Демон:1,Нежить:1,Священный:1,Вооруженный:0.5},
+Природа:{Огненный:0.5,Водный:2,Природа:0.5,Ядовитый:0.5,Земляной:2,Летающий:0.5,Низший:0.5,Каменный:2,Дракон:0.5,Стальной:0.5,Демон:1,Нежить:1,Священный:1,Вооруженный:1},
+Электрический:{Водный:2,Электрический:0.5,Природа:0.5,Земляной:0,Летающий:2,Дракон:0.5,Демон:1,Нежить:1,Священный:1,Вооруженный:1},
+Ледяной:{Огненный:0.5,Водный:0.5,Природа:2,Ледяной:0.5,Земляной:2,Летающий:2,Дракон:2,Стальной:0.5,Демон:1,Нежить:0.5,Священный:1,Вооруженный:2},
+Боевой:{Обычный:2,Ледяной:2,Ядовитый:0.5,Летающий:0.5,Ментальный:0.5,Низший:0.5,Каменный:2,Бесплотный:0,Тёмный:2,Стальной:2,Фея:0.5,Демон:0.5,Нежить:0.5,Священный:1,Вооруженный:1},
+Ядовитый:{Природа:2,Ядовитый:0.5,Земляной:0.5,Каменный:0.5,Бесплотный:0.5,Стальной:0,Фея:2,Демон:1,Нежить:0.5,Священный:0.5,Вооруженный:1},
+Земляной:{Огненный:2,Электрический:2,Природа:0.5,Ядовитый:2,Летающий:0,Низший:0.5,Каменный:2,Стальной:2,Демон:1,Нежить:1,Священный:1,Вооруженный:1},
+Летающий:{Электрический:0.5,Природа:2,Боевой:2,Низший:2,Каменный:0.5,Стальной:0.5,Демон:1,Нежить:1,Священный:1,Вооруженный:1},
+Ментальный:{Боевой:2,Ядовитый:2,Ментальный:0.5,Тёмный:0,Стальной:0.5,Демон:2,Нежить:0.5,Священный:1,Вооруженный:1},
+Низший:{Огненный:0.5,Природа:2,Боевой:0.5,Ядовитый:0.5,Летающий:0.5,Ментальный:2,Бесплотный:0.5,Тёмный:2,Стальной:0.5,Фея:0.5,Демон:0.5,Нежить:0.5,Священный:1,Вооруженный:1},
+Каменный:{Огненный:2,Ледяной:2,Боевой:0.5,Земляной:0.5,Летающий:2,Низший:2,Стальной:0.5,Демон:1,Нежить:1,Священный:1,Вооруженный:0.5},
+Бесплотный:{Обычный:0,Ментальный:2,Бесплотный:2,Тёмный:0.5,Демон:1,Нежить:0,Священный:0.5,Вооруженный:2},
+Дракон:{Дракон:2,Стальной:0.5,Фея:0,Демон:1,Нежить:1,Священный:0.5,Вооруженный:0.5},
+Тёмный:{Боевой:0.5,Ментальный:2,Бесплотный:2,Тёмный:0.5,Фея:0.5,Демон:0.5,Нежить:0.5,Священный:0.5,Вооруженный:1},
+Стальной:{Огненный:0.5,Водный:0.5,Электрический:0.5,Ледяной:2,Каменный:2,Стальной:0.5,Фея:2,Демон:1,Нежить:0.5,Священный:0.5,Вооруженный:0.5},
+Фея:{Огненный:0.5,Боевой:2,Ядовитый:0.5,Дракон:2,Тёмный:2,Стальной:0.5,Демон:2,Нежить:1,Священный:1,Вооруженный:1},
+Демон:{Обычный:1,Огненный:1,Водный:1,Природа:1,Электрический:1,Ледяной:1,Боевой:2,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:0.5,Низший:1,Каменный:1,Бесплотный:2,Дракон:1,Тёмный:2,Стальной:1,Фея:0.5,Демон:0.5,Нежить:2,Священный:0.5,Вооруженный:1},
+Нежить:{Обычный:1,Огненный:0.5,Водный:1,Природа:1,Электрический:1,Ледяной:0.5,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:2,Низший:1,Каменный:1,Бесплотный:0.5,Дракон:1,Тёмный:0.5,Стальной:0.5,Фея:1,Демон:0.5,Нежить:0.5,Священный:2,Вооруженный:1},
+Священный:{Тёмный:2,Демон:2,Нежить:2,Бесплотный:2,Священный:0.5,Дракон:0.5,Стальной:0.5,Обычный:1,Огненный:1,Водный:1,Природа:1,Электрический:1,Ледяной:1,Боевой:1,Ядовитый:0.5,Земляной:1,Летающий:1,Ментальный:1,Низший:1,Каменный:1,Фея:1,Вооруженный:1},
+Вооруженный:{Каменный:2,Стальной:2,Ледяной:2,Дракон:2,Бесплотный:2,Вооруженный:0.5,Огненный:0.5,Водный:0.5,Обычный:1,Природа:1,Электрический:1,Боевой:1,Ядовитый:1,Земляной:1,Летающий:1,Ментальный:1,Низший:1,Тёмный:1,Фея:1,Демон:1,Нежить:1,Священный:1}
 };
 
 
@@ -3154,6 +3156,30 @@ function getTypeEff(moveType,defTypes){
   return m;
 }// ===================== ФЭНТЕЗИ-СУЩЕСТВА =====================
 const Fantasy_DATA=[
+
+// ===== СВЯЩЕННЫЕ (Ангелы, Серафимы, Духи Света) =====
+{id:1200,name:"Ангел-Хранитель",types:["Священный","Летающий"],rarity:"rare",habitats:["haradat","pole_magii","sid","fattolodor"],desc:"Небесный защитник смертных. Его перья светятся божественным светом.",height:1.8,weight:40,category:"Ангел",stats:{hp:85,attack:70,defense:90,spAtk:105,spDef:110,speed:80},shape:"guardian_angel",evolvesTo:1201,evolveLevel:32},
+{id:1201,name:"Архангел Света",types:["Священный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Верховный воин Небес. Одним взмахом меча очищает земли от скверны.",height:2.3,weight:80,category:"Архангел",stats:{hp:130,attack:120,defense:115,spAtk:150,spDef:145,speed:110},shape:"archangel"},
+{id:1202,name:"Серафим",types:["Священный","Огненный"],rarity:"epic",habitats:["pole_magii","volcano"],desc:"Шестикрылый пламенный дух. Его взгляд испепеляет грешников.",height:2.0,weight:60,category:"Серафим",stats:{hp:115,attack:100,defense:95,spAtk:160,spDef:120,speed:105},shape:"seraphim"},
+{id:1203,name:"Небесный Каратель",types:["Священный","Боевой"],rarity:"rare",habitats:["haradat","mountain","pole_magii"],desc:"Гнев Небес в обличии воина. Карает падших без пощады.",height:2.1,weight:95,category:"Каратель",stats:{hp:110,attack:135,defense:105,spAtk:85,spDef:90,speed:95},shape:"heavenly_punisher",evolvesTo:1204,evolveLevel:40},
+{id:1204,name:"Экзекутор Света",types:["Священный","Стальной"],rarity:"legendary",habitats:["pole_magii"],desc:"Высший судья душ. Его клинок рассекает саму тьму.",height:2.6,weight:140,category:"Экзекутор",stats:{hp:145,attack:165,defense:140,spAtk:110,spDef:120,speed:100},shape:"light_executor"},
+{id:1205,name:"Дух Света",types:["Священный","Бесплотный"],rarity:"uncommon",habitats:["forest","route","sid","selax","goch"],desc:"Благословенный дух, приносящий удачу путникам.",height:0.9,weight:2,category:"Дух Света",stats:{hp:55,attack:45,defense:60,spAtk:95,spDef:90,speed:100},shape:"light_spirit",evolvesTo:1206,evolveLevel:28},
+{id:1206,name:"Сияющий Серафим",types:["Священный","Бесплотный"],rarity:"epic",habitats:["pole_magii","haradat"],desc:"Вознёсшийся дух, чьё сияние исцеляет союзников и жжёт нечисть.",height:1.5,weight:5,category:"Дух Света",stats:{hp:90,attack:70,defense:85,spAtk:145,spDef:140,speed:130},shape:"radiant_seraph"},
+{id:1207,name:"Херувим",types:["Священный","Фея"],rarity:"uncommon",habitats:["sid","zyffren","goch","selax"],desc:"Маленький посланник Небес. Приносит добрые вести.",height:0.7,weight:6,category:"Херувим",stats:{hp:60,attack:50,defense:65,spAtk:85,spDef:95,speed:110},shape:"cherub",evolvesTo:1200,evolveLevel:24},
+
+// ===== АНГЕЛЫ СМЕРТИ (Нежить + Священный) =====
+{id:1210,name:"Вестник Смерти",types:["Нежить","Священный"],rarity:"rare",habitats:["totsar","cave","pole_magii","fattolodor"],desc:"Мрачный ангел, чьи крылья — из костей. Провожает души в последний путь.",height:1.9,weight:25,category:"Ангел Смерти",stats:{hp:95,attack:90,defense:85,spAtk:115,spDef:105,speed:100},shape:"death_herald",evolvesTo:1211,evolveLevel:38},
+{id:1211,name:"Архангел Смерти",types:["Нежить","Священный"],rarity:"epic",habitats:["totsar","pole_magii","cave"],desc:"Повелитель последнего вздоха. Одним касанием обрывает нить жизни.",height:2.4,weight:55,category:"Ангел Смерти",stats:{hp:135,attack:130,defense:110,spAtk:155,spDef:130,speed:110},shape:"archangel_death"},
+{id:1212,name:"Жнец Душ",types:["Нежить","Тёмный"],rarity:"rare",habitats:["totsar","cave","fattolodor"],desc:"Собиратель душ в чёрном капюшоне. Его коса не знает промаха.",height:2.0,weight:45,category:"Жнец",stats:{hp:105,attack:125,defense:85,spAtk:105,spDef:90,speed:95},shape:"soul_reaper",evolvesTo:1213,evolveLevel:42},
+{id:1213,name:"Владыка Жнецов",types:["Нежить","Тёмный"],rarity:"legendary",habitats:["pole_magii","totsar"],desc:"Первый жнец, что собирал души ещё до появления мира. Его коса — сама судьба.",height:2.8,weight:70,category:"Жнец",stats:{hp:150,attack:160,defense:115,spAtk:140,spDef:110,speed:105},shape:"reaper_lord"},
+
+// ===== ГНОМЫ-СНАЙПЕРЫ (Вооруженный) =====
+{id:1220,name:"Гном-Снайпер",types:["Вооруженный","Стальной"],rarity:"rare",habitats:["haradat","mountain","zyffren","sid"],desc:"Гном-техник с лазерной винтовкой. Бьёт точно в цель с любой дистанции.",height:1.0,weight:50,category:"Снайпер",stats:{hp:60,attack:75,defense:70,spAtk:110,spDef:65,speed:80},shape:"gnome_sniper",evolvesTo:1221,evolveLevel:30},
+{id:1221,name:"Гном-Артиллерист",types:["Вооруженный","Огненный"],rarity:"epic",habitats:["haradat","mountain","volcano"],desc:"Гном с плазменной пушкой на плече. Один выстрел — и кратер готов.",height:1.3,weight:110,category:"Артиллерист",stats:{hp:95,attack:105,defense:95,spAtk:150,spDef:85,speed:70},shape:"gnome_artillerist"},
+{id:1222,name:"Гном-Инженер",types:["Вооруженный","Электрический"],rarity:"uncommon",habitats:["haradat","zyffren","sid","goch"],desc:"Гном-механик с электрошокером. Ремонтирует и уничтожает одинаково ловко.",height:0.9,weight:45,category:"Инженер",stats:{hp:55,attack:60,defense:65,spAtk:95,spDef:70,speed:90},shape:"gnome_engineer",evolvesTo:1223,evolveLevel:28},
+{id:1223,name:"Гном-Техномаг",types:["Вооруженный","Ментальный"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Гном, слившийся с техно-магией. Управляет дронами и лазерами силой мысли.",height:1.2,weight:60,category:"Техномаг",stats:{hp:85,attack:80,defense:90,spAtk:145,spDef:120,speed:100},shape:"gnome_technomage"},
+{id:1224,name:"Боевой Дрон",types:["Вооруженный","Летающий"],rarity:"uncommon",habitats:["haradat","goch","olandir"],desc:"Летающий автоматон с лазерным орудием. Создан магами Харадата.",height:0.6,weight:20,category:"Дрон",stats:{hp:45,attack:70,defense:55,spAtk:100,spDef:60,speed:120},shape:"battle_drone",evolvesTo:1225,evolveLevel:26},
+{id:1225,name:"Тяжёлый Дрон-Осада",types:["Вооруженный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Бронированный дрон с плазменным орудием. Осаждает города и крепости.",height:1.0,weight:80,category:"Дрон",stats:{hp:95,attack:120,defense:105,spAtk:135,spDef:90,speed:85},shape:"siege_drone"},
 // ===== КРЫСОЛЮДИ ЛАМХИ =====
 {id:1170,name:"Ламхи-Юнец",types:["Земляной","Тёмный"],rarity:"common",habitats:[	"zyffren","route","cave","haradat"],desc:"Молодой крысолюд из подземного клана. Собирает блестящие вещи для старейшин.",height:1.0,weight:35,category:"Ламхи",stats:{hp:55,attack:60,defense:45,spAtk:35,spDef:40,speed:70},shape:"lamhi_young",evolvesTo:1171,evolveLevel:18},
 {id:1171,name:"Ламхи-Коготь",types:["Земляной","Тёмный"],rarity:"uncommon",habitats:[	"zyffren","route","cave","mountain"],desc:"Взрослый крысолюд-воин. Его когти высекают искры из камня.",height:1.5,weight:80,category:"Ламхи",stats:{hp:90,attack:95,defense:75,spAtk:50,spDef:65,speed:95},shape:"lamhi_claw",evolvesTo:1172,evolveLevel:32},
@@ -3267,21 +3293,15 @@ const Fantasy_DATA=[
 ];
 const RARITY_COLORS={common:"#9ca3af",uncommon:"#4ade80",rare:"#60a5fa",epic:"#a855f7",legendary:"#fbbf24"};
 const RARITY_NAMES={common:"Обычный",uncommon:"Необычный",rare:"Редкий",epic:"Эпический",legendary:"Легендарный"};
-const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрический:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",Земляной:"#e0c068",Летающий:"#a890f0",Низший:"#a8b820",Каменный:"#b8a038",Бесплотный:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#c03028",Нежить:"#a855f7", Ментальный:"#f85888"};
-
+const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водный:"#6890f0",Природа:"#78c850",Электрический:"#f8d030",Ледяной:"#98d8d8",Боевой:"#c03028",Ядовитый:"#a040a0",Земляной:"#e0c068",Летающий:"#a890f0",Низший:"#a8b820",Каменный:"#b8a038",Бесплотный:"#705898",Дракон:"#7038f8",Тёмный:"#705848",Стальной:"#b8b8d0",Фея:"#ee99ac",Демон:"#c03028",Нежить:"#a855f7",Ментальный:"#f85888",Священный:"#fde047",Вооруженный:"#94a3b8"};
 // ===================== НАБОРЫ АТАК =====================
 // ===================== НАБОРЫ АТАК (сдвинутые уровни) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 const LEARNSETS={
-// ===== ЛАМХИ =====
-1170:[{level:1,move:"Крысиный укус"},{level:4,move:"Коготь Ламхи"},{level:8,move:"Крысиный рой"},{level:12,move:"Подземный вой"},{level:16,move:"Норский клинок"},{level:22,move:"Приказ стаи"}],
-1171:[{level:1,move:"Коготь Ламхи"},{level:1,move:"Крысиный рой"},{level:1,move:"Норский клинок"},{level:1,move:"Подземный вой"},{level:1,move:"Приказ стаи"}],
-1172:[{level:1,move:"Норский клинок"},{level:1,move:"Приказ стаи"},{level:1,move:"Крысиный рой"},{level:1,move:"Подземный вой"},{level:1,move:"Волна смерти"}],
 
-1173:[{level:1,move:"Дротик с ядом"},{level:5,move:"Крысиный укус"},{level:10,move:"Токсичный шип"},{level:14,move:"Отравление"},{level:18,move:"Тёмное жертвоприношение"}],
-1174:[{level:1,move:"Дротик с ядом"},{level:1,move:"Токсичный шип"},{level:1,move:"Отравление"},{level:1,move:"Подземный вой"},{level:1,move:"Тёмное жертвоприношение"}],
+
 
 1175:[{level:1,move:"Крысиный укус"},{level:5,move:"Тёмное жертвоприношение"},{level:10,move:"Проклятие роя"},{level:16,move:"Крик банши"},{level:22,move:"Волна смерти"}],
 1176:[{level:1,move:"Проклятие роя"},{level:1,move:"Тёмное жертвоприношение"},{level:1,move:"Волна смерти"},{level:1,move:"Крик банши"},{level:1,move:"Норский клинок"}],
@@ -3592,7 +3612,67 @@ const FULL_MOVES={
 "Стальнойной клык":{type:"Стальной",power:70,cat:"physical",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту."},
 
 // ===== ИСЦЕЛЕНИЕ =====
-"Синтез":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."}
+"Синтез":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+
+
+// ===== СВЯЩЕННЫЕ АТАКИ =====
+"Святая кара":{type:"Священный",power:100,cat:"special",desc:"Луч божественного света опаляет нечестивых."},
+"Небесный меч":{type:"Священный",power:95,cat:"physical",desc:"Меч из чистого света рассекает тьму."},
+"Благословение":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Небесное исцеление 50% HP."},
+"Божественный свет":{type:"Священный",power:80,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь светом."},
+"Кара небес":{type:"Священный",power:130,cat:"special",effect:"recoil",recoil:0.25,desc:"Гнев Небес. Отдача 25%."},
+"Перо Ангела":{type:"Священный",power:55,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Святая аура":{type:"Священный",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
+"Ангельское пение":{type:"Священный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет нечестивых."},
+"Освящение":{type:"Священный",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Сжигает нечисть изнутри (токсин)."},
+"Свет небес":{type:"Священный",power:70,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
+
+// ===== АТАКИ АНГЕЛОВ СМЕРТИ =====
+"Коса жнеца":{type:"Нежить",power:110,cat:"physical",effect:"recoil",recoil:0.15,desc:"Коса обрывает жизнь. Отдача 15%."},
+"Поцелуй смерти":{type:"Нежить",power:90,cat:"special",effect:"drain",drain:0.75,desc:"Восстанавливает 75% урона."},
+"Проводы души":{type:"Нежить",power:null,cat:"status",effect:"revive",revive:0.5,desc:"Восстанавливает 50% HP павшему союзнику."},
+"Приговор":{type:"Нежить",power:null,cat:"status",effect:"possess",chance:0.7,desc:"Приговаривает душу врага к подчинению."},
+"Тень смерти":{type:"Нежить",power:100,cat:"special",effect:"slow",slow:0.5,desc:"Замедляет врага вдвое."},
+"Волна скорби":{type:"Нежить",power:85,cat:"special",effect:"confuse",chance:0.35,desc:"Может сбить с толку."},
+"Последний вздох":{type:"Нежить",power:120,cat:"special",effect:"selfdamage",selfDamage:0.15,desc:"Жнец жертвует 15% HP."},
+"Нить судьбы":{type:"Нежить",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+
+// ===== ВООРУЖЁННЫЕ АТАКИ =====
+"Лазерный выстрел":{type:"Вооруженный",power:85,cat:"special",desc:"Мощный заряд лазера."},
+"Плазменная пушка":{type:"Вооруженный",power:110,cat:"special",effect:"burn",chance:0.25,desc:"Может обжечь плазмой."},
+"Электрошокер":{type:"Вооруженный",power:60,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
+"Ракетный залп":{type:"Вооруженный",power:30,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
+"Прицельный выстрел":{type:"Вооруженный",power:95,cat:"special",desc:"Точный выстрел в слабое место."},
+"Осколочная граната":{type:"Вооруженный",power:80,cat:"special",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту."},
+"Плазменный залп":{type:"Вооруженный",power:120,cat:"special",effect:"recoil",recoil:0.25,desc:"Отдача 25% от перегрева."},
+"Турель":{type:"Вооруженный",power:null,cat:"status",effect:"barrier",desc:"Ставит защитную турель."},
+"Дымовая завеса":{type:"Вооруженный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
+"Мины":{type:"Вооруженный",power:null,cat:"status",effect:"toxic",chance:0.8,desc:"Разбрасывает отравленные мины."},
+"Точный выстрел":{type:"Вооруженный",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Перегрузка":{type:"Вооруженный",power:140,cat:"special",effect:"selfdamage",selfDamage:0.2,desc:"Пользователь жертвует 20% HP."},
+"Тактический сброс":{type:"Вооруженный",power:90,cat:"physical",desc:"Сброс бомбы с дрона."},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 // ===================== ДОПОЛНИТЕЛЬНЫЕ АТАКИ (нежить Warcraft III) =====================
@@ -3644,6 +3724,579 @@ Object.assign(FULL_MOVES, {
   }
 });
 const SPRITES = {/* ===================== ЛАМХИ-ЮНЕЦ ===================== */
+
+
+
+guardian_angel:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="18" ry="3" fill="rgba(0,0,0,0.35)"/>
+  <ellipse cx="32" cy="34" rx="22" ry="20" fill="#fef3c7" opacity="0.35"/>
+  <!-- Крылья -->
+  <path d="M22 26 Q4 10 6 30 Q14 22 20 26 Q8 16 22 26 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.3"/>
+  <path d="M42 26 Q60 10 58 30 Q50 22 44 26 Q56 16 42 26 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.3"/>
+  <!-- Тело -->
+  <path d="M22 30 Q22 24 32 22 Q42 24 42 30 L46 56 L18 56 Z" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Нимб -->
+  <ellipse cx="32" cy="10" rx="11" ry="3" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+  <ellipse cx="32" cy="10" rx="11" ry="3" fill="none" stroke="#fef3c7" stroke-width="1"/>
+  <!-- Голова -->
+  <circle cx="32" cy="20" r="10" fill="#fde68a" stroke="#b45309" stroke-width="1.4"/>
+  <!-- Глаза -->
+  <ellipse cx="28" cy="20" rx="1.8" ry="2.2" fill="#1e3a8a"/>
+  <ellipse cx="36" cy="20" rx="1.8" ry="2.2" fill="#1e3a8a"/>
+  <circle cx="28.5" cy="19.3" r="0.6" fill="#fff"/>
+  <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
+  <path d="M30 25 Q32 27 34 25" stroke="#b45309" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- Меч -->
+  <rect x="8" y="20" width="3" height="32" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <rect x="6" y="18" width="7" height="3" fill="#fbbf24"/>
+  <!-- Лучи -->
+  <path d="M18 34 L14 30 M46 34 L50 30 M32 30 L32 26" stroke="#fbbf24" stroke-width="1.5" opacity="0.7"/>
+</svg>`,
+
+archangel:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="22" ry="4" fill="rgba(0,0,0,0.45)"/>
+  <ellipse cx="32" cy="34" rx="30" ry="26" fill="#fef3c7" opacity="0.4"/>
+  <ellipse cx="32" cy="34" rx="20" ry="16" fill="#fde68a" opacity="0.3"/>
+  <!-- Большие крылья -->
+  <path d="M22 24 Q-2 6 4 30 Q12 20 20 24 Q4 14 22 24 Z" fill="#fff" stroke="#d97706" stroke-width="1.4"/>
+  <path d="M42 24 Q66 6 60 30 Q52 20 44 24 Q60 14 42 24 Z" fill="#fff" stroke="#d97706" stroke-width="1.4"/>
+  <path d="M22 28 Q8 18 12 30 Q16 24 22 28 Z" fill="#fef3c7"/>
+  <path d="M42 28 Q56 18 52 30 Q48 24 42 28 Z" fill="#fef3c7"/>
+  <!-- Тело — золотая броня -->
+  <path d="M18 28 L46 28 L50 58 L14 58 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.6"/>
+  <path d="M24 32 L40 32 L42 52 L22 52 Z" fill="#fde68a" stroke="#b45309" stroke-width="1"/>
+  <!-- Нимб двойной -->
+  <ellipse cx="32" cy="8" rx="14" ry="3.5" fill="none" stroke="#fbbf24" stroke-width="3"/>
+  <ellipse cx="32" cy="8" rx="10" ry="2.5" fill="none" stroke="#fff" stroke-width="1"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="11" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Глаза -->
+  <ellipse cx="28" cy="18" rx="2" ry="2.5" fill="#1e3a8a"/>
+  <ellipse cx="36" cy="18" rx="2" ry="2.5" fill="#1e3a8a"/>
+  <circle cx="28.5" cy="17.2" r="0.7" fill="#fff"/>
+  <circle cx="36.5" cy="17.2" r="0.7" fill="#fff"/>
+  <!-- Пламенный меч -->
+  <rect x="6" y="16" width="3.5" height="36" fill="#fff" stroke="#fbbf24" stroke-width="1"/>
+  <path d="M7.5 12 L4 20 L7.5 24 L11 20 Z" fill="#fbbf24"/>
+  <path d="M6 18 L3 14 M9 18 L12 14" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="7.5" cy="14" r="3" fill="#fbbf24" opacity="0.6"/>
+</svg>`,
+
+seraphim:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="20" ry="4" fill="rgba(0,0,0,0.4)"/>
+  <ellipse cx="32" cy="34" rx="28" ry="24" fill="#f97316" opacity="0.3"/>
+  <ellipse cx="32" cy="34" rx="18" ry="14" fill="#fbbf24" opacity="0.4"/>
+  <!-- Шесть крыльев -->
+  <path d="M22 24 Q0 8 4 28 Q12 20 18 24 Q2 14 22 24 Z" fill="#fef3c7" stroke="#ea580c" stroke-width="1.2"/>
+  <path d="M42 24 Q64 8 60 28 Q52 20 46 24 Q62 14 42 24 Z" fill="#fef3c7" stroke="#ea580c" stroke-width="1.2"/>
+  <path d="M22 32 Q6 26 8 34 Q14 30 20 32 Z" fill="#fde68a" stroke="#ea580c" stroke-width="1"/>
+  <path d="M42 32 Q58 26 56 34 Q50 30 44 32 Z" fill="#fde68a" stroke="#ea580c" stroke-width="1"/>
+  <path d="M24 38 Q10 36 12 42 Q18 38 24 38 Z" fill="#fbbf24" stroke="#ea580c" stroke-width="1"/>
+  <path d="M40 38 Q54 36 52 42 Q46 38 40 38 Z" fill="#fbbf24" stroke="#ea580c" stroke-width="1"/>
+  <!-- Тело — огонь -->
+  <path d="M22 28 Q22 22 32 20 Q42 22 42 28 L46 56 L18 56 Z" fill="#f97316" stroke="#9a3412" stroke-width="1.5"/>
+  <path d="M24 32 L40 32 L42 52 L22 52 Z" fill="#fbbf24" stroke="#9a3412" stroke-width="1"/>
+  <!-- Пламя на макушке -->
+  <path d="M32 10 Q26 0 30 2 Q30 8 32 12 Q34 8 34 2 Q38 0 32 10 Z" fill="#f97316"/>
+  <path d="M32 8 Q30 2 32 0 Q34 2 32 8 Z" fill="#fef3c7"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="10" fill="#fbbf24" stroke="#9a3412" stroke-width="1.4"/>
+  <!-- Глаза -->
+  <ellipse cx="28" cy="18" rx="2" ry="2.5" fill="#dc2626"/>
+  <ellipse cx="36" cy="18" rx="2" ry="2.5" fill="#dc2626"/>
+  <circle cx="28.5" cy="17.2" r="0.7" fill="#fff"/>
+  <circle cx="36.5" cy="17.2" r="0.7" fill="#fff"/>
+  <!-- Искры -->
+  <circle cx="14" cy="22" r="1.5" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="50" cy="22" r="1.5" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="32" cy="8" r="2" fill="#fef3c7" opacity="0.9"/>
+</svg>`,
+
+heavenly_punisher:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="20" ry="4" fill="rgba(0,0,0,0.4)"/>
+  <ellipse cx="32" cy="34" rx="24" ry="20" fill="#fef3c7" opacity="0.3"/>
+  <!-- Крылья -->
+  <path d="M22 26 Q6 12 8 30 Q14 24 20 26 Q10 18 22 26 Z" fill="#fef3c7" stroke="#b45309" stroke-width="1.3"/>
+  <path d="M42 26 Q58 12 56 30 Q50 24 44 26 Q54 18 42 26 Z" fill="#fef3c7" stroke="#b45309" stroke-width="1.3"/>
+  <!-- Тело — белая броня -->
+  <path d="M18 28 L46 28 L50 58 L14 58 Z" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M24 32 L40 32 L42 52 L22 52 Z" fill="#f9fafb" stroke="#6b7280" stroke-width="1"/>
+  <!-- Золотые наплечники -->
+  <path d="M14 28 Q18 24 24 26 L24 32 Q18 30 14 28 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.2"/>
+  <path d="M50 28 Q46 24 40 26 L40 32 Q46 30 50 28 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.2"/>
+  <!-- Нимб -->
+  <ellipse cx="32" cy="10" rx="10" ry="2.5" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="10" fill="#fde68a" stroke="#b45309" stroke-width="1.4"/>
+  <!-- Глаза грозные -->
+  <ellipse cx="28" cy="18" rx="2" ry="2.5" fill="#dc2626"/>
+  <ellipse cx="36" cy="18" rx="2" ry="2.5" fill="#dc2626"/>
+  <path d="M24 15 L30 16 M40 15 L34 16" stroke="#b45309" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Щит -->
+  <path d="M46 34 L58 30 L58 44 L52 52 L46 44 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M52 34 V48 M46 40 H58" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Молот -->
+  <rect x="6" y="22" width="3" height="34" fill="#6b7280" stroke="#374151" stroke-width="1"/>
+  <rect x="2" y="18" width="11" height="7" rx="1.5" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+</svg>`,
+
+light_executor:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="24" ry="4" fill="rgba(0,0,0,0.5)"/>
+  <ellipse cx="32" cy="34" rx="30" ry="26" fill="#fef3c7" opacity="0.35"/>
+  <!-- Огромные крылья -->
+  <path d="M20 24 Q-4 4 2 30 Q10 20 18 24 Q-2 12 20 24 Z" fill="#fff" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M44 24 Q68 4 62 30 Q54 20 46 24 Q66 12 44 24 Z" fill="#fff" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Тело — золотые доспехи -->
+  <path d="M16 26 L48 26 L52 58 L12 58 Z" fill="#fbbf24" stroke="#92400e" stroke-width="1.6"/>
+  <path d="M22 30 L42 30 L44 54 L20 54 Z" fill="#fde68a" stroke="#92400e" stroke-width="1.2"/>
+  <path d="M28 34 L36 34 L36 50 L28 50 Z" fill="#fef3c7" stroke="#92400e" stroke-width="0.8"/>
+  <!-- Нимб -->
+  <ellipse cx="32" cy="7" rx="15" ry="4" fill="none" stroke="#fbbf24" stroke-width="3.5"/>
+  <ellipse cx="32" cy="7" rx="11" ry="3" fill="none" stroke="#fff" stroke-width="1.2"/>
+  <!-- Голова -->
+  <circle cx="32" cy="17" r="12" fill="#fde68a" stroke="#92400e" stroke-width="1.5"/>
+  <!-- Глаза -->
+  <ellipse cx="27" cy="17" rx="2.2" ry="2.8" fill="#1e3a8a"/>
+  <ellipse cx="37" cy="17" rx="2.2" ry="2.8" fill="#1e3a8a"/>
+  <circle cx="27.6" cy="16" r="0.8" fill="#fff"/>
+  <circle cx="37.6" cy="16" r="0.8" fill="#fff"/>
+  <!-- Меч света -->
+  <rect x="4" y="12" width="4" height="44" fill="#fff" stroke="#fbbf24" stroke-width="1.2"/>
+  <path d="M6 6 L2 16 L6 22 L10 16 Z" fill="#fef3c7" stroke="#fbbf24" stroke-width="1"/>
+  <path d="M6 6 L4 16 L6 20 L8 16 Z" fill="#fff"/>
+  <circle cx="6" cy="16" r="4" fill="#fbbf24" opacity="0.7"/>
+  <!-- Аура -->
+  <circle cx="32" cy="34" r="26" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.5" stroke-dasharray="4,4"/>
+</svg>`,
+
+light_spirit:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="56" rx="18" ry="4" fill="rgba(0,0,0,0.3)"/>
+  <ellipse cx="32" cy="34" rx="24" ry="20" fill="#fef3c7" opacity="0.5"/>
+  <ellipse cx="32" cy="34" rx="16" ry="14" fill="#fde68a" opacity="0.6"/>
+  <!-- Тело-дух -->
+  <path d="M20 42 Q20 18 32 16 Q44 18 44 42 Q44 50 40 52 Q36 48 32 50 Q28 48 24 52 Q20 50 20 42 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.4" opacity="0.95"/>
+  <!-- Глаза -->
+  <ellipse cx="27" cy="28" rx="2.2" ry="2.8" fill="#1e3a8a"/>
+  <ellipse cx="37" cy="28" rx="2.2" ry="2.8" fill="#1e3a8a"/>
+  <circle cx="27.6" cy="27.2" r="0.7" fill="#fff"/>
+  <circle cx="37.6" cy="27.2" r="0.7" fill="#fff"/>
+  <!-- Улыбка -->
+  <path d="M28 34 Q32 37 36 34" stroke="#b45309" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Нимб маленький -->
+  <ellipse cx="32" cy="14" rx="8" ry="2" fill="none" stroke="#fbbf24" stroke-width="2"/>
+  <!-- Искры вокруг -->
+  <circle cx="12" cy="26" r="1.5" fill="#fde68a" opacity="0.9"/>
+  <circle cx="52" cy="30" r="1.5" fill="#fde68a" opacity="0.9"/>
+  <circle cx="14" cy="44" r="1.2" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="50" cy="48" r="1.2" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="32" cy="8" r="2" fill="#fef3c7" opacity="0.8"/>
+</svg>`,
+
+radiant_seraph:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="22" ry="4" fill="rgba(0,0,0,0.4)"/>
+  <ellipse cx="32" cy="34" rx="30" ry="26" fill="#fef3c7" opacity="0.45"/>
+  <ellipse cx="32" cy="34" rx="20" ry="16" fill="#fbbf24" opacity="0.35"/>
+  <!-- Крылья -->
+  <path d="M22 24 Q2 8 6 30 Q14 22 20 26 Q4 14 22 24 Z" fill="#fff" stroke="#d97706" stroke-width="1.3"/>
+  <path d="M42 24 Q62 8 58 30 Q50 22 44 26 Q60 14 42 24 Z" fill="#fff" stroke="#d97706" stroke-width="1.3"/>
+  <!-- Тело сияющее -->
+  <path d="M20 28 Q20 22 32 20 Q44 22 44 28 L48 58 L16 58 Z" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M24 32 L40 32 L42 54 L22 54 Z" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+  <!-- Нимб двойной -->
+  <ellipse cx="32" cy="9" rx="13" ry="3.5" fill="none" stroke="#fbbf24" stroke-width="3"/>
+  <ellipse cx="32" cy="9" rx="9" ry="2.5" fill="none" stroke="#fff" stroke-width="1.2"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="10" fill="#fde68a" stroke="#b45309" stroke-width="1.4"/>
+  <!-- Глаза -->
+  <ellipse cx="28" cy="18" rx="2" ry="2.5" fill="#1e3a8a"/>
+  <ellipse cx="36" cy="18" rx="2" ry="2.5" fill="#1e3a8a"/>
+  <circle cx="28.5" cy="17.2" r="0.7" fill="#fff"/>
+  <circle cx="36.5" cy="17.2" r="0.7" fill="#fff"/>
+  <!-- Лучи -->
+  <path d="M32 4 L32 -2 M22 6 L18 0 M42 6 L46 0 M14 14 L8 10 M50 14 L56 10" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+  <circle cx="32" cy="34" r="24" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.5" stroke-dasharray="3,3"/>
+</svg>`,
+
+cherub:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="56" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <ellipse cx="32" cy="34" rx="20" ry="16" fill="#fef3c7" opacity="0.5"/>
+  <!-- Крылышки -->
+  <path d="M22 28 Q8 18 10 30 Q14 26 20 28 Q12 22 22 28 Z" fill="#fff" stroke="#d97706" stroke-width="1.1"/>
+  <path d="M42 28 Q56 18 54 30 Q50 26 44 28 Q52 22 42 28 Z" fill="#fff" stroke="#d97706" stroke-width="1.1"/>
+  <!-- Тело пухлое -->
+  <ellipse cx="32" cy="42" rx="13" ry="11" fill="#fde68a" stroke="#b45309" stroke-width="1.4"/>
+  <ellipse cx="32" cy="44" rx="8" ry="7" fill="#fef3c7"/>
+  <!-- Ручки -->
+  <ellipse cx="22" cy="42" rx="3" ry="5" fill="#fde68a" stroke="#b45309" stroke-width="1"/>
+  <ellipse cx="42" cy="42" rx="3" ry="5" fill="#fde68a" stroke="#b45309" stroke-width="1"/>
+  <!-- Голова -->
+  <circle cx="32" cy="24" r="11" fill="#fde68a" stroke="#b45309" stroke-width="1.4"/>
+  <!-- Кудри -->
+  <path d="M22 20 Q20 12 26 10 Q30 14 28 18 Q34 12 38 14 Q42 12 42 20 Q44 24 40 26 Q42 20 38 18 Q34 20 32 18 Q28 20 24 26 Q22 24 22 20 Z" fill="#fbbf24"/>
+  <!-- Глаза большие -->
+  <ellipse cx="28" cy="24" rx="2.2" ry="2.6" fill="#1e3a8a"/>
+  <ellipse cx="36" cy="24" rx="2.2" ry="2.6" fill="#1e3a8a"/>
+  <circle cx="28.5" cy="23.3" r="0.7" fill="#fff"/>
+  <circle cx="36.5" cy="23.3" r="0.7" fill="#fff"/>
+  <!-- Улыбка -->
+  <path d="M29 29 Q32 31 35 29" stroke="#b45309" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+  <circle cx="24" cy="27" r="1.5" fill="#ef4444" opacity="0.5"/>
+  <circle cx="40" cy="27" r="1.5" fill="#ef4444" opacity="0.5"/>
+  <!-- Нимб -->
+  <ellipse cx="32" cy="12" rx="8" ry="2" fill="none" stroke="#fbbf24" stroke-width="2"/>
+</svg>`,
+
+death_herald:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="20" ry="4" fill="rgba(0,0,0,0.5)"/>
+  <ellipse cx="32" cy="34" rx="24" ry="20" fill="#4c1d95" opacity="0.3"/>
+  <!-- Костяные крылья -->
+  <path d="M22 26 Q4 12 6 30 Q14 22 20 26 Q8 16 22 26 Z" fill="#cbd5e1" stroke="#1e1b4b" stroke-width="1.3"/>
+  <path d="M42 26 Q60 12 58 30 Q50 22 44 26 Q56 16 42 26 Z" fill="#cbd5e1" stroke="#1e1b4b" stroke-width="1.3"/>
+  <!-- Тело — чёрная мантия -->
+  <path d="M20 28 Q20 22 32 20 Q44 22 44 28 L48 58 L16 58 Z" fill="#1e1b4b" stroke="#0a0e1a" stroke-width="1.5"/>
+  <path d="M24 32 L40 32 L42 54 L22 54 Z" fill="#2d1b4e" stroke="#0a0e1a" stroke-width="1"/>
+  <!-- Голова-череп -->
+  <ellipse cx="32" cy="18" rx="11" ry="12" fill="#e5e7eb" stroke="#374151" stroke-width="1.5"/>
+  <ellipse cx="32" cy="22" rx="7" ry="6" fill="#374151"/>
+  <!-- Глазницы -->
+  <ellipse cx="27" cy="18" rx="3" ry="3.5" fill="#0a0e1a"/>
+  <ellipse cx="37" cy="18" rx="3" ry="3.5" fill="#0a0e1a"/>
+  <circle cx="27" cy="18" r="1.5" fill="#a855f7"/>
+  <circle cx="37" cy="18" r="1.5" fill="#a855f7"/>
+  <circle cx="27" cy="18" r="5" fill="#a855f7" opacity="0.3"/>
+  <circle cx="37" cy="18" r="5" fill="#a855f7" opacity="0.3"/>
+  <!-- Коса -->
+  <rect x="6" y="14" width="3" height="42" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M7.5 14 Q7.5 0 18 0 Q28 0 28 10 Q28 18 18 18" fill="none" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="18" cy="10" r="2" fill="#a855f7"/>
+  <!-- Рога -->
+  <path d="M22 8 L18 0 L26 6 Z" fill="#1e1b4b"/>
+  <path d="M42 8 L46 0 L38 6 Z" fill="#1e1b4b"/>
+</svg>`,
+
+archangel_death:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="24" ry="4" fill="rgba(0,0,0,0.55)"/>
+  <ellipse cx="32" cy="34" rx="30" ry="26" fill="#4c1d95" opacity="0.35"/>
+  <ellipse cx="32" cy="34" rx="20" ry="16" fill="#7c3aed" opacity="0.25"/>
+  <!-- Огромные костяные крылья -->
+  <path d="M20 22 Q-4 4 2 30 Q10 20 18 24 Q-2 12 20 22 Z" fill="#cbd5e1" stroke="#1e1b4b" stroke-width="1.5"/>
+  <path d="M44 22 Q68 4 62 30 Q54 20 46 24 Q66 12 44 22 Z" fill="#cbd5e1" stroke="#1e1b4b" stroke-width="1.5"/>
+  <path d="M20 26 Q6 16 10 28 Q14 22 20 26 Z" fill="#e5e7eb"/>
+  <path d="M44 26 Q58 16 54 28 Q50 22 44 26 Z" fill="#e5e7eb"/>
+  <!-- Тело — тёмная броня -->
+  <path d="M16 26 L48 26 L52 58 L12 58 Z" fill="#1e1b4b" stroke="#0a0e1a" stroke-width="1.6"/>
+  <path d="M22 30 L42 30 L44 54 L20 54 Z" fill="#2d1b4e" stroke="#7c3aed" stroke-width="1"/>
+  <path d="M28 34 L36 34 L36 50 L28 50 Z" fill="#0a0e1a" stroke="#a855f7" stroke-width="0.8"/>
+  <!-- Голова-череп -->
+  <ellipse cx="32" cy="17" rx="12" ry="13" fill="#e5e7eb" stroke="#374151" stroke-width="1.5"/>
+  <ellipse cx="32" cy="21" rx="8" ry="7" fill="#374151"/>
+  <!-- Глазницы -->
+  <ellipse cx="26" cy="17" rx="3.5" ry="4" fill="#0a0e1a"/>
+  <ellipse cx="38" cy="17" rx="3.5" ry="4" fill="#0a0e1a"/>
+  <ellipse cx="26" cy="17" rx="1.8" ry="2.2" fill="#a855f7"/>
+  <ellipse cx="38" cy="17" rx="1.8" ry="2.2" fill="#a855f7"/>
+  <circle cx="26" cy="17" r="6" fill="#a855f7" opacity="0.4"/>
+  <circle cx="38" cy="17" r="6" fill="#a855f7" opacity="0.4"/>
+  <!-- Корона-рога -->
+  <path d="M20 8 L16 -2 L24 4 L28 -4 L32 2 L36 -4 L40 4 L48 -2 L44 8 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="32" cy="0" r="2" fill="#a855f7"/>
+  <!-- Двойная коса -->
+  <rect x="4" y="12" width="3.5" height="46" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M5.5 12 Q5.5 -4 18 -4 Q30 -4 30 8 Q30 18 18 18" fill="none" stroke="#cbd5e1" stroke-width="4.5" stroke-linecap="round"/>
+  <rect x="56" y="12" width="3.5" height="46" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M58 12 Q58 -4 46 -4 Q34 -4 34 8 Q34 18 46 18" fill="none" stroke="#cbd5e1" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="18" cy="8" r="2.5" fill="#a855f7"/>
+  <circle cx="46" cy="8" r="2.5" fill="#a855f7"/>
+</svg>`,
+
+soul_reaper:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="20" ry="4" fill="rgba(0,0,0,0.5)"/>
+  <ellipse cx="32" cy="34" rx="24" ry="20" fill="#1e1b4b" opacity="0.4"/>
+  <!-- Тёмная мантия -->
+  <path d="M18 28 Q18 20 32 18 Q46 20 46 28 L50 60 L14 60 Z" fill="#0a0e1a" stroke="#4c1d95" stroke-width="1.5"/>
+  <path d="M22 32 L42 32 L44 56 L20 56 Z" fill="#1e1b4b" stroke="#7c3aed" stroke-width="1"/>
+  <!-- Руки-кости -->
+  <path d="M14 32 Q6 38 4 48 Q8 52 12 48 Q14 42 18 38 Z" fill="#0a0e1a" stroke="#4c1d95" stroke-width="1.2"/>
+  <path d="M50 32 Q58 38 60 48 Q56 52 52 48 Q50 42 46 38 Z" fill="#0a0e1a" stroke="#4c1d95" stroke-width="1.2"/>
+  <path d="M4 48 L0 54 M7 50 L5 56 M10 50 L10 56 M13 49 L15 55" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M60 48 L64 54 M57 50 L59 56 M54 50 L54 56 M51 49 L49 55" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Капюшон -->
+  <path d="M18 28 Q22 18 32 16 Q42 18 46 28 Q40 24 32 24 Q24 24 18 28 Z" fill="#0a0e1a"/>
+  <!-- Глаза-огоньки -->
+  <ellipse cx="27" cy="24" rx="2.5" ry="3" fill="#a855f7"/>
+  <ellipse cx="37" cy="24" rx="2.5" ry="3" fill="#a855f7"/>
+  <ellipse cx="27" cy="24" rx="0.8" ry="2" fill="#fff"/>
+  <ellipse cx="37" cy="24" rx="0.8" ry="2" fill="#fff"/>
+  <circle cx="27" cy="24" r="5" fill="#a855f7" opacity="0.4"/>
+  <circle cx="37" cy="24" r="5" fill="#a855f7" opacity="0.4"/>
+  <!-- Коса -->
+  <rect x="6" y="10" width="3" height="48" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M7.5 10 Q7.5 -6 20 -6 Q34 -6 34 8 Q34 20 20 20" fill="none" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="20" cy="8" r="3" fill="#a855f7"/>
+  <circle cx="20" cy="8" r="6" fill="#a855f7" opacity="0.3"/>
+  <!-- Песочные часы -->
+  <path d="M48 40 L58 40 L58 44 L48 44 Z" fill="#fbbf24"/>
+  <path d="M48 44 L58 44 L58 52 L48 52 Z" fill="#fbbf24"/>
+  <path d="M48 40 L58 40 L58 44 L48 44 Z" fill="#1a1a1a" opacity="0.5"/>
+  <path d="M48 44 L58 44 L58 52 L48 52 Z" fill="#1a1a1a" opacity="0.5"/>
+  <path d="M50 42 L56 42 L53 46 Z" fill="#e5e7eb"/>
+  <path d="M50 48 L56 48 L53 50 Z" fill="#e5e7eb"/>
+</svg>`,
+
+reaper_lord:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="24" ry="4" fill="rgba(0,0,0,0.6)"/>
+  <ellipse cx="32" cy="34" rx="32" ry="28" fill="#4c1d95" opacity="0.35"/>
+  <ellipse cx="32" cy="34" rx="22" ry="18" fill="#1e1b4b" opacity="0.45"/>
+  <!-- Плащ -->
+  <path d="M14 28 Q14 18 32 16 Q50 18 50 28 L56 60 L8 60 Z" fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.6"/>
+  <path d="M18 30 Q32 24 46 30" stroke="#a855f7" stroke-width="1.5" fill="none"/>
+  <path d="M20 36 Q32 30 44 36" stroke="#7c3aed" stroke-width="1.2" fill="none"/>
+  <path d="M22 42 Q32 36 42 42" stroke="#7c3aed" stroke-width="1" fill="none"/>
+  <!-- Руки-кости -->
+  <path d="M12 32 Q0 40 0 54 Q6 58 10 52 Q12 44 16 38 Z" fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.3"/>
+  <path d="M52 32 Q64 40 64 54 Q58 58 54 52 Q52 44 48 38 Z" fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.3"/>
+  <path d="M0 54 L-4 60 M4 56 L2 62 M8 56 L8 62 M12 54 L14 60" stroke="#cbd5e1" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M64 54 L68 60 M60 56 L62 62 M56 56 L56 62 M52 54 L50 60" stroke="#cbd5e1" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Капюшон с рогами -->
+  <path d="M14 26 Q18 12 32 10 Q46 12 50 26 Q42 20 32 20 Q22 20 14 26 Z" fill="#0a0e1a"/>
+  <path d="M16 14 L10 2 L20 10 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1"/>
+  <path d="M48 14 L54 2 L44 10 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1"/>
+  <!-- Глаза -->
+  <ellipse cx="26" cy="22" rx="3.5" ry="4" fill="#a855f7"/>
+  <ellipse cx="38" cy="22" rx="3.5" ry="4" fill="#a855f7"/>
+  <ellipse cx="26" cy="22" rx="1.2" ry="2.8" fill="#fff"/>
+  <ellipse cx="38" cy="22" rx="1.2" ry="2.8" fill="#fff"/>
+  <circle cx="26" cy="22" r="7" fill="#a855f7" opacity="0.45"/>
+  <circle cx="38" cy="22" r="7" fill="#a855f7" opacity="0.45"/>
+  <!-- Огромная коса -->
+  <rect x="2" y="6" width="4" height="54" fill="#1a1a1a" stroke="#000" stroke-width="1"/>
+  <path d="M4 6 Q4 -10 20 -10 Q38 -10 38 8 Q38 24 20 24" fill="none" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+  <path d="M4 6 Q4 -10 20 -10 Q38 -10 38 8" fill="none" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="20" cy="8" r="4" fill="#a855f7"/>
+  <circle cx="20" cy="8" r="8" fill="#a855f7" opacity="0.35"/>
+  <!-- Аура смерти -->
+  <circle cx="32" cy="34" r="28" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.5" stroke-dasharray="5,5"/>
+</svg>`,
+
+
+
+
+
+
+
+
+reaper_lord:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="24" ry="4" fill="rgba(0,0,0,0.55)"/>
+  <ellipse cx="32" cy="36" rx="32" ry="28" fill="#4c1d95" opacity="0.35"/>
+  <ellipse cx="32" cy="36" rx="22" ry="18" fill="#1e1b4b" opacity="0.45"/>
+  <path d="M14 28 Q10 12 32 8 Q54 12 50 28 L56 60 L8 60 Z" fill="#0a0e1a" stroke="#7c3aed" stroke-width="1.6"/>
+  <path d="M14 28 Q32 22 50 28" stroke="#a855f7" stroke-width="1.5" fill="none"/>
+  <path d="M18 36 Q32 30 46 36" stroke="#7c3aed" stroke-width="1.2" fill="none"/>
+  <path d="M20 44 Q32 38 44 44" stroke="#7c3aed" stroke-width="1" fill="none"/>
+  <circle cx="32" cy="42" r="5" fill="#000" stroke="#dc2626" stroke-width="1.5"/>
+  <path d="M32 37 L32 47 M27 42 L37 42" stroke="#dc2626" stroke-width="1.5"/>
+  <ellipse cx="32" cy="22" rx="12" ry="11" fill="#000"/>
+  <path d="M20 18 Q24 4 32 4 Q40 4 44 18 Q38 10 32 10 Q26 10 20 18 Z" fill="#1e1b4b"/>
+  <path d="M20 14 L16 2 L24 8 L28 -2 L32 6 L36 -2 L40 8 L48 2 L44 14 Z" fill="#4c1d95" stroke="#dc2626" stroke-width="1.2"/>
+  <ellipse cx="27" cy="22" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="37" cy="22" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="27" cy="22" rx="1" ry="2.2" fill="#fff"/>
+  <ellipse cx="37" cy="22" rx="1" ry="2.2" fill="#fff"/>
+  <circle cx="27" cy="22" r="5" fill="#dc2626" opacity="0.4"/>
+  <circle cx="37" cy="22" r="5" fill="#dc2626" opacity="0.4"/>
+  <path d="M24 28 Q32 34 40 28" stroke="#000" stroke-width="1.6" fill="none"/>
+  <path d="M26 28 L26 31 M30 29 L30 32 M34 29 L34 32 M38 28 L38 31" stroke="#e5e7eb" stroke-width="0.9"/>
+  <rect x="4" y="14" width="4" height="46" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M6 14 Q6 0 16 0 Q26 0 26 10 Q26 18 16 18" fill="none" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="16" cy="10" r="2.5" fill="#dc2626"/>
+  <circle cx="16" cy="10" r="5" fill="#dc2626" opacity="0.4"/>
+</svg>`,
+
+
+
+
+// ===== ВООРУЖЁННЫЕ =====
+gnome_sniper:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.35)"/>
+  <rect x="26" y="46" width="5" height="12" rx="2" fill="#44403c"/>
+  <rect x="33" y="46" width="5" height="12" rx="2" fill="#44403c"/>
+  <ellipse cx="28" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
+  <ellipse cx="35" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
+  <rect x="20" y="28" width="24" height="20" rx="4" fill="#78716c" stroke="#44403c" stroke-width="1.4"/>
+  <path d="M20 34 L44 34 M20 42 L44 42" stroke="#57534e" stroke-width="1"/>
+  <circle cx="32" cy="38" r="3" fill="#67e8f9" opacity="0.8"/>
+  <circle cx="32" cy="38" r="1.5" fill="#fff"/>
+  <rect x="14" y="32" width="6" height="14" rx="3" fill="#a8a29e" stroke="#44403c" stroke-width="1.2"/>
+  <rect x="44" y="32" width="6" height="14" rx="3" fill="#a8a29e" stroke="#44403c" stroke-width="1.2"/>
+  <circle cx="17" cy="47" r="3" fill="#d6d3d1"/>
+  <circle cx="47" cy="47" r="3" fill="#d6d3d1"/>
+  <rect x="46" y="26" width="14" height="3" rx="1" fill="#1e293b" stroke="#0f172a" stroke-width="0.8"/>
+  <rect x="48" y="22" width="8" height="5" rx="1" fill="#334155"/>
+  <circle cx="52" cy="24.5" r="1" fill="#67e8f9"/>
+  <rect x="56" y="27" width="6" height="1.5" fill="#0f172a"/>
+  <circle cx="32" cy="18" r="10" fill="#fcd34d" stroke="#b45309" stroke-width="1.4"/>
+  <path d="M22 16 Q24 4 32 4 Q40 4 42 16 Q38 12 32 12 Q26 12 22 16 Z" fill="#dc2626"/>
+  <path d="M22 16 L20 20 L42 20 L42 16 Z" fill="#b91c1c"/>
+  <ellipse cx="28" cy="20" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="20" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <circle cx="28" cy="20" r="1" fill="#67e8f9" opacity="0.9"/>
+  <circle cx="36" cy="20" r="1" fill="#67e8f9" opacity="0.9"/>
+  <path d="M28 26 Q32 28 36 26" stroke="#7c2d12" stroke-width="1" fill="none"/>
+</svg>`,
+
+gnome_artillerist:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3.5" fill="rgba(0,0,0,0.4)"/>
+  <ellipse cx="32" cy="40" rx="24" ry="20" fill="#f97316" opacity="0.15"/>
+  <rect x="24" y="46" width="7" height="12" rx="2" fill="#44403c"/>
+  <rect x="33" y="46" width="7" height="12" rx="2" fill="#44403c"/>
+  <ellipse cx="27" cy="58" rx="5" ry="2.5" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="58" rx="5" ry="2.5" fill="#1a1a1a"/>
+  <rect x="18" y="28" width="28" height="20" rx="4" fill="#78716c" stroke="#44403c" stroke-width="1.5"/>
+  <path d="M18 34 L46 34 M18 42 L46 42" stroke="#57534e" stroke-width="1"/>
+  <circle cx="32" cy="38" r="4" fill="#f97316" opacity="0.9"/>
+  <circle cx="32" cy="38" r="2" fill="#fde68a"/>
+  <rect x="10" y="30" width="8" height="16" rx="3" fill="#a8a29e" stroke="#44403c" stroke-width="1.2"/>
+  <rect x="46" y="30" width="8" height="16" rx="3" fill="#a8a29e" stroke="#44403c" stroke-width="1.2"/>
+  <rect x="44" y="18" width="18" height="8" rx="2" fill="#1e293b" stroke="#0f172a" stroke-width="1"/>
+  <rect x="46" y="20" width="12" height="4" rx="1" fill="#334155"/>
+  <circle cx="60" cy="22" r="2.5" fill="#f97316"/>
+  <circle cx="60" cy="22" r="5" fill="#f97316" opacity="0.4"/>
+  <circle cx="60" cy="22" r="1" fill="#fff"/>
+  <circle cx="32" cy="16" r="11" fill="#fcd34d" stroke="#b45309" stroke-width="1.4"/>
+  <path d="M22 14 Q24 2 32 2 Q40 2 42 14 Z" fill="#dc2626"/>
+  <path d="M18 14 L16 20 L46 20 L44 14 Z" fill="#b91c1c"/>
+  <ellipse cx="28" cy="18" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="18" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <circle cx="28" cy="18" r="1" fill="#f97316"/>
+  <circle cx="36" cy="18" r="1" fill="#f97316"/>
+  <path d="M28 24 Q32 26 36 24" stroke="#7c2d12" stroke-width="1" fill="none"/>
+</svg>`,
+
+gnome_engineer:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <rect x="26" y="46" width="5" height="12" rx="2" fill="#44403c"/>
+  <rect x="33" y="46" width="5" height="12" rx="2" fill="#44403c"/>
+  <ellipse cx="28" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
+  <ellipse cx="35" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
+  <rect x="20" y="28" width="24" height="20" rx="4" fill="#78716c" stroke="#44403c" stroke-width="1.4"/>
+  <path d="M20 36 L44 36" stroke="#57534e" stroke-width="1"/>
+  <circle cx="32" cy="42" r="3" fill="#facc15" opacity="0.85"/>
+  <path d="M32 39 L32 45 M29 42 L35 42" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="14" y="32" width="6" height="14" rx="3" fill="#a8a29e"/>
+  <rect x="44" y="32" width="6" height="14" rx="3" fill="#a8a29e"/>
+  <rect x="46" y="38" width="12" height="4" rx="1" fill="#1e293b" stroke="#0f172a" stroke-width="0.8"/>
+  <path d="M58 40 L62 38 L62 42 Z" fill="#facc15"/>
+  <circle cx="32" cy="18" r="10" fill="#fcd34d" stroke="#b45309" stroke-width="1.4"/>
+  <path d="M22 16 Q24 4 32 4 Q40 4 42 16 Z" fill="#dc2626"/>
+  <ellipse cx="32" cy="15" rx="14" ry="2.5" fill="#b91c1c"/>
+  <ellipse cx="28" cy="20" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="20" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <circle cx="28" cy="20" r="1" fill="#facc15"/>
+  <circle cx="36" cy="20" r="1" fill="#facc15"/>
+  <path d="M28 25 Q32 27 36 25" stroke="#7c2d12" stroke-width="1" fill="none"/>
+</svg>`,
+
+gnome_technomage:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3.5" fill="rgba(0,0,0,0.4)"/>
+  <ellipse cx="32" cy="34" rx="24" ry="22" fill="#a855f7" opacity="0.2"/>
+  <rect x="24" y="46" width="7" height="12" rx="2" fill="#44403c"/>
+  <rect x="33" y="46" width="7" height="12" rx="2" fill="#44403c"/>
+  <ellipse cx="27" cy="58" rx="5" ry="2.5" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="58" rx="5" ry="2.5" fill="#1a1a1a"/>
+  <path d="M18 28 L46 28 L48 48 L16 48 Z" fill="#4c1d95" stroke="#1e1b4b" stroke-width="1.5"/>
+  <path d="M18 28 L46 28 L47 34 L17 34 Z" fill="#7c3aed"/>
+  <circle cx="32" cy="40" r="5" fill="#0a0e1a" stroke="#a855f7" stroke-width="1.3"/>
+  <path d="M32 35 L32 45 M27 40 L37 40 M29 37 L35 43 M35 37 L29 43" stroke="#67e8f9" stroke-width="1.2"/>
+  <circle cx="32" cy="40" r="1.8" fill="#fff"/>
+  <rect x="12" y="30" width="7" height="16" rx="3" fill="#4c1d95" stroke="#1e1b4b" stroke-width="1.2"/>
+  <rect x="45" y="30" width="7" height="16" rx="3" fill="#4c1d95" stroke="#1e1b4b" stroke-width="1.2"/>
+  <circle cx="15" cy="47" r="3" fill="#fcd34d"/>
+  <circle cx="49" cy="47" r="3" fill="#fcd34d"/>
+  <circle cx="52" cy="34" r="5" fill="#67e8f9" opacity="0.7"/>
+  <circle cx="52" cy="34" r="2.5" fill="#e0f2fe"/>
+  <circle cx="51" cy="33" r="0.8" fill="#fff"/>
+  <circle cx="12" cy="24" r="3" fill="#a855f7" opacity="0.7"/>
+  <circle cx="10" cy="18" r="1.5" fill="#e9d5ff"/>
+  <circle cx="32" cy="16" r="11" fill="#fcd34d" stroke="#b45309" stroke-width="1.4"/>
+  <path d="M22 14 Q24 2 32 2 Q40 2 42 14 Z" fill="#1e1b4b"/>
+  <path d="M28 4 L26 0 L30 2 Z" fill="#67e8f9"/>
+  <path d="M36 4 L38 0 L34 2 Z" fill="#a855f7"/>
+  <ellipse cx="28" cy="18" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="18" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <circle cx="28" cy="18" r="1" fill="#67e8f9"/>
+  <circle cx="36" cy="18" r="1" fill="#67e8f9"/>
+  <path d="M28 24 Q32 26 36 24" stroke="#7c2d12" stroke-width="1" fill="none"/>
+</svg>`,
+
+battle_drone:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="48" rx="18" ry="3" fill="rgba(0,0,0,0.35)"/>
+  <ellipse cx="32" cy="32" rx="20" ry="16" fill="#67e8f9" opacity="0.1"/>
+  <ellipse cx="32" cy="32" rx="14" ry="11" fill="#a8a29e" stroke="#44403c" stroke-width="1.5"/>
+  <ellipse cx="32" cy="32" rx="9" ry="7" fill="#57534e"/>
+  <circle cx="32" cy="32" r="4" fill="#0a0e1a" stroke="#67e8f9" stroke-width="1.2"/>
+  <circle cx="32" cy="32" r="2" fill="#67e8f9"/>
+  <circle cx="32" cy="32" r="1" fill="#fff"/>
+  <ellipse cx="32" cy="32" rx="14" ry="11" fill="none" stroke="#67e8f9" stroke-width="0.8" opacity="0.6"/>
+  <rect x="46" y="28" width="12" height="3" rx="1" fill="#1e293b"/>
+  <circle cx="58" cy="29.5" r="2" fill="#67e8f9"/>
+  <circle cx="58" cy="29.5" r="4" fill="#67e8f9" opacity="0.4"/>
+  <rect x="6" y="28" width="12" height="3" rx="1" fill="#1e293b"/>
+  <circle cx="6" cy="29.5" r="2" fill="#67e8f9"/>
+  <path d="M20 22 L16 16 M44 22 L48 16" stroke="#44403c" stroke-width="1.5"/>
+  <circle cx="16" cy="16" r="3" fill="#78716c" stroke="#44403c" stroke-width="1"/>
+  <circle cx="48" cy="16" r="3" fill="#78716c" stroke="#44403c" stroke-width="1"/>
+  <path d="M16 10 L20 6 M14 8 L16 4 M18 8 L20 4" stroke="#67e8f9" stroke-width="1" opacity="0.6"/>
+  <path d="M48 10 L44 6 M50 8 L48 4 M46 8 L44 4" stroke="#67e8f9" stroke-width="1" opacity="0.6"/>
+  <path d="M24 42 L22 48 M32 42 L32 48 M40 42 L42 48" stroke="#44403c" stroke-width="1.2" stroke-linecap="round"/>
+  <circle cx="32" cy="26" r="1" fill="#dc2626"/>
+</svg>`,
+
+siege_drone:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="54" rx="24" ry="4" fill="rgba(0,0,0,0.45)"/>
+  <ellipse cx="32" cy="34" rx="28" ry="20" fill="#f97316" opacity="0.15"/>
+  <ellipse cx="32" cy="34" rx="20" ry="14" fill="#57534e" stroke="#1c1917" stroke-width="1.6"/>
+  <ellipse cx="32" cy="34" rx="13" ry="9" fill="#78716c"/>
+  <circle cx="32" cy="34" r="6" fill="#0a0e1a" stroke="#dc2626" stroke-width="1.5"/>
+  <circle cx="32" cy="34" r="3" fill="#dc2626"/>
+  <circle cx="32" cy="34" r="1.5" fill="#fff"/>
+  <circle cx="32" cy="34" r="10" fill="#dc2626" opacity="0.25"/>
+  <ellipse cx="32" cy="34" rx="20" ry="14" fill="none" stroke="#a8a29e" stroke-width="1"/>
+  <path d="M20 24 L16 16 M44 24 L48 16" stroke="#1c1917" stroke-width="2"/>
+  <ellipse cx="14" cy="14" rx="6" ry="3" fill="#44403c" stroke="#1c1917" stroke-width="1"/>
+  <ellipse cx="50" cy="14" rx="6" ry="3" fill="#44403c" stroke="#1c1917" stroke-width="1"/>
+  <path d="M10 12 L14 6 M8 10 L10 4 M12 10 L14 4 M16 10 L18 4" stroke="#67e8f9" stroke-width="1.2" opacity="0.7"/>
+  <path d="M54 12 L50 6 M56 10 L54 4 M52 10 L50 4 M48 10 L46 4" stroke="#67e8f9" stroke-width="1.2" opacity="0.7"/>
+  <rect x="48" y="30" width="16" height="6" rx="2" fill="#1e293b" stroke="#0f172a" stroke-width="1"/>
+  <rect x="52" y="32" width="10" height="2" fill="#44403c"/>
+  <circle cx="62" cy="33" r="2.5" fill="#dc2626"/>
+  <circle cx="62" cy="33" r="5" fill="#dc2626" opacity="0.4"/>
+  <rect x="4" y="30" width="14" height="6" rx="2" fill="#1e293b" stroke="#0f172a" stroke-width="1"/>
+  <circle cx="4" cy="33" r="2.5" fill="#fbbf24"/>
+  <path d="M22 44 L20 50 M32 44 L32 50 M42 44 L44 50" stroke="#1c1917" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="20" cy="50" r="1.5" fill="#dc2626"/>
+  <circle cx="32" cy="50" r="1.5" fill="#dc2626"/>
+  <circle cx="44" cy="50" r="1.5" fill="#dc2626"/>
+</svg>`,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 lamhi_young:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="58" rx="12" ry="2.5" fill="rgba(0,0,0,0.3)"/>
   <path d="M42 46 Q56 44 54 34 Q52 40 44 42" stroke="#8b7355" stroke-width="2.5" fill="none" stroke-linecap="round"/>
@@ -7348,32 +8001,7 @@ function spawnHealerHuts(){
 // ===================== SVG NPS ДЛЯ КВЕСТОВ =====================
 
 const NPS_QUEST_SVGS = {
-  professor: `<svg viewBox="0 0 64 64">
-    <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
-    <rect x="26" y="46" width="5" height="12" rx="2" fill="#1e3a8a"/>
-    <rect x="33" y="46" width="5" height="12" rx="2" fill="#1e3a8a"/>
-    <ellipse cx="28" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
-    <ellipse cx="35" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
-    <rect x="20" y="28" width="24" height="20" rx="4" fill="#f5f5f4"/>
-    <rect x="20" y="28" width="24" height="20" rx="4" fill="none" stroke="#a8a29e" stroke-width="0.8"/>
-    <path d="M30 30 L34 30 L33 40 L32 42 L31 40 Z" fill="#ef4444"/>
-    <rect x="14" y="30" width="6" height="16" rx="3" fill="#f5f5f4"/>
-    <rect x="44" y="30" width="6" height="16" rx="3" fill="#f5f5f4"/>
-    <circle cx="17" cy="48" r="3" fill="#fde68a"/>
-    <circle cx="47" cy="48" r="3" fill="#fde68a"/>
-    <circle cx="32" cy="18" r="11" fill="#fde68a"/>
-    <path d="M21 16 Q21 4 32 4 Q43 4 43 16 Q40 10 32 10 Q24 10 21 16 Z" fill="#e5e7eb"/>
-    <path d="M21 18 Q18 18 20 22 Q22 20 22 18 Z" fill="#e5e7eb"/>
-    <path d="M43 18 Q46 18 44 22 Q42 20 42 18 Z" fill="#e5e7eb"/>
-    <ellipse cx="28" cy="18" rx="1.8" ry="2.2" fill="#1a1a1a"/>
-    <ellipse cx="36" cy="18" rx="1.8" ry="2.2" fill="#1a1a1a"/>
-    <circle cx="28.5" cy="17.3" r="0.6" fill="#fff"/>
-    <circle cx="36.5" cy="17.3" r="0.6" fill="#fff"/>
-    <path d="M26 24 Q28 23 30 24" stroke="#e5e7eb" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <path d="M34 24 Q36 23 38 24" stroke="#e5e7eb" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <path d="M28 27 Q32 30 36 27" stroke="#7c2d12" stroke-width="1" fill="none" stroke-linecap="round"/>
-  </svg>`,
-
+ 
   male: `<svg viewBox="0 0 64 64">
     <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
     <rect x="26" y="46" width="5" height="12" rx="2" fill="#78350f"/>
@@ -7450,32 +8078,50 @@ const NPS_QUEST_SVGS = {
     <path d="M44 15 Q50 15 50 18 Q44 17 42 17 Z" fill="#dc2626"/>
     <circle cx="32" cy="6" r="1.5" fill="#fbbf24"/>
   </svg>`
-};
-function pickNPSSvg(npsName){
+};function pickNPSSvg(npsName){
   const n = npsName.toLowerCase();
 
-  // === Архимаг / профессор / хранитель / чемпион ===
+  // === 1. Верховный архимаг / профессор / хранитель / чемпион / магистр ===
+  //    (только явные "магические" титулы)
   if(n.includes('профессор')  || n.includes('архимаг') ||
-     n.includes('хранитель') || n.includes('чемпион'))
+     n.includes('чемпион')    || n.includes('магистр') ||
+     n.includes('мудрец')     || n.includes('хранитель легенд'))
     return NPS_PROFESSOR;
 
-  // === Женские образы: жрицы, ведуньи, магички ===
-  if(n.includes('ведьма') || n.includes('жрица') ||
-     n.includes('коллекционер') || n.includes('экзорцист'))
+  // === 2. Женские образы: жрицы, ведуньи, магички, целительницы ===
+  //    Проверяем ПЕРЕД общими "мастер", "хранитель" и т.п.
+  if(n.includes('ведьма')     || n.includes('жрица') ||
+     n.includes('травница')   || n.includes('охотница') ||
+     n.includes('искательница')|| n.includes('жемчужница') ||
+     n.includes('коллекционер')|| n.includes('экзорцист') ||
+     n.includes('мастерица')  || n.includes('дриада') ||
+     n.includes('телепат')    || n.includes('духовед'))
     return NPS_QUEST_FEMALE;
 
-  // === Кузнецы, Дворфы, ремесленники — бородатые мастера ===
-  if(n.includes('кузнец') || n.includes('Дворф') || n.includes('мастер') ||
-     n.includes('скалолаз') || n.includes('альпинист') || n.includes('шахтёр') ||
-     n.includes('спелеолог') || n.includes('исследователь'))
+  // === 3. Ловчие, охотники, рейнджеры, следопыты — лучники ===
+  //    ВАЖНО: проверяем ПЕРЕД "мастер", "исследователь" и т.п.
+  if(n.includes('ловчий')   || n.includes('охотник') ||
+     n.includes('рейнджер') || n.includes('следопыт') ||
+     n.includes('птицелов') || n.includes('рыбак') ||
+     n.includes('мореход')  || n.includes('капитан'))
+    return NPS_TRAINER_FEMALE;  // эльфийка-лучница (или можно NPS_QUEST_MALE)
+
+  // === 4. Кузнецы, Дворфы, ремесленники, исследователи — бородатые мастера ===
+  if(n.includes('кузнец')     || n.includes('дворф') ||
+     n.includes('скалолаз')   || n.includes('альпинист') ||
+     n.includes('шахтёр')     || n.includes('спелеолог') ||
+     n.includes('исследователь')|| n.includes('археолог') ||
+     n.includes('вулканолог') || n.includes('старейшина') ||
+     n.includes('мастер')     || n.includes('магистр'))
     return NPS_QUEST_MALE;
 
-  // === Тренеры / бойцы ===
-  if(n.includes('рейнджер') || n.includes('воин') ||
-     n.includes('стражник') || n.includes('охотник'))
+  // === 5. Стражи, воины, рыцари — бойцы ===
+  if(n.includes('стражник') || n.includes('воин') ||
+     n.includes('рыцарь')   || n.includes('громовержец') ||
+     n.includes('экзорцист'))
     return NPS_TRAINER_MALE;
 
-  // === По умолчанию — мужской квестовый NPS ===
+  // === 6. По умолчанию — мужской квестовый NPC ===
   return NPS_QUEST_MALE;
 }
 // ===================== СПАВН NPS С КВЕСТАМИ =====================
@@ -9347,11 +9993,15 @@ ctx.font = '15px "Fantasy Classic", "Segoe UI", sans-serif';
 }
 
 // Маг-подмастерье (заменяет NPS_TRAINER_MALE)
+// Маг-подмастерье
 const NPS_TRAINER_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
-  <!-- Мантия -->
+  <!-- Мантия с узором -->
   <path d="M22 30 L42 30 L46 58 L18 58 Z" fill="#3b82f6"/>
   <path d="M22 30 L42 30 L43 38 L21 38 Z" fill="#1e40af"/>
+  <!-- Звёзды на мантии -->
+  <path d="M26 44 L27 42 L28 44 L30 45 L28 46 L27 48 L26 46 L24 45 Z" fill="#fbbf24" opacity="0.9"/>
+  <path d="M38 48 L39 46 L40 48 L42 49 L40 50 L39 52 L38 50 L36 49 Z" fill="#fbbf24" opacity="0.9"/>
   <!-- Рукава -->
   <path d="M16 32 L22 32 L20 50 L14 48 Z" fill="#3b82f6"/>
   <path d="M48 32 L42 32 L44 50 L50 48 Z" fill="#3b82f6"/>
@@ -9361,6 +10011,7 @@ const NPS_TRAINER_MALE = `<svg viewBox="0 0 64 64">
   <rect x="8" y="18" width="2.5" height="40" fill="#78350f" rx="1"/>
   <path d="M9 12 L5 20 L9 24 L13 20 Z" fill="#67e8f9" stroke="#0369a1" stroke-width="1"/>
   <circle cx="9" cy="18" r="3" fill="#67e8f9" opacity="0.6"/>
+  <circle cx="9" cy="18" r="1.2" fill="#fff"/>
   <!-- Голова -->
   <circle cx="32" cy="20" r="10" fill="#fde68a"/>
   <!-- Капюшон -->
@@ -9373,10 +10024,10 @@ const NPS_TRAINER_MALE = `<svg viewBox="0 0 64 64">
   <circle cx="28.5" cy="19.3" r="0.6" fill="#fff"/>
   <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
   <path d="M30 25 Q32 27 34 25" stroke="#7c2d12" stroke-width="1" fill="none" stroke-linecap="round"/>
-  <!-- Звёздочка-искра -->
+  <!-- Искра -->
   <path d="M52 14 L53 12 L54 14 L56 15 L54 16 L53 18 L52 16 L50 15 Z" fill="#fbbf24" opacity="0.9"/>
 </svg>`;
-// Эльфийка-лучница (заменяет NPS_TRAINER_FEMALE)
+// Эльфийка-лучница
 const NPS_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
@@ -9389,6 +10040,8 @@ const NPS_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
   <path d="M22 42 L42 42 L43 46 L21 46 Z" fill="#22c55e"/>
   <!-- Туловище -->
   <rect x="22" y="30" width="20" height="14" rx="4" fill="#22c55e"/>
+  <!-- Плащ -->
+  <path d="M20 30 L44 30 L48 56 L16 56 Z" fill="#15803d" opacity="0.7"/>
   <!-- Колчан за спиной -->
   <rect x="44" y="28" width="5" height="16" rx="2" fill="#78350f"/>
   <path d="M45 28 L46 22 M48 28 L48 22" stroke="#b45309" stroke-width="1.2"/>
@@ -9420,11 +10073,12 @@ const NPS_TRAINER_FEMALE = `<svg viewBox="0 0 64 64">
   <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
   <path d="M30 24 Q32 26 34 24" stroke="#dc2626" stroke-width="1" fill="none" stroke-linecap="round"/>
 </svg>`;
-// Тёмный культист (заменяет NPS_GYM_LEADER)
+// Тёмный культист
 const NPS_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="15" ry="3" fill="rgba(0,0,0,0.4)"/>
-  <!-- Аура -->
+  <!-- Тёмная аура -->
   <ellipse cx="32" cy="36" rx="24" ry="20" fill="#7c3aed" opacity="0.25"/>
+  <ellipse cx="32" cy="36" rx="16" ry="13" fill="#4c1d95" opacity="0.35"/>
   <!-- Плащ -->
   <path d="M16 30 L48 30 L52 58 L12 58 Z" fill="#4c1d95"/>
   <path d="M16 30 L48 30 L49 38 L15 38 Z" fill="#6d28d9"/>
@@ -9444,6 +10098,8 @@ const NPS_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <!-- Тёмная энергия в ладонях -->
   <circle cx="17" cy="48" r="3.5" fill="#a855f7" opacity="0.7"/>
   <circle cx="47" cy="48" r="3.5" fill="#a855f7" opacity="0.7"/>
+  <circle cx="17" cy="48" r="1.5" fill="#e9d5ff"/>
+  <circle cx="47" cy="48" r="1.5" fill="#e9d5ff"/>
   <!-- Голова -->
   <circle cx="32" cy="18" r="11" fill="#fde68a"/>
   <!-- Капюшон-тень -->
@@ -9456,12 +10112,15 @@ const NPS_GYM_LEADER = `<svg viewBox="0 0 64 64">
   <ellipse cx="36" cy="18" rx="2.2" ry="2.8" fill="#fbbf24"/>
   <ellipse cx="28" cy="18" rx="0.8" ry="2" fill="#1a1a1a"/>
   <ellipse cx="36" cy="18" rx="0.8" ry="2" fill="#1a1a1a"/>
+  <circle cx="28" cy="18" r="5" fill="#fbbf24" opacity="0.3"/>
+  <circle cx="36" cy="18" r="5" fill="#fbbf24" opacity="0.3"/>
   <!-- Злая ухмылка -->
   <path d="M28 23 Q32 26 36 23" stroke="#7c2d12" stroke-width="1.2" fill="none" stroke-linecap="round"/>
   <!-- Значок на груди -->
   <circle cx="42" cy="33" r="2.5" fill="#fbbf24" stroke="#b45309" stroke-width="0.8"/>
 </svg>`;
 // Старый Дворф-кузнец (заменяет NPS_QUEST_MALE)
+// Старый Дворф-кузнец
 const NPS_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ботинки -->
@@ -9469,9 +10128,11 @@ const NPS_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <rect x="33" y="46" width="5" height="12" rx="2" fill="#451a03"/>
   <ellipse cx="28" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
   <ellipse cx="35" cy="58" rx="4" ry="2.5" fill="#1a1a1a"/>
-  <!-- Кожаный фартук -->
+  <!-- Кожаный фартук с рунами -->
   <rect x="20" y="28" width="24" height="20" rx="4" fill="#78350f"/>
   <rect x="20" y="28" width="24" height="5" fill="#a16207"/>
+  <path d="M26 36 L28 34 L30 36 L28 38 Z" fill="#fbbf24" opacity="0.8"/>
+  <path d="M34 36 L36 34 L38 36 L36 38 Z" fill="#fbbf24" opacity="0.8"/>
   <!-- Молот на поясе -->
   <rect x="16" y="36" width="4" height="14" rx="1" fill="#451a03"/>
   <rect x="12" y="34" width="12" height="6" rx="1.5" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
@@ -9497,8 +10158,7 @@ const NPS_QUEST_MALE = `<svg viewBox="0 0 64 64">
   <!-- Нос -->
   <ellipse cx="32" cy="23" rx="2" ry="1.6" fill="#d97706"/>
 </svg>`;
-
-// Жрица-целительница (заменяет NPS_QUEST_FEMALE)
+// Жрица-целительница
 const NPS_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
@@ -9521,6 +10181,7 @@ const NPS_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
   <circle cx="19" cy="43" r="4" fill="#fef3c7" opacity="0.9"/>
   <circle cx="19" cy="43" r="2" fill="#fbbf24"/>
   <circle cx="18.5" cy="42.5" r="0.6" fill="#fff"/>
+  <circle cx="19" cy="43" r="7" fill="#fbbf24" opacity="0.2"/>
   <!-- Голова -->
   <circle cx="32" cy="20" r="10" fill="#fde68a"/>
   <!-- Покрывало -->
@@ -9536,8 +10197,7 @@ const NPS_QUEST_FEMALE = `<svg viewBox="0 0 64 64">
   <circle cx="28.5" cy="19.3" r="0.6" fill="#fff"/>
   <circle cx="36.5" cy="19.3" r="0.6" fill="#fff"/>
   <path d="M30 24 Q32 26 34 24" stroke="#dc2626" stroke-width="1" fill="none" stroke-linecap="round"/>
-</svg>`;
-// Верховный архимаг (заменяет NPS_PROFESSOR)
+</svg>`;// Верховный архимаг
 const NPS_PROFESSOR = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
   <!-- Ноги -->
@@ -9563,6 +10223,7 @@ const NPS_PROFESSOR = `<svg viewBox="0 0 64 64">
   <path d="M9 8 L5 18 L9 22 L13 18 Z" fill="#a855f7" stroke="#6d28d9" stroke-width="1"/>
   <circle cx="9" cy="15" r="3" fill="#a855f7" opacity="0.6"/>
   <circle cx="9" cy="15" r="1.2" fill="#fff"/>
+  <circle cx="9" cy="15" r="7" fill="#a855f7" opacity="0.2"/>
   <!-- Голова -->
   <circle cx="32" cy="18" r="11" fill="#fde68a"/>
   <!-- Седые волосы -->
