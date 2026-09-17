@@ -3299,166 +3299,10 @@ const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водн�
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
-const LEARNSETS={
+// ===================== НАБОРЫ АТАК — ПОЛНАЯ ВЕРСИЯ =====================
 
-
-
-1175:[{level:1,move:"Крысиный укус"},{level:5,move:"Тёмное жертвоприношение"},{level:10,move:"Проклятие роя"},{level:16,move:"Крик банши"},{level:22,move:"Волна смерти"}],
-1176:[{level:1,move:"Проклятие роя"},{level:1,move:"Тёмное жертвоприношение"},{level:1,move:"Волна смерти"},{level:1,move:"Крик банши"},{level:1,move:"Норский клинок"}],
-// --- Тень ---
-1160:[{level:1,move:"Прикосновение смерти"},{level:4,move:"Шар тьмы"},{level:8,move:"Невидимость"},{level:12,move:"Удар из тени"},{level:16,move:"Луч разума"},{level:22,move:"Пожиратель снов"},{level:28,move:"Волна смерти"}],
-1161:[{level:1,move:"Невидимость"},{level:1,move:"Удар из тени"},{level:1,move:"Шар тьмы"},{level:1,move:"Пожиратель снов"},{level:1,move:"Волна смерти"}],
-
-// --- Банши ---
-1162:[{level:1,move:"Прикосновение смерти"},{level:4,move:"Тень смерти"},{level:8,move:"Крик Банши"},{level:12,move:"Поцелуй сирены"},{level:16,move:"Одержимость"},{level:22,move:"Шар тьмы"},{level:28,move:"Пожиратель снов"}],
-1163:[{level:1,move:"Крик Банши"},{level:1,move:"Одержимость"},{level:1,move:"Шар тьмы"},{level:1,move:"Пожиратель снов"},{level:1,move:"Волна смерти"}],
-
-// --- Сшивень ---
-1164:[{level:1,move:"Каннибализм"},{level:5,move:"Костяной шип"},{level:10,move:"Мясницкий крюк"},{level:14,move:"Пожирание трупов"},{level:18,move:"Грубая сила"},{level:24,move:"Сокрушение"},{level:30,move:"Каннибализм"}],
-1165:[{level:1,move:"Мясницкий крюк"},{level:1,move:"Пожирание трупов"},{level:1,move:"Сокрушение"},{level:1,move:"Каннибализм"},{level:1,move:"Волна смерти"}],
-
-// --- Лич ---
-1166:[{level:1,move:"Смятение"},{level:4,move:"Костяной шип"},{level:8,move:"Ледяная стрела"},{level:12,move:"Тёмное исцеление"},{level:16,move:"Шар тьмы"},{level:22,move:"Жертва души"},{level:28,move:"Волна смерти"}],
-1167:[{level:1,move:"Жертва души"},{level:1,move:"Ледяная стрела"},{level:1,move:"Тёмное исцеление"},{level:1,move:"Волна смерти"},{level:1,move:"Воскрешение мёртвых"}],
-
-
-// --- Огры ---
-1152:[{level:1,move:"Удар кулаком"},{level:4,move:"Каменный шип"},{level:8,move:"Грубая сила"},{level:12,move:"Землетрясение"},{level:16,move:"Сокрушение"},{level:22,move:"Обвал"},{level:28,move:"Тройной удар"}],
-1153:[{level:1,move:"Грубая сила"},{level:1,move:"Землетрясение"},{level:1,move:"Сокрушение"},{level:1,move:"Обвал"},{level:1,move:"Тройной удар"}],
-
-// --- Огры-маги ---
-1154:[{level:1,move:"Удар посохом"},{level:4,move:"Смятение"},{level:8,move:"Каменный шип"},{level:12,move:"Луч разума"},{level:16,move:"Взрыв разума"},{level:22,move:"Обвал"},{level:28,move:"Магический барьер"}],
-1155:[{level:1,move:"Взрыв разума"},{level:1,move:"Обвал"},{level:1,move:"Магический барьер"},{level:1,move:"Сфера ауры"},{level:1,move:"Шар тьмы"}],
-
-// --- Орки ---
-1156:[{level:1,move:"Царапка когтем"},{level:4,move:"Внезапный выпад"},{level:8,move:"Укус тьмы"},{level:12,move:"Клык зверя"},{level:16,move:"Грубая сила"},{level:20,move:"Контрудар"},{level:26,move:"Сокрушение"}],
-1157:[{level:1,move:"Грубая сила"},{level:1,move:"Клык зверя"},{level:1,move:"Сокрушение"},{level:1,move:"Тройной удар"},{level:1,move:"Контрудар"}],
-
-// --- Тролли ---
-1158:[{level:1,move:"Царапка когтем"},{level:4,move:"Удар лозой"},{level:8,move:"Высасывание жизни"},{level:12,move:"Клык зверя"},{level:16,move:"Природное восстановление"},{level:20,move:"Грубая сила"},{level:26,move:"Землетрясение"}],
-1159:[{level:1,move:"Высасывание жизни"},{level:1,move:"Грубая сила"},{level:1,move:"Землетрясение"},{level:1,move:"Сокрушение"},{level:1,move:"Природное восстановление"}],
-// ЗАМЕНИТЕ НА:
-1055:[{level:1,move:"Каннибализм"},{level:5,move:"Костяной шип"},{level:10,move:"Пожирание плоти"},{level:16,move:"Землетрясение"},{level:22,move:"Проклятие мертвеца"},{level:28,move:"Обвал"}],
-1056:[{level:1,move:"Каннибализм"},{level:1,move:"Костяной шип"},{level:10,move:"Пожирание плоти"},{level:16,move:"Землетрясение"},{level:22,move:"Проклятие мертвеца"},{level:28,move:"Обвал"}],
-1057:[{level:1,move:"Каннибализм"},{level:1,move:"Волна смерти"},{level:1,move:"Пожирание плоти"},{level:1,move:"Обвал"},{level:1,move:"Крик банши"}],
-// --- Стартовые ---
-1001:[{level:1,move:"Удар посохом"},{level:4,move:"Каменный шип"},{level:8,move:"Землетрясение"},{level:12,move:"Клык зверя"},{level:16,move:"Тройной удар"},{level:20,move:"Сокрушение"},{level:24,move:"Луч маны"}],
-1002:[{level:1,move:"Землетрясение"},{level:1,move:"Клык зверя"},{level:16,move:"Тройной удар"},{level:20,move:"Сокрушение"},{level:24,move:"Луч маны"}],
-1003:[{level:1,move:"Луч маны"},{level:1,move:"Землетрясение"},{level:1,move:"Сокрушение"},{level:1,move:"Тройной удар"}],
-
-1004:[{level:1,move:"Царапка когтем"},{level:1,move:"Поджог"},{level:4,move:"Искра"},{level:8,move:"Пламенный клык"},{level:12,move:"Струя пламени"},{level:16,move:"Огненный шквал"},{level:20,move:"Огненный вихрь"},{level:24,move:"Вспышка пламени"}],
-1005:[{level:1,move:"Струя пламени"},{level:1,move:"Пламенный клык"},{level:12,move:"Огненный шквал"},{level:16,move:"Искра"},{level:20,move:"Огненный вихрь"},{level:24,move:"Вспышка пламени"}],
-1006:[{level:1,move:"Струя пламени"},{level:1,move:"Воздушный клинок"},{level:1,move:"Огненный шквал"},{level:1,move:"Драконий натиск"},{level:1,move:"Вспышка пламени"}],
-
-1007:[{level:1,move:"Удар хвостом"},{level:4,move:"Водяной шип"},{level:8,move:"Укус тьмы"},{level:12,move:"Волна прилива"},{level:16,move:"Гидроудар"},{level:20,move:"Пение сирены"},{level:24,move:"Защитная стойка"}],
-1008:[{level:1,move:"Волна прилива"},{level:1,move:"Удар хвостом"},{level:12,move:"Гидроудар"},{level:16,move:"Укус тьмы"},{level:20,move:"Пение сирены"},{level:24,move:"Защитная стойка"}],
-1009:[{level:1,move:"Волна прилива"},{level:1,move:"Ледяное копьё"},{level:1,move:"Гидроудар"},{level:1,move:"Таран"},{level:1,move:"Пение сирены"}],
-
-// --- Лепрекон ---
-1025:[{level:1,move:"Разряд"},{level:3,move:"Внезапный выпад"},{level:7,move:"Парализующий разряд"},{level:11,move:"Грозовой удар"},{level:15,move:"Молния"},{level:19,move:"Небесная кара"},{level:23,move:"Рывок"}],
-1026:[{level:1,move:"Небесная кара"},{level:1,move:"Молния"},{level:1,move:"Рывок"},{level:1,move:"Грозовой удар"}],
-
-// --- Грибы ---
-1010:[{level:1,move:"Пощёчина"},{level:4,move:"Жучий укус"},{level:8,move:"Двойной удар"},{level:12,move:"Спорный сон"}],
-1011:[{level:1,move:"Пощёчина"},{level:1,move:"Жучий укус"},{level:12,move:"Спорный сон"},{level:16,move:"Высасывание жизни"}],
-1013:[{level:1,move:"Удар лозой"},{level:4,move:"Жучий укус"},{level:8,move:"Отравленный шип"},{level:12,move:"Отравление"}],
-1014:[{level:1,move:"Удар лозой"},{level:1,move:"Жучий укус"},{level:12,move:"Отравленный шип"},{level:16,move:"Отравление"},{level:20,move:"Землетрясение"}],
-
-// --- Гарпии ---
-1016:[{level:1,move:"Царапка когтем"},{level:3,move:"Внезапный выпад"},{level:7,move:"Удар крылом"},{level:11,move:"Воздушный клинок"},{level:15,move:"Рывок"},{level:19,move:"Контрудар"},{level:23,move:"Клюв-копьё"}],
-1017:[{level:1,move:"Удар крылом"},{level:1,move:"Царапка когтем"},{level:11,move:"Воздушный клинок"},{level:15,move:"Рывок"},{level:19,move:"Контрудар"},{level:23,move:"Клюв-копьё"}],
-
-// --- Гоблины ---
-1019:[{level:1,move:"Царапка когтем"},{level:3,move:"Внезапный выпад"},{level:7,move:"Укус тьмы"},{level:11,move:"Клык зверя"},{level:15,move:"Контрудар"},{level:19,move:"Сокрушение"}],
-
-// --- Вампиры ---
-1041:[{level:1,move:"Высасывание жизни"},{level:5,move:"Укус тьмы"},{level:9,move:"Удар крылом"},{level:13,move:"Отравленный клык"},{level:17,move:"Поцелуй сирены"},{level:21,move:"Шар тьмы"}],
-
-// --- Големы ---
-1074:[{level:1,move:"Каменный шип"},{level:5,move:"Удар кулаком"},{level:10,move:"Обвал"},{level:15,move:"Землетрясение"},{level:20,move:"Тройной удар"},{level:25,move:"Взрыв маны"}],
-1075:[{level:1,move:"Обвал"},{level:1,move:"Землетрясение"},{level:1,move:"Тройной удар"},{level:1,move:"Взрыв маны"},{level:1,move:"Луч маны"}],
-
-// --- Морские ---
-1129:[{level:1,move:"Беспомощность"},{level:8,move:"Удар хвостом"},{level:12,move:"Отчаянный бросок"},{level:16,move:"Сокрушение"}],
-1130:[{level:1,move:"Укус тьмы"},{level:12,move:"Хвост волны"},{level:18,move:"Гидроудар"},{level:22,move:"Небесная кара"},{level:26,move:"Сокрушение"}],
-
-// --- Дух-Лиса ---
-1133:[{level:1,move:"Царапка когтем"},{level:5,move:"Внезапный выпад"},{level:10,move:"Укус тьмы"},{level:15,move:"Грубая сила"},{level:20,move:"Контрудар"},{level:25,move:"Защитная стойка"}],
-1134:[{level:1,move:"Удар хвостом"},{level:5,move:"Водяной шип"},{level:10,move:"Внезапный выпад"},{level:16,move:"Поток воды"},{level:22,move:"Ледяное копьё"},{level:30,move:"Гидроудар"}],
-1135:[{level:1,move:"Царапка когтем"},{level:5,move:"Искра"},{level:10,move:"Внезапный выпад"},{level:16,move:"Пламенный клык"},{level:22,move:"Струя пламени"},{level:30,move:"Огненный шквал"}],
-
-// --- Рири ---
-1054:[{level:1,move:"Водяной шип"},{level:4,move:"Смятение"},{level:9,move:"Поток воды"},{level:14,move:"Взрыв разума"},{level:19,move:"Гидроудар"},{level:24,move:"Природное восстановление"}],
-
-// --- Ревенант ---
-1063:[{level:1,move:"Смятение"},{level:8,move:"Луч разума"},{level:12,move:"Взрыв разума"},{level:16,move:"Шар тьмы"},{level:20,move:"Магический сон"},{level:24,move:"Магическое отражение"}],
-1065:[{level:1,move:"Взрыв разума"},{level:1,move:"Шар тьмы"},{level:1,move:"Магический сон"},{level:1,move:"Магическое отражение"}],
-
-// --- Бесплотныйи ---
-1092:[{level:1,move:"Прикосновение смерти"},{level:5,move:"Тень смерти"},{level:10,move:"Шар тьмы"},{level:14,move:"Пожиратель снов"},{level:18,move:"Магический сон"},{level:22,move:"Поцелуй сирены"}],
-1094:[{level:1,move:"Шар тьмы"},{level:1,move:"Пожиратель снов"},{level:1,move:"Взрыв разума"},{level:1,move:"Прикосновение смерти"},{level:1,move:"Магический сон"}],
-
-// --- Ледяной Кит ---
-1131:[{level:1,move:"Водяной шип"},{level:5,move:"Таран"},{level:10,move:"Ледяное копьё"},{level:15,move:"Волна прилива"},{level:20,move:"Гидроудар"},{level:25,move:"Морозный ветер"}],
-
-// --- Дракон-Змей ---
-1147:[{level:1,move:"Обёртывание"},{level:5,move:"Драконий вихрь"},{level:10,move:"Удар кулаком"},{level:16,move:"Ярость дракона"},{level:22,move:"Драконий натиск"}],
-1148:[{level:1,move:"Драконий натиск"},{level:1,move:"Ярость дракона"},{level:1,move:"Драконий вихрь"},{level:1,move:"Воздушный клинок"}],
-
-// --- Каменный Боец ---
-1068:[{level:1,move:"Удар кулаком"},{level:5,move:"Контрудар"},{level:10,move:"Грубая сила"},{level:16,move:"Каменный шип"},{level:22,move:"Сокрушение"},{level:30,move:"Тройной удар"}],
-
-// --- Медведь ---
-1143:[{level:1,move:"Царапка когтем"},{level:5,move:"Таран"},{level:12,move:"Клык зверя"},{level:18,move:"Землетрясение"},{level:25,move:"Сокрушение"},{level:32,move:"Луч маны"}],
-
-// --- Легендарные ---
-1150:[{level:1,move:"Взрыв разума"},{level:1,move:"Шар тьмы"},{level:1,move:"Сфера ауры"},{level:1,move:"Луч маны"},{level:1,move:"Магический барьер"}],
-1151:[{level:1,move:"Удар кулаком"},{level:1,move:"Взрыв разума"},{level:1,move:"Шар тьмы"},{level:1,move:"Сфера ауры"},{level:1,move:"Природное восстановление"}],
-1144:[{level:1,move:"Ледяное копьё"},{level:1,move:"Порыв ветра"},{level:1,move:"Ледяная буря"},{level:1,move:"Отдых"},{level:1,move:"Морозный ветер"}],
-1145:[{level:1,move:"Грозовой удар"},{level:1,move:"Порыв ветра"},{level:1,move:"Клюв-копьё"},{level:1,move:"Молния"},{level:1,move:"Парализующий разряд"}],
-1146:[{level:1,move:"Струя пламени"},{level:1,move:"Порыв ветра"},{level:1,move:"Огненный шквал"},{level:1,move:"Волна пламени"},{level:1,move:"Вспышка пламени"}]
-};
-// ===================== АТАКИ =====================
-// ===================== АТАКИ (ФЭНТЕЗИ) =====================
-// ===================== АТАКИ (ФЭНТЕЗИ) =====================
-const FULL_MOVES={
-// ===== АТАКИ ЛАМХИ =====
-"Крысиный укус":{type:"Тёмный",power:45,cat:"physical",effect:"poison",chance:0.3,desc:"Укус, пропитанный подземной заразой. Может отравить."},
-"Коготь Ламхи":{type:"Земляной",power:70,cat:"physical",desc:"Резкий удар когтями, высекает искры."},
-"Дротик с ядом":{type:"Ядовитый",power:60,cat:"special",effect:"toxic",chance:0.5,desc:"Отравленный дротик. Может сильно отравить."},
-"Подземный вой":{type:"Тёмный",power:null,cat:"status",effect:"confuse",chance:0.75,desc:"Вой из глубин, сбивающий врага с толку."},
-"Крысиный рой":{type:"Тёмный",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз стаей крыс."},
-"Тёмное жертвоприношение":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.4,desc:"Жрец восстанавливает 40% HP, высасывая жизнь из земли."},
-"Проклятие роя":{type:"Нежить",power:100,cat:"special",effect:"drain",drain:0.5,desc:"Тёмная волна крыс-духов, восстанавливает 50% урона."},
-"Норский клинок":{type:"Земляной",power:95,cat:"physical",desc:"Клинок из кости подземного зверя. Мощный и точный."},
-"Приказ стаи":{type:"Тёмный",power:null,cat:"status",effect:"lowerdef",desc:"Стая крыс подгрызает защиту цели."},
-"Поджог":{type:"Огненный",power:70,cat:"physical",effect:"recoil",recoil:0.4,desc:"Имп поджигает и себя, и врага. Отдача 40% нанесённого урона."},
-
-// ===== НЕЖИТЬ =====
-"Каннибализм":{type:"Нежить",power:60,cat:"physical",effect:"drain",drain:0.75,desc:"Вгрызается в плоть врага и восстанавливает 75% нанесённого урона."},
-"Костяной шип":{type:"Нежить",power:70,cat:"physical",desc:"Острый шип из костей пробивает плоть врага."},
-"Мясницкий крюк":{type:"Нежить",power:90,cat:"physical",effect:"recoil",recoil:0.15,desc:"Крюк пронзает врага, отдача 15% урона."},
-"Пожирание трупов":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.35,desc:"Пожирает останки, восстанавливая 35% HP."},
-"Пожирание плоти":{type:"Нежить",power:80,cat:"physical",effect:"drain",drain:0.5,desc:"Разрывает плоть и восстанавливает 50% урона."},
-"Волна смерти":{type:"Нежить",power:110,cat:"special",desc:"Волна некротической энергии сметает всё на пути."},
-"Крик банши":{type:"Нежить",power:null,cat:"status",effect:"confuse",chance:0.8,desc:"Пронизывающий крик сбивает с толку."},
-"Прикосновение смерти":{type:"Нежить",power:30,cat:"physical",desc:"Ледяное прикосновение, высасывающее жизнь."},
-"Похищение души":{type:"Нежить",power:90,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона, высасывая душу."},
-"Проклятие мертвеца":{type:"Нежить",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Накладывает проклятие (токсин)."},
-"Тёмное исцеление":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Высасывает жизнь из земли, восстанавливая 50% HP."},
-"Жертва души":{type:"Нежить",power:130,cat:"special",effect:"selfdamage",selfDamage:0.15,desc:"Мощный тёмный удар. Лич теряет 15% HP."},
-"Воскрешение мёртвых":{type:"Нежить",power:null,cat:"status",effect:"revive",revive:0.5,desc:"Воскрешает павшего союзника с 50% HP (вне боя)."},
-"Холод могилы":{type:"Нежить",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить."},
-"Ледяная стрела":{type:"Ледяной",power:75,cat:"special",effect:"freeze",chance:0.2,desc:"Ледяная стрела лича. Может заморозить."},
-
-// ===== ТЕНЬ / Бесплотный =====
-"Невидимость":{type:"Бесплотный",power:null,cat:"status",effect:"invisible",duration:2,desc:"Тень становится невидимой на 2 хода — её нельзя атаковать."},
-"Крик Банши":{type:"Бесплотный",power:50,cat:"special",effect:"slow",slow:0.5,desc:"Замедляющая волна. Понижает скорость врага вдвое на 3 хода."},
-"Одержимость":{type:"Бесплотный",power:null,cat:"status",effect:"possess",chance:0.6,desc:"Пытается подчинить волю врага. С шансом 60% враг пропустит ход."},
-"Удар из тени":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Шар тьмы":{type:"Бесплотный",power:80,cat:"special",desc:"Сгусток чистой тьмы, сгусток чистой тьмы."},
-"Тень смерти":{type:"Бесплотный",power:null,cat:"special",desc:"Тень накрывает врага, ослабляя его."},
-"Прикосновение могилы":{type:"Бесплотный",power:45,cat:"physical",desc:"Холодное прикосновение из могилы."},
+// ===================== АТАКИ (ПОЛНЫЙ СПИСОК) =====================
+const FULL_MOVES = {
 
 // ===== ОБЫЧНЫЕ =====
 "Удар посохом":{type:"Обычный",power:40,cat:"physical"},
@@ -3466,7 +3310,6 @@ const FULL_MOVES={
 "Пощёчина":{type:"Обычный",power:40,cat:"physical"},
 "Удар кулаком":{type:"Обычный",power:80,cat:"physical"},
 "Внезапный выпад":{type:"Обычный",power:40,cat:"physical"},
-"Укус тьмы":{type:"Тёмный",power:60,cat:"physical"},
 "Клык зверя":{type:"Обычный",power:80,cat:"physical"},
 "Грубая сила":{type:"Обычный",power:90,cat:"physical"},
 "Таран":{type:"Обычный",power:85,cat:"physical"},
@@ -3474,6 +3317,33 @@ const FULL_MOVES={
 "Обёртывание":{type:"Обычный",power:15,cat:"physical"},
 "Беспомощность":{type:"Обычный",power:null,cat:"status"},
 "Отчаянный бросок":{type:"Обычный",power:null,cat:"physical"},
+"Захват":{type:"Обычный",power:40,cat:"physical"},
+"Сокрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
+"Разрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
+"Тройной удар":{type:"Обычный",power:25,cat:"physical",effect:"multihit",hits:3,desc:"Бьёт 3 раза."},
+"Двойной удар":{type:"Обычный",power:35,cat:"physical",effect:"multihit",hits:2,desc:"Бьёт 2 раза."},
+"Двойной таран":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона."},
+"Двойное ребро":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона."},
+"Рывок":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+"Ускорение":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+"Ярость":{type:"Обычный",power:20,cat:"physical",effect:"rage",desc:"Растёт при получении урона."},
+"Защитная стойка":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту."},
+"Мягкая защита":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту."},
+"Защита":{type:"Обычный",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
+"Ослепление":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
+"Оглушение":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
+"Пение":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель."},
+"Пение сирены":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель."},
+"Мягкое свечение":{type:"Обычный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+"Хвост-хлыст":{type:"Обычный",power:null,cat:"status",effect:"lowerdef",desc:"Понижает защиту цели."},
+"Взрыв маны":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
+"Взрыв":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
+"Жертвенный взрыв":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
+"Самоликвидация":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
+
+// ===== ТЁМНЫЙ =====
+"Укус тьмы":{type:"Тёмный",power:60,cat:"physical"},
+"Приказ стаи":{type:"Тёмный",power:null,cat:"status",effect:"lowerdef",desc:"Стая крыс подгрызает защиту цели."},
 
 // ===== ОГНЕННЫЙ =====
 "Искра":{type:"Огненный",power:40,cat:"special"},
@@ -3483,6 +3353,7 @@ const FULL_MOVES={
 "Волна пламени":{type:"Огненный",power:95,cat:"special"},
 "Огненный вихрь":{type:"Огненный",power:35,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь."},
 "Вспышка пламени":{type:"Огненный",power:null,cat:"status",effect:"burn",chance:0.85,desc:"Гарантированный ожог."},
+"Поджог":{type:"Огненный",power:70,cat:"physical",effect:"recoil",recoil:0.4,desc:"Имп поджигает и себя, и врага. Отдача 40%."},
 "Воля-о-висп":{type:"Огненный",power:null,cat:"status",effect:"burn",chance:0.85,desc:"Гарантированный ожог."},
 
 // ===== ВОДНЫЙ =====
@@ -3491,24 +3362,28 @@ const FULL_MOVES={
 "Волна прилива":{type:"Водный",power:90,cat:"special"},
 "Гидроудар":{type:"Водный",power:110,cat:"special"},
 "Хвост волны":{type:"Водный",power:90,cat:"physical"},
+"Удар хвостом":{type:"Водный",power:40,cat:"physical"},
 "Струя воды":{type:"Водный",power:40,cat:"special",effect:"loweratk",chance:0.3,desc:"Может понизить атаку."},
 "Водный рывок":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Водный поток":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым."},
 
 // ===== ПРИРОДА =====
 "Удар лозой":{type:"Природа",power:45,cat:"physical"},
 "Режущий лист":{type:"Природа",power:55,cat:"physical"},
 "Луч света":{type:"Природа",power:120,cat:"special"},
-"Спорный сон":{type:"Природа",power:null,cat:"status",effect:"sleep",chance:0.75},
+"Спорный сон":{type:"Природа",power:null,cat:"status",effect:"sleep",chance:0.75,desc:"Усыпляет спорами."},
 "Танец цветов":{type:"Природа",power:70,cat:"special",effect:"confuse",chance:0.2,desc:"Может сбить с толку."},
 "Высасывание жизни":{type:"Природа",power:75,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
 "Град семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
+"Пулемёт семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
 "Природное восстановление":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+"Синтез":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
 
-// ===== Электрический =====
+// ===== ЭЛЕКТРИЧЕСКИЙ =====
 "Разряд":{type:"Электрический",power:40,cat:"special"},
 "Грозовой удар":{type:"Электрический",power:90,cat:"special"},
 "Громовая стрела":{type:"Электрический",power:110,cat:"special"},
-"Парализующий разряд":{type:"Электрический",power:null,cat:"status",effect:"paralyze",chance:1.0},
+"Парализующий разряд":{type:"Электрический",power:null,cat:"status",effect:"paralyze",chance:1.0,desc:"Парализует цель."},
 "Молния":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
 "Небесная кара":{type:"Электрический",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача."},
 "Разряд молнии":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
@@ -3520,18 +3395,19 @@ const FULL_MOVES={
 "Морозный клык":{type:"Ледяной",power:65,cat:"physical",effect:"freeze",chance:0.15,desc:"Может заморозить."},
 "Ледяной ветер":{type:"Ледяной",power:55,cat:"special",effect:"freeze",chance:0.1,desc:"Может заморозить."},
 "Ледяной укус":{type:"Ледяной",power:65,cat:"physical",effect:"freeze",chance:0.15,desc:"Может заморозить."},
+"Ледяная стрела":{type:"Ледяной",power:75,cat:"special",effect:"freeze",chance:0.2,desc:"Ледяная стрела лича. Может заморозить."},
 
-// ===== ПСИХИЧЕСКИЙ =====
+// ===== МЕНТАЛЬНЫЙ =====
 "Смятение":{type:"Ментальный",power:50,cat:"special"},
 "Взрыв разума":{type:"Ментальный",power:90,cat:"special"},
 "Луч разума":{type:"Ментальный",power:65,cat:"special"},
 "Магический сон":{type:"Ментальный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
-"Пожиратель снов":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain"},
+"Пожиратель снов":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих."},
 "Сон-похититель":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих."},
 "Поцелуй сирены":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
 "Поцелуй вампира":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
 "Магическое отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
+"Отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
 "Магический барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
 "Барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
 "Отдых":{type:"Ментальный",power:null,cat:"status",effect:"rest",desc:"Полностью восстанавливает HP, но усыпляет."},
@@ -3549,15 +3425,13 @@ const FULL_MOVES={
 "Порыв ветра":{type:"Летающий",power:40,cat:"special"},
 "Воздушный клинок":{type:"Летающий",power:75,cat:"special"},
 "Клюв-копьё":{type:"Летающий",power:80,cat:"physical"},
-"Отдых":{type:"Летающий",power:null,cat:"status",effect:"rest"},
 
 // ===== ДРАКОН =====
 "Драконий вихрь":{type:"Дракон",power:40,cat:"special"},
 "Драконий натиск":{type:"Дракон",power:100,cat:"physical"},
 "Ярость дракона":{type:"Дракон",power:120,cat:"physical"},
-"Ярость":{type:"Обычный",power:20,cat:"physical",effect:"rage",desc:"Растёт при получении урона."},
 
-// ===== ЖУК / ЯДОВИТЫЙ =====
+// ===== ЯДОВИТЫЙ / НИЗШИЙ =====
 "Жучий укус":{type:"Низший",power:60,cat:"physical"},
 "Жало скорпиона":{type:"Ядовитый",power:15,cat:"physical"},
 "Высасывание жизни":{type:"Низший",power:80,cat:"physical",effect:"drain",drain:0.5},
@@ -3575,47 +3449,11 @@ const FULL_MOVES={
 "Обнаружение":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
 "Ментальный":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
 
-// ===== СТАТУСНЫЕ / ЗАЩИТА =====
-"Защитная стойка":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту."},
-"Мягкая защита":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту."},
+// ===== СТАЛЬНОЙ =====
 "Железная защита":{type:"Стальной",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
-"Защита":{type:"Обычный",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
-"Ослепление":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
-"Оглушение":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
-"Пение":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель."},
-"Пение сирены":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель."},
-"Мягкое свечение":{type:"Обычный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-"Хвост-хлыст":{type:"Обычный",power:null,cat:"status",effect:"lowerdef",desc:"Понижает защиту цели."},
-
-// ===== ОТДАЧА / САМОЛИКВИДАЦИЯ =====
-"Сокрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
-"Разрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
-"Двойной таран":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона."},
-"Двойное ребро":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона."},
-"Взрыв маны":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
-"Взрыв":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
-"Жертвенный взрыв":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
-"Самоликвидация":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
-
-// ===== МНОГОУДАРНЫЕ =====
-"Двойной удар":{type:"Обычный",power:35,cat:"physical",effect:"multihit",hits:2,desc:"Бьёт 2 раза."},
-"Тройной удар":{type:"Обычный",power:25,cat:"physical",effect:"multihit",hits:3,desc:"Бьёт 3 раза."},
-"Пулемёт семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
-
-// ===== ПРИОРИТЕТ =====
-"Рывок":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Ускорение":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Теневой удар":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Водный поток":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым."},
-
-// ===== ПОНИЖЕНИЕ СТАТОВ =====
 "Стальнойной клык":{type:"Стальной",power:70,cat:"physical",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту."},
 
-// ===== ИСЦЕЛЕНИЕ =====
-"Синтез":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-
-
-// ===== СВЯЩЕННЫЕ АТАКИ =====
+// ===== СВЯЩЕННЫЙ =====
 "Святая кара":{type:"Священный",power:100,cat:"special",desc:"Луч божественного света опаляет нечестивых."},
 "Небесный меч":{type:"Священный",power:95,cat:"physical",desc:"Меч из чистого света рассекает тьму."},
 "Благословение":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Небесное исцеление 50% HP."},
@@ -3627,17 +3465,40 @@ const FULL_MOVES={
 "Освящение":{type:"Священный",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Сжигает нечисть изнутри (токсин)."},
 "Свет небес":{type:"Священный",power:70,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
 
-// ===== АТАКИ АНГЕЛОВ СМЕРТИ =====
+// ===== АНГЕЛЫ СМЕРТИ / НЕЖИТЬ =====
 "Коса жнеца":{type:"Нежить",power:110,cat:"physical",effect:"recoil",recoil:0.15,desc:"Коса обрывает жизнь. Отдача 15%."},
 "Поцелуй смерти":{type:"Нежить",power:90,cat:"special",effect:"drain",drain:0.75,desc:"Восстанавливает 75% урона."},
 "Проводы души":{type:"Нежить",power:null,cat:"status",effect:"revive",revive:0.5,desc:"Восстанавливает 50% HP павшему союзнику."},
 "Приговор":{type:"Нежить",power:null,cat:"status",effect:"possess",chance:0.7,desc:"Приговаривает душу врага к подчинению."},
-"Тень смерти":{type:"Нежить",power:100,cat:"special",effect:"slow",slow:0.5,desc:"Замедляет врага вдвое."},
 "Волна скорби":{type:"Нежить",power:85,cat:"special",effect:"confuse",chance:0.35,desc:"Может сбить с толку."},
 "Последний вздох":{type:"Нежить",power:120,cat:"special",effect:"selfdamage",selfDamage:0.15,desc:"Жнец жертвует 15% HP."},
 "Нить судьбы":{type:"Нежить",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Каннибализм":{type:"Нежить",power:60,cat:"physical",effect:"drain",drain:0.75,desc:"Вгрызается в плоть врага и восстанавливает 75% урона."},
+"Костяной шип":{type:"Нежить",power:70,cat:"physical",desc:"Острый шип из костей пробивает плоть врага."},
+"Мясницкий крюк":{type:"Нежить",power:90,cat:"physical",effect:"recoil",recoil:0.15,desc:"Крюк пронзает врага, отдача 15% урона."},
+"Пожирание трупов":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.35,desc:"Пожирает останки, восстанавливая 35% HP."},
+"Пожирание плоти":{type:"Нежить",power:80,cat:"physical",effect:"drain",drain:0.5,desc:"Разрывает плоть и восстанавливает 50% урона."},
+"Волна смерти":{type:"Нежить",power:110,cat:"special",desc:"Волна некротической энергии сметает всё на пути."},
+"Крик банши":{type:"Нежить",power:null,cat:"status",effect:"confuse",chance:0.8,desc:"Пронизывающий крик сбивает с толку."},
+"Прикосновение смерти":{type:"Нежить",power:30,cat:"physical",desc:"Ледяное прикосновение, высасывающее жизнь."},
+"Похищение души":{type:"Нежить",power:90,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона, высасывая душу."},
+"Проклятие мертвеца":{type:"Нежить",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Накладывает проклятие (токсин)."},
+"Тёмное исцеление":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Высасывает жизнь из земли, восстанавливая 50% HP."},
+"Жертва души":{type:"Нежить",power:130,cat:"special",effect:"selfdamage",selfDamage:0.15,desc:"Мощный тёмный удар. Лич теряет 15% HP."},
+"Воскрешение мёртвых":{type:"Нежить",power:null,cat:"status",effect:"revive",revive:0.5,desc:"Воскрешает павшего союзника с 50% HP."},
+"Холод могилы":{type:"Нежить",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить."},
 
-// ===== ВООРУЖЁННЫЕ АТАКИ =====
+// ===== ТЕНЬ / Бесплотный =====
+"Невидимость":{type:"Бесплотный",power:null,cat:"status",effect:"invisible",duration:2,desc:"Тень становится невидимой на 2 хода — её нельзя атаковать."},
+"Крик Банши":{type:"Бесплотный",power:50,cat:"special",effect:"slow",slow:0.5,desc:"Замедляющая волна. Понижает скорость врага вдвое на 3 хода."},
+"Одержимость":{type:"Бесплотный",power:null,cat:"status",effect:"possess",chance:0.6,desc:"Пытается подчинить волю врага. С шансом 60% враг пропустит ход."},
+"Удар из тени":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+"Шар тьмы":{type:"Бесплотный",power:80,cat:"special",desc:"Сгусток чистой тьмы."},
+"Тень смерти":{type:"Бесплотный",power:null,cat:"special",desc:"Тень накрывает врага, ослабляя его."},
+"Прикосновение могилы":{type:"Бесплотный",power:45,cat:"physical",desc:"Холодное прикосновение из могилы."},
+"Теневой удар":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+
+// ===== ВООРУЖЁННЫЙ =====
 "Лазерный выстрел":{type:"Вооруженный",power:85,cat:"special",desc:"Мощный заряд лазера."},
 "Плазменная пушка":{type:"Вооруженный",power:110,cat:"special",effect:"burn",chance:0.25,desc:"Может обжечь плазмой."},
 "Электрошокер":{type:"Вооруженный",power:60,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
@@ -3652,27 +3513,689 @@ const FULL_MOVES={
 "Перегрузка":{type:"Вооруженный",power:140,cat:"special",effect:"selfdamage",selfDamage:0.2,desc:"Пользователь жертвует 20% HP."},
 "Тактический сброс":{type:"Вооруженный",power:90,cat:"physical",desc:"Сброс бомбы с дрона."},
 
+// ===== ЛАМХИ =====
+"Крысиный укус":{type:"Тёмный",power:45,cat:"physical",effect:"poison",chance:0.3,desc:"Укус, пропитанный подземной заразой. Может отравить."},
+"Коготь Ламхи":{type:"Земляной",power:70,cat:"physical",desc:"Резкий удар когтями, высекает искры."},
+"Дротик с ядом":{type:"Ядовитый",power:60,cat:"special",effect:"toxic",chance:0.5,desc:"Отравленный дротик. Может сильно отравить."},
+"Подземный вой":{type:"Тёмный",power:null,cat:"status",effect:"confuse",chance:0.75,desc:"Вой из глубин, сбивающий врага с толку."},
+"Крысиный рой":{type:"Тёмный",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз стаей крыс."},
+"Тёмное жертвоприношение":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.4,desc:"Жрец восстанавливает 40% HP, высасывая жизнь из земли."},
+"Проклятие роя":{type:"Нежить",power:100,cat:"special",effect:"drain",drain:0.5,desc:"Тёмная волна крыс-духов, восстанавливает 50% урона."},
+"Норский клинок":{type:"Земляной",power:95,cat:"physical",desc:"Клинок из кости подземного зверя. Мощный и точный."}
+};
 
+const LEARNSETS={
 
+// ===== СВЯЩЕННЫЕ (Ангелы, Серафимы, Духи Света) =====
+1200:[ // Ангел-Хранитель
+  {level:1,  move:"Перо Ангела"},
+  {level:5,  move:"Божественный свет"},
+  {level:10, move:"Благословение"},
+  {level:16, move:"Небесный меч"},
+  {level:22, move:"Святая аура"},
+  {level:28, move:"Святая кара"}
+],
+1201:[ // Архангел Света
+  {level:1,  move:"Небесный меч"},
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Божественный свет"},
+  {level:1,  move:"Кара небес"},
+  {level:1,  move:"Святая аура"}
+],
+1202:[ // Серафим
+  {level:1,  move:"Божественный свет"},
+  {level:1,  move:"Струя пламени"},
+  {level:12, move:"Святая кара"},
+  {level:18, move:"Огненный шквал"},
+  {level:24, move:"Кара небес"},
+  {level:30, move:"Вспышка пламени"}
+],
+1203:[ // Небесный Каратель
+  {level:1,  move:"Перо Ангела"},
+  {level:5,  move:"Небесный меч"},
+  {level:10, move:"Святая аура"},
+  {level:16, move:"Божественный свет"},
+  {level:22, move:"Святая кара"},
+  {level:28, move:"Кара небес"}
+],
+1204:[ // Экзекутор Света
+  {level:1,  move:"Небесный меч"},
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Кара небес"},
+  {level:1,  move:"Святая аура"},
+  {level:1,  move:"Железная защита"}
+],
+1205:[ // Дух Света
+  {level:1,  move:"Мягкое свечение"},
+  {level:4,  move:"Перо Ангела"},
+  {level:8,  move:"Божественный свет"},
+  {level:12, move:"Ослепление"},
+  {level:16, move:"Свет небес"},
+  {level:22, move:"Благословение"}
+],
+1206:[ // Сияющий Серафим
+  {level:1,  move:"Свет небес"},
+  {level:1,  move:"Перо Ангела"},
+  {level:1,  move:"Благословение"},
+  {level:1,  move:"Божественный свет"},
+  {level:1,  move:"Святая аура"}
+],
+1207:[ // Херувим
+  {level:1,  move:"Перо Ангела"},
+  {level:5,  move:"Ангельское пение"},
+  {level:10, move:"Мягкое свечение"},
+  {level:14, move:"Божественный свет"},
+  {level:18, move:"Благословение"},
+  {level:24, move:"Святая кара"}
+],
 
+// ===== АНГЕЛЫ СМЕРТИ =====
+1210:[ // Вестник Смерти
+  {level:1,  move:"Прикосновение смерти"},
+  {level:5,  move:"Коса жнеца"},
+  {level:10, move:"Волна скорби"},
+  {level:16, move:"Поцелуй смерти"},
+  {level:22, move:"Нить судьбы"},
+  {level:28, move:"Проводы души"}
+],
+1211:[ // Архангел Смерти
+  {level:1,  move:"Коса жнеца"},
+  {level:1,  move:"Поцелуй смерти"},
+  {level:1,  move:"Проводы души"},
+  {level:1,  move:"Приговор"},
+  {level:1,  move:"Последний вздох"}
+],
+1212:[ // Жнец Душ
+  {level:1,  move:"Прикосновение смерти"},
+  {level:5,  move:"Нить судьбы"},
+  {level:10, move:"Волна скорби"},
+  {level:16, move:"Коса жнеца"},
+  {level:22, move:"Поцелуй смерти"},
+  {level:28, move:"Приговор"}
+],
+1213:[ // Владыка Жнецов
+  {level:1,  move:"Коса жнеца"},
+  {level:1,  move:"Поцелуй смерти"},
+  {level:1,  move:"Последний вздох"},
+  {level:1,  move:"Приговор"},
+  {level:1,  move:"Проводы души"}
+],
 
+// ===== ВООРУЖЁННЫЕ =====
+1220:[ // Гном-Снайпер
+  {level:1,  move:"Прицельный выстрел"},
+  {level:5,  move:"Осколочная граната"},
+  {level:10, move:"Лазерный выстрел"},
+  {level:16, move:"Дымовая завеса"},
+  {level:22, move:"Ракетный залп"},
+  {level:28, move:"Плазменная пушка"}
+],
+1221:[ // Гном-Артиллерист
+  {level:1,  move:"Лазерный выстрел"},
+  {level:5,  move:"Ракетный залп"},
+  {level:12, move:"Плазменная пушка"},
+  {level:18, move:"Осколочная граната"},
+  {level:24, move:"Перегрузка"},
+  {level:30, move:"Плазменный залп"}
+],
+1222:[ // Гном-Инженер
+  {level:1,  move:"Электрошокер"},
+  {level:5,  move:"Дымовая завеса"},
+  {level:10, move:"Прицельный выстрел"},
+  {level:16, move:"Турель"},
+  {level:22, move:"Осколочная граната"},
+  {level:28, move:"Лазерный выстрел"}
+],
+1223:[ // Гном-Техномаг
+  {level:1,  move:"Электрошокер"},
+  {level:5,  move:"Турель"},
+  {level:10, move:"Лазерный выстрел"},
+  {level:16, move:"Дымовая завеса"},
+  {level:22, move:"Плазменная пушка"},
+  {level:30, move:"Перегрузка"}
+],
+1224:[ // Боевой Дрон
+  {level:1,  move:"Тактический сброс"},
+  {level:5,  move:"Прицельный выстрел"},
+  {level:10, move:"Ракетный залп"},
+  {level:16, move:"Дымовая завеса"},
+  {level:22, move:"Лазерный выстрел"},
+  {level:28, move:"Осколочная граната"}
+],
+1225:[ // Тяжёлый Дрон-Осада
+  {level:1,  move:"Лазерный выстрел"},
+  {level:1,  move:"Ракетный залп"},
+  {level:12, move:"Плазменная пушка"},
+  {level:18, move:"Осколочная граната"},
+  {level:24, move:"Плазменный залп"},
+  {level:30, move:"Перегрузка"}
+],
 
+// ===== КРЫСОЛЮДИ ЛАМХИ =====
+1170:[ // Ламхи-Юнец
+  {level:1,  move:"Крысиный укус"},
+  {level:5,  move:"Коготь Ламхи"},
+  {level:10, move:"Крысиный рой"},
+  {level:14, move:"Подземный вой"},
+  {level:18, move:"Дротик с ядом"}
+],
+1171:[ // Ламхи-Коготь
+  {level:1,  move:"Коготь Ламхи"},
+  {level:5,  move:"Крысиный укус"},
+  {level:10, move:"Подземный вой"},
+  {level:16, move:"Дротик с ядом"},
+  {level:22, move:"Крысиный рой"},
+  {level:28, move:"Норский клинок"}
+],
+1172:[ // Ламхи-Владыка Нор
+  {level:1,  move:"Норский клинок"},
+  {level:1,  move:"Коготь Ламхи"},
+  {level:1,  move:"Подземный вой"},
+  {level:1,  move:"Крысиный рой"},
+  {level:1,  move:"Приказ стаи"}
+],
+1173:[ // Ламхи-Метатель
+  {level:1,  move:"Крысиный укус"},
+  {level:5,  move:"Дротик с ядом"},
+  {level:10, move:"Подземный вой"},
+  {level:14, move:"Коготь Ламхи"},
+  {level:18, move:"Крысиный рой"}
+],
+1174:[ // Ламхи-Отравитель
+  {level:1,  move:"Дротик с ядом"},
+  {level:5,  move:"Коготь Ламхи"},
+  {level:10, move:"Подземный вой"},
+  {level:16, move:"Крысиный рой"},
+  {level:22, move:"Приказ стаи"},
+  {level:28, move:"Норский клинок"}
+],
+1175:[ // Ламхи-Жрец Тьмы
+  {level:1,  move:"Крысиный укус"},
+  {level:5,  move:"Тёмное жертвоприношение"},
+  {level:10, move:"Проклятие роя"},
+  {level:16, move:"Крик банши"},
+  {level:22, move:"Волна смерти"}
+],
+1176:[ // Ламхи-Иерарх Ночи
+  {level:1,  move:"Проклятие роя"},
+  {level:1,  move:"Тёмное жертвоприношение"},
+  {level:1,  move:"Волна смерти"},
+  {level:1,  move:"Крик банши"},
+  {level:1,  move:"Норский клинок"}
+],
 
+// ===== НЕЖИТЬ =====
+1160:[ // Тень
+  {level:1,  move:"Прикосновение смерти"},
+  {level:4,  move:"Шар тьмы"},
+  {level:8,  move:"Невидимость"},
+  {level:12, move:"Удар из тени"},
+  {level:16, move:"Луч разума"},
+  {level:22, move:"Пожиратель снов"},
+  {level:28, move:"Волна смерти"}
+],
+1161:[ // Тёмная Тень
+  {level:1,  move:"Невидимость"},
+  {level:1,  move:"Удар из тени"},
+  {level:1,  move:"Шар тьмы"},
+  {level:1,  move:"Пожиратель снов"},
+  {level:1,  move:"Волна смерти"}
+],
+1162:[ // Банши
+  {level:1,  move:"Прикосновение смерти"},
+  {level:4,  move:"Тень смерти"},
+  {level:8,  move:"Крик Банши"},
+  {level:12, move:"Поцелуй сирены"},
+  {level:16, move:"Одержимость"},
+  {level:22, move:"Шар тьмы"},
+  {level:28, move:"Пожиратель снов"}
+],
+1163:[ // Царица Банши
+  {level:1,  move:"Крик Банши"},
+  {level:1,  move:"Одержимость"},
+  {level:1,  move:"Шар тьмы"},
+  {level:1,  move:"Пожиратель снов"},
+  {level:1,  move:"Волна смерти"}
+],
+1164:[ // Сшивень
+  {level:1,  move:"Каннибализм"},
+  {level:5,  move:"Костяной шип"},
+  {level:10, move:"Мясницкий крюк"},
+  {level:14, move:"Пожирание трупов"},
+  {level:18, move:"Грубая сила"},
+  {level:24, move:"Сокрушение"},
+  {level:30, move:"Каннибализм"}
+],
+1165:[ // Мертвяк
+  {level:1,  move:"Мясницкий крюк"},
+  {level:1,  move:"Пожирание трупов"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Каннибализм"},
+  {level:1,  move:"Волна смерти"}
+],
+1166:[ // Лич
+  {level:1,  move:"Смятение"},
+  {level:4,  move:"Костяной шип"},
+  {level:8,  move:"Ледяная стрела"},
+  {level:12, move:"Тёмное исцеление"},
+  {level:16, move:"Шар тьмы"},
+  {level:22, move:"Жертва души"},
+  {level:28, move:"Волна смерти"}
+],
+1167:[ // Архилич
+  {level:1,  move:"Жертва души"},
+  {level:1,  move:"Ледяная стрела"},
+  {level:1,  move:"Тёмное исцеление"},
+  {level:1,  move:"Волна смерти"},
+  {level:1,  move:"Воскрешение мёртвых"}
+],
 
+// ===== ОГРЫ =====
+1152:[ // Огр
+  {level:1,  move:"Удар кулаком"},
+  {level:4,  move:"Каменный шип"},
+  {level:8,  move:"Грубая сила"},
+  {level:12, move:"Землетрясение"},
+  {level:16, move:"Сокрушение"},
+  {level:22, move:"Обвал"},
+  {level:28, move:"Тройной удар"}
+],
+1153:[ // Огр-Вождь
+  {level:1,  move:"Грубая сила"},
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Обвал"},
+  {level:1,  move:"Тройной удар"}
+],
+1154:[ // Огр-Маг
+  {level:1,  move:"Удар посохом"},
+  {level:4,  move:"Смятение"},
+  {level:8,  move:"Каменный шип"},
+  {level:12, move:"Луч разума"},
+  {level:16, move:"Взрыв разума"},
+  {level:22, move:"Обвал"},
+  {level:28, move:"Магический барьер"}
+],
+1155:[ // Огр-Архимаг
+  {level:1,  move:"Взрыв разума"},
+  {level:1,  move:"Обвал"},
+  {level:1,  move:"Магический барьер"},
+  {level:1,  move:"Сфера ауры"},
+  {level:1,  move:"Шар тьмы"}
+],
 
+// ===== ОРКИ =====
+1156:[ // Орк-Громила
+  {level:1,  move:"Царапка когтем"},
+  {level:4,  move:"Внезапный выпад"},
+  {level:8,  move:"Укус тьмы"},
+  {level:12, move:"Клык зверя"},
+  {level:16, move:"Грубая сила"},
+  {level:20, move:"Контрудар"},
+  {level:26, move:"Сокрушение"}
+],
+1157:[ // Орк-Военный Вождь
+  {level:1,  move:"Грубая сила"},
+  {level:1,  move:"Клык зверя"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Тройной удар"},
+  {level:1,  move:"Контрудар"}
+],
 
+// ===== ТРОЛЛИ =====
+1158:[ // Тролль
+  {level:1,  move:"Царапка когтем"},
+  {level:4,  move:"Удар лозой"},
+  {level:8,  move:"Высасывание жизни"},
+  {level:12, move:"Клык зверя"},
+  {level:16, move:"Природное восстановление"},
+  {level:20, move:"Грубая сила"},
+  {level:26, move:"Землетрясение"}
+],
+1159:[ // Тролль-Берсерк
+  {level:1,  move:"Высасывание жизни"},
+  {level:1,  move:"Грубая сила"},
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Природное восстановление"}
+],
 
+// ===== УПЫРИ =====
+1055:[ // Упырь
+  {level:1,  move:"Каннибализм"},
+  {level:5,  move:"Костяной шип"},
+  {level:10, move:"Пожирание плоти"},
+  {level:16, move:"Землетрясение"},
+  {level:22, move:"Проклятие мертвеца"},
+  {level:28, move:"Обвал"}
+],
+1056:[ // Упырь-Пожиратель
+  {level:1,  move:"Каннибализм"},
+  {level:1,  move:"Костяной шип"},
+  {level:10, move:"Пожирание плоти"},
+  {level:16, move:"Землетрясение"},
+  {level:22, move:"Проклятие мертвеца"},
+  {level:28, move:"Обвал"}
+],
 
+// ===== СТАРТОВЫЕ =====
+1001:[ // Гном
+  {level:1,  move:"Удар посохом"},
+  {level:4,  move:"Каменный шип"},
+  {level:8,  move:"Землетрясение"},
+  {level:12, move:"Клык зверя"},
+  {level:16, move:"Тройной удар"},
+  {level:20, move:"Сокрушение"},
+  {level:24, move:"Луч маны"}
+],
+1002:[ // Дворф-Рунный Мастер
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Клык зверя"},
+  {level:16, move:"Тройной удар"},
+  {level:20, move:"Сокрушение"},
+  {level:24, move:"Луч маны"}
+],
+1003:[ // Король Дворфов
+  {level:1,  move:"Луч маны"},
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Тройной удар"}
+],
+1004:[ // Бес
+  {level:1,  move:"Царапка когтем"},
+  {level:1,  move:"Поджог"},
+  {level:4,  move:"Искра"},
+  {level:8,  move:"Пламенный клык"},
+  {level:12, move:"Струя пламени"},
+  {level:16, move:"Огненный шквал"},
+  {level:20, move:"Огненный вихрь"},
+  {level:24, move:"Вспышка пламени"}
+],
+1005:[ // Крылатый Демон
+  {level:1,  move:"Струя пламени"},
+  {level:1,  move:"Пламенный клык"},
+  {level:12, move:"Огненный шквал"},
+  {level:16, move:"Искра"},
+  {level:20, move:"Огненный вихрь"},
+  {level:24, move:"Вспышка пламени"}
+],
+1006:[ // Демон-Владыка
+  {level:1,  move:"Струя пламени"},
+  {level:1,  move:"Воздушный клинок"},
+  {level:1,  move:"Огненный шквал"},
+  {level:1,  move:"Драконий натиск"},
+  {level:1,  move:"Вспышка пламени"}
+],
+1007:[ // Русалка
+  {level:1,  move:"Удар хвостом"},
+  {level:4,  move:"Водяной шип"},
+  {level:8,  move:"Укус тьмы"},
+  {level:12, move:"Волна прилива"},
+  {level:16, move:"Гидроудар"},
+  {level:20, move:"Пение сирены"},
+  {level:24, move:"Защитная стойка"}
+],
+1008:[ // Королева Сирен
+  {level:1,  move:"Волна прилива"},
+  {level:1,  move:"Удар хвостом"},
+  {level:12, move:"Гидроудар"},
+  {level:16, move:"Укус тьмы"},
+  {level:20, move:"Пение сирены"},
+  {level:24, move:"Защитная стойка"}
+],
+1009:[ // Сирена-Богиня
+  {level:1,  move:"Волна прилива"},
+  {level:1,  move:"Ледяное копьё"},
+  {level:1,  move:"Гидроудар"},
+  {level:1,  move:"Таран"},
+  {level:1,  move:"Пение сирены"}
+],
+1025:[ // Лепрекон
+  {level:1,  move:"Разряд"},
+  {level:3,  move:"Внезапный выпад"},
+  {level:7,  move:"Парализующий разряд"},
+  {level:11, move:"Грозовой удар"},
+  {level:15, move:"Молния"},
+  {level:19, move:"Небесная кара"},
+  {level:23, move:"Рывок"}
+],
+1026:[ // Радужный Лепрекон
+  {level:1,  move:"Небесная кара"},
+  {level:1,  move:"Молния"},
+  {level:1,  move:"Рывок"},
+  {level:1,  move:"Грозовой удар"}
+],
 
+// ===== ЛЕСНЫЕ =====
+1010:[ // Миконид
+  {level:1,  move:"Пощёчина"},
+  {level:4,  move:"Жучий укус"},
+  {level:8,  move:"Двойной удар"},
+  {level:12, move:"Спорный сон"}
+],
+1011:[ // Миконид-Королевич
+  {level:1,  move:"Пощёчина"},
+  {level:1,  move:"Жучий укус"},
+  {level:12, move:"Спорный сон"},
+  {level:16, move:"Высасывание жизни"}
+],
+1013:[ // Плющ
+  {level:1,  move:"Удар лозой"},
+  {level:4,  move:"Жучий укус"},
+  {level:8,  move:"Отравленный шип"},
+  {level:12, move:"Отравление"}
+],
+1014:[ // Древень
+  {level:1,  move:"Удар лозой"},
+  {level:1,  move:"Жучий укус"},
+  {level:12, move:"Отравленный шип"},
+  {level:16, move:"Отравление"},
+  {level:20, move:"Землетрясение"}
+],
+1016:[ // Гарпия-Птенец
+  {level:1,  move:"Царапка когтем"},
+  {level:3,  move:"Внезапный выпад"},
+  {level:7,  move:"Удар крылом"},
+  {level:11, move:"Воздушный клинок"},
+  {level:15, move:"Рывок"},
+  {level:19, move:"Контрудар"},
+  {level:23, move:"Клюв-копьё"}
+],
+1017:[ // Гарпия-Воительница
+  {level:1,  move:"Удар крылом"},
+  {level:1,  move:"Царапка когтем"},
+  {level:11, move:"Воздушный клинок"},
+  {level:15, move:"Рывок"},
+  {level:19, move:"Контрудар"},
+  {level:23, move:"Клюв-копьё"}
+],
+1019:[ // Гоблин-Вор
+  {level:1,  move:"Царапка когтем"},
+  {level:3,  move:"Внезапный выпад"},
+  {level:7,  move:"Укус тьмы"},
+  {level:11, move:"Клык зверя"},
+  {level:15, move:"Контрудар"},
+  {level:19, move:"Сокрушение"}
+],
 
+// ===== ПЕЩЕРНЫЕ =====
+1041:[ // Вампи
+  {level:1,  move:"Высасывание жизни"},
+  {level:5,  move:"Укус тьмы"},
+  {level:9,  move:"Удар крылом"},
+  {level:13, move:"Отравленный клык"},
+  {level:17, move:"Поцелуй сирены"},
+  {level:21, move:"Шар тьмы"}
+],
+1074:[ // Каменный Голем
+  {level:1,  move:"Каменный шип"},
+  {level:5,  move:"Удар кулаком"},
+  {level:10, move:"Обвал"},
+  {level:15, move:"Землетрясение"},
+  {level:20, move:"Тройной удар"},
+  {level:25, move:"Взрыв маны"}
+],
+1075:[ // Рунный Колосс
+  {level:1,  move:"Обвал"},
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Тройной удар"},
+  {level:1,  move:"Взрыв маны"},
+  {level:1,  move:"Луч маны"}
+],
+1092:[ // Бесплотный
+  {level:1,  move:"Прикосновение смерти"},
+  {level:5,  move:"Тень смерти"},
+  {level:10, move:"Шар тьмы"},
+  {level:14, move:"Пожиратель снов"},
+  {level:18, move:"Магический сон"},
+  {level:22, move:"Поцелуй сирены"}
+],
+1094:[ // Дух-Пожиратель
+  {level:1,  move:"Шар тьмы"},
+  {level:1,  move:"Пожиратель снов"},
+  {level:1,  move:"Взрыв разума"},
+  {level:1,  move:"Прикосновение смерти"},
+  {level:1,  move:"Магический сон"}
+],
 
+// ===== ВОДНЫЕ =====
+1129:[ // Морской Конёк-Малыш
+  {level:1,  move:"Беспомощность"},
+  {level:8,  move:"Удар хвостом"},
+  {level:12, move:"Отчаянный бросок"},
+  {level:16, move:"Сокрушение"}
+],
+1130:[ // Морской Дракон
+  {level:1,  move:"Укус тьмы"},
+  {level:12, move:"Хвост волны"},
+  {level:18, move:"Гидроудар"},
+  {level:22, move:"Небесная кара"},
+  {level:26, move:"Сокрушение"}
+],
+1054:[ // Рири-маг
+  {level:1,  move:"Водяной шип"},
+  {level:4,  move:"Смятение"},
+  {level:9,  move:"Поток воды"},
+  {level:14, move:"Взрыв разума"},
+  {level:19, move:"Гидроудар"},
+  {level:24, move:"Природное восстановление"}
+],
+1131:[ // Ледяной Кит
+  {level:1,  move:"Водяной шип"},
+  {level:5,  move:"Таран"},
+  {level:10, move:"Ледяное копьё"},
+  {level:15, move:"Волна прилива"},
+  {level:20, move:"Гидроудар"},
+  {level:25, move:"Морозный ветер"}
+],
 
+// ===== ДУХИ-ЛИСЫ =====
+1133:[ // Дух-Лисичка
+  {level:1,  move:"Царапка когтем"},
+  {level:5,  move:"Внезапный выпад"},
+  {level:10, move:"Укус тьмы"},
+  {level:15, move:"Грубая сила"},
+  {level:20, move:"Контрудар"},
+  {level:25, move:"Защитная стойка"}
+],
+1134:[ // Водяная Кицунэ
+  {level:1,  move:"Удар хвостом"},
+  {level:5,  move:"Водяной шип"},
+  {level:10, move:"Внезапный выпад"},
+  {level:16, move:"Поток воды"},
+  {level:22, move:"Ледяное копьё"},
+  {level:30, move:"Гидроудар"}
+],
+1135:[ // Огненная Кицунэ
+  {level:1,  move:"Царапка когтем"},
+  {level:5,  move:"Искра"},
+  {level:10, move:"Внезапный выпад"},
+  {level:16, move:"Пламенный клык"},
+  {level:22, move:"Струя пламени"},
+  {level:30, move:"Огненный шквал"}
+],
 
+// ===== ПРОЧИЕ =====
+1063:[ // Ревенант
+  {level:1,  move:"Смятение"},
+  {level:8,  move:"Луч разума"},
+  {level:12, move:"Взрыв разума"},
+  {level:16, move:"Шар тьмы"},
+  {level:20, move:"Магический сон"},
+  {level:24, move:"Магическое отражение"}
+],
+1065:[ // Ревенант-архимаг
+  {level:1,  move:"Взрыв разума"},
+  {level:1,  move:"Шар тьмы"},
+  {level:1,  move:"Магический сон"},
+  {level:1,  move:"Магическое отражение"}
+],
+1147:[ // Дракончик-Змей
+  {level:1,  move:"Обёртывание"},
+  {level:5,  move:"Драконий вихрь"},
+  {level:10, move:"Удар кулаком"},
+  {level:16, move:"Ярость дракона"},
+  {level:22, move:"Драконий натиск"}
+],
+1148:[ // Небесный Змей
+  {level:1,  move:"Драконий натиск"},
+  {level:1,  move:"Ярость дракона"},
+  {level:1,  move:"Драконий вихрь"},
+  {level:1,  move:"Воздушный клинок"}
+],
+1068:[ // Каменный Боец
+  {level:1,  move:"Удар кулаком"},
+  {level:5,  move:"Контрудар"},
+  {level:10, move:"Грубая сила"},
+  {level:16, move:"Каменный шип"},
+  {level:22, move:"Сокрушение"},
+  {level:30, move:"Тройной удар"}
+],
+1143:[ // Лесной Медведь-Соня
+  {level:1,  move:"Царапка когтем"},
+  {level:5,  move:"Таран"},
+  {level:12, move:"Клык зверя"},
+  {level:18, move:"Землетрясение"},
+  {level:25, move:"Сокрушение"},
+  {level:32, move:"Луч маны"}
+],
 
-
-
-
-
+// ===== ЛЕГЕНДАРНЫЕ =====
+1150:[ // Тёмный Владыка
+  {level:1,  move:"Взрыв разума"},
+  {level:1,  move:"Шар тьмы"},
+  {level:1,  move:"Сфера ауры"},
+  {level:1,  move:"Луч маны"},
+  {level:1,  move:"Магический барьер"}
+],
+1151:[ // Искра-Создатель
+  {level:1,  move:"Удар кулаком"},
+  {level:1,  move:"Взрыв разума"},
+  {level:1,  move:"Шар тьмы"},
+  {level:1,  move:"Сфера ауры"},
+  {level:1,  move:"Природное восстановление"}
+],
+1144:[ // Ледяной Феникс
+  {level:1,  move:"Ледяное копьё"},
+  {level:1,  move:"Порыв ветра"},
+  {level:1,  move:"Ледяная буря"},
+  {level:1,  move:"Отдых"},
+  {level:1,  move:"Морозный ветер"}
+],
+1145:[ // Грозовой Феникс
+  {level:1,  move:"Грозовой удар"},
+  {level:1,  move:"Порыв ветра"},
+  {level:1,  move:"Клюв-копьё"},
+  {level:1,  move:"Молния"},
+  {level:1,  move:"Парализующий разряд"}
+],
+1146:[ // Огненный Феникс
+  {level:1,  move:"Струя пламени"},
+  {level:1,  move:"Порыв ветра"},
+  {level:1,  move:"Огненный шквал"},
+  {level:1,  move:"Волна пламени"},
+  {level:1,  move:"Вспышка пламени"}
+]
 };
 
 // ===================== ДОПОЛНИТЕЛЬНЫЕ АТАКИ (нежить Warcraft III) =====================
