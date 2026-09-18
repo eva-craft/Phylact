@@ -10186,7 +10186,7 @@ function randomPointInBiome(b){
 }
 
 // ===================== ПРОВЕРКА КОЛЛИЗИЙ ПРИ СПАВНЕ =====================
-const SPAWN_MIN_DIST = 60;
+const SPAWN_MIN_DIST = 50;
 const spawnOccupied = [];
 
 function isSpawnFree(x, y, minDist) {
@@ -10204,7 +10204,7 @@ function isSpawnFree(x, y, minDist) {
 }
 
 function findFreeSpawnPoint(biome, minDist) {
-  for (let attempt = 0; attempt < 40; attempt++) {
+  for (let attempt = 0; attempt < 20; attempt++) {
     const pos = randomPointInBiome(biome);
     if (!pos) continue;
     if (isSpawnFree(pos.x, pos.y, minDist)) return pos;
@@ -15355,18 +15355,7 @@ p.el.style.zIndex = yToZFantasy(p.y + oy + 28);
       }
     });
 
-    // ===== 4. ЗДАНИЯ (.building) =====
-    // Медцентры, святилища, дома — тоже пересчитываем по Y
-    document.querySelectorAll('#world > .building').forEach(el => {
-      const m = el.style.transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
-      if(!m) return;
-      const y = parseFloat(m[2]);
-
-      // Определяем "низ" здания по его высоте
-      const dh = parseFloat(el.style.height) || 64;
-      el.style.zIndex = yToZBuilding(y + dh / 2);
-    });
-
+  
     // ===== 5. ПОДПИСИ В #labels =====
     // Подписи существ и тренеров двигаются вместе с родителями,
     // но они лежат в отдельном слое (#labels), поэтому просто
