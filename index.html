@@ -16688,6 +16688,7 @@ function shakeSprite(id){
   const player=playerTeam[battleState.playerInbest];
 
   // ===== ВОССТАНОВЛЕНИЕ ЭНЕРГИИ ИГРОКУ =====
+  // Это остается без изменений
   player.currentEnergy = Math.min(player.maxEnergy, (player.currentEnergy||0) + 8);
 
   if(player.currentHP<=0){playerFainted();return}
@@ -16702,9 +16703,21 @@ function shakeSprite(id){
   }
   if(statusCheck.msg)showBattleLog(statusCheck.msg,900);
 
+  // ===== ВЫБОР АТАКИ ВРАГОМ =====
   const enemyMoves=getMovesWithData(enemy);
-  const move=enemyMoves[Math.floor(Math.random()*enemyMoves.length)];
 
+  // === ИЗМЕНЕНИЕ: Фильтруем атаки, на которые хватает энергии ===
+  const affordableMoves = enemyMoves.filter(move => (enemy.currentEnergy || 0) >= (move.cost || 0));
+
+  let move;
+  if (affordableMoves.length > 0) {
+    // Если есть доступные атаки, выбираем одну из них
+    move = affordableMoves[Math.floor(Math.random() * affordableMoves.length)];
+  } else {
+    // Если энергии не хватает ни на одну атаку, враг "отдыхает" и восстанавливает энергию
+    move = { name: 'Восстановление сил', power: null, cat: 'status', effect: 'recharge', desc: 'Восстанавливает энергию.' };
+  }
+  
   // Контрудар от игрока
   if(battleState.playerCounter&&battleState.lastEnemyDamage>0){
     const reflected=battleState.lastEnemyDamage*2;
@@ -16712,7 +16725,9 @@ function shakeSprite(id){
     showBattleLog(`⛔ Контрудар! ${enemy.data.name} получает ${reflected} урона!`);
     battleState.playerCounter=false;
     updateBattleUI();
-  enemy.currentEnergy = Math.min(enemy.maxEnergy, (enemy.currentEnergy||0) + 8);
+    // Враг все равно тратит энергию, даже если его атака была отражена
+    if (move.cost) enemy.currentEnergy -= move.cost; 
+
     setTimeout(()=>{
       if(player.currentHP<=0){playerFainted();return}
       battleState.turn='player';battleState.busy=false;updateBattleUI();
@@ -16720,14 +16735,33 @@ function shakeSprite(id){
     return;
   }
 
+  // === НОВОЕ: Обработка "отдыха" врага ===
+  if (move.effect === 'recharge') {
+    const energyGain = Math.floor(enemy.maxEnergy * 0.5); // Восстанавливает 50% энергии
+    enemy.currentEnergy = Math.min(enemy.maxEnergy, (enemy.currentEnergy || 0) + energyGain);
+    showBattleLog(`${enemy.data.name} восстанавливает силы (+${energyGain} энергии).`);
+    updateBattleUI();
+    setTimeout(()=>{battleState.turn='player';battleState.busy=false;updateBattleUI()},1200);
+    return;
+  }
+
+  // ===== СПИСАНИЕ ЭНЕРГИИ ВРАГА =====
+  // (Основная часть изменений)
+  if (move.cost) {
+    enemy.currentEnergy -= move.cost;
+  }
+  
+  // Если это была статусная атака без урона
   if(move.power===null&&!move.effect){
     showBattleLog(`Вражеский ${enemy.data.name} использует ${move.name}!`);
+    updateBattleUI(); // Обновляем UI, чтобы показать потраченную энергию
     setTimeout(()=>{battleState.turn='player';battleState.busy=false;updateBattleUI()},1200);
     return;
   }
 
   // Простая логика ИИ для статусных атак
   if(move.power===null&&move.effect){
+    // ... (эта часть кода остается без изменений, кроме обновления UI)
     if(move.effect==="heal"){
       const heal=Math.floor(enemy.maxHP*move.heal);
       enemy.currentHP=Math.min(enemy.maxHP,enemy.currentHP+heal);
@@ -16739,12 +16773,14 @@ function shakeSprite(id){
     if(move.effect==="protect"){
       battleState.enemyProtect=true;
       showBattleLog(`${enemy.data.name} защищается!`);
+      updateBattleUI();
       setTimeout(()=>{battleState.turn='player';battleState.busy=false;updateBattleUI()},1000);
       return;
     }
     if(move.effect==="counter"){
       battleState.enemyCounter=true;
       showBattleLog(`${enemy.data.name} готовится к контрудару!`);
+      updateBattleUI();
       setTimeout(()=>{battleState.turn='player';battleState.busy=false;updateBattleUI()},1000);
       return;
     }
@@ -16772,6 +16808,7 @@ function shakeSprite(id){
   if(r.damage===0){
     sndWeak();
     showBattleLog(`${enemy.data.name} использует ${move.name}!${effText(r.eff)}`);
+    updateBattleUI();
     setTimeout(()=>{battleState.turn='player';battleState.busy=false;updateBattleUI()},1400);
     return;
   }
