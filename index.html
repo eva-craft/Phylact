@@ -2878,6 +2878,33 @@ display:none;
   transition:width .3s ease;
 }
 
+.bestiary-tome::after, .team-device::after, .shop-device::after, .inv-device::after, .quest-device::after, .mpd-device::after, .healer-device::after, .pause-device::after, .gm-device::after 
+{height:100%;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </style>
 </head>
@@ -3562,7 +3589,7 @@ const Fantasy_DATA=[
 // ===== ЛЕСНЫЕ / ОБЫЧНЫЕ =====
 {id:1010,name:"Миконид",types:["Природа","Ядовитый"],rarity:"common",habitats:["forest","route"],desc:"Ходячий гриб, споры которого усыпляют путников.",height:0.4,weight:5,category:"Гриб",stats:{hp:50,attack:30,defense:45,spAtk:40,spDef:50,speed:25},shape:"mushroom_sprite",evolvesTo:1011,evolveLevel:10},
 {id:1011,name:"Миконид-Королевич",types:["Природа","Ядовитый"],rarity:"uncommon",habitats:["forest"],desc:"Созревший миконид, его шляпка — трон для спор.",height:0.8,weight:18,category:"Гриб",stats:{hp:70,attack:45,defense:65,spAtk:65,spDef:70,speed:30},shape:"mushroom_king"},
-{id:1013,name:"Плющий",types:["Природа","Низший"],rarity:"common",habitats:["forest","route"],desc:"Живая лиана, душит неосторожных путников.",height:0.5,weight:3,category:"Растение",stats:{hp:45,attack:40,defense:35,spAtk:30,spDef:35,speed:55},shape:"vine_creeper",evolvesTo:1014,evolveLevel:10},
+{id:1013,name:"Плющик",types:["Природа","Низший"],rarity:"common",habitats:["forest","route"],desc:"Живая лиана, душит неосторожных путников.",height:0.5,weight:3,category:"Растение",stats:{hp:45,attack:40,defense:35,spAtk:30,spDef:35,speed:55},shape:"vine_creeper",evolvesTo:1014,evolveLevel:10},
 {id:1014,name:"Древень",types:["Природа"],rarity:"uncommon",habitats:["forest"],desc:"Дерево, ожившее для охраны леса.",height:1.6,weight:180,category:"Древень",stats:{hp:85,attack:75,defense:90,spAtk:50,spDef:65,speed:25},shape:"treant_guard"},
 {id:1016,name:"Гарпия-Птенец",types:["Обычный","Летающий"],rarity:"common",habitats:["forest","route","sid"],desc:"Молодая гарпия, ещё не научилась летать высоко.",height:0.6,weight:8,category:"Гарпия",stats:{hp:45,attack:50,defense:40,spAtk:40,spDef:40,speed:60},shape:"harpy_chick",evolvesTo:1017,evolveLevel:18},
 {id:1017,name:"Гарпия-Воительница",types:["Обычный","Летающий"],rarity:"rare",habitats:["forest","route","mountain"],desc:"Взрослая гарпия, её когти рассекают воздух.",height:1.5,weight:45,category:"Гарпия",stats:{hp:65,attack:75,defense:55,spAtk:60,spDef:55,speed:80},shape:"harpy_warrior"},
@@ -19447,7 +19474,7 @@ function spawnForestTreesDOM(){
   if(!forestZones.length) return;
 
   const rnd = mulberry32(24681357);
-  const MIN_DIST = 205;   // минимальное расстояние между деревьями
+  const MIN_DIST = 100;   // минимальное расстояние между деревьями
   const MAX_TREES = 120; // сколько деревьев всего
   let placed = 0;
 
