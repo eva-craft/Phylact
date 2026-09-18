@@ -15421,7 +15421,133 @@ game.addEventListener('touchmove',e=>{
 },{passive:false});
 game.addEventListener('touchend',()=>{isDragging=false;saveProgress()});
 
+// ===================== НАВИГАЦИЯ СТРЕЛКАМИ КЛАВИАТУРЫ =====================
 
+// Скорость перемещения камеры за один кадр (в пикселях)
+const KEYBOARD_PAN_SPEED = 60;
+
+// Объект для отслеживания нажатых клавиш
+const keysPressed = {
+  ArrowUp: false,
+  ArrowDown: false,
+  ArrowLeft: false,
+  ArrowRight: false,
+  w: false,
+  a: false,
+  s: false,
+  d: false,
+  W: false,
+  A: false,
+  S: false,
+  D: false
+};
+
+// Флаг для отслеживания, запущена ли анимация клавиатурного движения
+let keyboardPanActive = false;
+
+/**
+ * Основной цикл клавиатурной навигации.
+ * Вызывается через requestAnimationFrame, пока зажата хотя бы одна клавиша.
+ */
+function keyboardPanLoop() {
+  // Проверяем, зажата ли хоть одна клавиша
+  const anyKeyPressed = 
+    keysPressed.ArrowUp || keysPressed.ArrowDown ||
+    keysPressed.ArrowLeft || keysPressed.ArrowRight ||
+    keysPressed.w || keysPressed.s ||
+    keysPressed.a || keysPressed.d ||
+    keysPressed.W || keysPressed.S ||
+    keysPressed.A || keysPressed.D;
+
+  if (!anyKeyPressed) {
+    keyboardPanActive = false;
+    return; // останавливаем цикл
+  }
+
+  // Не двигаем камеру, если игра на паузе или открыто модальное окно
+  if (gamePaused) {
+    requestAnimationFrame(keyboardPanLoop);
+    return;
+  }
+
+  // Не двигаем, если открыт бой
+  if (document.getElementById('battleScreen').classList.contains('active')) {
+    requestAnimationFrame(keyboardPanLoop);
+    return;
+  }
+
+  let dx = 0;
+  let dy = 0;
+
+  // Движение вверх (стрелка вверх или W)
+  if (keysPressed.ArrowUp || keysPressed.w || keysPressed.W) {
+    dy += KEYBOARD_PAN_SPEED;
+  }
+  // Движение вниз (стрелка вниз или S)
+  if (keysPressed.ArrowDown || keysPressed.s || keysPressed.S) {
+    dy -= KEYBOARD_PAN_SPEED;
+  }
+  // Движение влево (стрелка влево или A)
+  if (keysPressed.ArrowLeft || keysPressed.a || keysPressed.A) {
+    dx += KEYBOARD_PAN_SPEED;
+  }
+  // Движение вправо (стрелка вправо или D)
+  if (keysPressed.ArrowRight || keysPressed.d || keysPressed.D) {
+    dx -= KEYBOARD_PAN_SPEED;
+  }
+
+  // Применяем смещение к камере
+  if (dx !== 0 || dy !== 0) {
+    camX += dx;
+    camY += dy;
+    applyCam();
+  }
+
+  // Продолжаем цикл
+  requestAnimationFrame(keyboardPanLoop);
+}
+
+// Обработчик нажатия клавиш
+window.addEventListener('keydown', (e) => {
+  // Игнорируем, если фокус в поле ввода
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea') return;
+
+  // Игнорируем, если открыто модальное окно ввода
+  if (document.getElementById('gameModal').classList.contains('active')) return;
+
+  const key = e.key;
+
+  // Проверяем, является ли клавиша одной из наших
+  if (key in keysPressed) {
+    e.preventDefault(); // предотвращаем скролл страницы
+    keysPressed[key] = true;
+
+    // Запускаем цикл, если он ещё не запущен
+    if (!keyboardPanActive) {
+      keyboardPanActive = true;
+      requestAnimationFrame(keyboardPanLoop);
+    }
+  }
+});
+
+// Обработчик отпускания клавиш
+window.addEventListener('keyup', (e) => {
+  const key = e.key;
+  if (key in keysPressed) {
+    keysPressed[key] = false;
+    e.preventDefault();
+  }
+});
+
+// Сброс всех клавиш при потере фокуса окна
+// (чтобы камера не "уезжала" бесконечно, если игрок переключил вкладку)
+window.addEventListener('blur', () => {
+  Object.keys(keysPressed).forEach(k => keysPressed[k] = false);
+  keyboardPanActive = false;
+});
+
+// ===================== КОНЕЦ НАВИГАЦИИ СТРЕЛКАМИ =====================
 function statBar(name,value,max,color){
   const healert=Math.min(100,(value/max)*100);
   return `<div class="bar-row"><span class="name">${name}</span><div class="bar"><div class="fill" style="width:${healert}%;background:${color}"></div></div><span class="val">${value}</span></div>`;
