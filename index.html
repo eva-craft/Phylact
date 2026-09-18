@@ -3181,7 +3181,7 @@ volcano:{name:"Остров Хэдрон",color:"#ef4444",bg:"rgba(120,40,20,0.5
 byun_mountains:{name:"Горы Бюн",color:"#94a3b8",bg:"rgba(80,85,100,0.7)",type:"nature"},
 zlatogorye:{name:"Златогорье",color:"#fbbf24",bg:"rgba(200,160,40,0.5)",type:"city"},
 molotor:{name:"Молотор",color:"#dc2626",bg:"rgba(150,60,40,0.5)",type:"city"},
-chagnomoks:{name:"Чагномокс",color:"#a78bfa",bg:"rgba(120,90,180,0.5)",type:"city"},
+chagnomoks:{name:"Флюкс",color:"#a78bfa",bg:"rgba(120,90,180,0.5)",type:"city"},
 // ===== ГОРОДА =====
 sid:{name:"Сенория",color:"#a3e635",bg:"rgba(160,200,120,0.4)",type:"city"},
 zyffren:{name:"Зиффрен",color:"#86efac",bg:"rgba(140,180,120,0.4)",type:"city"},
@@ -3209,7 +3209,7 @@ const BIOME_ZONES=[
 {biome:"zlatogorye",x:2550,y:2150,w:300,h:200},
 // Молотор — горное королевство дворфов (центр)
 {biome:"molotor",x:2550,y:2450,w:300,h:200},
-// Чагномокс — королевство гномов (нижняя часть)
+// Флюкс — королевство гномов (нижняя часть)
 {biome:"chagnomoks",x:2550,y:2750,w:300,h:200},
 // ===== НЕКРОПОЛЬ ЛИЧЕРОН (вложен в Немёртвые Земли, по центру) =====
 {biome:"necropolis",x:1000,y:2350,w:1000,h:500},
@@ -3453,9 +3453,9 @@ const Fantasy_DATA=[
 {id:1310,name:"Дворф-Кузнец Молота",types:["Стальной","Земляной"],rarity:"rare",habitats:["molotor","byun_mountains"],desc:"Мастер боевого молота из Молотора. Куёт руны прямо в бою.",height:1.4,weight:150,category:"Дворф",stats:{hp:95,attack:110,defense:130,spAtk:50,spDef:85,speed:40},shape:"dwarf_runemaster",evolvesTo:1311,evolveLevel:55},
 {id:1311,name:"Дворф-Рунный Король",types:["Стальной","Земляной"],rarity:"epic",habitats:["molotor"],desc:"Король Молотора. Его молот дробит скалы, а руны держат всё королевство.",height:1.7,weight:280,category:"Дворф",stats:{hp:160,attack:150,defense:180,spAtk:80,spDef:120,speed:50},shape:"dwarf_king"},
 
-// ===== ГНОМЫ ЧАГНОМОКСА =====
-{id:1320,name:"Гном-Механик Чагномокса",types:["Вооруженный","Электрический"],rarity:"rare",habitats:["chagnomoks","byun_mountains"],desc:"Гном-изобретатель из Чагномокса. Его дроны работают на чистой магии.",height:1.0,weight:55,category:"Гном",stats:{hp:70,attack:75,defense:85,spAtk:120,spDef:90,speed:100},shape:"gnome_engineer",evolvesTo:1321,evolveLevel:56},
-{id:1321,name:"Гном-Технобарон",types:["Вооруженный","Ментальный"],rarity:"epic",habitats:["chagnomoks"],desc:"Технобарон Чагномокса. Управляет армией дронов силой мысли.",height:1.3,weight:80,category:"Гном",stats:{hp:105,attack:95,defense:110,spAtk:165,spDef:135,speed:120},shape:"gnome_technomage"},
+// ===== ГНОМЫ ФлюксА =====
+{id:1320,name:"Гном-Механик Флюкса",types:["Вооруженный","Электрический"],rarity:"rare",habitats:["chagnomoks","byun_mountains"],desc:"Гном-изобретатель из Флюкса. Его дроны работают на чистой магии.",height:1.0,weight:55,category:"Гном",stats:{hp:70,attack:75,defense:85,spAtk:120,spDef:90,speed:100},shape:"gnome_engineer",evolvesTo:1321,evolveLevel:56},
+{id:1321,name:"Гном-Технобарон",types:["Вооруженный","Ментальный"],rarity:"epic",habitats:["chagnomoks"],desc:"Технобарон Флюкса. Управляет армией дронов силой мысли.",height:1.3,weight:80,category:"Гном",stats:{hp:105,attack:95,defense:110,spAtk:165,spDef:135,speed:120},shape:"gnome_technomage"},
 
 // ===== ГОРНЫЕ СУЩЕСТВА БЮН =====
 {id:1330,name:"Бюнский Каменный Лев",types:["Каменный","Боевой"],rarity:"rare",habitats:["byun_mountains"],desc:"Живая статуя льва, охраняющая перевалы Гор Бюн.",height:2.0,weight:400,category:"Лев",stats:{hp:120,attack:135,defense:140,spAtk:60,spDef:90,speed:65},shape:"stone_fighter",evolvesTo:1331,evolveLevel:58},
@@ -3870,7 +3870,7 @@ const LEARNSETS={
   {level:1,  move:"Железная защита"},
   {level:1,  move:"Тройной удар"}
 ],
-1320:[ // Гном-Механик Чагномокса
+1320:[ // Гном-Механик Флюкса
   {level:1,  move:"Электрошокер"},
   {level:5,  move:"Прицельный выстрел"},
   {level:10, move:"Лазерный выстрел"},
@@ -9468,9 +9468,9 @@ const QUEST_DEFS=[
   dialogue:"Добро пожаловать в Молотор! Победи двадцать пять тварей — и я выкую тебе легендарный молот."},
 
 {id:"q_chagnomoks_invention",biome:"chagnomoks",nps:"Технобарон Гримли",npsPos:{x:2650,y:2800},
-  title:"Изобретение Чагномокса",desc:"Поймай Гнома-Технобарона — его знания бесценны.",target:1,
+  title:"Изобретение Флюкса",desc:"Поймай Гнома-Технобарона — его знания бесценны.",target:1,
   type:"catch_specific",targetIds:[1321],reward:{money:50000,items:{revive:5}},
-  dialogue:"Чагномокс — сердце технологий! Поймай Технобарона — и я подарю тебе армию дронов."},
+  dialogue:"Флюкс — сердце технологий! Поймай Технобарона — и я подарю тебе армию дронов."},
 
 {id:"q_three_kingdoms",biome:"byun_mountains",nps:"Посол Трёх Королевств",npsPos:{x:2700,y:2600},
   title:"Три Королевства",desc:"Доведи любое существо до 60 уровня — только тогда ты станешь легендой Бюн.",target:60,
@@ -9481,7 +9481,7 @@ const QUEST_DEFS=[
   title:"Врата в Божественный Край",desc:"Победи 5 существ Божественного Края, чтобы доказать свою чистоту.",target:5,
   type:"defeat",reward:{money:50000,items:{revive:5,ultraball:10}},
   dialogue:"Смертный, ты дошёл до врат Небес. Но не каждый достоин войти. Победи пять святых существ, чтобы очиститься."},
-// ========== ГОРОД СИД (стартовый) ==========
+// ========== ГОРОД СЕНОРИЯ(стартовый) ==========
 {id:"q_first_hunt",biome:"sid",nps:"Старейшина Орн",npsPos:{x:550,y:1660},
   title:"Первая охота",desc:"Победи 2 существ на окраинах Сенории, чтобы доказать свою готовность.",target:2,
   type:"defeat",reward:{money:400,items:{Plylact:5}},
@@ -10877,11 +10877,11 @@ function drawByunRidgeConnections(ctx){
   const connections = [
     // Златогорье -> Молотор
     {x1:2700, y1:2350, x2:2700, y2:2450},
-    // Молотор -> Чагномокс
+    // Молотор -> Флюкс
     {x1:2700, y1:2650, x2:2700, y2:2750},
     // Златогорье -> западная часть Гор Бюн
     {x1:2550, y1:2250, x2:2450, y2:2250},
-    // Чагномокс -> восточная часть Гор Бюн
+    // Флюкс -> восточная часть Гор Бюн
     {x1:2850, y1:2850, x2:2950, y2:2850}
   ];
 
@@ -10937,7 +10937,7 @@ function drawByunRidgeConnections(ctx){
   const runeSpots = [
     {x:2550, y:2200},   // Златогорье
     {x:2550, y:2500},   // Молотор
-    {x:2550, y:2800},   // Чагномокс
+    {x:2550, y:2800},   // Флюкс
     {x:2450, y:2300}    // Западный вход в Горы Бюн
   ];
 
@@ -11032,7 +11032,6 @@ function drawBackground(){
   drawRoads(ctx);
 
   // ===================== ДЕРЕВЬЯ НА ПУСТЫХ ЗЕЛЁНЫХ ЗОНАХ =====================
-  drawForestTrees(ctx);
 
   // ===================== СВЯЗУЮЩИЕ ГОРНЫЕ ХРЕБТЫ ГОР БЮН =====================
   drawByunRidgeConnections(ctx);
@@ -11409,13 +11408,16 @@ function drawHeavenlyEdgeObjects(ctx, time) {
     if (hasNeighbor(x, y)) continue;
 
     const tree = {
-      x, y,
-      r: 10 + rnd() * 6,
-      seed: Math.floor(rnd() * 100000)
-    };
-    forestTrees.push(tree);
-    addToGrid(tree);
-    placed++;
+  x, y,
+  r: 10 + rnd() * 6,
+  seed: Math.floor(rnd() * 100000)
+};
+forestTrees.push(tree);   // оставляем для canvas-фона
+addToGrid(tree);
+placed++;
+
+// ✅ СОЗДАЁМ DOM-элемент дерева
+spawnTreeOnMap(tree);
   }
 
   console.log(`🌲 Деревьев на пустых зонах: ${placed}`);
@@ -11426,6 +11428,27 @@ const MAGIC_CITY_STATE = {
   portals: [],    // порталы между башнями
   initialized: false
 };
+
+function spawnTreeOnMap(tree){
+  const el = document.createElement('div');
+  el.className = 'building';                 // используем тот же класс
+  const size = 64;                            // размер спрайта
+  el.style.width  = size + 'px';
+  el.style.height = size + 'px';
+  el.style.marginLeft = (-size/2) + 'px';
+  el.style.marginTop  = (-size/2) + 'px';
+  el.style.pointerEvents = 'none';
+  el.innerHTML = treeSVG(tree.seed);
+
+  el.style.transform = `translate(${tree.x}px, ${tree.y}px)`;
+  el.dataset.sortY = tree.y + size/2;         // низ дерева
+
+  world.appendChild(el);
+  houseEls.push(el);   // переиспользуем массив, чтобы applyYSorting подхватил
+
+  // Y-сортировка сразу
+  el.style.zIndex = yToZBuilding(tree.y + size/2);
+}
 
 function drawMagicCity(ctx, x, y, w, h, rnd){
   const ecx = x + w/2;
@@ -12082,7 +12105,7 @@ function drawBiomeTexture(ctx, biome, zone){
   switch(biome){
  case 'eternal_sea': drawEternalSea(ctx,x,y,w,h,seed); break;
     case 'quel_sidai': drawQuelSidai(ctx,x,y,w,h,seed); break;
-    case 'forest':   drawForest(ctx,x,y,w,h,seed); break;
+    case 'forest':    break;
     case 'water':    drawWater(ctx,x,y,w,h,seed); break;
     case 'mountain': drawMountain(ctx,x,y,w,h,seed); break;
     case 'desert':   drawDesert(ctx,x,y,w,h,seed); break;
@@ -14407,38 +14430,6 @@ function drawEternalSea(ctx,x,y,w,h,rnd){
   ctx.fill();
 }
 
-function greenTreeSVG(seed){
-  // Генерируем небольшие вариации через seed
-  const rnd = mulberry32(seed || 12345);
-  const hue = 100 + Math.floor(rnd() * 40);      // оттенок зелёного
-  const dark  = `hsl(${hue}, 55%, 25%)`;
-  const mid   = `hsl(${hue}, 60%, 38%)`;
-  const light = `hsl(${hue}, 65%, 50%)`;
-  const bright= `hsl(${hue}, 70%, 62%)`;
-  const trunk = '#5a3a10';
-  const trunkDark = '#3a2010';
-
-  return `<svg viewBox="0 0 64 64">
-    <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
-    <!-- Ствол -->
-    <rect x="29" y="38" width="6" height="22" fill="${trunk}" stroke="${trunkDark}" stroke-width="1"/>
-    <!-- Корни -->
-    <path d="M29 58 L24 60 M35 58 L40 60" stroke="${trunkDark}" stroke-width="1.5"/>
-    <!-- Крона — многослойная -->
-    <ellipse cx="32" cy="20" rx="18" ry="16" fill="${dark}" stroke="${trunkDark}" stroke-width="1.2"/>
-    <ellipse cx="26" cy="16" rx="10" ry="9"  fill="${mid}"/>
-    <ellipse cx="38" cy="18" rx="9"  ry="8"  fill="${light}"/>
-    <ellipse cx="32" cy="24" rx="12" ry="8"  fill="${mid}"/>
-    <!-- Блики -->
-    <circle cx="26" cy="14" r="2"   fill="rgba(255,255,255,0.9)"/>
-    <circle cx="36" cy="16" r="1.5" fill="rgba(255,255,255,0.8)"/>
-    <circle cx="30" cy="22" r="1"   fill="rgba(255,255,255,0.7)"/>
-    <!-- Магические листья -->
-    <circle cx="20" cy="24" r="1.2" fill="${bright}" opacity="0.8"/>
-    <circle cx="44" cy="22" r="1"   fill="${bright}" opacity="0.8"/>
-  </svg>`;
-}
-
 function elfTreeSVG(){
   return `<svg viewBox="0 0 64 64">
     <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
@@ -14455,6 +14446,40 @@ function elfTreeSVG(){
     <circle cx="26" cy="14" r="2" fill="rgba(255,255,255,0.9)"/>
     <circle cx="36" cy="16" r="1.5" fill="rgba(255,255,255,0.8)"/>
     <circle cx="30" cy="22" r="1" fill="rgba(255,255,255,0.7)"/>
+  </svg>`;
+}
+
+
+function treeSVG(seed) {
+  // Можно сделать 2-3 варианта дерева для разнообразия
+  const variant = seed % 3;
+  if (variant === 0) {
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.25)"/>
+      <rect x="30" y="46" width="4" height="14" fill="#4a2c14"/>
+      <rect x="30" y="46" width="1.5" height="14" fill="#2a1a0c"/>
+      <circle cx="32" cy="32" r="18" fill="#14532d"/>
+      <circle cx="32" cy="28" r="14" fill="#166534"/>
+      <circle cx="32" cy="24" r="10" fill="#22c55e"/>
+      <circle cx="28" cy="22" r="3" fill="rgba(134,239,172,0.5)"/>
+    </svg>`;
+  }
+  if (variant === 1) {
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.25)"/>
+      <rect x="30" y="44" width="4" height="16" fill="#4a2c14"/>
+      <path d="M32 44 L14 20 L50 20 Z" fill="#15803d"/>
+      <path d="M32 34 L12 10 L52 10 Z" fill="#166534"/>
+      <path d="M32 24 L16 2 L48 2 Z" fill="#22c55e"/>
+    </svg>`;
+  }
+  return `<svg viewBox="0 0 64 64">
+    <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.25)"/>
+    <rect x="30" y="48" width="4" height="12" fill="#4a2c14"/>
+    <circle cx="24" cy="36" r="12" fill="#14532d"/>
+    <circle cx="40" cy="36" r="12" fill="#14532d"/>
+    <circle cx="32" cy="28" r="14" fill="#166534"/>
+    <circle cx="32" cy="24" r="9" fill="#22c55e"/>
   </svg>`;
 }
 
@@ -14732,6 +14757,23 @@ function applyYSorting() {
   document.querySelectorAll('#world > .Fantasy, #world > .trainer, #world > .nps-quest').forEach(el => {
     // уже обработаны выше, но на случай "осиротевших" — пропускаем
   });
+
+
+
+  for (const el of houseEls) {
+    if (el.dataset.sortY === undefined) continue;
+    const y = parseFloat(el.dataset.sortY);
+    el.style.zIndex = yToZBuilding(y);
+  }
+
+
+
+
+
+
+
+
+
 }
 
 // ===================== АНИМАЦИЯ =====================
@@ -15363,7 +15405,7 @@ function checkUnlockNextZone(currentBiome){
     // 1. Перерисовать фон (биомы)
     spawnHouses();
     generateForestTrees();   // ← пересоздаём деревья без учёта разблокированной зоны
-    drawBackground();      // ← дома тоже нужно перерисовать
+    ;      // ← дома тоже нужно перерисовать
     // 2. Перерисовать верхний слой (рамки + названия)
     drawTopLayer();
     // 3. Перестроить туман
@@ -17128,7 +17170,7 @@ DIALOGS.q_first_hunt = {
 
     lore_world_map: {
       speaker: 'Старейшина Орн',
-      text: 'Вот что ты должен знать:\n\n🌲 Тёмный Лес — на западе. Там живут микониды и древни.\n🏔️ Горы Бюн — на востоке. Три королевства: Златогорье, Молотор и Чагномокс.\n💀 Немёртвые Земли — на юге. Некрополь Личерон — сердце тьмы.\n✨ Божественный Край — на севере. Врата в мир богов.\n🌊 Море Сирен — океан, разделяющий континент.',
+      text: 'Вот что ты должен знать:\n\n🌲 Тёмный Лес — на западе. Там живут микониды и древни.\n🏔️ Горы Бюн — на востоке. Три королевства: Златогорье, Молотор и Флюкс.\n💀 Немёртвые Земли — на юге. Некрополь Личерон — сердце тьмы.\n✨ Божественный Край — на севере. Врата в мир богов.\n🌊 Море Сирен — океан, разделяющий континент.',
       choices: [
         {
           text: '💀 Немёртвые Земли? Расскажи.',
@@ -17163,7 +17205,7 @@ DIALOGS.q_first_hunt = {
 
     lore_kingdoms: {
       speaker: 'Старейшина Орн',
-      text: 'Три Королевства - часть Артеля, добровольного объединения мирных рас Филакта. В него входят:\n\n🏆 Златогорье — лепреконы-маги. Их король Финеган может исполнить желание.\n⚒️ Молотор — дворфы-кузнецы. Их молоты дробят скалы.\n⚙️ Чагномокс — гномы-изобретатели. Они создают дронов и лазеры.\n\nВсе три — союзники Сенории. Также нам помогают вечные эльфы Квель-Сидая и ангелы Божественного края - но после нападения Лиги темных эльфов Квель-Сидай чуть не был уничтожен. Эльфы до сих пор не могут восстановиться после большой бойни. А ангелы... что с ними случилось...',
+      text: 'Три Королевства - часть Артеля, добровольного объединения мирных рас Филакта. В него входят:\n\n🏆 Златогорье — лепреконы-маги. Их король Финеган может исполнить желание.\n⚒️ Молотор — дворфы-кузнецы. Их молоты дробят скалы.\n⚙️ Флюкс — гномы-изобретатели. Они создают дронов и лазеры.\n\nВсе три — союзники Сенории. Также нам помогают вечные эльфы Квель-Сидая и ангелы Божественного края - но после нападения Лиги темных эльфов Квель-Сидай чуть не был уничтожен. Эльфы до сих пор не могут восстановиться после большой бойни. А ангелы... что с ними случилось...',
       next: 'lore_world_map'
     },
 
@@ -17633,7 +17675,7 @@ DIALOGS.q_molotor_forge = {
     },
     secret_gift: {
       speaker: 'Король Дворфов Дюрин',
-      text: 'Это карта. На ней отмечен путь к Трём Королевствам — Златогорью, Молотору и Чагномоксу.\n\nТы уже побывал в Молоторе. Осталось два королевства. Навести их — и ты узнаешь тайну Гор Бюн.',
+      text: 'Это карта. На ней отмечен путь к Трём Королевствам — Златогорью, Молотору и Флюксу.\n\nТы уже побывал в Молоторе. Осталось два королевства. Навести их — и ты узнаешь тайну Гор Бюн.',
       onEnter: ctx => {
         showToast('🗺️ Получена карта Трёх Королевств!', 4000);
       },
@@ -17773,7 +17815,7 @@ DIALOGS.q_chagnomoks_invention = {
     intro: {
       speaker: 'Технобарон Гримли',
       portrait: NPS_GNOME_BARON,
-      text: '*В лаборатории пахнет машинным маслом и озоном. Вокруг летают маленькие дроны*\n\nАГА! Ещё один искатель приключений! Добро пожаловать в Чагномокс — технологическое сердце Филакта!\n\nЧем обязан?',
+      text: '*В лаборатории пахнет машинным маслом и озоном. Вокруг летают маленькие дроны*\n\nАГА! Ещё один искатель приключений! Добро пожаловать в Флюкс — технологическое сердце Филакта!\n\nЧем обязан?',
       next: 'choice_intro'
     },
     choice_intro: {
@@ -17814,7 +17856,7 @@ DIALOGS.q_chagnomoks_invention = {
     },
     quest_details: {
       speaker: 'Технобарон Гримли',
-      text: '📜 Задание: «Изобретение Чагномокса»\n\nПоймай Гнома-Технобарона — он последняя разработка нашего королевства.\n\nНаграда: 50 000 золотых и 5 Свитков Воскрешения.',
+      text: '📜 Задание: «Изобретение Флюкса»\n\nПоймай Гнома-Технобарона — он последняя разработка нашего королевства.\n\nНаграда: 50 000 золотых и 5 Свитков Воскрешения.',
       onEnter: ctx => {
         const q = QUEST_DEFS.find(x => x.id === 'q_chagnomoks_invention');
         if(q && !activeQuests[q.id]){
@@ -17832,7 +17874,7 @@ DIALOGS.q_chagnomoks_invention = {
       text: 'Только будь осторожен. Он умный. Слишком умный. Иногда мне кажется, что он умнее меня.',
       choices: [
         {
-          text: '⚙️ Расскажи о Чагномоксе',
+          text: '⚙️ Расскажи о Флюксе',
           next: 'lore_chagnomoks'
         },
         {
@@ -17843,7 +17885,7 @@ DIALOGS.q_chagnomoks_invention = {
     },
     lore_chagnomoks: {
       speaker: 'Технобарон Гримли',
-      text: 'Чагномокс — это не просто город. Это огромная мастерская!\n\nЗдесь мы строим дронов, оружие и... ну, ещё дронов. Много дронов.\n\nНаши технологии — самые продвинутые в Филакте. И это не хвастовство, это факт!',
+      text: 'Флюкс — это не просто город. Это огромная мастерская!\n\nЗдесь мы строим дронов, оружие и... ну, ещё дронов. Много дронов.\n\nНаши технологии — самые продвинутые в Филакте. И это не хвастовство, это факт!',
       next: null
     },
     after_complete: {
@@ -17866,7 +17908,7 @@ DIALOGS.q_chagnomoks_invention = {
     },
     project_reveal: {
       speaker: 'Технобарон Гримли',
-      text: 'Ты слышал о Трёх Королевствах? Златогорье, Молотор и Чагномокс — три древних королевства Гор Бюн.\n\nКаждое из них обладает уникальной силой. Мы, гномы, владеем технологиями. Дворфы — рунной ковкой. Лепреконы — магией радуги.\n\nМой проект — объединить эти три силы в одном артефакте. И ты помог мне сделать первый шаг.',
+      text: 'Ты слышал о Трёх Королевствах? Златогорье, Молотор и Флюкс — три древних королевства Гор Бюн.\n\nКаждое из них обладает уникальной силой. Мы, гномы, владеем технологиями. Дворфы — рунной ковкой. Лепреконы — магией радуги.\n\nМой проект — объединить эти три силы в одном артефакте. И ты помог мне сделать первый шаг.',
       onEnter: ctx => {
         showToast('⚙️ Ты узнал тайну Трёх Королевств!', 5000);
       },
