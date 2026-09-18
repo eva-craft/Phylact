@@ -2860,6 +2860,25 @@ display:none;
   z-index: 960000;
 }
 #top{position:absolute;top:0;left:0;width:4500px;height:3200px;display:block;pointer-events:none;z-index:970000}
+
+/* ===== ЭНЕРГИЯ ===== */
+.energy-bar{
+  height:8px;
+  background:#1e1b4b;
+  border-radius:4px;
+  margin-top:4px;
+  overflow:hidden;
+  border:1px solid #000;
+}
+.energy-fill{
+  height:100%;
+  background:linear-gradient(180deg,#67e8f9 0%,#0891b2 50%,#0e7490 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.4);
+  border-radius:4px;
+  transition:width .3s ease;
+}
+
+
 </style>
 </head>
 <body>
@@ -3617,7 +3636,46 @@ const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водн�
 
 // ===================== АТАКИ (ПОЛНЫЙ СПИСОК) =====================
 const FULL_MOVES = {
+// ===== АТАКИ ДЛЯ СУЩЕСТВ КВЕЛЬ-СИДАЯ И ВЕЧНОГО МОРЯ =====
 
+// --- Для Квель-Сидая (эльфы) ---
+"Точный выстрел":{type:"Вооруженный",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым."}, // Уже есть, но проверим
+"Стрела Света":{type:"Священный",power:85,cat:"special",effect:"drain",drain:0.5,desc:"Святая стрела, восстанавливающая 50% урона."},
+"Двойной выстрел":{type:"Вооруженный",power:45,cat:"physical",effect:"multihit",hits:2,desc:"Бьёт 2 раза."},
+"Залп стрел":{type:"Вооруженный",power:30,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
+"Оглушающий выстрел":{type:"Вооруженный",power:60,cat:"special",effect:"confuse",chance:0.4,desc:"Может сбить с толку."},
+"Природный щит":{type:"Природа",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
+"Зов леса":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+"Солнечный луч":{type:"Священный",power:90,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь светом."},
+"Ярость природы":{type:"Природа",power:110,cat:"special",effect:"recoil",recoil:0.2,desc:"Отдача 20% урона."},
+"Друидическое проклятие":{type:"Природа",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Сильно отравляет цель."},
+"Крик ястреба":{type:"Летающий",power:50,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Шквал стрел":{type:"Вооруженный",power:35,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
+"Святое благословение":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+"Кара Света":{type:"Священный",power:100,cat:"special",desc:"Мощный удар светом."},
+"Эльфийская точность":{type:"Вооруженный",power:80,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Рунический выстрел":{type:"Вооруженный",power:95,cat:"special",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту."},
+"Природное равновесие":{type:"Природа",power:null,cat:"status",effect:"rest",desc:"Полностью восстанавливает HP, но усыпляет."},
+"Гнев леса":{type:"Природа",power:120,cat:"special",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
+"Солнечный удар":{type:"Священный",power:95,cat:"physical",desc:"Удар, наполненный солнечной энергией."},
+"Метка охотника":{type:"Вооруженный",power:null,cat:"status",effect:"lowerdef",desc:"Понижает защиту цели."},
+"Лунный свет":{type:"Священный",power:70,cat:"special",effect:"heal",heal:0.3,desc:"Восстанавливает 30% HP."},
+"Звёздный выстрел":{type:"Священный",power:110,cat:"special",effect:"confuse",chance:0.2,desc:"Может сбить с толку."},
+
+// --- Для Вечного Моря ---
+"Волна холода":{type:"Водный",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить."},
+"Прилив":{type:"Водный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+"Морская ярость":{type:"Водный",power:110,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
+"Песнь глубин":{type:"Водный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
+"Коралловый щит":{type:"Каменный",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
+"Штормовой удар":{type:"Водный",power:120,cat:"special",effect:"recoil",recoil:0.3,desc:"Отдача 30% урона."},
+"Тёмная волна":{type:"Тёмный",power:95,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
+"Ужас глубин":{type:"Тёмный",power:null,cat:"status",effect:"confuse",chance:0.8,desc:"Сбивает с толку."},
+"Жемчужный луч":{type:"Священный",power:80,cat:"special",effect:"heal",heal:0.4,desc:"Восстанавливает 40% HP."},
+"Морской вихрь":{type:"Водный",power:35,cat:"special",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
+"Святая вода":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+"Коралловый шип":{type:"Каменный",power:75,cat:"physical",desc:"Острый шип из коралла."},
+"Волна шторма":{type:"Водный",power:90,cat:"special",priority:1,desc:"Всегда бьёт первым."},
 // ===== ОБЫЧНЫЕ =====
 "Удар посохом":{type:"Обычный",power:40,cat:"physical"},
 "Царапка когтем":{type:"Обычный",power:40,cat:"physical"},
@@ -3839,6 +3897,144 @@ const FULL_MOVES = {
 };
 
 const LEARNSETS={
+// ===================== ВЕЧНОЕ МОРЕ =====================
+1400:[ // Морской Жрец
+  {level:1,  move:"Водяной шип"},
+  {level:5,  move:"Поток воды"},
+  {level:10, move:"Святая вода"},
+  {level:16, move:"Волна прилива"},
+  {level:22, move:"Гидроудар"},
+  {level:28, move:"Святая кара"}
+],
+1401:[ // Верховный Жрец Моря
+  {level:1,  move:"Гидроудар"},
+  {level:1,  move:"Святая вода"},
+  {level:1,  move:"Волна прилива"},
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Жемчужный луч"}
+],
+1402:[ // Глубинный Ужас
+  {level:1,  move:"Укус тьмы"},
+  {level:1,  move:"Тёмная волна"},
+  {level:12, move:"Морская ярость"},
+  {level:18, move:"Штормовой удар"},
+  {level:24, move:"Ужас глубин"},
+  {level:30, move:"Волна смерти"}
+],
+1403:[ // Дух Шторма
+  {level:1,  move:"Порыв ветра"},
+  {level:5,  move:"Водяной шип"},
+  {level:10, move:"Воздушный клинок"},
+  {level:16, move:"Волна шторма"},
+  {level:22, move:"Грозовой удар"},
+  {level:28, move:"Молния"}
+],
+1404:[ // Коралловый Страж
+  {level:1,  move:"Каменный шип"},
+  {level:1,  move:"Коралловый шип"},
+  {level:10, move:"Коралловый щит"},
+  {level:16, move:"Обвал"},
+  {level:22, move:"Землетрясение"},
+  {level:28, move:"Сокрушение"}
+],
+
+// ===================== КВЕЛЬ-СИДАЙ — ЭЛЬФЫ =====================
+
+// ===== ЛУЧНИКИ =====
+1410:[ // Эльф-Лучник
+  {level:1,  move:"Точный выстрел"},
+  {level:5,  move:"Двойной выстрел"},
+  {level:10, move:"Залп стрел"},
+  {level:16, move:"Оглушающий выстрел"},
+  {level:22, move:"Эльфийская точность"},
+  {level:28, move:"Метка охотника"}
+],
+1411:[ // Эльф-Мастер Лука
+  {level:1,  move:"Эльфийская точность"},
+  {level:1,  move:"Залп стрел"},
+  {level:1,  move:"Оглушающий выстрел"},
+  {level:1,  move:"Метка охотника"},
+  {level:1,  move:"Шквал стрел"}
+],
+1412:[ // Эльф-Снайпер Света
+  {level:1,  move:"Стрела Света"},
+  {level:1,  move:"Эльфийская точность"},
+  {level:1,  move:"Звёздный выстрел"},
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Кара Света"}
+],
+
+// ===== СЛЕДОПЫТЫ =====
+1420:[ // Эльф-Следопыт
+  {level:1,  move:"Царапка когтем"},
+  {level:5,  move:"Удар лозой"},
+  {level:10, move:"Зов леса"},
+  {level:16, move:"Природный щит"},
+  {level:22, move:"Режущий лист"},
+  {level:28, move:"Природное равновесие"}
+],
+1421:[ // Эльф-Мастер Следа
+  {level:1,  move:"Режущий лист"},
+  {level:1,  move:"Природный щит"},
+  {level:1,  move:"Зов леса"},
+  {level:1,  move:"Природное равновесие"},
+  {level:1,  move:"Ярость природы"}
+],
+1422:[ // Эльф-Повелитель Зверей
+  {level:1,  move:"Ярость природы"},
+  {level:1,  move:"Гнев леса"},
+  {level:1,  move:"Друидическое проклятие"},
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Природный щит"}
+],
+
+// ===== ЖРЕЦЫ =====
+1430:[ // Эльф-Жрец
+  {level:1,  move:"Перо Ангела"},
+  {level:5,  move:"Божественный свет"},
+  {level:10, move:"Благословение"},
+  {level:16, move:"Святая аура"},
+  {level:22, move:"Солнечный луч"},
+  {level:28, move:"Святая кара"}
+],
+1431:[ // Эльф-Верховный Жрец
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Солнечный луч"},
+  {level:1,  move:"Святое благословение"},
+  {level:1,  move:"Святая аура"},
+  {level:1,  move:"Лунный свет"}
+],
+1432:[ // Эльф-Экзарх Света
+  {level:1,  move:"Кара Света"},
+  {level:1,  move:"Солнечный удар"},
+  {level:1,  move:"Святое благословение"},
+  {level:1,  move:"Лунный свет"},
+  {level:1,  move:"Звёздный выстрел"}
+],
+
+// ===== ДРУИДЫ СОЛНЦА =====
+1440:[ // Эльф-Друид Солнца
+  {level:1,  move:"Удар лозой"},
+  {level:5,  move:"Солнечный луч"},
+  {level:10, move:"Зов леса"},
+  {level:16, move:"Природный щит"},
+  {level:22, move:"Святая кара"},
+  {level:28, move:"Ярость природы"}
+],
+1441:[ // Эльф-Солнечный Жрец
+  {level:1,  move:"Солнечный луч"},
+  {level:1,  move:"Ярость природы"},
+  {level:1,  move:"Святое благословение"},
+  {level:1,  move:"Природный щит"},
+  {level:1,  move:"Святая кара"}
+],
+1442:[ // Эльф-Аватар Солнца
+  {level:1,  move:"Гнев леса"},
+  {level:1,  move:"Кара Света"},
+  {level:1,  move:"Солнечный удар"},
+  {level:1,  move:"Святое благословение"},
+  {level:1,  move:"Лунный свет"}
+],
 // ===================== ГОРЫ БЮН И ТРИ КОРОЛЕВСТВА =====================
 1300:[ // Золотой Лепрекон
   {level:1,  move:"Разряд"},
@@ -4669,7 +4865,38 @@ Object.assign(FULL_MOVES, {
 
 
 
+// ===================== АВТО-РАСЧЁТ СТОИМОСТИ ЭНЕРГИИ =====================
+// Чем сильнее атака — тем дороже. Статусные — средне. Слабые — дёшево.
+function calcMoveCost(move){
+  // Явно заданная стоимость имеет приоритет
+  if(move.cost !== undefined) return move.cost;
 
+  const p = move.power;
+
+  // Статусные / вспомогательные
+  if(p === null || p === undefined){
+    // Лечение, воскрешение — дорого
+    if(move.effect === 'heal' || move.effect === 'rest' || move.effect === 'revive') return 25;
+    // Мощные статусы (сон, одержимость) — средне
+    if(move.effect === 'sleep' || move.effect === 'possess' || move.effect === 'invisible') return 20;
+    // Обычные статусы — дёшево
+    return 10;
+  }
+
+  // Атаки с уроном
+  if(p <= 40)  return 5;
+  if(p <= 60)  return 10;
+  if(p <= 80)  return 15;
+  if(p <= 100) return 20;
+  if(p <= 120) return 28;
+  return 35; // 130+
+}
+
+// Применяем ко всем атакам
+Object.keys(FULL_MOVES).forEach(name => {
+  const mv = FULL_MOVES[name];
+  mv.cost = calcMoveCost(mv);
+});
 
 
 
@@ -9762,7 +9989,7 @@ function saveProgress(){
     const data={
       unlockedZones:[...unlockedZones],zoneProgress,playerMoney,
       caughtSet:[...caughtSet],earnedSeals:[...earnedSeals],inventory,
-      playerTeam:playerTeam.map(p=>({dataId:p.data.id,level:p.level,currentHP:p.currentHP,exp:p.exp,expToNext:p.expToNext,moves:p.moves})),
+      playerTeam:playerTeam.map(p=>({dataId:p.data.id,level:p.level,currentHP:p.currentHP,currentEnergy:p.currentEnergy,exp:p.exp,expToNext:p.expToNext,moves:p.moves})),
       activeQuests,
       camX,camY
     };
@@ -9787,6 +10014,7 @@ function loadProgress(){
         if(!base)return null;
         const pk=createPlayerFantasy(base,p.level);
         pk.currentHP=p.currentHP;pk.exp=p.exp;pk.expToNext=p.expToNext;
+if(p.currentEnergy!==undefined) pk.currentEnergy=p.currentEnergy;   // ← добавить
         if(p.moves&&p.moves.length)pk.moves=p.moves;
         return pk;
       }).filter(Boolean);
@@ -9809,8 +10037,12 @@ function createPlayerFantasy(data,level,options){
     atk:Math.floor(base.attack*b*mult),def:Math.floor(base.defense*b*mult),
     spAtk:Math.floor(base.spAtk*b*mult),spDef:Math.floor(base.spDef*b*mult),
     spd:Math.floor(base.speed*b*mult),
-    moves:[],status:null,statusTurns:0,statMods:{atk:0,def:0,spAtk:0,spDef:0,spd:0},rageBonus:0
+    moves:[],status:null,statusTurns:0,statMods:{atk:0,def:0,spAtk:0,spDef:0,spd:0},rageBonus:0,
+    // ===== ЭНЕРГИЯ =====
+    maxEnergy:Math.floor(50+level*3),   // растёт с уровнем
+    currentEnergy:0,                     // в начале боя — 0
   };
+  pk.currentEnergy=pk.maxEnergy;         // но при создании полная
   learnMovesForLevel(pk,level);
   return pk;
 }
@@ -9832,11 +10064,26 @@ function learnMovesForLevel(pk,level){
 }
 function getMovesWithData(pk){
   return pk.moves.map(m=>{
-    const md=FULL_MOVES[m.name]||{type:"Обычный",power:40,cat:"physical"};
-    return {name:m.name,type:md.type,power:md.power,cat:md.cat,learnLevel:m.level,effect:md.effect,chance:md.chance,recoil:md.recoil,drain:md.drain,hits:md.hits,priority:md.priority,heal:md.heal,amount:md.amount,desc:md.desc};
+    const md=FULL_MOVES[m.name]||{type:"Обычный",power:40,cat:"physical",cost:10};
+    return {
+      name:m.name,
+      type:md.type,
+      power:md.power,
+      cat:md.cat,
+      cost:md.cost,          // ← ДОБАВИЛИ стоимость энергии
+      learnLevel:m.level,
+      effect:md.effect,
+      chance:md.chance,
+      recoil:md.recoil,
+      drain:md.drain,
+      hits:md.hits,
+      priority:md.priority,
+      heal:md.heal,
+      amount:md.amount,
+      desc:md.desc
+    };
   });
 }
-
 // ===================== HUD =====================
 function updateHUD(){
   const c=document.getElementById('count');if(c)c.textContent=FantasysOnMap.length;
@@ -15469,12 +15716,14 @@ function closeTeamScreen(){
   document.getElementById('teamScreen').classList.remove('active');
   showMenuButtons();
 }
+
 function renderTeamScreen(){
   const list=document.getElementById('teamList');
   list.innerHTML='';
   playerTeam.forEach((pk,i)=>{
     const hphealert=Math.max(0,(pk.currentHP/pk.maxHP)*100);
     const exphealert=Math.min(100,(pk.exp/pk.expToNext)*100);
+    const enhealert=Math.max(0,(pk.currentEnergy/pk.maxEnergy)*100);
     const typesHTML=pk.data.types.map(t=>`<span class="type-badge" style="background:${TYPE_COLORS[t]||'#777'};font-size:9px;padding:1px 6px">${t}</span>`).join('');
     const el=document.createElement('div');
     el.className='team-member';
@@ -15485,6 +15734,8 @@ function renderTeamScreen(){
         <div class="tm-types">${typesHTML}</div>
         <div class="tm-hp-bar"><div class="tm-hp-fill" style="width:${hphealert}%;background:${hphealert>50?'#4ade80':hphealert>20?'#fbbf24':'#ef4444'}"></div></div>
         <div class="tm-hp-text">❤️ ${Math.max(0,pk.currentHP)} / ${pk.maxHP} HP</div>
+        <div class="tm-hp-bar" style="height:6px"><div class="tm-hp-fill" style="width:${enhealert}%;background:linear-gradient(180deg,#67e8f9,#0891b2)"></div></div>
+        <div class="tm-hp-text">⚡ ${pk.currentEnergy} / ${pk.maxEnergy} ЭНЕРГИЯ</div>
         <div class="tm-exp-bar"><div class="tm-exp-fill" style="width:${exphealert}%"></div></div>
         <div class="tm-hp-text">✨ ${pk.exp} / ${pk.expToNext} ОПЫТ</div>
       </div>`;
@@ -15518,6 +15769,8 @@ function openMyFantasyDetail(inbest){
     </div>
     <div class="mpd-hp-bar"><div class="mpd-hp-fill" style="width:${hphealert}%;background:${hphealert>50?'#4ade80':hphealert>20?'#fbbf24':'#ef4444'}"></div></div>
     <div style="display:flex;justify-content:space-between;font-size:12px;color:#b8d4e8"><span>❤️ HP: ${Math.max(0,pk.currentHP)} / ${pk.maxHP}</span><span>${Math.round(hphealert)}%</span></div>
+   <div class="mpd-hp-bar" style="height:8px;margin-top:4px"><div class="mpd-hp-fill" style="width:${(pk.currentEnergy/pk.maxEnergy)*100}%;background:linear-gradient(180deg,#67e8f9,#0891b2)"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#b8d4e8"><span>⚡ Энергия: ${pk.currentEnergy} / ${pk.maxEnergy}</span></div>
     <div class="mpd-exp-bar"><div class="mpd-exp-fill" style="width:${exphealert}%"></div></div>
     <div style="display:flex;justify-content:space-between;font-size:12px;color:#b8d4e8;margin-bottom:12px"><span>✨ Опыт: ${pk.exp} / ${pk.expToNext}</span></div>
     <div class="mpd-stats-grid">
@@ -15888,26 +16141,85 @@ showDialog(master.name,`${master.before}\n\n(${master.title} · ${HABITATS[soulK
     updateBattleUI();
     showBattleLog(`${master.name}: ${team[0].data.name}, вперёд!`);
   });
-}
-function updateBattleUI(){
-  if(!battleState)return;
-  const {enemy,playerInbest}=battleState;
-  const player=playerTeam[playerInbest];
-  const eHPP=enemy.currentHP/enemy.maxHP;
-  document.getElementById('enemySprite').innerHTML=getSprite(enemy.data.shape);
-  let eStatus=enemy.status?`<span class="status-tag" style="background:${statusColor(enemy.status)}">${enemy.status}</span>`:'';
-  document.getElementById('enemyInfo').innerHTML=`
-    <div class="bname"><span>${isUndead(enemy.data)?'💀 ':''}${enemy.data.name}</span><span class="blevel">Ур. ${enemy.level}</span></div>
-    <div class="hp-bar"><div class="hp-fill" style="width:${Math.max(0,eHPP*100)}%;background:${eHPP>.5?'#4ade80':eHPP>.2?'#fbbf24':'#ef4444'}"></div></div>
-    <div class="hp-text">${Math.max(0,enemy.currentHP)} / ${enemy.maxHP}</div>${eStatus}`;
-  const pHPP=player.currentHP/player.maxHP;
-  document.getElementById('playerSprite').innerHTML=getSprite(player.data.shape);
-  let pStatus=player.status?`<span class="status-tag" style="background:${statusColor(player.status)}">${player.status}</span>`:'';
-  document.getElementById('playerInfo').innerHTML=`
-    <div class="bname"><span>${isUndead(player.data)?'💀 ':''}${player.data.name}</span><span class="blevel">Ур. ${player.level}</span></div>
-    <div class="hp-bar"><div class="hp-fill" style="width:${Math.max(0,pHPP*100)}%;background:${pHPP>.5?'#4ade80':pHPP>.2?'#fbbf24':'#ef4444'}"></div></div>
+}function updateBattleUI(){
+  if(!battleState) return;
+  const {enemy,playerInbest} = battleState;
+  const player = playerTeam[playerInbest];
+  if(!player) return;
+
+  // ===================== ВРАГ =====================
+  const eHPP = Math.max(0, Math.min(1, enemy.currentHP / enemy.maxHP));
+  const eEP  = Math.max(0, Math.min(1, (enemy.currentEnergy||0) / (enemy.maxEnergy||1)));
+
+  document.getElementById('enemySprite').innerHTML = getSprite(enemy.data.shape);
+
+  let eStatus = '';
+  if(enemy.status){
+    eStatus = `<span class="status-tag" style="background:${statusColor(enemy.status)}">${enemy.status}</span>`;
+  }
+  // Дополнительные маркеры состояний
+  if(enemy.possessed && enemy.possessed > 0){
+    eStatus += `<span class="status-tag" style="background:#ec4899">👁 одержим</span>`;
+  }
+  if(enemy.invisible && enemy.invisible > 0){
+    eStatus += `<span class="status-tag" style="background:#a855f7">🌫 невидим</span>`;
+  }
+  if(enemy.slowed && enemy.slowed > 0){
+    eStatus += `<span class="status-tag" style="background:#38bdf8">🔊 замедлен</span>`;
+  }
+
+  document.getElementById('enemyInfo').innerHTML = `
+    <div class="bname">
+      <span>${isUndead(enemy.data) ? '💀 ' : ''}${enemy.data.name}</span>
+      <span class="blevel">Ур. ${enemy.level}</span>
+    </div>
+    <div class="hp-bar">
+      <div class="hp-fill" style="width:${eHPP*100}%;background:${eHPP>.5?'#4ade80':eHPP>.2?'#fbbf24':'#ef4444'}"></div>
+    </div>
+    <div class="hp-text">${Math.max(0,enemy.currentHP)} / ${enemy.maxHP}</div>
+    <div class="energy-bar">
+      <div class="energy-fill" style="width:${eEP*100}%"></div>
+    </div>
+    <div class="hp-text">⚡ ${Math.max(0,enemy.currentEnergy||0)} / ${enemy.maxEnergy||0}</div>
+    ${eStatus}`;
+
+  // ===================== ИГРОК =====================
+  const pHPP = Math.max(0, Math.min(1, player.currentHP / player.maxHP));
+  const pEP  = Math.max(0, Math.min(1, (player.currentEnergy||0) / (player.maxEnergy||1)));
+
+  document.getElementById('playerSprite').innerHTML = getSprite(player.data.shape);
+
+  let pStatus = '';
+  if(player.status){
+    pStatus = `<span class="status-tag" style="background:${statusColor(player.status)}">${player.status}</span>`;
+  }
+  if(player.possessed && player.possessed > 0){
+    pStatus += `<span class="status-tag" style="background:#ec4899">👁 одержим</span>`;
+  }
+  if(player.invisible && player.invisible > 0){
+    pStatus += `<span class="status-tag" style="background:#a855f7">🌫 невидим (${player.invisible})</span>`;
+  }
+  if(player.slowed && player.slowed > 0){
+    pStatus += `<span class="status-tag" style="background:#38bdf8">🔊 замедлен</span>`;
+  }
+
+  document.getElementById('playerInfo').innerHTML = `
+    <div class="bname">
+      <span>${isUndead(player.data) ? '💀 ' : ''}${player.data.name}</span>
+      <span class="blevel">Ур. ${player.level}</span>
+    </div>
+    <div class="hp-bar">
+      <div class="hp-fill" style="width:${pHPP*100}%;background:${pHPP>.5?'#4ade80':pHPP>.2?'#fbbf24':'#ef4444'}"></div>
+    </div>
     <div class="hp-text">${Math.max(0,player.currentHP)} / ${player.maxHP}</div>
-    <div style="font-size:11px;color:#b8d4e8;margin-top:2px">Опыт: ${player.exp}/${player.expToNext}</div>${pStatus}`;
+    <div class="energy-bar">
+      <div class="energy-fill" style="width:${pEP*100}%"></div>
+    </div>
+    <div class="hp-text">⚡ ${Math.max(0,player.currentEnergy||0)} / ${player.maxEnergy||0}</div>
+    <div style="font-size:11px;color:#b8d4e8;margin-top:2px">Опыт: ${player.exp}/${player.expToNext}</div>
+    ${pStatus}`;
+
+  // ===================== КОМАНДА И КНОПКИ =====================
   renderBattleTeam();
   renderBattleControls();
 }
@@ -15979,17 +16291,27 @@ function renderBattleControls(){
     return;
   }
 
-  // ===== КНОПКИ АТАК =====
-  moves.forEach(m=>{
+   moves.forEach(m=>{
     const btn=document.createElement('button');
     btn.className='battle-btn attack';
     btn.style.borderLeft=`6px solid ${TYPE_COLORS[m.type]||'#777'}`;
-    btn.textContent=`${m.name} (${m.power||'—'})`;
-    btn.title=m.desc||'';
+    
+    const cost = m.cost || 0;
+    const canAfford = player.currentEnergy >= cost;
+    btn.textContent = `${m.name} (${m.power||'—'}) ⚡${cost}`;
+    btn.title = (m.desc||'') + `\nСтоимость: ${cost} энергии`;
+    
+    if(!canAfford){
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+      btn.style.cursor = 'not-allowed';
+      btn.style.filter = 'grayscale(0.6)';
+      btn.title += ' — Недостаточно энергии!';
+    }
+    
     btn.addEventListener('click',()=>useMove(m));
     c.appendChild(btn);
   });
-
   // ===== ПОЙМАТЬ =====
   const catchBtn=document.createElement('button');
   catchBtn.className='battle-btn catch';
@@ -16106,6 +16428,17 @@ function processStatusBeforeMove(pk){
     return;
   }
   if(statusCheck.msg)showBattleLog(statusCheck.msg,900);
+
+
+  // ===== ПРОВЕРКА И СПИСАНИЕ ЭНЕРГИИ =====
+  if(move.cost && player.currentEnergy < move.cost){
+    showBattleLog(`Недостаточно энергии! Нужно ${move.cost}, есть ${player.currentEnergy}.`);
+    battleState.busy = false;
+    updateBattleUI();
+    return;
+  }
+  if(move.cost) player.currentEnergy -= move.cost;
+
 
   // ===== ЗАЩИТА =====
   if(move.effect==="protect"){
@@ -16350,10 +16683,13 @@ function shakeSprite(id){
   el.classList.remove('shake');
   void el.offsetWidth;
   el.classList.add('shake');
-}
-function enemyTurn(){
+}function enemyTurn(){
   const enemy=battleState.enemy;
   const player=playerTeam[battleState.playerInbest];
+
+  // ===== ВОССТАНОВЛЕНИЕ ЭНЕРГИИ ИГРОКУ =====
+  player.currentEnergy = Math.min(player.maxEnergy, (player.currentEnergy||0) + 8);
+
   if(player.currentHP<=0){playerFainted();return}
 
   // Статусные проверки
@@ -16376,6 +16712,7 @@ function enemyTurn(){
     showBattleLog(`⛔ Контрудар! ${enemy.data.name} получает ${reflected} урона!`);
     battleState.playerCounter=false;
     updateBattleUI();
+  enemy.currentEnergy = Math.min(enemy.maxEnergy, (enemy.currentEnergy||0) + 8);
     setTimeout(()=>{
       if(player.currentHP<=0){playerFainted();return}
       battleState.turn='player';battleState.busy=false;updateBattleUI();
@@ -16759,6 +17096,7 @@ function endBattle(){
         p.spd=p.originalSpd;
         p.originalSpd=undefined;
       }
+     p.currentEnergy = Math.min(p.maxEnergy, p.currentEnergy + Math.floor(p.maxEnergy * 0.3));
     });
   }
   document.getElementById('battleScreen').classList.remove('active');
@@ -17225,7 +17563,7 @@ function renderHealerHut(){
     if(c===0)return;
     if(playerMoney<c){showToast("Недостаточно монет!");return}
     playerMoney-=c;
-    playerTeam.forEach(p=>{p.currentHP=p.maxHP;p.status=null;p.statusTurns=0});
+    playerTeam.forEach(p=>{p.currentHP=p.maxHP; p.currentEnergy=p.maxEnergy;p.status=null;p.statusTurns=0});
     showToast(`🏥 Команда вылечена! -${c} монет.`);
     updateHUD();
     renderHealerHut();
