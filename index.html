@@ -2980,6 +2980,56 @@ const heavenlyClouds = [];
 
 
 
+function openMap()
+{
+// Читаем сохранение
+const raw = localStorage.getItem('Magicworld_save');
+const save = raw ? JSON.parse(raw) : {};
+
+// Все зоны
+save.unlockedZones = [
+  'sid','zyffren','route','forest','haradat','mountain','goch','olandir',
+  'selax','fattolodor','totsar','cave','uurion','desert','gozon',
+  'ostrova_pobezhdennogo','volcano','pole_magii','water', "necropolis", "deadlands", "byun_mountains", "zlatogorye", "chagnomoks", "molotor"
+];
+
+// Прогресс зон
+save.zoneProgress = {};
+save.unlockedZones.forEach(z => save.zoneProgress[z] = {defeated: 999});
+
+// Печати
+save.earnedSeals = ['haradat','goch','olandir','selax','uurion','fattolodor','gozon','zyffren'];
+
+// Деньги и предметы
+save.playerMoney = 999999;
+save.inventory = {
+  Plylact: 99, medalion: 99, ultraball: 99,
+  potion: 99, superpotion: 99, revive: 99, antidote: 99
+};
+
+// Бестиарий — оставляем как есть, если нет Fantasy_DATA
+// (можно пропустить)
+
+// Сохраняем и перезагружаем
+localStorage.setItem('Magicworld_save', JSON.stringify(save));
+location.reload();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function hideMenuButtons() {
   ['teamBtn', 'shopBtn', 'invBtn', 'questBtn', 'bestiaryBtn'].forEach(id => {
     const el = document.getElementById(id);
@@ -3022,16 +3072,19 @@ desert:{name:"Арам'Набау",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",typ
 cave:{name:"Пещера Душ",color:"#7c3aed",bg:"rgba(40,20,60,0.7)",type:"nature"},
 route:{name:"Тропа Странников",color:"#a3e635",bg:"rgba(120,160,80,0.4)",type:"nature"},
 volcano:{name:"Остров Хэдрон",color:"#ef4444",bg:"rgba(120,40,20,0.5)",type:"nature"},
-
+byun_mountains:{name:"Горы Бюн",color:"#94a3b8",bg:"rgba(80,85,100,0.7)",type:"nature"},
+zlatogorye:{name:"Златогорье",color:"#fbbf24",bg:"rgba(200,160,40,0.5)",type:"city"},
+molotor:{name:"Молотор",color:"#dc2626",bg:"rgba(150,60,40,0.5)",type:"city"},
+chagnomoks:{name:"Чагномокс",color:"#a78bfa",bg:"rgba(120,90,180,0.5)",type:"city"},
 // ===== ГОРОДА =====
 sid:{name:"Город Сид",color:"#a3e635",bg:"rgba(160,200,120,0.4)",type:"city"},
 zyffren:{name:"Город Зиффрен",color:"#86efac",bg:"rgba(140,180,120,0.4)",type:"city"},
-haradat:{name:"Магократия Харадат",color:"#60a5fa",bg:"rgba(59,130,246,0.45)",type:"city"},
-goch:{name:"Город Гоч",color:"#7dd3fc",bg:"rgba(120,180,220,0.4)",type:"city"},
+haradat:{name:"Магократия Зарадат",color:"#60a5fa",bg:"rgba(59,130,246,0.45)",type:"city"},
+goch:{name:"Город Чонокс",color:"#7dd3fc",bg:"rgba(120,180,220,0.4)",type:"city"},
 olandir:{name:"Город Оландир",color:"#fca5a5",bg:"rgba(220,140,130,0.4)",type:"city"},
-totsar:{name:"Город Тотсар",color:"#c4b5fd",bg:"rgba(140,110,180,0.4)",type:"city"},
-selax:{name:"Магократия Селакс",color:"#f9a8d4",bg:"rgba(220,150,190,0.4)",type:"city"},
-uurion:{name:"Город Уурион",color:"#f472b6",bg:"rgba(200,120,160,0.4)",type:"city"},
+totsar:{name:"Город Альфирон",color:"#c4b5fd",bg:"rgba(140,110,180,0.4)",type:"city"},
+selax:{name:"Магократия Селаксар",color:"#f9a8d4",bg:"rgba(220,150,190,0.4)",type:"city"},
+uurion:{name:"Город Урион",color:"#f472b6",bg:"rgba(200,120,160,0.4)",type:"city"},
 fattolodor:{name:"Город Фаттолодор",color:"#fcd34d",bg:"rgba(220,180,100,0.4)",type:"city"},
 gozon:{name:"Город Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
 pole_magii:{name:"Поле магии",color:"#fbbf24",bg:"rgba(200,160,80,0.4)",type:"city"},
@@ -3040,7 +3093,16 @@ heavenly_edge:{name:"Божественный Край",color:"#fef3c7",bg:"rgba
 };
 const BIOME_ZONES=[
 {biome:"deadlands",x:300,y:2100,w:2400,h:900},
+// ===== ГОРЫ БЮН (справа от Немёртвых Земель) =====
+{biome:"byun_mountains",x:2400,y:2100,w:600,h:900},
 
+// ===== ТРИ КОРОЛЕВСТВА НА ГОРАХ БЮН =====
+// Златогорье — королевство лепреконов (верхняя часть)
+{biome:"zlatogorye",x:2550,y:2150,w:300,h:200},
+// Молотор — горное королевство дворфов (центр)
+{biome:"molotor",x:2550,y:2450,w:300,h:200},
+// Чагномокс — королевство гномов (нижняя часть)
+{biome:"chagnomoks",x:2550,y:2750,w:300,h:200},
 // ===== НЕКРОПОЛЬ ЛИЧЕРОН (вложен в Немёртвые Земли, по центру) =====
 {biome:"necropolis",x:1000,y:2350,w:1000,h:500},
 {biome:"water",x:100,y:1700,w:2800,h:300},{biome:"water",x:100,y:900,w:250,h:900},
@@ -3248,12 +3310,39 @@ function getTypeEff(moveType,defTypes){
   return m;
 }// ===================== ФЭНТЕЗИ-СУЩЕСТВА =====================
 const Fantasy_DATA=[
+// ===================== ГОРЫ БЮН И ТРИ КОРОЛЕВСТВА =====================
 
+// ===== ЛЕПРЕКОНЫ ЗЛАТОГОРЬЯ =====
+{id:1300,name:"Золотой Лепрекон",types:["Фея","Электрический"],rarity:"rare",habitats:["zlatogorye","byun_mountains"],desc:"Хранитель золотых жил Златогорья. Его борода светится от магии радуги.",height:1.2,weight:25,category:"Лепрекон",stats:{hp:70,attack:65,defense:75,spAtk:115,spDef:100,speed:95},shape:"leprechaun_spark",evolvesTo:1301,evolveLevel:52},
+{id:1301,name:"Верховный Лепрекон",types:["Фея","Электрический"],rarity:"epic",habitats:["zlatogorye"],desc:"Правитель Златогорья. Его посох исполняет желания... за плату.",height:1.5,weight:40,category:"Лепрекон",stats:{hp:110,attack:95,defense:100,spAtk:160,spDef:140,speed:130},shape:"leprechaun_rainbow"},
+
+// ===== ДВОРФЫ МОЛОТОРА =====
+{id:1310,name:"Дворф-Кузнец Молота",types:["Стальной","Земляной"],rarity:"rare",habitats:["molotor","byun_mountains"],desc:"Мастер боевого молота из Молотора. Куёт руны прямо в бою.",height:1.4,weight:150,category:"Дворф",stats:{hp:95,attack:110,defense:130,spAtk:50,spDef:85,speed:40},shape:"dwarf_runemaster",evolvesTo:1311,evolveLevel:55},
+{id:1311,name:"Дворф-Рунный Король",types:["Стальной","Земляной"],rarity:"epic",habitats:["molotor"],desc:"Король Молотора. Его молот дробит скалы, а руны держат всё королевство.",height:1.7,weight:280,category:"Дворф",stats:{hp:160,attack:150,defense:180,spAtk:80,spDef:120,speed:50},shape:"dwarf_king"},
+
+// ===== ГНОМЫ ЧАГНОМОКСА =====
+{id:1320,name:"Гном-Механик Чагномокса",types:["Вооруженный","Электрический"],rarity:"rare",habitats:["chagnomoks","byun_mountains"],desc:"Гном-изобретатель из Чагномокса. Его дроны работают на чистой магии.",height:1.0,weight:55,category:"Гном",stats:{hp:70,attack:75,defense:85,spAtk:120,spDef:90,speed:100},shape:"gnome_engineer",evolvesTo:1321,evolveLevel:56},
+{id:1321,name:"Гном-Технобарон",types:["Вооруженный","Ментальный"],rarity:"epic",habitats:["chagnomoks"],desc:"Технобарон Чагномокса. Управляет армией дронов силой мысли.",height:1.3,weight:80,category:"Гном",stats:{hp:105,attack:95,defense:110,spAtk:165,spDef:135,speed:120},shape:"gnome_technomage"},
+
+// ===== ГОРНЫЕ СУЩЕСТВА БЮН =====
+{id:1330,name:"Бюнский Каменный Лев",types:["Каменный","Боевой"],rarity:"rare",habitats:["byun_mountains"],desc:"Живая статуя льва, охраняющая перевалы Гор Бюн.",height:2.0,weight:400,category:"Лев",stats:{hp:120,attack:135,defense:140,spAtk:60,spDef:90,speed:65},shape:"stone_fighter",evolvesTo:1331,evolveLevel:58},
+{id:1331,name:"Бюнский Колосс",types:["Каменный","Стальной"],rarity:"epic",habitats:["byun_mountains"],desc:"Древний страж Гор Бюн. Его тело покрыто рунными пластинами.",height:3.0,weight:900,category:"Колосс",stats:{hp:180,attack:160,defense:190,spAtk:70,spDef:110,speed:40},shape:"rune_colossus"},
+
+{id:1332,name:"Горный Грифон Бюн",types:["Летающий","Боевой"],rarity:"rare",habitats:["byun_mountains","zlatogorye"],desc:"Гордый грифон с золотыми перьями. Символ трёх королевств.",height:2.2,weight:180,category:"Грифон",stats:{hp:100,attack:125,defense:90,spAtk:85,spDef:95,speed:135},shape:"harpy_warrior",evolvesTo:1333,evolveLevel:60},
+{id:1333,name:"Золотой Грифон",types:["Летающий","Священный"],rarity:"legendary",habitats:["byun_mountains"],desc:"Легендарный грифон Гор Бюн. Его перья светятся как само солнце.",height:2.8,weight:250,category:"Грифон",stats:{hp:140,attack:155,defense:120,spAtk:130,spDef:125,speed:165},shape:"sky_serpent"},
+
+{id:1334,name:"Горный Дракон Бюн",types:["Дракон","Каменный"],rarity:"epic",habitats:["byun_mountains"],desc:"Древний дракон, спящий в недрах Гор Бюн. Просыпается раз в век.",height:4.0,weight:600,category:"Дракон",stats:{hp:160,attack:170,defense:150,spAtk:140,spDef:130,speed:85},shape:"sky_dragon"},
+
+{id:1335,name:"Бюнский Огр-Король",types:["Земляной","Боевой"],rarity:"epic",habitats:["byun_mountains","molotor"],desc:"Король огров Гор Бюн. Четыре руки держат четыре молота.",height:3.8,weight:900,category:"Огр",stats:{hp:200,attack:170,defense:140,spAtk:50,spDef:90,speed:50},shape:"ogr_chief"},
+
+{id:1336,name:"Горный Феникс Бюн",types:["Огненный","Летающий"],rarity:"legendary",habitats:["byun_mountains"],desc:"Легендарная птица Гор Бюн. Возрождается из камня и пламени.",height:2.5,weight:90,category:"Феникс",stats:{hp:130,attack:140,defense:120,spAtk:165,spDef:125,speed:140},shape:"fire_phoenix"},
+
+{id:1337,name:"Королевский Тролль-Берсерк",types:["Природа","Боевой"],rarity:"epic",habitats:["byun_mountains","chagnomoks"],desc:"Древний тролль, служащий трём королевствам. Его костяные шипы пронзают сталь.",height:3.2,weight:400,category:"Тролль",stats:{hp:210,attack:165,defense:130,spAtk:70,spDef:100,speed:70},shape:"troll_berserker"},
 // ===== СВЯЩЕННЫЕ (Ангелы, Серафимы, Духи Света) =====
-{id:1200,name:"Ангел-Хранитель",types:["Священный","Летающий"],rarity:"rare",habitats:["haradat","pole_magii","sid","fattolodor", "heavenly_edge"],desc:"Небесный защитник смертных. Его перья светятся божественным светом.",height:1.8,weight:40,category:"Ангел",stats:{hp:85,attack:70,defense:90,spAtk:105,spDef:110,speed:80},shape:"guardian_angel",evolvesTo:1201,evolveLevel:32},
+{id:1200,name:"Ангел-Хранитель",types:["Священный","Летающий"],rarity:"rare",habitats:["pole_magii","sid","fattolodor", "heavenly_edge"],desc:"Небесный защитник смертных. Его перья светятся божественным светом.",height:1.8,weight:40,category:"Ангел",stats:{hp:85,attack:70,defense:90,spAtk:105,spDef:110,speed:80},shape:"guardian_angel",evolvesTo:1201,evolveLevel:32},
 {id:1201,name:"Архангел Света",types:["Священный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii",  "heavenly_edge"],desc:"Верховный воин Небес. Одним взмахом меча очищает земли от скверны.",height:2.3,weight:80,category:"Архангел",stats:{hp:130,attack:120,defense:115,spAtk:150,spDef:145,speed:110},shape:"archangel"},
 {id:1202,name:"Серафим",types:["Священный","Огненный"],rarity:"epic",habitats:["pole_magii","volcano",  "heavenly_edge"],desc:"Шестикрылый пламенный дух. Его взгляд испепеляет грешников.",height:2.0,weight:60,category:"Серафим",stats:{hp:115,attack:100,defense:95,spAtk:160,spDef:120,speed:105},shape:"seraphim"},
-{id:1203,name:"Небесный Каратель",types:["Священный","Боевой"],rarity:"rare",habitats:["haradat","mountain","pole_magii"],desc:"Гнев Небес в обличии воина. Карает падших без пощады.",height:2.1,weight:95,category:"Каратель",stats:{hp:110,attack:135,defense:105,spAtk:85,spDef:90,speed:95},shape:"heavenly_punisher",evolvesTo:1204,evolveLevel:40},
+{id:1203,name:"Небесный Каратель",types:["Священный","Боевой"],rarity:"rare",habitats:["mountain","pole_magii"],desc:"Гнев Небес в обличии воина. Карает падших без пощады.",height:2.1,weight:95,category:"Каратель",stats:{hp:110,attack:135,defense:105,spAtk:85,spDef:90,speed:95},shape:"heavenly_punisher",evolvesTo:1204,evolveLevel:40},
 {id:1204,name:"Экзекутор Света",types:["Священный","Стальной"],rarity:"legendary",habitats:["pole_magii"],desc:"Высший судья душ. Его клинок рассекает саму тьму.",height:2.6,weight:140,category:"Экзекутор",stats:{hp:145,attack:165,defense:140,spAtk:110,spDef:120,speed:100},shape:"light_executor"},
 {id:1205,name:"Дух Света",types:["Священный","Бесплотный"],rarity:"uncommon",habitats:["forest","route","sid","selax","goch"],desc:"Благословенный дух, приносящий удачу путникам.",height:0.9,weight:2,category:"Дух Света",stats:{hp:55,attack:45,defense:60,spAtk:95,spDef:90,speed:100},shape:"light_spirit",evolvesTo:1206,evolveLevel:28},
 {id:1206,name:"Сияющий Серафим",types:["Священный","Бесплотный"],rarity:"epic",habitats:["pole_magii","haradat"],desc:"Вознёсшийся дух, чьё сияние исцеляет союзников и жжёт нечисть.",height:1.5,weight:5,category:"Дух Света",stats:{hp:90,attack:70,defense:85,spAtk:145,spDef:140,speed:130},shape:"radiant_seraph"},
@@ -3266,18 +3355,18 @@ const Fantasy_DATA=[
 {id:1213,name:"Владыка Жнецов",types:["Нежить","Тёмный"],rarity:"legendary",habitats:["pole_magii","totsar"],desc:"Первый жнец, что собирал души ещё до появления мира. Его коса — сама судьба.",height:2.8,weight:70,category:"Жнец",stats:{hp:150,attack:160,defense:115,spAtk:140,spDef:110,speed:105},shape:"reaper_lord"},
 
 // ===== ГНОМЫ-СНАЙПЕРЫ (Вооруженный) =====
-{id:1220,name:"Гном-Снайпер",types:["Вооруженный","Стальной"],rarity:"rare",habitats:["haradat","mountain","zyffren","sid"],desc:"Гном-техник с лазерной винтовкой. Бьёт точно в цель с любой дистанции.",height:1.0,weight:50,category:"Снайпер",stats:{hp:60,attack:75,defense:70,spAtk:110,spDef:65,speed:80},shape:"gnome_sniper",evolvesTo:1221,evolveLevel:30},
-{id:1221,name:"Гном-Артиллерист",types:["Вооруженный","Огненный"],rarity:"epic",habitats:["haradat","mountain","volcano"],desc:"Гном с плазменной пушкой на плече. Один выстрел — и кратер готов.",height:1.3,weight:110,category:"Артиллерист",stats:{hp:95,attack:105,defense:95,spAtk:150,spDef:85,speed:70},shape:"gnome_artillerist"},
-{id:1222,name:"Гном-Инженер",types:["Вооруженный","Электрический"],rarity:"uncommon",habitats:["haradat","zyffren","sid","goch"],desc:"Гном-механик с электрошокером. Ремонтирует и уничтожает одинаково ловко.",height:0.9,weight:45,category:"Инженер",stats:{hp:55,attack:60,defense:65,spAtk:95,spDef:70,speed:90},shape:"gnome_engineer",evolvesTo:1223,evolveLevel:28},
+{id:1220,name:"Гном-Снайпер",types:["Вооруженный","Стальной"],rarity:"rare",habitats:["mountain","zyffren","sid"],desc:"Гном-техник с лазерной винтовкой. Бьёт точно в цель с любой дистанции.",height:1.0,weight:50,category:"Снайпер",stats:{hp:60,attack:75,defense:70,spAtk:110,spDef:65,speed:80},shape:"gnome_sniper",evolvesTo:1221,evolveLevel:30},
+{id:1221,name:"Гном-Артиллерист",types:["Вооруженный","Огненный"],rarity:"epic",habitats:["mountain","volcano"],desc:"Гном с плазменной пушкой на плече. Один выстрел — и кратер готов.",height:1.3,weight:110,category:"Артиллерист",stats:{hp:95,attack:105,defense:95,spAtk:150,spDef:85,speed:70},shape:"gnome_artillerist"},
+{id:1222,name:"Гном-Инженер",types:["Вооруженный","Электрический"],rarity:"uncommon",habitats:["zyffren","sid","goch"],desc:"Гном-механик с электрошокером. Ремонтирует и уничтожает одинаково ловко.",height:0.9,weight:45,category:"Инженер",stats:{hp:55,attack:60,defense:65,spAtk:95,spDef:70,speed:90},shape:"gnome_engineer",evolvesTo:1223,evolveLevel:28},
 {id:1223,name:"Гном-Техномаг",types:["Вооруженный","Ментальный"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Гном, слившийся с техно-магией. Управляет дронами и лазерами силой мысли.",height:1.2,weight:60,category:"Техномаг",stats:{hp:85,attack:80,defense:90,spAtk:145,spDef:120,speed:100},shape:"gnome_technomage"},
-{id:1224,name:"Боевой Дрон",types:["Вооруженный","Летающий"],rarity:"uncommon",habitats:["haradat","goch","olandir"],desc:"Летающий автоматон с лазерным орудием. Создан магами Харадата.",height:0.6,weight:20,category:"Дрон",stats:{hp:45,attack:70,defense:55,spAtk:100,spDef:60,speed:120},shape:"battle_drone",evolvesTo:1225,evolveLevel:26},
+{id:1224,name:"Боевой Дрон",types:["Вооруженный","Летающий"],rarity:"uncommon",habitats:["goch","olandir"],desc:"Летающий автоматон с лазерным орудием. Создан магами Харадата.",height:0.6,weight:20,category:"Дрон",stats:{hp:45,attack:70,defense:55,spAtk:100,spDef:60,speed:120},shape:"battle_drone",evolvesTo:1225,evolveLevel:26},
 {id:1225,name:"Тяжёлый Дрон-Осада",types:["Вооруженный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Бронированный дрон с плазменным орудием. Осаждает города и крепости.",height:1.0,weight:80,category:"Дрон",stats:{hp:95,attack:120,defense:105,spAtk:135,spDef:90,speed:85},shape:"siege_drone"},
 // ===== КРЫСОЛЮДИ ЛАМХИ =====
-{id:1170,name:"Ламхи-Юнец",types:["Земляной","Тёмный"],rarity:"common",habitats:[	"zyffren","route","cave","haradat"],desc:"Молодой крысолюд из подземного клана. Собирает блестящие вещи для старейшин.",height:1.0,weight:35,category:"Ламхи",stats:{hp:55,attack:60,defense:45,spAtk:35,spDef:40,speed:70},shape:"lamhi_young",evolvesTo:1171,evolveLevel:18},
+{id:1170,name:"Ламхи-Юнец",types:["Земляной","Тёмный"],rarity:"common",habitats:[	"zyffren","route","cave"],desc:"Молодой крысолюд из подземного клана. Собирает блестящие вещи для старейшин.",height:1.0,weight:35,category:"Ламхи",stats:{hp:55,attack:60,defense:45,spAtk:35,spDef:40,speed:70},shape:"lamhi_young",evolvesTo:1171,evolveLevel:18},
 {id:1171,name:"Ламхи-Коготь",types:["Земляной","Тёмный"],rarity:"uncommon",habitats:[	"zyffren","route","cave","mountain"],desc:"Взрослый крысолюд-воин. Его когти высекают искры из камня.",height:1.5,weight:80,category:"Ламхи",stats:{hp:90,attack:95,defense:75,spAtk:50,spDef:65,speed:95},shape:"lamhi_claw",evolvesTo:1172,evolveLevel:32},
 {id:1172,name:"Ламхи-Владыка Нор",types:["Земляной","Тёмный"],rarity:"epic",habitats:["cave","pole_magii","mountain"],desc:"Старейшина подземного клана. Повелевает роями крыс и хранит древние руны.",height:1.9,weight:140,category:"Ламхи",stats:{hp:130,attack:135,defense:110,spAtk:80,spDef:100,speed:120},shape:"lamhi_lord"},
 
-{id:1173,name:"Ламхи-Метатель",types:["Земляной","Боевой"],rarity:"common",habitats:[	"zyffren","route","cave","haradat"],desc:"Кидает отравленные дротики. Славится меткостью и трусостью.",height:1.1,weight:40,category:"Ламхи",stats:{hp:50,attack:55,defense:40,spAtk:60,spDef:45,speed:75},shape:"lamhi_thrower",evolvesTo:1174,evolveLevel:20},
+{id:1173,name:"Ламхи-Метатель",types:["Земляной","Боевой"],rarity:"common",habitats:[	"zyffren","route","cave"],desc:"Кидает отравленные дротики. Славится меткостью и трусостью.",height:1.1,weight:40,category:"Ламхи",stats:{hp:50,attack:55,defense:40,spAtk:60,spDef:45,speed:75},shape:"lamhi_thrower",evolvesTo:1174,evolveLevel:20},
 {id:1174,name:"Ламхи-Отравитель",types:["Земляной","Ядовитый"],rarity:"rare",habitats:["cave","uurion","totsar"],desc:"Мастер ядов и алхимии. Его дротики парализуют даже огров.",height:1.4,weight:70,category:"Ламхи",stats:{hp:75,attack:80,defense:65,spAtk:115,spDef:80,speed:100},shape:"lamhi_poisoner"},
 
 {id:1175,name:"Ламхи-Жрец Тьмы",types:["Тёмный","Нежить"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Служитель подземного бога-крысы. Жертвует пленников ради силы клана.",height:1.5,weight:75,category:"Ламхи",stats:{hp:85,attack:60,defense:70,spAtk:110,spDef:95,speed:80},shape:"lamhi_priest",evolvesTo:1176,evolveLevel:38},
@@ -3295,10 +3384,10 @@ const Fantasy_DATA=[
 {id:1166,name:"Лич",types:["Нежить","Ментальный"],rarity:"rare",habitats:["cave","pole_magii","totsar", "necropolis"],desc:"Мёртвый маг, обретший бессмертие. Повелевает смертью и восстанавливает силы тёмной магией.",height:1.8,weight:40,category:"Лич",stats:{hp:85,attack:55,defense:70,spAtk:140,spDef:105,speed:75},shape:"lich",evolvesTo:1167,evolveLevel:45},
 {id:1167,name:"Архилич",types:["Нежить","Ментальный"],rarity:"legendary",habitats:["pole_magii"],desc:"Древний повелитель мёртвых, чья сила не знает границ. Воскрешает павших и питается их душами.",height:2.2,weight:55,category:"Архилич",stats:{hp:120,attack:80,defense:100,spAtk:175,spDef:140,speed:95},shape:"archlich"},
 // ===== ОГРЫ / ОРКИ / ТРОЛЛИ =====
-{id:1152,name:"Огр",types:["Земляной","Боевой"],rarity:"uncommon",habitats:["mountain","route","haradat","forest"],desc:"Четырёхрукий великан, крушит всё на своём пути дубиной и кулаками.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
+{id:1152,name:"Огр",types:["Земляной","Боевой"],rarity:"uncommon",habitats:["mountain","route","forest"],desc:"Четырёхрукий великан, крушит всё на своём пути дубиной и кулаками.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
 {id:1153,name:"Огр-Вождь",types:["Земляной","Боевой"],rarity:"epic",habitats:["mountain","volcano"],desc:"Вождь огров, четыре руки держат четыре дубины. Ужас гор.",height:3.5,weight:800,category:"Огр",stats:{hp:170,attack:145,defense:105,spAtk:40,spDef:65,speed:45},shape:"ogr_chief"},
 
-{id:1154,name:"Огр-Маг",types:["Земляной","Ментальный"],rarity:"rare",habitats:["cave","mountain","pole_magii"],desc:"Синий четырёхрукий огр, владеет грубой боевой магией. Бьёт посохом и заклинаниями.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
+{id:1154,name:"Огр-Маг",types:["Земляной","Ментальный"],rarity:"rare",habitats:["cave","mountain","pole_magii","haradat"],desc:"Синий четырёхрукий огр, владеет грубой боевой магией. Бьёт посохом и заклинаниями.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
 {id:1155,name:"Огр-Архимаг",types:["Земляной","Ментальный"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Древний огр-маг, четыре руки чертят руны в воздухе. Повелевает камнем и разумом.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
 
 {id:1156,name:"Орк-Громила",types:["Боевой","Тёмный"],rarity:"uncommon",habitats:["mountain","route","desert","forest","volcano"],desc:"Зелёный воин с топором и волчьей шкурой. Яростный и беспощадный.",height:2.0,weight:180,category:"Орк",stats:{hp:90,attack:110,defense:70,spAtk:35,spDef:55,speed:65},shape:"orc_grunt",evolvesTo:1157,evolveLevel:32},
@@ -3323,7 +3412,7 @@ const Fantasy_DATA=[
 {id:1011,name:"Миконид-Королевич",types:["Природа","Ядовитый"],rarity:"uncommon",habitats:["forest"],desc:"Созревший миконид, его шляпка — трон для спор.",height:0.8,weight:18,category:"Гриб",stats:{hp:70,attack:45,defense:65,spAtk:65,spDef:70,speed:30},shape:"mushroom_king"},
 {id:1013,name:"Плющий",types:["Природа","Низший"],rarity:"common",habitats:["forest","route"],desc:"Живая лиана, душит неосторожных путников.",height:0.5,weight:3,category:"Растение",stats:{hp:45,attack:40,defense:35,spAtk:30,spDef:35,speed:55},shape:"vine_creeper",evolvesTo:1014,evolveLevel:10},
 {id:1014,name:"Древень",types:["Природа"],rarity:"uncommon",habitats:["forest"],desc:"Дерево, ожившее для охраны леса.",height:1.6,weight:180,category:"Древень",stats:{hp:85,attack:75,defense:90,spAtk:50,spDef:65,speed:25},shape:"treant_guard"},
-{id:1016,name:"Гарпия-Птенец",types:["Обычный","Летающий"],rarity:"common",habitats:["forest","route","sid","haradat"],desc:"Молодая гарпия, ещё не научилась летать высоко.",height:0.6,weight:8,category:"Гарпия",stats:{hp:45,attack:50,defense:40,spAtk:40,spDef:40,speed:60},shape:"harpy_chick",evolvesTo:1017,evolveLevel:18},
+{id:1016,name:"Гарпия-Птенец",types:["Обычный","Летающий"],rarity:"common",habitats:["forest","route","sid"],desc:"Молодая гарпия, ещё не научилась летать высоко.",height:0.6,weight:8,category:"Гарпия",stats:{hp:45,attack:50,defense:40,spAtk:40,spDef:40,speed:60},shape:"harpy_chick",evolvesTo:1017,evolveLevel:18},
 {id:1017,name:"Гарпия-Воительница",types:["Обычный","Летающий"],rarity:"rare",habitats:["forest","route","mountain"],desc:"Взрослая гарпия, её когти рассекают воздух.",height:1.5,weight:45,category:"Гарпия",stats:{hp:65,attack:75,defense:55,spAtk:60,spDef:55,speed:80},shape:"harpy_warrior"},
 {id:1019,name:"Гоблин-Вор",types:["Обычный","Тёмный"],rarity:"common",habitats:["route","sid"],desc:"Мелкий пакостник, обожает красть блестящее.",height:0.7,weight:15,category:"Гоблин",stats:{hp:35,attack:60,defense:35,spAtk:30,spDef:35,speed:75},shape:"goblin_thief"},
 
@@ -3617,6 +3706,111 @@ const FULL_MOVES = {
 };
 
 const LEARNSETS={
+// ===================== ГОРЫ БЮН И ТРИ КОРОЛЕВСТВА =====================
+1300:[ // Золотой Лепрекон
+  {level:1,  move:"Разряд"},
+  {level:5,  move:"Парализующий разряд"},
+  {level:10, move:"Молния"},
+  {level:16, move:"Грозовой удар"},
+  {level:22, move:"Небесная кара"},
+  {level:28, move:"Громовая стрела"}
+],
+1301:[ // Верховный Лепрекон
+  {level:1,  move:"Громовая стрела"},
+  {level:1,  move:"Небесная кара"},
+  {level:1,  move:"Молния"},
+  {level:1,  move:"Грозовой удар"},
+  {level:1,  move:"Парализующий разряд"}
+],
+1310:[ // Дворф-Кузнец Молота
+  {level:1,  move:"Удар кулаком"},
+  {level:5,  move:"Каменный шип"},
+  {level:10, move:"Землетрясение"},
+  {level:16, move:"Сокрушение"},
+  {level:22, move:"Обвал"},
+  {level:28, move:"Железная защита"}
+],
+1311:[ // Дворф-Рунный Король
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Обвал"},
+  {level:1,  move:"Железная защита"},
+  {level:1,  move:"Тройной удар"}
+],
+1320:[ // Гном-Механик Чагномокса
+  {level:1,  move:"Электрошокер"},
+  {level:5,  move:"Прицельный выстрел"},
+  {level:10, move:"Лазерный выстрел"},
+  {level:16, move:"Турель"},
+  {level:22, move:"Осколочная граната"},
+  {level:28, move:"Перегрузка"}
+],
+1321:[ // Гном-Технобарон
+  {level:1,  move:"Перегрузка"},
+  {level:1,  move:"Лазерный выстрел"},
+  {level:1,  move:"Плазменная пушка"},
+  {level:1,  move:"Турель"},
+  {level:1,  move:"Плазменный залп"}
+],
+1330:[ // Бюнский Каменный Лев
+  {level:1,  move:"Удар кулаком"},
+  {level:5,  move:"Каменный шип"},
+  {level:10, move:"Обвал"},
+  {level:16, move:"Сокрушение"},
+  {level:22, move:"Землетрясение"},
+  {level:28, move:"Тройной удар"}
+],
+1331:[ // Бюнский Колосс
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Обвал"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Железная защита"},
+  {level:1,  move:"Тройной удар"}
+],
+1332:[ // Горный Грифон Бюн
+  {level:1,  move:"Удар крылом"},
+  {level:5,  move:"Воздушный клинок"},
+  {level:10, move:"Клюв-копьё"},
+  {level:16, move:"Рывок"},
+  {level:22, move:"Контрудар"},
+  {level:28, move:"Громовая стрела"}
+],
+1333:[ // Золотой Грифон
+  {level:1,  move:"Клюв-копьё"},
+  {level:1,  move:"Воздушный клинок"},
+  {level:1,  move:"Громовая стрела"},
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Божественный свет"}
+],
+1334:[ // Горный Дракон Бюн
+  {level:1,  move:"Драконий натиск"},
+  {level:1,  move:"Обвал"},
+  {level:12, move:"Ярость дракона"},
+  {level:18, move:"Землетрясение"},
+  {level:24, move:"Драконий вихрь"},
+  {level:30, move:"Сокрушение"}
+],
+1335:[ // Бюнский Огр-Король
+  {level:1,  move:"Грубая сила"},
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Обвал"},
+  {level:1,  move:"Тройной удар"}
+],
+1336:[ // Горный Феникс Бюн
+  {level:1,  move:"Струя пламени"},
+  {level:1,  move:"Порыв ветра"},
+  {level:1,  move:"Огненный шквал"},
+  {level:1,  move:"Волна пламени"},
+  {level:1,  move:"Вспышка пламени"}
+],
+1337:[ // Королевский Тролль-Берсерк
+  {level:1,  move:"Высасывание жизни"},
+  {level:1,  move:"Грубая сила"},
+  {level:1,  move:"Землетрясение"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Природное восстановление"}
+],
 
 // ===== СВЯЩЕННЫЕ (Ангелы, Серафимы, Духи Света) =====
 1200:[ // Ангел-Хранитель
@@ -4338,8 +4532,154 @@ Object.assign(FULL_MOVES, {
     desc:"Мощный тёмный удар. Лич теряет 15% HP."
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const NPS_KNIGHT = `<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <!-- Ноги в доспехе -->
+  <rect x="24" y="46" width="7" height="13" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="33" y="46" width="7" height="13" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <ellipse cx="27" cy="58" rx="5" ry="2.5" fill="#1e293b"/>
+  <ellipse cx="37" cy="58" rx="5" ry="2.5" fill="#1e293b"/>
+  <!-- Туловище — стальной доспех -->
+  <path d="M20 28 L44 28 L46 48 L18 48 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <path d="M20 28 L44 28 L43 34 L21 34 Z" fill="#e5e7eb"/>
+  <!-- Нагрудник с крестом -->
+  <path d="M32 32 L32 46 M25 39 L39 39" stroke="#dc2626" stroke-width="2.5"/>
+  <!-- Наплечники -->
+  <path d="M14 28 Q16 22 22 24 L22 30 Q16 30 14 28 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <path d="M50 28 Q48 22 42 24 L42 30 Q48 30 50 28 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <!-- Руки -->
+  <rect x="12" y="32" width="7" height="14" rx="3" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <rect x="45" y="32" width="7" height="14" rx="3" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="15" cy="47" r="3.5" fill="#94a3b8"/>
+  <circle cx="49" cy="47" r="3.5" fill="#94a3b8"/>
+  <!-- Меч -->
+  <rect x="8" y="18" width="3" height="26" fill="#e5e7eb" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="6" y="16" width="7" height="3" fill="#fbbf24"/>
+  <circle cx="9.5" cy="44" r="2" fill="#fbbf24"/>
+  <!-- Щит -->
+  <path d="M48 34 L58 32 L58 44 L53 50 L48 44 Z" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.4"/>
+  <path d="M53 35 L53 46 M49 40 L57 40" stroke="#fbbf24" stroke-width="1.5"/>
+  <!-- Шлем -->
+  <path d="M22 24 Q22 8 32 8 Q42 8 42 24 Q38 18 32 18 Q26 18 22 24 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <!-- Забрало-решётка -->
+  <path d="M24 20 L40 20" stroke="#475569" stroke-width="1.2"/>
+  <path d="M25 20 L25 24 M28 20 L28 24 M32 20 L32 24 M36 20 L36 24 M39 20 L39 24" stroke="#475569" stroke-width="1"/>
+  <!-- Глаза-прорези -->
+  <ellipse cx="27" cy="17" rx="2.2" ry="2" fill="#0f172a"/>
+  <ellipse cx="37" cy="17" rx="2.2" ry="2" fill="#0f172a"/>
+  <circle cx="27" cy="17" r="0.8" fill="#fbbf24"/>
+  <circle cx="37" cy="17" r="0.8" fill="#fbbf24"/>
+  <!-- Плюмаж -->
+  <path d="M32 8 Q30 2 32 0 Q34 2 34 8 Q36 4 36 8 Q34 10 32 10 Q30 10 28 8 Q28 4 30 8 Z" fill="#dc2626"/>
+</svg>`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const SPRITES = {/* ===================== ЛАМХИ-ЮНЕЦ ===================== */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sky_dragon:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="24" ry="4" fill="rgba(0,0,0,0.4)"/>
+  <!-- Огромные крылья -->
+  <path d="M24 24 Q0 6 4 30 Q12 22 20 26 Q4 16 24 24 Z" fill="#7dd3fc" stroke="#075985" stroke-width="1.4"/>
+  <path d="M40 24 Q64 6 60 30 Q52 22 44 26 Q60 16 40 24 Z" fill="#7dd3fc" stroke="#075985" stroke-width="1.4"/>
+  <path d="M24 26 Q12 18 14 28 Q18 22 24 26 Z" fill="#bae6fd"/>
+  <path d="M40 26 Q52 18 50 28 Q46 22 40 26 Z" fill="#bae6fd"/>
+  <!-- Тело — дракон -->
+  <ellipse cx="32" cy="40" rx="16" ry="15" fill="#0ea5e9" stroke="#075985" stroke-width="1.5"/>
+  <ellipse cx="32" cy="44" rx="10" ry="9" fill="#bae6fd" opacity="0.75"/>
+  <!-- Чешуя -->
+  <path d="M22 34 Q26 32 24 38 M30 32 Q34 30 32 36 M38 34 Q42 32 40 38" stroke="#0369a1" stroke-width="0.9" fill="none" opacity="0.7"/>
+  <!-- Лапы -->
+  <path d="M24 52 L22 57 L28 57 L26 52 Z" fill="#0ea5e9" stroke="#075985" stroke-width="1"/>
+  <path d="M40 52 L42 57 L36 57 L38 52 Z" fill="#0ea5e9" stroke="#075985" stroke-width="1"/>
+  <path d="M22 57 L18 60 M22 57 L22 60 M22 57 L26 60" stroke="#075985" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M42 57 L46 60 M42 57 L42 60 M42 57 L38 60" stroke="#075985" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Хвост -->
+  <path d="M46 44 Q58 46 60 54 Q56 48 48 48 Z" fill="#0ea5e9" stroke="#075985" stroke-width="1.2"/>
+  <path d="M60 54 Q64 56 62 60 Q58 56 56 54 Z" fill="#67e8f9"/>
+  <!-- Шея и голова -->
+  <ellipse cx="32" cy="20" rx="13" ry="11" fill="#0ea5e9" stroke="#075985" stroke-width="1.5"/>
+  <!-- Рога -->
+  <path d="M22 12 Q18 4 16 6 Q20 8 22 14 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
+  <path d="M42 12 Q46 4 48 6 Q44 8 42 14 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
+  <!-- Гребень -->
+  <path d="M28 10 L30 4 L32 8 L34 2 L36 8 L38 4 L36 12 Z" fill="#67e8f9" stroke="#0e7490" stroke-width="1"/>
+  <!-- Глаза добрые -->
+  <ellipse cx="27" cy="19" rx="3" ry="3.4" fill="#fff"/>
+  <ellipse cx="37" cy="19" rx="3" ry="3.4" fill="#fff"/>
+  <ellipse cx="27" cy="19.5" rx="1.6" ry="2.4" fill="#075985"/>
+  <ellipse cx="37" cy="19.5" rx="1.6" ry="2.4" fill="#075985"/>
+  <circle cx="27.5" cy="18.6" r="0.7" fill="#fff"/>
+  <circle cx="37.5" cy="18.6" r="0.7" fill="#fff"/>
+  <!-- Морда -->
+  <path d="M28 25 Q32 30 36 25" stroke="#075985" stroke-width="1.4" fill="none"/>
+  <path d="M30 26 L30 28 M34 26 L34 28" stroke="#e5e7eb" stroke-width="1.4" stroke-linecap="round"/>
+  <!-- Усы -->
+  <path d="M22 24 Q16 24 14 28" stroke="#67e8f9" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <path d="M42 24 Q48 24 50 28" stroke="#67e8f9" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+</svg>`,
 
 
 guardian_angel:`<svg viewBox="0 0 64 64">
@@ -7718,7 +8058,7 @@ const ITEMS={
 };
 let inventory={Plylact:10,potion:5,medalion:0,ultraball:0,superpotion:0,revive:1,antidote:0};
 
-const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii", "water", "heavenly_edge", "deadlands", "necropolis"];
+const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii","water","heavenly_edge","deadlands","necropolis","byun_mountains","zlatogorye","molotor","chagnomoks"];
 const DEFAULT_UNLOCK={type:"defeat",count:3};
 let unlockedZones=new Set(["sid"]);
 let zoneProgress={};
@@ -7807,10 +8147,35 @@ const TRAINER_TEMPLATES=[
 {name:"Ловец грибов",team:[{id:1010,level:6},{id:1013,level:6},{id:1010,level:7}],reward:400},
 {name:"Птицелов",team:[{id:1016,level:8},{id:1017,level:9}],reward:500},
 {name:"Рыбак",team:[{id:1129,level:10},{id:1054,level:11}],reward:600},
-{name:"Пещерный житель",team:[{id:1041,level:12},{id:1074,level:13}],reward:800},
+{name:"Чародей Лио",team:[{id:1041,level:12},{id:1074,level:13}],reward:800},
 {name:"Рейнджер Сальвис",team:[{id:1014,level:1},{id:1010,level:1}],reward:1000}
 ];// ===================== КВЕСТЫ (ПОЛНОСТЬЮ ФЭНТЕЗИЙНЫЕ) =====================
 const QUEST_DEFS=[
+// ========== ГОРЫ БЮН И ТРИ КОРОЛЕВСТВА ==========
+{id:"q_byun_pass",biome:"byun_mountains",nps:"Страж Перевала Торин",npsPos:{x:2500,y:2300},
+  title:"Перевал Гор Бюн",desc:"Победи 20 существ в Горах Бюн, чтобы доказать силу.",target:20,
+  type:"defeat",reward:{money:25000,items:{ultraball:5}},
+  dialogue:"Горы Бюн не терпят слабых! Победи двадцать тварей — и я пропущу тебя к трём королевствам."},
+
+{id:"q_zlatogorye_gold",biome:"zlatogorye",nps:"Король Лепреконов Финеган",npsPos:{x:2650,y:2200},
+  title:"Золото Златогорья",desc:"Поймай Золотого Лепрекона — его золото питает королевство.",target:1,
+  type:"catch_specific",targetIds:[1300],reward:{money:40000,items:{revive:5}},
+  dialogue:"Приветствую в Златогорье! Поймай Золотого Лепрекона — и я открою тебе радужный путь."},
+
+{id:"q_molotor_forge",biome:"molotor",nps:"Король Дворфов Дюрин",npsPos:{x:2650,y:2500},
+  title:"Кузница Молотора",desc:"Победи 25 существ — кузницы Молотора требуют руды.",target:25,
+  type:"defeat",reward:{money:35000,items:{ultraball:5}},
+  dialogue:"Добро пожаловать в Молотор! Победи двадцать пять тварей — и я выкую тебе легендарный молот."},
+
+{id:"q_chagnomoks_invention",biome:"chagnomoks",nps:"Технобарон Гримли",npsPos:{x:2650,y:2800},
+  title:"Изобретение Чагномокса",desc:"Поймай Гнома-Технобарона — его знания бесценны.",target:1,
+  type:"catch_specific",targetIds:[1321],reward:{money:50000,items:{revive:5}},
+  dialogue:"Чагномокс — сердце технологий! Поймай Технобарона — и я подарю тебе армию дронов."},
+
+{id:"q_three_kingdoms",biome:"byun_mountains",nps:"Посол Трёх Королевств",npsPos:{x:2700,y:2600},
+  title:"Три Королевства",desc:"Доведи любое существо до 60 уровня — только тогда ты станешь легендой Бюн.",target:60,
+  type:"level",reward:{money:100000,items:{revive:10,ultraball:10}},
+  dialogue:"Три королевства признают только сильнейших. Прокачай спутника до 60 уровня — и ты войдёшь в легенды."},
 // ========== БОЖЕСТВЕННЫЙ КРАЙ (ФИНАЛ) ==========
 {id:"q_heavenly_gate",biome:"heavenly_edge",nps:"Хранитель Врат",npsPos:{x:2050,y:400},
   title:"Врата в Божественный Край",desc:"Победи 5 существ Божественного Края, чтобы доказать свою чистоту.",target:5,
@@ -7879,7 +8244,7 @@ const QUEST_DEFS=[
 {id:"q_golem_souls",biome:"haradat",nps:"Магистр Вейлон",npsPos:{x:550,y:400},
   title:"Души големов",desc:"Победи 10 существ — осколки их душ питают наших големов.",target:10,
   type:"defeat",reward:{money:2200,items:{superpotion:3}},
-  dialogue:"Наши големы питаются осколками душ. Победи десятерых — и магия Харадата не угаснет."},
+  dialogue:"Наши големы питаются осколками душ. Победи десятерых — и магия Зарадата не угаснет."},
 
 {id:"q_stone_collector",biome:"haradat",nps:"Коллекционер Бран",npsPos:{x:700,y:450},
   title:"Живой камень",desc:"Поймай Каменного Голема — мне нужен образец.",target:1,
@@ -8293,7 +8658,7 @@ const ZONE_CONFIG={
   zyffren:    {levels:[3,5],   rarities:{common:14, uncommon:3, rare:1, epic:0.3}},
   route:      {levels:[3,6],   rarities:{common:10, uncommon:8, rare:1}},
   forest:     {levels:[5,8],   rarities:{common:10, uncommon:6, rare:2}},
-  haradat:    {levels:[6,9],   rarities:{common:8,  uncommon:7, rare:3}},
+  haradat:    {levels:[6,9],   rarities:{common:2,  uncommon:7, rare:23}},
   mountain:   {levels:[8,12],  rarities:{common:6,  uncommon:7, rare:4, epic:1}},
   goch:       {levels:[10,14], rarities:{common:5,  uncommon:7, rare:5, epic:1}},
   olandir:    {levels:[12,16], rarities:{common:4,  uncommon:6, rare:6, epic:2}},
@@ -8318,6 +8683,48 @@ deadlands: {
     rare: 8,
     epic: 6,
     legendary: 1
+  }
+},
+
+// ===== ГОРЫ БЮН И ТРИ КОРОЛЕВСТВА =====
+byun_mountains: {
+  levels: [40, 50],
+  rarities: {
+    common: 0,
+    uncommon: 5,
+    rare: 15,
+    epic: 12,
+    legendary: 2
+  }
+},
+zlatogorye: {
+  levels: [45, 55],
+  rarities: {
+    common: 0,
+    uncommon: 0,
+    rare: 8,
+    epic: 15,
+    legendary: 3
+  }
+},
+molotor: {
+  levels: [48, 58],
+  rarities: {
+    common: 0,
+    uncommon: 0,
+    rare: 5,
+    epic: 18,
+    legendary: 4
+  }
+},
+chagnomoks: {
+  levels: [50, 60],
+  rarities: {
+    common: 0,
+    uncommon: 0,
+    rare: 5,
+    epic: 20,
+    legendary: 5
   }
 },
 
@@ -8553,7 +8960,19 @@ function spawnTrainers(){
     const tmpl=TRAINER_TEMPLATES[i%TRAINER_TEMPLATES.length];
     const el=document.createElement('div');
     el.className='trainer';
-   el.innerHTML = (i % 2 === 0) ? NPS_TRAINER_MALE : NPS_TRAINER_FEMALE;
+ // Выбор спрайта по типу тренера
+let svg;
+const name = tmpl.name.toLowerCase();
+if(name.includes('рыцарь') || name.includes('паладин') || name.includes('воин')){
+  svg = NPS_KNIGHT;
+} else if(name.includes('маг') || name.includes('колдун')){
+  svg = NPS_TRAINER_MALE;
+} else if(name.includes('ловчий') || name.includes('охотник') || name.includes('птицелов') || name.includes('рыбак')){
+  svg = NPS_TRAINER_FEMALE;
+} else {
+  svg = (i % 2 === 0) ? NPS_TRAINER_MALE : NPS_TRAINER_FEMALE;
+}
+el.innerHTML = svg;
 const label = document.createElement('div');
 label.className = 'label';
 label.textContent = tmpl.name;
@@ -8727,13 +9146,24 @@ const NPS_QUEST_SVGS = {
   </svg>`
 };function pickNPSSvg(npsName){
   const n = npsName.toLowerCase();
-
+// === Рыцари, паладины, воины, стражи ===
+if(n.includes('рыцарь')  || n.includes('паладин') ||
+   n.includes('воин')    || n.includes('стражник') ||
+   n.includes('громовержец'))
+  return NPS_KNIGHT;
   // === 1. Верховный архимаг / профессор / хранитель / чемпион / магистр ===
   //    (только явные "магические" титулы)
   if(n.includes('профессор')  || n.includes('архимаг') ||
      n.includes('чемпион')    || n.includes('магистр') ||
      n.includes('мудрец')     || n.includes('хранитель легенд'))
     return NPS_PROFESSOR;
+// === НОВЫЕ КОРОЛЕВСТВА ===
+if(n.includes('король лепрекон') || n.includes('финеган'))
+  return NPS_LEPRECHAUN_KING;
+if(n.includes('король дворф') || n.includes('дюрин'))
+  return NPS_DWARF_KING;
+if(n.includes('технобарон') || n.includes('гримли'))
+  return NPS_GNOME_BARON;
 
   // === 2. Женские образы: жрицы, ведуньи, магички, целительницы ===
   //    Проверяем ПЕРЕД общими "мастер", "хранитель" и т.п.
@@ -9041,6 +9471,101 @@ function drawForestTrees(ctx){
   });
 }
 
+// ===================== ГОРНЫЕ ПЕРЕМЫЧКИ ГОР БЮН =====================
+function drawByunRidgeConnections(ctx){
+  // Соединяем три королевства визуальными горными хребтами
+  const connections = [
+    // Златогорье -> Молотор
+    {x1:2700, y1:2350, x2:2700, y2:2450},
+    // Молотор -> Чагномокс
+    {x1:2700, y1:2650, x2:2700, y2:2750},
+    // Златогорье -> западная часть Гор Бюн
+    {x1:2550, y1:2250, x2:2450, y2:2250},
+    // Чагномокс -> восточная часть Гор Бюн
+    {x1:2850, y1:2850, x2:2950, y2:2850}
+  ];
+
+  const rnd = mulberry32(555777);
+
+  connections.forEach(conn => {
+    const dx = conn.x2 - conn.x1;
+    const dy = conn.y2 - conn.y1;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const steps = Math.floor(dist / 25);
+
+    for(let i=0;i<=steps;i++){
+      const t = i / steps;
+      const px = conn.x1 + dx * t + (rnd()-0.5)*20;
+      const py = conn.y1 + dy * t + (rnd()-0.5)*20;
+
+      // Небольшая горная вершина
+      const mh = 25 + rnd()*20;
+      const mw = 20 + rnd()*15;
+
+      // Тень
+      ctx.fillStyle = 'rgba(20,25,40,0.6)';
+      ctx.beginPath();
+      ctx.moveTo(px - mw/2, py);
+      ctx.lineTo(px, py - mh);
+      ctx.lineTo(px + mw/2, py);
+      ctx.closePath();
+      ctx.fill();
+
+      // Скала
+      ctx.fillStyle = 'rgba(90,95,110,0.85)';
+      ctx.beginPath();
+      ctx.moveTo(px - mw/2 + 2, py);
+      ctx.lineTo(px, py - mh);
+      ctx.lineTo(px + mw/2 - 2, py);
+      ctx.closePath();
+      ctx.fill();
+
+      // Снежная шапка
+      if(mh > 30){
+        ctx.fillStyle = 'rgba(240,245,255,0.85)';
+        ctx.beginPath();
+        ctx.moveTo(px, py - mh);
+        ctx.lineTo(px - 4, py - mh + 6);
+        ctx.lineTo(px + 4, py - mh + 6);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+  });
+
+  // Золотые руны у входа в каждое королевство
+  const runeSpots = [
+    {x:2550, y:2200},   // Златогорье
+    {x:2550, y:2500},   // Молотор
+    {x:2550, y:2800},   // Чагномокс
+    {x:2450, y:2300}    // Западный вход в Горы Бюн
+  ];
+
+  runeSpots.forEach(spot => {
+    // Светящийся круг
+    ctx.strokeStyle = 'rgba(251,191,36,0.7)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(spot.x, spot.y, 12, 0, Math.PI*2);
+    ctx.stroke();
+
+    // Внутренний крест
+    ctx.beginPath();
+    ctx.moveTo(spot.x - 6, spot.y);
+    ctx.lineTo(spot.x + 6, spot.y);
+    ctx.moveTo(spot.x, spot.y - 6);
+    ctx.lineTo(spot.x, spot.y + 6);
+    ctx.stroke();
+
+    // Свечение
+    ctx.fillStyle = 'rgba(251,191,36,0.15)';
+    ctx.beginPath();
+    ctx.arc(spot.x, spot.y, 22, 0, Math.PI*2);
+    ctx.fill();
+  });
+}
+
+
 function drawBackground(){
   housesToSpawn.length = 0;  
   const canvas = document.getElementById('bg');
@@ -9049,7 +9574,7 @@ function drawBackground(){
   const W = canvas.width, H = canvas.height;
   ctx.clearRect(0,0,W,H);
 
-  // ===================== БАЗОВАЯ Земляной =====================
+  // ===================== БАЗОВАЯ ЗЕМЛЯ =====================
   ctx.fillStyle = '#1a3d2a';
   ctx.fillRect(0,0,W,H);
 
@@ -9075,7 +9600,7 @@ function drawBackground(){
     const rx = zone.w/2;
     const ry = zone.h/2;
 
-    // --- Основа биома ---
+    // --- Основа биома (градиент) ---
     const g = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(rx,ry));
     g.addColorStop(0, h.bg);
     g.addColorStop(0.7, h.bg);
@@ -9085,12 +9610,13 @@ function drawBackground(){
     ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
     ctx.fill();
 
+    // 🔒 Если зона не открыта — текстуру и обводку не рисуем
     if(!isUnlocked) return;
 
     // --- Уникальная текстура по биому ---
     drawBiomeTexture(ctx, zone.biome, zone);
 
-    // --- Обводка ---
+    // --- Обводка биома ---
     ctx.strokeStyle = h.color;
     ctx.globalAlpha = 0.35;
     ctx.lineWidth = 2;
@@ -9104,8 +9630,14 @@ function drawBackground(){
 
   // ===================== ДОРОГИ МЕЖДУ ГОРОДАМИ =====================
   drawRoads(ctx);
+
+  // ===================== ДЕРЕВЬЯ НА ПУСТЫХ ЗЕЛЁНЫХ ЗОНАХ =====================
   drawForestTrees(ctx);
-  // ===================== НАЗВАНИЯ (в top-слое) =====================
+
+  // ===================== СВЯЗУЮЩИЕ ГОРНЫЕ ХРЕБТЫ ГОР БЮН =====================
+  drawByunRidgeConnections(ctx);
+
+  // ===================== НАЗВАНИЯ (в top-слое, не здесь) =====================
 }
 // ===================== МАГОКРАТИЯ ХАРАДАТ 2.0 =====================
 // Синий магический город: башни, купол, стены, порталы, парящие кристаллы
@@ -10045,6 +10577,104 @@ function drawMagicCityAnimation(ctx, time){
     }
   });
 }
+
+
+// ===================== ГОРЫ БЮН =====================
+function drawByunMountains(ctx,x,y,w,h,rnd){
+  // Тёмный горный фон
+  const g = ctx.createLinearGradient(x,y,x,y+h);
+  g.addColorStop(0, 'rgba(60,65,80,0.95)');
+  g.addColorStop(0.5, 'rgba(45,50,65,0.9)');
+  g.addColorStop(1, 'rgba(30,35,50,0.85)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);
+  ctx.fill();
+
+  // Скалы-шпили
+  for(let i=0;i<20;i++){
+    const mx = x + 30 + rnd()*(w-60);
+    const my = y + 60 + rnd()*(h-120);
+    const mw = 30 + rnd()*50;
+    const mh = 50 + rnd()*80;
+    
+    // Тень
+    ctx.fillStyle = 'rgba(20,25,40,0.8)';
+    ctx.beginPath();
+    ctx.moveTo(mx,my);
+    ctx.lineTo(mx+mw/2,my-mh);
+    ctx.lineTo(mx+mw,my);
+    ctx.closePath();
+    ctx.fill();
+    
+    // Основа
+    ctx.fillStyle = 'rgba(90,95,110,0.9)';
+    ctx.beginPath();
+    ctx.moveTo(mx,my);
+    ctx.lineTo(mx+mw/2,my-mh);
+    ctx.lineTo(mx+mw*0.65,my);
+    ctx.closePath();
+    ctx.fill();
+    
+    // Снежная шапка
+    ctx.fillStyle = 'rgba(240,245,255,0.9)';
+    ctx.beginPath();
+    ctx.moveTo(mx+mw/2,my-mh);
+    ctx.lineTo(mx+mw/2-6,my-mh+10);
+    ctx.lineTo(mx+mw/2-2,my-mh+8);
+    ctx.lineTo(mx+mw/2+3,my-mh+11);
+    ctx.lineTo(mx+mw/2+6,my-mh+10);
+    ctx.closePath();
+    ctx.fill();
+    
+    // Золотые руны (символ трёх королевств)
+    if(rnd()>0.5){
+      ctx.strokeStyle = 'rgba(251,191,36,0.7)';
+      ctx.lineWidth = 1.5;
+      const rx = mx + mw/2;
+      const ry = my - mh/2;
+      ctx.beginPath();
+      ctx.arc(rx,ry,5,0,Math.PI*2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(rx-3,ry-3); ctx.lineTo(rx+3,ry+3);
+      ctx.moveTo(rx+3,ry-3); ctx.lineTo(rx-3,ry+3);
+      ctx.stroke();
+    }
+  }
+
+  // Горные тропы
+  ctx.strokeStyle = 'rgba(180,160,120,0.4)';
+  ctx.lineWidth = 3;
+  ctx.setLineDash([8,6]);
+  ctx.beginPath();
+  ctx.moveTo(x+50, y+h-50);
+  ctx.quadraticCurveTo(x+w/2, y+h/2, x+w-50, y+50);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Кристаллы
+  for(let i=0;i<8;i++){
+    const cx = x + rnd()*w;
+    const cy = y + rnd()*h;
+    const colors = ['#67e8f9','#fbbf24','#a855f7'];
+    const col = colors[Math.floor(rnd()*3)];
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy-8);
+    ctx.lineTo(cx-3,cy);
+    ctx.lineTo(cx,cy+4);
+    ctx.lineTo(cx+3,cy);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = col.replace(')',',0.2)').replace('rgb','rgba');
+    ctx.beginPath();
+    ctx.arc(cx,cy,12,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+
 function drawBiomeTexture(ctx, biome, zone){
   const seed = mulberry32(zone.x*31 + zone.y*17 + zone.w*7);
   const {x,y,w,h} = zone;
@@ -10057,10 +10687,12 @@ function drawBiomeTexture(ctx, biome, zone){
     case 'cave':     drawCave(ctx,x,y,w,h,seed); break;
     case 'volcano':  drawVolcano(ctx,x,y,w,h,seed); break;
     case 'route':    drawRoute(ctx,x,y,w,h,seed); break;
+case 'byun_mountains': drawByunMountains(ctx,x,y,w,h,seed); break;
     case 'heavenly_edge': drawHeavenlyEdge(ctx,x,y,w,h,seed); break;
     case 'deadlands':  drawDeadlands(ctx,x,y,w,h,seed);  break;   // ← НОВОЕ
     case 'necropolis': drawNecropolis(ctx,x,y,w,h,seed); break;   // ← НОВОЕ
-    default:
+case 'byun_mountains': drawByunMountains(ctx,x,y,w,h,seed); break;    
+default:
       if(biome === 'haradat'){
         drawMagicCity(ctx, x, y, w, h, seed, 'haradat');
       } else if(['sid','zyffren','goch','selax','fattolodor','totsar','olandir','uurion','gozon','pole_magii'].includes(biome)){
@@ -10718,6 +11350,9 @@ function drawCity(ctx,x,y,w,h,rnd,biome){
 
   // Цвета домов по биому
 const houseColors = {
+zlatogorye: ['#fbbf24','#fde68a'],
+molotor:    ['#dc2626','#fca5a5'],
+chagnomoks: ['#a78bfa','#c4b5fd'],
   sid:        ['#a3e635','#d9f99d'],
   zyffren:    ['#86efac','#bbf7d0'],
   haradat:     ['#3b82f6','#1e40af'],
@@ -10868,22 +11503,32 @@ function drawHouse(ctx,x,y,w,h,wallColor,roofColor){
   ctx.fillStyle = '#78350f';
   ctx.fillRect(x+w*0.42,y+h*0.65,w*0.16,h*0.35);
 }
-
-// ---------- ДОРОГИ МЕЖДУ ГОРОДАМИ ----------
 function drawRoads(ctx){
-const cityOrder = ['sid','zyffren','haradat','goch','olandir','selax','fattolodor','totsar','uurion','gozon','pole_magii'];
+  const cityOrder = [
+    'sid','zyffren','haradat','goch','olandir','selax',
+    'fattolodor','totsar','uurion','gozon','pole_magii',
+    'zlatogorye','molotor','chagnomoks'
+  ];
   const centers = {};
   BIOME_ZONES.forEach(z=>{
     if(cityOrder.includes(z.biome)){
       centers[z.biome] = {x:z.x+z.w/2, y:z.y+z.h/2};
     }
   });
- const links = [
-  ['sid','zyffren'],['zyffren','haradat'],['haradat','goch'],
-  ['goch','olandir'],['olandir','selax'],['selax','fattolodor'],
-  ['fattolodor','totsar'],['totsar','uurion'],['uurion','gozon'],
-  ['gozon','pole_magii']
-];
+
+  const links = [
+    // Старые связи
+    ['sid','zyffren'],['zyffren','haradat'],['haradat','goch'],
+    ['goch','olandir'],['olandir','selax'],['selax','fattolodor'],
+    ['fattolodor','totsar'],['totsar','uurion'],['uurion','gozon'],
+    ['gozon','pole_magii'],
+    // 🔥 Новые связи — путь через Горы Бюн
+    ['pole_magii','zlatogorye'],
+    ['zlatogorye','molotor'],
+    ['molotor','chagnomoks'],
+    ['chagnomoks','necropolis']   // связь с Некрополем Личерон
+  ];
+
   ctx.strokeStyle = 'rgba(120,113,108,0.55)';
   ctx.lineWidth = 5;
   ctx.setLineDash([15,10]);
@@ -10900,7 +11545,6 @@ const cityOrder = ['sid','zyffren','haradat','goch','olandir','selax','fattolodo
   });
   ctx.setLineDash([]);
 }
-
 // ---------- ВЕРХНИЙ СЛОЙ (названия) ----------
 function drawTopLayer(){
   const canvas = document.getElementById('top');
@@ -11322,6 +11966,75 @@ const BUILDING_SOUL_SANCTUARY = `<svg viewBox="0 0 64 64">
   <path d="M54 38 L56 32 L52 34 Z" fill="#67e8f9" opacity="0.8"/>
 </svg>`;
 
+
+// Лепрекон-король
+const NPS_LEPRECHAUN_KING = `<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <rect x="26" y="46" width="5" height="12" rx="2" fill="#1a1a1a"/>
+  <rect x="33" y="46" width="5" height="12" rx="2" fill="#1a1a1a"/>
+  <ellipse cx="28" cy="58" rx="4" ry="2.5" fill="#000"/>
+  <ellipse cx="35" cy="58" rx="4" ry="2.5" fill="#000"/>
+  <rect x="20" y="28" width="24" height="20" rx="4" fill="#16a34a"/>
+  <path d="M20 34 L44 34 M20 40 L44 40" stroke="#fbbf24" stroke-width="2"/>
+  <rect x="14" y="30" width="7" height="16" rx="3" fill="#16a34a"/>
+  <rect x="43" y="30" width="7" height="16" rx="3" fill="#16a34a"/>
+  <circle cx="17" cy="48" r="3" fill="#fde68a"/>
+  <circle cx="47" cy="48" r="3" fill="#fde68a"/>
+  <circle cx="32" cy="18" r="12" fill="#fde68a"/>
+  <path d="M20 14 Q20 2 32 2 Q44 2 44 14 Z" fill="#16a34a"/>
+  <path d="M22 12 L26 4 L30 10 L34 2 L38 10 L42 4 L44 12 Z" fill="#fbbf24"/>
+  <circle cx="32" cy="4" r="2" fill="#ef4444"/>
+  <ellipse cx="27" cy="19" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="19" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <path d="M28 25 Q32 28 36 25" stroke="#dc2626" stroke-width="1.2" fill="none"/>
+</svg>`;
+
+// Дворф-король
+const NPS_DWARF_KING = `<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="20" ry="4" fill="rgba(0,0,0,0.4)"/>
+  <ellipse cx="24" cy="56" rx="8" ry="4.5" fill="#1a1a1a"/>
+  <ellipse cx="40" cy="56" rx="8" ry="4.5" fill="#1a1a1a"/>
+  <rect x="14" y="30" width="36" height="24" rx="5" fill="#fbbf24"/>
+  <rect x="14" y="30" width="36" height="6" fill="#fde68a"/>
+  <circle cx="32" cy="42" r="8" fill="#7f1d1d"/>
+  <path d="M32 36 L32 48 M26 42 L38 42" stroke="#fde68a" stroke-width="1.8"/>
+  <rect x="6" y="34" width="8" height="18" rx="3" fill="#fbbf24"/>
+  <rect x="50" y="34" width="8" height="18" rx="3" fill="#fbbf24"/>
+  <circle cx="10" cy="53" r="4" fill="#fde68a"/>
+  <circle cx="54" cy="53" r="4" fill="#fde68a"/>
+  <circle cx="32" cy="18" r="14" fill="#fbbf24"/>
+  <path d="M14 12 L18 2 L22 8 L26 0 L32 6 L38 0 L42 8 L46 2 L50 12 Z" fill="#fbbf24"/>
+  <circle cx="32" cy="4" r="1.5" fill="#ef4444"/>
+  <path d="M18 22 Q18 52 32 56 Q46 52 46 22 Q42 28 32 28 Q22 28 18 22 Z" fill="#e5e7eb"/>
+  <circle cx="27" cy="19" r="2.2" fill="#1a1a1a"/>
+  <circle cx="37" cy="19" r="2.2" fill="#1a1a1a"/>
+</svg>`;
+
+// Гном-технобарон
+const NPS_GNOME_BARON = `<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <rect x="24" y="46" width="7" height="12" rx="2" fill="#44403c"/>
+  <rect x="33" y="46" width="7" height="12" rx="2" fill="#44403c"/>
+  <ellipse cx="27" cy="58" rx="5" ry="2.5" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="58" rx="5" ry="2.5" fill="#1a1a1a"/>
+  <path d="M18 28 L46 28 L48 48 L16 48 Z" fill="#4c1d95"/>
+  <circle cx="32" cy="40" r="5" fill="#0a0e1a" stroke="#a855f7" stroke-width="1.3"/>
+  <path d="M32 35 L32 45 M27 40 L37 40" stroke="#67e8f9" stroke-width="1.2"/>
+  <rect x="12" y="30" width="7" height="16" rx="3" fill="#4c1d95"/>
+  <rect x="45" y="30" width="7" height="16" rx="3" fill="#4c1d95"/>
+  <circle cx="15" cy="47" r="3" fill="#fcd34d"/>
+  <circle cx="49" cy="47" r="3" fill="#fcd34d"/>
+  <circle cx="52" cy="34" r="5" fill="#67e8f9" opacity="0.7"/>
+  <circle cx="52" cy="34" r="2.5" fill="#e0f2fe"/>
+  <circle cx="32" cy="16" r="11" fill="#fcd34d"/>
+  <path d="M22 14 Q24 2 32 2 Q40 2 42 14 Z" fill="#1e1b4b"/>
+  <path d="M28 4 L26 0 L30 2 Z" fill="#67e8f9"/>
+  <path d="M36 4 L38 0 L34 2 Z" fill="#a855f7"/>
+  <ellipse cx="28" cy="18" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="18" rx="2" ry="2.4" fill="#1a1a1a"/>
+  <circle cx="28" cy="18" r="1" fill="#67e8f9"/>
+  <circle cx="36" cy="18" r="1" fill="#67e8f9"/>
+</svg>`;
 
 // Ангел-Хранитель Врат (Божественный Край)
 const NPS_HEAVENLY_GUARDIAN = `<svg viewBox="0 0 64 64">
