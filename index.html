@@ -8261,7 +8261,7 @@ const QUEST_DEFS=[
   dialogue:"Смертный, ты дошёл до врат Небес. Но не каждый достоин войти. Победи пять святых существ, чтобы очиститься."},
 // ========== ГОРОД СИД (стартовый) ==========
 {id:"q_first_hunt",biome:"sid",nps:"Старейшина Орн",npsPos:{x:550,y:1660},
-  title:"Первая охота",desc:"Победи 2 существ на окраинах Сида, чтобы доказать свою готовность.",target:2,
+  title:"Первая охота",desc:"Победи 2 существ на окраинах Сенории, чтобы доказать свою готовность.",target:2,
   type:"defeat",reward:{money:400,items:{Plylact:5}},
   dialogue:"Юный искатель... Город Сид окружён тёмными тварями. Докажи, что ты не трус — победи двух существ на окраинах."},
 
@@ -14806,10 +14806,42 @@ function goToDialogNode(nodeId){
   if(!dialogState) return;
 
   // Конец диалога
-  if(nodeId === null || nodeId === 'END'){
+  if(nodeId === null || nodeId === 'END' ||  nodeId === undefined){
     const ctx = dialogState.context;
     const dlg = dialogState.dialog;
     dialogState = null;
+
+
+
+  // Закрываем окно
+    const dialogScreen = document.getElementById('dialogScreen');
+    dialogScreen.classList.remove('active');
+
+    // Чистим DOM
+    const dialogBox = dialogScreen.querySelector('.dialog-box');
+    if(dialogBox){
+      const choicesBox = dialogBox.querySelector('.dialog-choices');
+      if(choicesBox) choicesBox.remove();
+      const portrait = dialogBox.querySelector('.dialog-portrait');
+      if(portrait) portrait.remove();
+      const hintEl = dialogBox.querySelector('.dialog-hint');
+      if(hintEl){
+        hintEl.style.display = 'block';
+        hintEl.textContent = 'Нажми, чтобы продолжить';
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     if(dlg.onEnd) dlg.onEnd(ctx);
     return;
   }
@@ -14942,10 +14974,76 @@ function setupDialogClickHandler(){
   });
 }
 
-document.querySelector('.dialog-box').addEventListener('click',()=>{
-  document.getElementById('dialogScreen').classList.remove('active');
-  if(dialogCallback){const cb=dialogCallback;dialogCallback=null;cb()}
-});
+// ===================== ЕДИНЫЙ ОБРАБОТЧИК КЛИКА ПО ДИАЛОГУ =====================
+// Работает и для простых showDialog(), и для сюжетных startDialog().
+// Никакого дублирования — только один обработчик.
+function setupDialogClickHandler(){
+  const dialogBox = document.querySelector('.dialog-box');
+  if(!dialogBox) return;
+
+  // Убираем возможные старые обработчики, клонируя узел
+  const newBox = dialogBox.cloneNode(true);
+  dialogBox.parentNode.replaceChild(newBox, dialogBox);
+
+  newBox.addEventListener('click', e => {
+
+    // === Клик по кнопке выбора — обрабатывается отдельно ===
+    if(e.target.closest('.dialog-choice-btn')) return;
+
+    // ============================================
+    // 1. ПРОСТОЙ ДИАЛОГ (через showDialog)
+    // ============================================
+    if(dialogCallback){
+      const cb = dialogCallback;
+      dialogCallback = null;
+      document.getElementById('dialogScreen').classList.remove('active');
+      cb();
+      return;
+    }
+
+    // ============================================
+    // 2. СЮЖЕТНЫЙ ДИАЛОГ (через startDialog)
+    // ============================================
+    if(!dialogState) {
+      // Ничего не открыто — просто закрываем на всякий случай
+      document.getElementById('dialogScreen').classList.remove('active');
+      return;
+    }
+
+    const lastNodeId = dialogState.history[dialogState.history.length - 1];
+    const node = dialogState.dialog.nodes[lastNodeId];
+    if(!node) {
+      // Узел потерялся — закрываем
+      dialogState = null;
+      document.getElementById('dialogScreen').classList.remove('active');
+      return;
+    }
+
+    // Если у узла есть выборы — ждём нажатия кнопки, не закрываем
+    if(node.choices && node.choices.length) return;
+
+    // Переход к следующему узлу
+    if(node.next){
+      goToDialogNode(node.next);
+    } else {
+      // Конец диалога — закрываем
+      const dlg = dialogState.dialog;
+      const ctx = dialogState.context;
+      dialogState = null;
+      document.getElementById('dialogScreen').classList.remove('active');
+
+      // Чистим выборы, если остались
+      const choicesBox = newBox.querySelector('.dialog-choices');
+      if(choicesBox) choicesBox.remove();
+
+      // Чистим портрет
+      const portrait = newBox.querySelector('.dialog-portrait');
+      if(portrait) portrait.remove();
+
+      if(dlg.onEnd) dlg.onEnd(ctx);
+    }
+  });
+}
 
 
 // ===================== ИГРОВОЕ ОКНО (замена alert/confirm/prompt) =====================
@@ -15172,7 +15270,7 @@ DIALOGS.q_first_hunt = {
 
     who_are_you: {
       speaker: 'Старейшина Орн',
-      text: 'Я — Орн, старейшина Сида. Триста лет я охраняю эти земли от тьмы.\n\nНо старость берёт своё. Мои руки уже не так крепки, как раньше. Пора передать эстафету молодым.',
+      text: 'Я — Орн, старейшина Сенории. Триста лет я охраняю эти земли от тьмы.\n\nНо старость берёт своё. Мои руки уже не так крепки, как раньше. Пора передать эстафету молодым.',
       choices: [
         {
           text: '❓ Кто ты такой, старейшина?',
@@ -15284,7 +15382,7 @@ DIALOGS.q_first_hunt = {
 
     lore_kingdoms: {
       speaker: 'Старейшина Орн',
-      text: 'Три Королевства — это союз трёх рас:\n\n🏆 Златогорье — лепреконы-маги. Их король Финеган может исполнить желание.\n⚒️ Молотор — дворфы-кузнецы. Их молоты дробят скалы.\n⚙️ Чагномокс — гномы-изобретатели. Они создают дронов и лазеры.\n\nВсе три — союзники Сида. Но путь туда опасен.',
+      text: 'Три Королевства — это союз трёх рас:\n\n🏆 Златогорье — лепреконы-маги. Их король Финеган может исполнить желание.\n⚒️ Молотор — дворфы-кузнецы. Их молоты дробят скалы.\n⚙️ Чагномокс — гномы-изобретатели. Они создают дронов и лазеры.\n\nВсе три — союзники Сенории. Но путь туда опасен.',
       next: 'lore_world_map'
     },
 
@@ -15350,7 +15448,7 @@ DIALOGS.q_first_hunt = {
 
     warrior_accept: {
       speaker: 'Старейшина Орн',
-      text: 'Докажи свою готовность — победи двух существ на окраинах Сида. Не больше. Не меньше. Я хочу увидеть, как ты справляешься с задачей.',
+      text: 'Докажи свою готовность — победи двух существ на окраинах Сенории. Не больше. Не меньше. Я хочу увидеть, как ты справляешься с задачей.',
       onEnter: ctx => { ctx.questType = 'defeat'; },
       next: 'accept_quest'
     },
@@ -15458,7 +15556,7 @@ DIALOGS.q_first_hunt = {
 
     merchant_shop: {
       speaker: 'Старейшина Орн',
-      text: 'Магазин — в центре Сида. Там продают филактерии (для поимки существ), зелья и свитки.\n\nНо лучшие предметы ты найдёшь не в магазине. Их дают за выполнение квестов. Или за победу над сильными врагами.',
+      text: 'Магазин — в центре Сенории. Там продают филактерии (для поимки существ), зелья и свитки.\n\nНо лучшие предметы ты найдёшь не в магазине. Их дают за выполнение квестов. Или за победу над сильными врагами.',
       onEnter: ctx => {
         showToast('🏪 Подсказка: кнопка «Магазин» — внизу экрана!', 4000);
       },
@@ -15477,7 +15575,7 @@ DIALOGS.q_first_hunt = {
     // ============================================================
     accept_quest: {
       speaker: 'Старейшина Орн',
-      text: '📜 Задание: «Первая охота»\n\nПобеди 2 существа на окраинах Сида.\n\nНаграда: 400 золотых и 5 Филактерий.\n\nОтправляйся на окраины. И помни: если что-то случится — возвращайся ко мне.',
+      text: '📜 Задание: «Первая охота»\n\nПобеди 2 существа на окраинах Сенории.\n\nНаграда: 400 золотых и 5 Филактерий.\n\nОтправляйся на окраины. И помни: если что-то случится — возвращайся ко мне.',
       onEnter: ctx => {
         // Автоматически берём квест
         const q = QUEST_DEFS.find(x => x.id === 'q_first_hunt');
