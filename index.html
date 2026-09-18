@@ -2760,6 +2760,84 @@ display:none;
 #top{...width:3000px;height:3200px;...}
 #labels{...width:3000px;height:3200px;...}
 #questMarks{...width:3000px;height:3200px;...}
+
+/* ===== СЮЖЕТНЫЕ ДИАЛОГИ ===== */
+.dialog-box {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #2a2018 0%, #0f0a05 100%);
+  border: 3px solid #8b6914;
+  border-radius: 6px;
+  padding: 20px 24px;
+  cursor: pointer;
+}
+
+.dialog-portrait {
+  position: absolute;
+  left: -90px;
+  top: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #4a3826, #1a1410);
+  border: 2px solid #ffd100;
+  box-shadow: 0 0 20px rgba(255,209,0,0.5);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dialog-portrait svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .dialog-portrait {
+    left: 10px;
+    top: -50px;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.dialog-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,209,0,0.3);
+}
+
+.dialog-choice-btn {
+  padding: 10px 16px;
+  background: linear-gradient(180deg, #4a3826 0%, #2a2018 100%);
+  border: 2px solid #5a4326;
+  border-radius: 4px;
+  color: #fff3b0;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.dialog-choice-btn:hover {
+  background: linear-gradient(180deg, #6b5030 0%, #4a3826 100%);
+  border-color: #ffd100;
+  color: #ffd100;
+  transform: translateX(4px);
+  box-shadow: 0 0 12px rgba(255,209,0,0.4);
+}
+
+.dialog-choice-btn:active {
+  transform: translateX(4px) translateY(2px);
+}
+
 </style>
 </head>
 <body>
@@ -13602,25 +13680,54 @@ function updateQuestBadge(){
   else badge.style.display='none';
 }
 function openQuestDialog(q){
-  const st=activeQuests[q.id];
-  if(st&&st.claimed){
-    showDialog(q.nps,`Спасибо за помощь! Квест "${q.title}" уже выполнен.`);
+  const st = activeQuests[q.id];
+
+  // Сюжетный диалог — если для этого квеста есть DIALOGS
+  if(DIALOGS[q.id]){
+    // Если квест уже сдан — особый диалог
+    if(st && st.claimed){
+      startDialog(q.id, {phase: 'after'});
+      // Переходим сразу к узлу after_complete, если он есть
+      if(DIALOGS[q.id].nodes.after_complete){
+        goToDialogNode('after_complete');
+      }
+      return;
+    }
+    // Если квест готов к сдаче — диалог завершения
+    if(st && st.completed && !st.claimed){
+      startDialog(q.id, {phase: 'complete'});
+      if(DIALOGS[q.id].nodes.after_complete){
+        goToDialogNode('after_complete');
+      }
+      return;
+    }
+    // Если квест уже взят — короткий диалог
+    if(st){
+      showDialog(q.nps, `Как дела с квестом "${q.title}"?\nПрогресс: ${st.progress}/${q.target}`);
+      return;
+    }
+    // Новый квест — запускаем сюжетный диалог с нуля
+    startDialog(q.id, {phase: 'start'});
     return;
   }
-  if(st&&st.completed){
-    showDialog(q.nps,`Отлично! Ты выполнил "${q.title}"! Держи награду.`,()=>{
+
+  // === Старая логика (для квестов без сюжета) ===
+  if(st && st.claimed){
+    showDialog(q.nps, `Спасибо за помощь! Квест "${q.title}" уже выполнен.`);
+    return;
+  }
+  if(st && st.completed){
+    showDialog(q.nps, `Отлично! Ты выполнил "${q.title}"! Держи награду.`, () => {
       claimQuestReward(q.id);
     });
     return;
   }
   if(st){
-    showDialog(q.nps,`Как дела с квестом "${q.title}"?\nПрогресс: ${st.progress}/${q.target}\n\n${q.desc}`);
+    showDialog(q.nps, `Как дела с квестом "${q.title}"?\nПрогресс: ${st.progress}/${q.target}\n\n${q.desc}`);
     return;
   }
-  // Новый квест
-  showDialog(q.nps,`${q.dialogue}\n\n📜 Квест: ${q.title}\n${q.desc}\n\nНаграда: ${formatReward(q.reward)}`,()=>{
-    activeQuests[q.id]={progress:0,completed:false,claimed:false};
-    // Проверка на уже выполненное условие
+  showDialog(q.nps, `${q.dialogue}\n\n📜 Квест: ${q.title}\n${q.desc}\n\nНаграда: ${formatReward(q.reward)}`, () => {
+    activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
     checkQuestAutoComplete(q);
     updateQuestMarkers();
     updateQuestBadge();
@@ -14657,6 +14764,184 @@ function showDialog(speaker,text,cb){
   document.getElementById('dialogScreen').classList.add('active');
   dialogCallback=cb;
 }
+// ===================== СЮЖЕТНЫЕ ДИАЛОГИ =====================
+// Формат:
+// DIALOGS[questId] = {
+//   start: 'nodeId',
+//   nodes: {
+//     nodeId: {
+//       speaker: 'Имя',
+//       text: 'Текст...',
+//       choices: [
+//         { text: 'Вариант ответа', next: 'nextNodeId', action: fn }  // выбор
+//       ],
+//       next: 'nextNodeId',   // автопереход (если нет choices)
+//       onEnter: fn,          // действие при входе
+//       onEnd: fn             // действие при завершении
+//     }
+//   }
+// }
+
+const DIALOGS = {};
+
+// Текущее состояние диалога
+let dialogState = null;
+
+function startDialog(dialogId, context){
+  const dialog = DIALOGS[dialogId];
+  if(!dialog){
+    console.warn('Диалог не найден:', dialogId);
+    return;
+  }
+  dialogState = {
+    id: dialogId,
+    dialog,
+    context: context || {},
+    history: []
+  };
+  goToDialogNode(dialog.start);
+}
+
+function goToDialogNode(nodeId){
+  if(!dialogState) return;
+
+  // Конец диалога
+  if(nodeId === null || nodeId === 'END'){
+    const ctx = dialogState.context;
+    const dlg = dialogState.dialog;
+    dialogState = null;
+    if(dlg.onEnd) dlg.onEnd(ctx);
+    return;
+  }
+
+  const node = dialogState.dialog.nodes[nodeId];
+  if(!node){
+    console.warn('Узел диалога не найден:', nodeId);
+    dialogState = null;
+    return;
+  }
+
+  dialogState.history.push(nodeId);
+
+  // Действие при входе
+  if(node.onEnter){
+    node.onEnter(dialogState.context);
+  }
+
+  // Отрисовка узла
+  renderDialogNode(node);
+}
+
+function renderDialogNode(node){
+  const speakerEl = document.getElementById('dialogSpeaker');
+  const textEl = document.getElementById('dialogText');
+  const dialogScreen = document.getElementById('dialogScreen');
+  const dialogBox = dialogScreen.querySelector('.dialog-box');
+  const hintEl = dialogBox.querySelector('.dialog-hint');
+
+  speakerEl.textContent = node.speaker || '';
+  textEl.textContent = node.text || '';
+
+  // Убираем старые варианты ответа
+  const oldChoices = dialogBox.querySelector('.dialog-choices');
+  if(oldChoices) oldChoices.remove();
+
+  // Убираем старую иконку портрета
+  const oldPortrait = dialogBox.querySelector('.dialog-portrait');
+  if(oldPortrait) oldPortrait.remove();
+
+  // Портрет NPS (если есть)
+  if(node.portrait){
+    const portrait = document.createElement('div');
+    portrait.className = 'dialog-portrait';
+    portrait.innerHTML = node.portrait;
+    dialogBox.insertBefore(portrait, speakerEl);
+  }
+
+  dialogScreen.classList.add('active');
+
+  // Если есть варианты выбора
+  if(node.choices && node.choices.length){
+    hintEl.style.display = 'none';
+
+    const choicesBox = document.createElement('div');
+    choicesBox.className = 'dialog-choices';
+
+    node.choices.forEach((choice, idx) => {
+      // Условие показа варианта
+      if(choice.condition && !choice.condition(dialogState.context)){
+        return;
+      }
+
+      const btn = document.createElement('button');
+      btn.className = 'dialog-choice-btn';
+      btn.textContent = choice.text;
+
+      // Действие при выборе
+      if(choice.action){
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          choice.action(dialogState.context);
+        });
+      }
+
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        goToDialogNode(choice.next);
+      });
+
+      choicesBox.appendChild(btn);
+    });
+
+    dialogBox.appendChild(choicesBox);
+  } else {
+    // Автопереход или конец — клик по диалогу
+    hintEl.style.display = 'block';
+    hintEl.textContent = node.next ? 'Нажми, чтобы продолжить' : 'Нажми, чтобы завершить';
+  }
+}
+
+// Перехват клика по диалогу — для многошаговых диалогов
+function setupDialogClickHandler(){
+  const dialogBox = document.querySelector('.dialog-box');
+
+  // Удаляем старый обработчик
+  const newBox = dialogBox.cloneNode(true);
+  dialogBox.parentNode.replaceChild(newBox, dialogBox);
+
+  newBox.addEventListener('click', e => {
+    // Если есть варианты — клик по фону ничего не делает
+    if(e.target.closest('.dialog-choice-btn')) return;
+
+    // Обычный диалог (не сюжетный)
+    if(dialogCallback){
+      const cb = dialogCallback;
+      dialogCallback = null;
+      document.getElementById('dialogScreen').classList.remove('active');
+      cb();
+      return;
+    }
+
+    // Сюжетный диалог
+    if(!dialogState) return;
+    const lastNodeId = dialogState.history[dialogState.history.length - 1];
+    const node = dialogState.dialog.nodes[lastNodeId];
+    if(!node) return;
+    if(node.choices && node.choices.length) return; // ждём выбор
+
+    if(node.next){
+      goToDialogNode(node.next);
+    } else {
+      // Завершаем
+      const dlg = dialogState.dialog;
+      const ctx = dialogState.context;
+      dialogState = null;
+      document.getElementById('dialogScreen').classList.remove('active');
+      if(dlg.onEnd) dlg.onEnd(ctx);
+    }
+  });
+}
+
 document.querySelector('.dialog-box').addEventListener('click',()=>{
   document.getElementById('dialogScreen').classList.remove('active');
   if(dialogCallback){const cb=dialogCallback;dialogCallback=null;cb()}
@@ -14869,9 +15154,975 @@ function renderInventory(){
   });
 }
 
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Старейшина Орн =====================
+DIALOGS.q_first_hunt = {
+  start: 'intro',
+  nodes: {
+
+    // ============================================================
+    // ВСТУПЛЕНИЕ
+    // ============================================================
+    intro: {
+      speaker: 'Старейшина Орн',
+      portrait: NPS_QUEST_MALE,
+      text: 'А, вот и ты. Юный искатель...\n\nЯ чувствую в тебе искру, но её нужно раздуть. Город Сид окружён тёмными тварями — они становятся смелее с каждым днём.',
+      next: 'who_are_you'
+    },
+
+    who_are_you: {
+      speaker: 'Старейшина Орн',
+      text: 'Я — Орн, старейшина Сида. Триста лет я охраняю эти земли от тьмы.\n\nНо старость берёт своё. Мои руки уже не так крепки, как раньше. Пора передать эстафету молодым.',
+      choices: [
+        {
+          text: '❓ Кто ты такой, старейшина?',
+          next: 'lore_orn'
+        },
+        {
+          text: '🌍 Расскажи мне о Филакте.',
+          next: 'lore_world'
+        },
+        {
+          text: '⚔️ Что мне нужно делать?',
+          next: 'choice1'
+        }
+      ]
+    },
+
+    // ============================================================
+    // LORE: О САМОМ ОРНЕ
+    // ============================================================
+    lore_orn: {
+      speaker: 'Старейшина Орн',
+      text: 'Меня звали Орн Кремнёвая Рука. Когда-то я был величайшим Мастером Душ на севере.\n\nМой верный спутник — Каменный Голем по имени Грим — пал в битве с Тёмным Владыкой. С тех пор я не сражаюсь. Только учу молодых.',
+      choices: [
+        {
+          text: '💀 Что случилось с Гримом?',
+          next: 'lore_grim'
+        },
+        {
+          text: '⚔️ Кто такой Тёмный Владыка?',
+          next: 'lore_dark_lord'
+        },
+        {
+          text: '🙏 Продолжай.',
+          next: 'choice1'
+        }
+      ]
+    },
+
+    lore_grim: {
+      speaker: 'Старейшина Орн',
+      text: 'Грим... Он был не просто големом. Он был моим другом. Тридцать лет мы сражались плечом к плечу.\n\nКогда Тёмный Владыка прорвался из Некрополя Личерон, Грим закрыл собой весь отряд. Он рассыпался в пыль, но спас нас.\n\nЯ до сих пор храню его последний осколок. *Орн сжимает кулак*\n\nМожет быть, однажды ты найдёшь способ вернуть его.',
+      next: 'lore_orn_choice'
+    },
+
+    lore_dark_lord: {
+      speaker: 'Старейшина Орн',
+      text: 'Тёмный Владыка... Он не рождался. Он был создан из чистой тьмы во время Войны Печатей.\n\nГоворят, он живёт в Некрополе Личерон — на юге Немёртвых Земель. Оттуда он управляет нежитью.\n\nНо не думай о нём слишком много. Ты пока не готов. Сначала стань сильнее.',
+      next: 'lore_orn_choice'
+    },
+
+    lore_orn_choice: {
+      speaker: 'Старейшина Орн',
+      text: 'Но хватит обо мне. Есть дела поважнее.',
+      choices: [
+        {
+          text: '🌍 Расскажи мне о Филакте.',
+          next: 'lore_world'
+        },
+        {
+          text: '⚔️ Что мне нужно делать?',
+          next: 'choice1'
+        }
+      ]
+    },
+
+    // ============================================================
+    // LORE: О МИРЕ ФИЛАКТ
+    // ============================================================
+    lore_world: {
+      speaker: 'Старейшина Орн',
+      text: 'Филакт — древний мир. Когда-то здесь жили только волшебные существа. Но потом пришли люди, гномы, дворфы... И началась эпоха войн.\n\nСейчас Филакт разделён на десятки зон. Каждая — со своими законами и обитателями.',
+      next: 'lore_world_map'
+    },
+
+    lore_world_map: {
+      speaker: 'Старейшина Орн',
+      text: 'Вот что ты должен знать:\n\n🌲 Тёмный Лес — на западе. Там живут микониды и древни.\n🏔️ Горы Бюн — на востоке. Три королевства: Златогорье, Молотор и Чагномокс.\n💀 Немёртвые Земли — на юге. Некрополь Личерон — сердце тьмы.\n✨ Божественный Край — на севере. Врата в мир богов.\n🌊 Море Сирен — океан, разделяющий континент.',
+      choices: [
+        {
+          text: '💀 Немёртвые Земли? Расскажи.',
+          next: 'lore_deadlands'
+        },
+        {
+          text: '✨ Божественный Край? Что это?',
+          next: 'lore_heavenly'
+        },
+        {
+          text: '🏔️ Три Королевства — что там?',
+          next: 'lore_kingdoms'
+        },
+        {
+          text: '⚔️ Понятно. Что мне делать?',
+          next: 'choice1'
+        }
+      ]
+    },
+
+    lore_deadlands: {
+      speaker: 'Старейшина Орн',
+      text: 'Немёртвые Земли — проклятая территория. Когда-то здесь было цветущее королевство. Но Тёмный Владыка обратил его в пепел.\n\nВ центре — Некрополь Личерон. Там он собрал армию нежити. Банши, личи, сшивни... Все они служат ему.\n\nНе ходи туда, пока не соберёшь хотя бы пять Печатей Душ.',
+      next: 'lore_world_map'
+    },
+
+    lore_heavenly: {
+      speaker: 'Старейшина Орн',
+      text: 'Божественный Край... Говорят, это место, где живут ангелы и серафимы.\n\nТуда попадают только избранные. Врата охраняет Хранитель — существо, которое видело рождение мира.\n\nМногие пытались войти. Никто не вернулся. По крайней мере, живым.',
+      next: 'lore_world_map'
+    },
+
+    lore_kingdoms: {
+      speaker: 'Старейшина Орн',
+      text: 'Три Королевства — это союз трёх рас:\n\n🏆 Златогорье — лепреконы-маги. Их король Финеган может исполнить желание.\n⚒️ Молотор — дворфы-кузнецы. Их молоты дробят скалы.\n⚙️ Чагномокс — гномы-изобретатели. Они создают дронов и лазеры.\n\nВсе три — союзники Сида. Но путь туда опасен.',
+      next: 'lore_world_map'
+    },
+
+    // ============================================================
+    // ПЕРВЫЙ ВЫБОР: ЗАЧЕМ ТЫ ЗДЕСЬ?
+    // ============================================================
+    choice1: {
+      speaker: 'Старейшина Орн',
+      text: 'Скажи мне, зачем ты пришёл в этот мир?',
+      choices: [
+        {
+          text: '⚔️ Я хочу стать сильнейшим охотником!',
+          next: 'path_warrior',
+          action: ctx => { ctx.path = 'warrior'; }
+        },
+        {
+          text: '📖 Я хочу познать все тайны Филакта.',
+          next: 'path_scholar',
+          action: ctx => { ctx.path = 'scholar'; }
+        },
+        {
+          text: '🛡️ Я хочу защитить невинных.',
+          next: 'path_guardian',
+          action: ctx => { ctx.path = 'guardian'; }
+        },
+        {
+          text: '💰 Я хочу разбогатеть.',
+          next: 'path_merchant',
+          action: ctx => { ctx.path = 'merchant'; }
+        }
+      ]
+    },
+
+    // ============================================================
+    // ВЕТКА: ВОИН
+    // ============================================================
+    path_warrior: {
+      speaker: 'Старейшина Орн',
+      text: 'Ха! Сила — достойный путь. Но помни: настоящий охотник не тот, кто побеждает, а тот, кто умеет ждать.\n\nИмпульсивные воины умирают молодыми.',
+      next: 'warrior_warning'
+    },
+
+    warrior_warning: {
+      speaker: 'Старейшина Орн',
+      text: 'Однажды я знал воина по имени Кейн. Он был сильнейшим в Сиде. Но однажды он бросился на Тёмного Владыку в одиночку...\n\nМы нашли только его меч. И то — сломанный.',
+      choices: [
+        {
+          text: '⚔️ Я не буду как Кейн.',
+          next: 'warrior_accept'
+        },
+        {
+          text: '💀 А где сейчас Кейн?',
+          next: 'warrior_kane'
+        }
+      ]
+    },
+
+    warrior_kane: {
+      speaker: 'Старейшина Орн',
+      text: 'Кейн... Он стал одним из слуг Владыки. Теперь он — Архилич, повелитель мёртвых.\n\nЕсли когда-нибудь встретишь его — не пытайся спасти. Убей. Ибо это уже не Кейн.',
+      next: 'warrior_accept'
+    },
+
+    warrior_accept: {
+      speaker: 'Старейшина Орн',
+      text: 'Докажи свою готовность — победи двух существ на окраинах Сида. Не больше. Не меньше. Я хочу увидеть, как ты справляешься с задачей.',
+      onEnter: ctx => { ctx.questType = 'defeat'; },
+      next: 'accept_quest'
+    },
+
+    // ============================================================
+    // ВЕТКА: УЧЁНЫЙ
+    // ============================================================
+    path_scholar: {
+      speaker: 'Старейшина Орн',
+      text: 'Знание — величайшая сила. Каждое существо, которое ты встретишь, расскажет свою историю.\n\nНо знание без практики — пыль. Ты должен не только читать, но и действовать.',
+      next: 'scholar_warning'
+    },
+
+    scholar_warning: {
+      speaker: 'Старейшина Орн',
+      text: 'Учёные часто забывают об опасности. Они думают, что знания защитят их.\n\nНо когда перед тобой стоит голодный упырь — твои книги бесполезны. Только сталь и магия.',
+      choices: [
+        {
+          text: '📖 Я буду осторожен.',
+          next: 'scholar_accept'
+        },
+        {
+          text: '📜 Расскажи о бестиарии.',
+          next: 'scholar_bestiary'
+        }
+      ]
+    },
+
+    scholar_bestiary: {
+      speaker: 'Старейшина Орн',
+      text: 'Бестиарий — это твой главный инструмент. Каждое существо, которое ты встретишь, можно изучить.\n\nНажми правой кнопкой мыши по твари — и увидишь её характеристики. Слабости, сопротивления, способности.\n\nИспользуй это знание — и победа придёт.',
+      onEnter: ctx => {
+        showToast('📕 Подсказка: ПКМ по существу открывает бестиарий!', 4000);
+      },
+      next: 'scholar_accept'
+    },
+
+    scholar_accept: {
+      speaker: 'Старейшина Орн',
+      text: 'Начни с малого — победи двух существ и изучи их. Так ты поймёшь, как работает Филакт.',
+      onEnter: ctx => { ctx.questType = 'defeat'; },
+      next: 'accept_quest'
+    },
+
+    // ============================================================
+    // ВЕТКА: ЗАЩИТНИК
+    // ============================================================
+    path_guardian: {
+      speaker: 'Старейшина Орн',
+      text: 'Благородное сердце... Редкость в наши дни. Защитник должен быть сильным, чтобы защищать слабых.\n\nНо помни: иногда защита — это не щит, а меч.',
+      next: 'guardian_warning'
+    },
+
+    guardian_warning: {
+      speaker: 'Старейшина Орн',
+      text: 'Многие защитники погибают, потому что пытаются спасти всех. Это невозможно.\n\nТы не можешь спасти весь мир. Но ты можешь спасти тех, кто перед тобой. И этого достаточно.',
+      choices: [
+        {
+          text: '🛡️ Я понимаю.',
+          next: 'guardian_accept'
+        },
+        {
+          text: '⚔️ А если я хочу спасти всех?',
+          next: 'guardian_hero'
+        }
+      ]
+    },
+
+    guardian_hero: {
+      speaker: 'Старейшина Орн',
+      text: 'Тогда ты станешь героем. Или мёртвым героем. Или — что хуже — живым героем, который видел, как умирают все, кого он пытался спасти.\n\nЯ не отговариваю. Просто говорю правду.',
+      next: 'guardian_accept'
+    },
+
+    guardian_accept: {
+      speaker: 'Старейшина Орн',
+      text: 'Победи двух существ, угрожающих городу. Защити тех, кто не может защититься сам.',
+      onEnter: ctx => { ctx.questType = 'defeat'; },
+      next: 'accept_quest'
+    },
+
+    // ============================================================
+    // ВЕТКА: ТОРГОВЕЦ
+    // ============================================================
+    path_merchant: {
+      speaker: 'Старейшина Орн',
+      text: 'Ха! Деньги — это не грех. Грех — это жадность.\n\nНо помни: в Филакте золото имеет цену только тогда, когда ты жив.',
+      next: 'merchant_warning'
+    },
+
+    merchant_warning: {
+      speaker: 'Старейшина Орн',
+      text: 'Многие торговцы приезжают в Сид, чтобы разбогатеть на продаже существ. Но большинство погибает в первый же месяц.\n\nНе потому что слабы. А потому что жадны.',
+      choices: [
+        {
+          text: '💰 Я буду осторожен.',
+          next: 'merchant_accept'
+        },
+        {
+          text: '🏪 Где можно купить предметы?',
+          next: 'merchant_shop'
+        }
+      ]
+    },
+
+    merchant_shop: {
+      speaker: 'Старейшина Орн',
+      text: 'Магазин — в центре Сида. Там продают филактерии (для поимки существ), зелья и свитки.\n\nНо лучшие предметы ты найдёшь не в магазине. Их дают за выполнение квестов. Или за победу над сильными врагами.',
+      onEnter: ctx => {
+        showToast('🏪 Подсказка: кнопка «Магазин» — внизу экрана!', 4000);
+      },
+      next: 'merchant_accept'
+    },
+
+    merchant_accept: {
+      speaker: 'Старейшина Орн',
+      text: 'Начни с малого — победи двух существ и продай их трофеи. Так ты поймёшь, как работает экономика.',
+      onEnter: ctx => { ctx.questType = 'defeat'; },
+      next: 'accept_quest'
+    },
+
+    // ============================================================
+    // ПРИНЯТИЕ КВЕСТА
+    // ============================================================
+    accept_quest: {
+      speaker: 'Старейшина Орн',
+      text: '📜 Задание: «Первая охота»\n\nПобеди 2 существа на окраинах Сида.\n\nНаграда: 400 золотых и 5 Филактерий.\n\nОтправляйся на окраины. И помни: если что-то случится — возвращайся ко мне.',
+      onEnter: ctx => {
+        // Автоматически берём квест
+        const q = QUEST_DEFS.find(x => x.id === 'q_first_hunt');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers();
+          updateQuestBadge();
+          saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+
+    // ============================================================
+    // ПОСЛЕ ПРИНЯТИЯ КВЕСТА
+    // ============================================================
+    after_accept: {
+      speaker: 'Старейшина Орн',
+      text: 'Иди. И помни: не гонись за силой. Гонись за пониманием.\n\nСила придёт сама, когда ты будешь готов.',
+      choices: [
+        {
+          text: '❓ Что делать дальше?',
+          next: 'hint_next'
+        },
+        {
+          text: '📜 Что такое Печати Душ?',
+          next: 'hint_seals'
+        },
+        {
+          text: '🙏 Спасибо, старейшина!',
+          next: null
+        }
+      ]
+    },
+
+    // ============================================================
+    // ПОДСКАЗКА: ЧТО ДАЛЬШЕ
+    // ============================================================
+    hint_next: {
+      speaker: 'Старейшина Орн',
+      text: 'Отправляйся на запад — там Тропа Странников. Говорят, кто-то видел странные огни в Тёмном Лесу.\n\nНо будь осторожен: чем дальше ты идёшь, тем опаснее становятся твари.',
+      choices: [
+        {
+          text: '🌍 Расскажи мне о Филакте.',
+          next: 'lore_world'
+        },
+        {
+          text: '📜 Что такое Печати Душ?',
+          next: 'hint_seals'
+        },
+        {
+          text: '🙏 Прощай, старейшина!',
+          next: null
+        }
+      ]
+    },
+
+    // ============================================================
+    // ПОДСКАЗКА: ПЕЧАТИ ДУШ
+    // ============================================================
+    hint_seals: {
+      speaker: 'Старейшина Орн',
+      text: 'Печати Душ — это ключи к настоящей силе. Их восемь. Каждая хранится у могущественного Мастера Душ.\n\nПечать Камня, Воды, Молнии, Природы, Теней, Разума, Пламени и Земли.\n\nСобери все восемь — и ты станешь легендой Филакта.',
+      choices: [
+        {
+          text: '❓ Где найти Мастеров Душ?',
+          next: 'hint_masters'
+        },
+        {
+          text: '⚔️ С чего начать?',
+          next: 'hint_next'
+        },
+        {
+          text: '🙏 Понял.',
+          next: null
+        }
+      ]
+    },
+
+    hint_masters: {
+      speaker: 'Старейшина Орн',
+      text: 'Мастера живут в разных уголках Филакта. Каждый — в своём городе:\n\n🗿 Мастер Камня Торвальд — в Зарадате.\n🌊 Мастерица Воды Аэлин — в Чоноде.\n⚡ Мастер Молний Заррок — в Паландире.\n🌿 Мастерица Природы Элирия — в Селаксаре.\n🌑 Мастер Теней Когар — в Урионе.\n🧠 Мастерица Разума Сабирель — в Фатолодоре.\n🔥 Мастер Пламени Брайнер — в Гозоне.\n🗻 Повелитель Гор Кутар — в Зиффрене.\n\nНачни с Торвальда. Он — первый.',
+      onEnter: ctx => {
+        showToast('📜 Подсказка: Мастера Душ ждут тебя в городах!', 5000);
+      },
+      next: 'hint_masters_end'
+    },
+
+    hint_masters_end: {
+      speaker: 'Старейшина Орн',
+      text: 'Каждый Мастер будет испытывать тебя. Победишь — получишь Печать.\n\nПроиграешь — не получишь ничего. Но сможешь вернуться позже, когда станешь сильнее.',
+      choices: [
+        {
+          text: '⚔️ Я готов!',
+          next: null
+        },
+        {
+          text: '❓ А что дают Печати?',
+          next: 'hint_seals_reward'
+        }
+      ]
+    },
+
+    hint_seals_reward: {
+      speaker: 'Старейшина Орн',
+      text: 'Каждая Печать усиливает твою команду. Чем больше Печатей — тем сильнее твои существа.\n\nА когда соберёшь все восемь... Ты сможешь бросить вызов самому Тёмному Владыке.',
+      onEnter: ctx => {
+        showToast('💡 Каждая Печать даёт пассивный бонус команде!', 4000);
+      },
+      next: null
+    },
+
+    // ============================================================
+    // ЗАВЕРШЕНИЕ КВЕСТА
+    // ============================================================
+    after_complete: {
+      speaker: 'Старейшина Орн',
+      portrait: NPS_QUEST_MALE,
+      text: 'Ты справился! Я знал, что не ошибся в тебе.\n\n*Орн кладёт руку тебе на плечо*\n\nПрими эту награду. И запомни: это только начало. Филакт полон тайн, и ты — ключ к ним.',
+      onEnter: ctx => {
+        claimQuestReward('q_first_hunt');
+      },
+      choices: [
+        {
+          text: '❓ Что мне делать дальше?',
+          next: 'hint_next'
+        },
+        {
+          text: '📜 Расскажи о Мастерах Душ.',
+          next: 'hint_masters'
+        },
+        {
+          text: '💀 Расскажи о Тёмном Владыке.',
+          next: 'lore_dark_lord'
+        },
+        {
+          text: '🙏 Спасибо, старейшина!',
+          next: null
+        }
+      ]
+    },
+
+    // ============================================================
+    // ФИНАЛЬНЫЙ УЗЕЛ (если игрок возвращается после сдачи квеста)
+    // ============================================================
+    final_farewell: {
+      speaker: 'Старейшина Орн',
+      text: 'Ступай с миром, юный Мастер Душ.\n\nЕсли понадобится совет — я всегда здесь. А если найдёшь Грима... *Орн замолкает*\n\nНет. Ничего. Иди.',
+      next: null
+    }
+  },
+
+  // ============================================================
+  // ДЕЙСТВИЕ ПРИ ЗАВЕРШЕНИИ ДИАЛОГА
+  // ============================================================
+  onEnd: ctx => {
+    console.log('Диалог со Старейшиной завершён, путь:', ctx.path);
+    
+    // Если игрок выбрал путь — сохраняем его
+    if(ctx.path){
+      try {
+        const save = JSON.parse(localStorage.getItem('Magicworld_save') || '{}');
+        save.playerPath = ctx.path;
+        localStorage.setItem('Magicworld_save', JSON.stringify(save));
+        showToast(`📖 Твой путь: ${
+          ctx.path === 'warrior' ? 'Воин' :
+          ctx.path === 'scholar' ? 'Учёный' :
+          ctx.path === 'guardian' ? 'Защитник' :
+          ctx.path === 'merchant' ? 'Торговец' : 'Неизвестный'
+        }`, 3500);
+      } catch(e) { /* ignore */ }
+    }
+  }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Король Дворфов Дюрин =====================
+DIALOGS.q_molotor_forge = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Король Дворфов Дюрин',
+      portrait: NPS_DWARF_KING,
+      text: 'Стой, чужеземец! Ты стоишь в сердце Молотора — древнейшего королевства дворфов.\n\nСтены этих залов помнят тысячи битв. А что привело тебя сюда?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Король Дворфов Дюрин',
+      text: 'Отвечай честно — я вижу ложь за милю.',
+      choices: [
+        {
+          text: '⚔️ Я ищу славы и легенд!',
+          next: 'path_glory',
+          action: ctx => { ctx.motivation = 'glory'; }
+        },
+        {
+          text: '🔨 Я слышал о ваших рунных клинках...',
+          next: 'path_craft',
+          action: ctx => { ctx.motivation = 'craft'; }
+        },
+        {
+          text: '🛡️ Мне нужна помощь против тварей.',
+          next: 'path_help',
+          action: ctx => { ctx.motivation = 'help'; }
+        }
+      ]
+    },
+    path_glory: {
+      speaker: 'Король Дворфов Дюрин',
+      text: 'Слава... Ха! Слава приходит к тем, кто куёт её своими руками.\n\nВ наших шахтах завелись твари — они пожирают руду и убивают шахтёров. Помоги нам — и я признаю тебя другом Молотора.',
+      next: 'quest_details'
+    },
+    path_craft: {
+      speaker: 'Король Дворфов Дюрин',
+      text: 'О рунных клинках? Значит, ты знаешь толк в настоящем оружии!\n\nНо чтобы выковать клинок, нужна руда. А руду сейчас пожирают твари в наших шахтах. Убей их — и я покажу тебе секреты рунной ковки.',
+      next: 'quest_details'
+    },
+    path_help: {
+      speaker: 'Король Дворфов Дюрин',
+      text: 'Помощь? Хм. Дворфы не просят помощи просто так. Но ты пришёл с открытым сердцем — это достойно уважения.\n\nНаши шахты атакованы. Убей двадцать пять тварей — и Молотор будет обязан тебе.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Король Дворфов Дюрин',
+      text: '📜 Задание: «Кузница Молотора»\n\nПобеди 25 существ, угрожающих нашему королевству.\n\nНаграда: 35 000 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_molotor_forge');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers();
+          updateQuestBadge();
+          saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Король Дворфов Дюрин',
+      text: 'Иди. И помни: дворфы не забывают ни врагов, ни друзей.\n\nЕсли справишься — я сам вручу тебе награду.',
+      choices: [
+        {
+          text: '🔨 Расскажи мне о Молоторе',
+          next: 'lore_molotor'
+        },
+        {
+          text: '🙏 Я вернусь с победой!',
+          next: null
+        }
+      ]
+    },
+    lore_molotor: {
+      speaker: 'Король Дворфов Дюрин',
+      text: 'Молотор был основан тысячу лет назад моим предком Торином Молотобойцем.\n\nГоворят, он выковал свой первый молот из сердца горы — и с тех пор ни один враг не смог пробить наши стены.\n\nМы, дворфы, живём под землёй, но наши сердца — как сталь: горячие и несгибаемые.',
+      next: null
+    },
+    after_complete: {
+      speaker: 'Король Дворфов Дюрин',
+      portrait: NPS_DWARF_KING,
+      text: 'Ха-ха! Ты сделал это! Шахты снова безопасны, а мои кузнецы могут работать.\n\nКак и обещал — вот твоя награда. И ещё кое-что...',
+      onEnter: ctx => {
+        claimQuestReward('q_molotor_forge');
+      },
+      choices: [
+        {
+          text: '🎁 Что там ещё?',
+          next: 'secret_gift'
+        },
+        {
+          text: '🙏 Спасибо, король!',
+          next: null
+        }
+      ]
+    },
+    secret_gift: {
+      speaker: 'Король Дворфов Дюрин',
+      text: 'Это карта. На ней отмечен путь к Трём Королевствам — Златогорью, Молотору и Чагномоксу.\n\nТы уже побывал в Молоторе. Осталось два королевства. Навести их — и ты узнаешь тайну Гор Бюн.',
+      onEnter: ctx => {
+        showToast('🗺️ Получена карта Трёх Королевств!', 4000);
+      },
+      next: null
+    }
+  },
+  onEnd: ctx => {
+    console.log('Диалог с Королём Дворфов завершён, мотивация:', ctx.motivation);
+  }
+};
+
+
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Король Лепреконов Финеган =====================
+DIALOGS.q_zlatogorye_gold = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Король Лепреконов Финеган',
+      portrait: NPS_LEPRECHAUN_KING,
+      text: '*Финеган сидит на троне из чистого золота, перебирая монеты в руках*\n\nО-о-о! Смертный! Редкий гость в Златогорье. Обычно сюда попадают только те, кто знает путь по радуге.\n\nЧто тебе нужно? Золото? Исполнение желания? Или... что-то более ценное?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Король Лепреконов Финеган',
+      text: 'Ну же, не стесняйся. Я слушаю.',
+      choices: [
+        {
+          text: '💰 Я хочу золота!',
+          next: 'path_gold',
+          action: ctx => { ctx.desire = 'gold'; }
+        },
+        {
+          text: '🌟 Исполни моё желание!',
+          next: 'path_wish',
+          action: ctx => { ctx.desire = 'wish'; }
+        },
+        {
+          text: '📜 Мне нужна твоя помощь.',
+          next: 'path_help',
+          action: ctx => { ctx.desire = 'help'; }
+        }
+      ]
+    },
+    path_gold: {
+      speaker: 'Король Лепреконов Финеган',
+      text: 'Золото? Ха! Все хотят золота. Но знаешь, что я тебе скажу?\n\nЗолото — это просто металл. Настоящее богатство — в знаниях и верных друзьях.\n\nНо я не жадный. Помоги мне — и я поделюсь своим золотом.',
+      next: 'quest_details'
+    },
+    path_wish: {
+      speaker: 'Король Лепреконов Финеган',
+      text: 'Желание, значит? Ну что ж... Я могу исполнить почти любое желание.\n\nНо у меня есть одно условие: сначала ты поможешь мне. Мои сородичи потеряли Золотого Лепрекона — хранителя наших сокровищ. Найди его — и я исполню твоё желание.',
+      next: 'quest_details'
+    },
+    path_help: {
+      speaker: 'Король Лепреконов Финеган',
+      text: 'Помощь? Хм. Обычно смертные приходят ко мне за помощью, а не предлагают свою.\n\nТы меня удивил. Что ж, слушай: наш Золотой Лепрекон пропал. Найди его — и я щедро награжу тебя.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Король Лепреконов Финеган',
+      text: '📜 Задание: «Золото Златогорья»\n\nПоймай Золотого Лепрекона — последнего хранителя наших сокровищ.\n\nНаграда: 40 000 золотых и 5 Свитков Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_zlatogorye_gold');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers();
+          updateQuestBadge();
+          saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Король Лепреконов Финеган',
+      text: 'Золотой Лепрекон выглядит как обычный лепрекон, но его борода светится радугой. Найдёшь его — приведи ко мне.\n\nИ да, не пытайся его обокрасть. Он кусается.',
+      choices: [
+        {
+          text: '🌈 Расскажи мне о Златогорье',
+          next: 'lore_zlatogorye'
+        },
+        {
+          text: '🙏 Я найду его!',
+          next: null
+        }
+      ]
+    },
+    lore_zlatogorye: {
+      speaker: 'Король Лепреконов Финеган',
+      text: 'Златогорье — это не просто королевство. Это последний оплот магии радуги.\n\nКаждое утро над нашими башнями встаёт настоящая радуга. Говорят, если пройти по ней до конца — найдёшь горшок с золотом.\n\nНо это враки. Горшок с золотом — это мой трон.',
+      next: null
+    },
+    after_complete: {
+      speaker: 'Король Лепреконов Финеган',
+      portrait: NPS_LEPRECHAUN_KING,
+      text: 'О-о-о! Ты нашёл его! Золотой Лепрекон вернулся в Златогорье!\n\n*Финеган встаёт с трона и хлопает в ладоши*\n\nТы доказал, что достоин награды. Как и обещал...',
+      onEnter: ctx => {
+        claimQuestReward('q_zlatogorye_gold');
+      },
+      choices: [
+        {
+          text: '🌟 А как насчёт моего желания?',
+          next: 'wish_granted'
+        },
+        {
+          text: '🙏 Спасибо, король!',
+          next: null
+        }
+      ]
+    },
+    wish_granted: {
+      speaker: 'Король Лепреконов Финеган',
+      text: '*Финеган щёлкает пальцами, и вокруг него вспыхивает радужное сияние*\n\nТвоё желание... Хм. Я вижу в твоих глазах, что ты хочешь не золота, а силы.\n\nТак возьми её! Пусть каждый твой шаг будет твёрже, а каждый удар — сильнее. Я дарю тебе Благословение Радуги.\n\n*Ты чувствуешь, как что-то меняется внутри*',
+      onEnter: ctx => {
+        // Даём бонус — например, деньги и предметы
+        playerMoney += 10000;
+        inventory.ultraball = (inventory.ultraball || 0) + 3;
+        updateHUD();
+        saveProgress();
+        showToast('🌟 Благословение Радуги: +10000 золота и 3 Сосуда Души!', 5000);
+      },
+      next: null
+    }
+  },
+  onEnd: ctx => {
+    console.log('Диалог с Финеганом завершён, желание:', ctx.desire);
+  }
+};
+
+
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Технобарон Гримли =====================
+DIALOGS.q_chagnomoks_invention = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Технобарон Гримли',
+      portrait: NPS_GNOME_BARON,
+      text: '*В лаборатории пахнет машинным маслом и озоном. Вокруг летают маленькие дроны*\n\nАГА! Ещё один искатель приключений! Добро пожаловать в Чагномокс — технологическое сердце Филакта!\n\nЧем обязан?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Технобарон Гримли',
+      text: 'Только говори быстро — у меня через час запуск нового дрона!',
+      choices: [
+        {
+          text: '🔧 Я хочу увидеть твои изобретения!',
+          next: 'path_invention',
+          action: ctx => { ctx.interest = 'invention'; }
+        },
+        {
+          text: '⚡ Мне нужна сила технологий!',
+          next: 'path_power',
+          action: ctx => { ctx.interest = 'power'; }
+        },
+        {
+          text: '📜 У меня есть дело.',
+          next: 'path_business',
+          action: ctx => { ctx.interest = 'business'; }
+        }
+      ]
+    },
+    path_invention: {
+      speaker: 'Технобарон Гримли',
+      text: 'Изобретения?! О-о-о, ты попал по адресу! Я создал дронов, которые могут стрелять лазерами, готовить кофе и... ну, в основном стрелять лазерами.\n\nНо есть проблема. Мой лучший дрон — Гном-Технобарон — потерялся в горах. Найди его — и я покажу тебе все свои изобретения!',
+      next: 'quest_details'
+    },
+    path_power: {
+      speaker: 'Технобарон Гримли',
+      text: 'Сила технологий! Вот это по-нашему!\n\nНо чтобы получить доступ к моим лучшим изобретениям, нужно доказать, что ты достоин. Найди моего Гнома-Технобарона — он сбежал, зараза такая.\n\nПриведи его — и я подарю тебе армию дронов.',
+      next: 'quest_details'
+    },
+    path_business: {
+      speaker: 'Технобарон Гримли',
+      text: 'Дело? У меня всегда есть дело! Слушай: мой лучший дрон сбежал и теперь где-то в горах.\n\nОн мне нужен для важного проекта. Найди его — и я озолочу тебя.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Технобарон Гримли',
+      text: '📜 Задание: «Изобретение Чагномокса»\n\nПоймай Гнома-Технобарона — он последняя разработка нашего королевства.\n\nНаграда: 50 000 золотых и 5 Свитков Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_chagnomoks_invention');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers();
+          updateQuestBadge();
+          saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Технобарон Гримли',
+      text: 'Только будь осторожен. Он умный. Слишком умный. Иногда мне кажется, что он умнее меня.',
+      choices: [
+        {
+          text: '⚙️ Расскажи о Чагномоксе',
+          next: 'lore_chagnomoks'
+        },
+        {
+          text: '🙏 Я найду его!',
+          next: null
+        }
+      ]
+    },
+    lore_chagnomoks: {
+      speaker: 'Технобарон Гримли',
+      text: 'Чагномокс — это не просто город. Это огромная мастерская!\n\nЗдесь мы строим дронов, оружие и... ну, ещё дронов. Много дронов.\n\nНаши технологии — самые продвинутые в Филакте. И это не хвастовство, это факт!',
+      next: null
+    },
+    after_complete: {
+      speaker: 'Технобарон Гримли',
+      portrait: NPS_GNOME_BARON,
+      text: 'ХА-ХА! Ты поймал его! Мой Гном-Технобарон вернулся!\n\n*Гримли подбегает к пойманному существу и обнимает его*\n\nТы знаешь, что это значит? Теперь я могу доделать свой проект! И ты получишь награду!',
+      onEnter: ctx => {
+        claimQuestReward('q_chagnomoks_invention');
+      },
+      choices: [
+        {
+          text: '🎁 Что за проект?',
+          next: 'project_reveal'
+        },
+        {
+          text: '🙏 Спасибо, барон!',
+          next: null
+        }
+      ]
+    },
+    project_reveal: {
+      speaker: 'Технобарон Гримли',
+      text: 'Ты слышал о Трёх Королевствах? Златогорье, Молотор и Чагномокс — три древних королевства Гор Бюн.\n\nКаждое из них обладает уникальной силой. Мы, гномы, владеем технологиями. Дворфы — рунной ковкой. Лепреконы — магией радуги.\n\nМой проект — объединить эти три силы в одном артефакте. И ты помог мне сделать первый шаг.',
+      onEnter: ctx => {
+        showToast('⚙️ Ты узнал тайну Трёх Королевств!', 5000);
+      },
+      next: null
+    }
+  },
+  onEnd: ctx => {
+    console.log('Диалог с Гримли завершён, интерес:', ctx.interest);
+  }
+};
+
+
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Хранитель Врат =====================
+DIALOGS.q_heavenly_gate = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Хранитель Врат',
+      portrait: NPS_HEAVENLY_GUARDIAN,
+      text: '*Перед тобой стоят огромные врата из чистого света. Рядом — фигура в белых одеждах, окружённая золотым сиянием*\n\nСтой, смертный. Ты дошёл до границы Божественного Края.\n\nНо не каждый, кто добрался сюда, достоин войти.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Хранитель Врат',
+      text: 'Скажи мне — зачем ты стремишься в Небеса?',
+      choices: [
+        {
+          text: '⚔️ Я хочу сразиться с богами!',
+          next: 'path_fight',
+          action: ctx => { ctx.motivation = 'fight'; }
+        },
+        {
+          text: '📖 Я ищу истину.',
+          next: 'path_truth',
+          action: ctx => { ctx.motivation = 'truth'; }
+        },
+        {
+          text: '🕊️ Я хочу покоя.',
+          next: 'path_peace',
+          action: ctx => { ctx.motivation = 'peace'; }
+        }
+      ]
+    },
+    path_fight: {
+      speaker: 'Хранитель Врат',
+      text: 'Сразиться с богами? Ха! Ты либо очень смел, либо очень глуп.\n\nНо смелость — это добродетель. Докажи, что ты достоин — очисти Божественный Край от тварей, что оскверняют его.',
+      next: 'quest_details'
+    },
+    path_truth: {
+      speaker: 'Хранитель Врат',
+      text: 'Истина... Древняя цель. Но истина требует чистоты.\n\nБожественный Край осквернён тьмой. Победи пять святых существ, что пали во тьму — и врата откроются перед тобой.',
+      next: 'quest_details'
+    },
+    path_peace: {
+      speaker: 'Хранитель Врат',
+      text: 'Покой? Редкое желание для смертного. Но покой нужно заслужить.\n\nОчисти Божественный Край от скверны — и ты найдёшь то, что ищешь.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Хранитель Врат',
+      text: '📜 Задание: «Врата в Божественный Край»\n\nПобеди 5 существ Божественного Края, чтобы доказать свою чистоту.\n\nНаграда: 50 000 золотых, 5 Свитков Воскрешения и 10 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_heavenly_gate');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers();
+          updateQuestBadge();
+          saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Хранитель Врат',
+      text: 'Иди, смертный. И помни: Небеса видят всё.\n\nТвои поступки — как капли в океане вечности. Каждая имеет значение.',
+      choices: [
+        {
+          text: '✨ Что такое Божественный Край?',
+          next: 'lore_heavenly'
+        },
+        {
+          text: '🙏 Я вернусь с победой!',
+          next: null
+        }
+      ]
+    },
+    lore_heavenly: {
+      speaker: 'Хранитель Врат',
+      text: 'Божественный Край — это место между мирами. Здесь живут ангелы, серафимы и духи света.\n\nНо не всё так просто. Тьма проникла и сюда. Падшие ангелы, осквернённые духи — они больше не служат свету.\n\nПобеди их — и ты узнаешь, что значит быть по-настоящему чистым.',
+      next: null
+    },
+    after_complete: {
+      speaker: 'Хранитель Врат',
+      portrait: NPS_HEAVENLY_GUARDIAN,
+      text: 'Ты сделал это. Край очищен.\n\n*Врата из света медленно открываются, и за ними видно бесконечное сияние*\n\nТы доказал свою чистоту. Войди — и узнай тайны, что скрыты от смертных.',
+      onEnter: ctx => {
+        claimQuestReward('q_heavenly_gate');
+      },
+      choices: [
+        {
+          text: '🌟 Что там, за вратами?',
+          next: 'beyond_gates'
+        },
+        {
+          text: '🙏 Благодарю, Хранитель!',
+          next: null
+        }
+      ]
+    },
+    beyond_gates: {
+      speaker: 'Хранитель Врат',
+      text: 'За вратами — Тронный Зал. Там сидят те, кто создал Филакт. Они наблюдают за всеми нами.\n\nНо не каждому дано увидеть их. Возможно, однажды ты вернёшься сюда — и они откроют тебе больше.\n\nА пока... иди. Твой путь ещё не окончен.',
+      onEnter: ctx => {
+        // Даём финальный бонус
+        playerMoney += 20000;
+        inventory.revive = (inventory.revive || 0) + 5;
+        updateHUD();
+        saveProgress();
+        showToast('✨ Ты получил благословение Божественного Края!', 5000);
+      },
+      next: null
+    }
+  },
+  onEnd: ctx => {
+    console.log('Диалог с Хранителем Врат завершён, мотивация:', ctx.motivation);
+  }
+};
+
+
+
 // ===================== ИНИЦИАЛИЗАЦИЯ =====================
 function initGame(){
-
+  setupDialogClickHandler();  
  const loaded=loadProgress();
   const hasTeam = playerTeam.length > 0;
   if(!loaded || !hasTeam){
