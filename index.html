@@ -11878,6 +11878,7 @@ el.addEventListener('mouseleave', () => {
 function spawnAllFantasy(){
   const byRarity={};
   Fantasy_DATA.forEach(p=>{
+   if (p.id === 9999) return;
     if(!byRarity[p.rarity])byRarity[p.rarity]=[];
     byRarity[p.rarity].push(p);
   });
