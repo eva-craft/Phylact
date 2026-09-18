@@ -11905,70 +11905,112 @@ const NPS_QUEST_SVGS = {
     <path d="M44 15 Q50 15 50 18 Q44 17 42 17 Z" fill="#dc2626"/>
     <circle cx="32" cy="6" r="1.5" fill="#fbbf24"/>
   </svg>`
-};function pickNPSSvg(npsName){
-  const n = npsName.toLowerCase();
-// === Рыцари, паладины, воины, стражи ===
-if(n.includes('рыцарь')  || n.includes('паладин') ||
-   n.includes('воин')    || n.includes('стражник') ||
-   n.includes('громовержец'))
-  return NPS_KNIGHT;
-  // === 1. Верховный архимаг / профессор / хранитель / чемпион / магистр ===
-  //    (только явные "магические" титулы)
+};
+function pickNPSSvg(npsName){
+  const n = (npsName || '').toLowerCase();
+
+  // ============================================================
+  // 1. САМЫЕ СПЕЦИФИЧНЫЕ (точные имена и уникальные слова)
+  // ============================================================
+
+  // --- Три Королевства ---
+  if(n.includes('финеган') || n.includes('король лепрекон'))
+    return NPS_LEPRECHAUN_KING;
+  if(n.includes('дюрин') || n.includes('король дворф'))
+    return NPS_DWARF_KING;
+  if(n.includes('гримли') || n.includes('технобарон'))
+    return NPS_GNOME_BARON;
+
+  // --- Кузнец (только Белегар!) ---
+  if(n.includes('белегар') || n.includes('кузнец'))
+    return NPS_BLACKSMITH;
+
+  // --- Божественный Край ---
+  if(n.includes('хранитель врат') || n.includes('врат'))
+    return NPS_HEAVENLY_GUARDIAN;
+
+  // --- Старейшина (Орн и любые другие старейшины) ---
+  if(n.includes('старейшина') || n.includes('орн'))
+    return NPS_ELDER;
+
+  // --- Ловчий Кейр ---
+  if(n.includes('ловчий') || n.includes('кейр'))
+    return NPS_TRAINER_FEMALE;
+
+  // ============================================================
+  // 2. РОЛИ
+  // ============================================================
+
+  // --- Женские образы ---
+  if(n.includes('ведьма')      || n.includes('жрица') ||
+     n.includes('травница')    || n.includes('охотница') ||
+     n.includes('искательница')|| n.includes('жемчужница') ||
+     n.includes('коллекционер')|| n.includes('экзорцист') ||
+     n.includes('мастерица')   || n.includes('дриада') ||
+     n.includes('телепат')     || n.includes('духовед') ||
+     n.includes('бард')        || n.includes('аэлин'))
+    return NPS_QUEST_FEMALE;
+
+  // --- Маги / архимаги / профессора ---
   if(n.includes('профессор')  || n.includes('архимаг') ||
      n.includes('чемпион')    || n.includes('магистр') ||
      n.includes('мудрец')     || n.includes('хранитель легенд'))
     return NPS_PROFESSOR;
-// === НОВЫЕ КОРОЛЕВСТВА ===
-if(n.includes('король лепрекон') || n.includes('финеган'))
-  return NPS_LEPRECHAUN_KING;
-if(n.includes('король дворф') || n.includes('дюрин'))
-  return NPS_DWARF_KING;
-if(n.includes('технобарон') || n.includes('гримли'))
-  return NPS_GNOME_BARON;
 
-  // === 2. Женские образы: жрицы, ведуньи, магички, целительницы ===
-  //    Проверяем ПЕРЕД общими "мастер", "хранитель" и т.п.
-  if(n.includes('ведьма')     || n.includes('жрица') ||
-     n.includes('травница')   || n.includes('охотница') ||
-     n.includes('искательница')|| n.includes('жемчужница') ||
-     n.includes('коллекционер')|| n.includes('экзорцист') ||
-     n.includes('мастерица')  || n.includes('дриада') ||
-     n.includes('телепат')    || n.includes('духовед'))
-    return NPS_QUEST_FEMALE;
+  // --- Ловчие / охотники / рейнджеры / моряки ---
+  if(n.includes('охотник')   || n.includes('рейнджер') ||
+     n.includes('следопыт')  || n.includes('птицелов') ||
+     n.includes('рыбак')     || n.includes('мореход')  ||
+     n.includes('капитан')   || n.includes('гид')      ||
+     n.includes('искател'))
+    return NPS_TRAINER_FEMALE;
 
-  // === 3. Ловчие, охотники, рейнджеры, следопыты — лучники ===
-  //    ВАЖНО: проверяем ПЕРЕД "мастер", "исследователь" и т.п.
-  if(n.includes('ловчий')   || n.includes('охотник') ||
-     n.includes('рейнджер') || n.includes('следопыт') ||
-     n.includes('птицелов') || n.includes('рыбак') ||
-     n.includes('мореход')  || n.includes('капитан'))
-    return NPS_TRAINER_FEMALE;  // эльфийка-лучница (или можно NPS_QUEST_MALE)
+  // --- Воины / рыцари / стражи ---
+  if(n.includes('стражник')  || n.includes('воин') ||
+     n.includes('рыцарь')    || n.includes('громовержец') ||
+     n.includes('паладин'))
+    return NPS_KNIGHT;
 
-  // === 4. Кузнецы, Дворфы, ремесленники, исследователи — бородатые мастера ===
-  // === Старейшина — мудрый старец ===
-  if(n.includes('старейшина') || n.includes('орн'))
-    return NPS_ELDER;
- if(n.includes('кузнец'))
-    return NPS_BLACKSMITH;
-  // === Кузнец, дворфы, ремесленники — бородатые мастера ===
-  if(n.includes('кузнец')     || n.includes('дворф') ||
-     n.includes('скалолаз')   || n.includes('альпинист') ||
-     n.includes('шахтёр')     || n.includes('спелеолог') ||
-     n.includes('исследователь')|| n.includes('археолог') ||
-     n.includes('вулканолог') ||
-     n.includes('мастер')     || n.includes('магистр'))
+  // --- Дворфы / ремесленники / исследователи ---
+  if(n.includes('дворф')       || n.includes('скалолаз') ||
+     n.includes('альпинист')   || n.includes('шахтёр') ||
+     n.includes('спелеолог')   || n.includes('исследователь') ||
+     n.includes('археолог')    || n.includes('вулканолог'))
     return NPS_QUEST_MALE;
-  if (n.includes('хранитель врат') || n.includes('врат'))
-    return NPS_HEAVENLY_GUARDIAN;
-  // === 5. Стражи, воины, рыцари — бойцы ===
-  if(n.includes('стражник') || n.includes('воин') ||
-     n.includes('рыцарь')   || n.includes('громовержец') ||
-     n.includes('экзорцист'))
-    return NPS_TRAINER_MALE;
 
-  // === 6. По умолчанию — мужской квестовый NPC ===
+  // ============================================================
+  // 3. ЗАПАСНОЙ ВАРИАНТ
+  // ============================================================
   return NPS_QUEST_MALE;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+window.pickNPSSvg = pickNPSSvg;
+
+
+
+
+
+
 // ===================== СПАВН NPS С КВЕСТАМИ =====================
 function spawnQuestNPSs(){
   // Очистка старых ссылок (на случай перезапуска)
@@ -17290,7 +17332,7 @@ function openQuestDialog(q){
       return;
     }
     // Новый квест — запускаем сюжетный диалог с нуля
-    startDialog(q.id, {phase: 'start'});
+  startDialog(q.id, {phase: 'start',    npsName: q.nps});
     return;
   }
 
@@ -18877,17 +18919,33 @@ function renderDialogNode(node){
   if(oldChoices) oldChoices.remove();
 
   // Убираем старую иконку портрета
-  const oldPortrait = dialogBox.querySelector('.dialog-portrait');
-  if(oldPortrait) oldPortrait.remove();
+  // Убираем старую иконку портрета
+const oldPortrait = dialogBox.querySelector('.dialog-portrait');
+if(oldPortrait) oldPortrait.remove();
 
-  // Портрет NPS (если есть)
-  if(node.portrait){
-    const portrait = document.createElement('div');
-    portrait.className = 'dialog-portrait';
-    portrait.innerHTML = node.portrait;
-    dialogBox.insertBefore(portrait, speakerEl);
+// Определяем портрет: сначала — явно заданный, потом — автоматически
+let portraitSvg = node.portrait;
+
+if (!portraitSvg && dialogState && dialogState.context) {
+  // Имя NPC из контекста (передаётся при startDialog)
+  const npsName = dialogState.context.npsName;
+  if (npsName && typeof window.pickNPSSvg === 'function') {
+    portraitSvg = window.pickNPSSvg(npsName);
   }
+}
 
+// Резерв: если не нашли — берём по имени говорящего
+if (!portraitSvg && node.speaker && typeof window.pickNPSSvg === 'function') {
+  portraitSvg = window.pickNPSSvg(node.speaker);
+}
+
+// Рисуем портрет
+if (portraitSvg) {
+  const portrait = document.createElement('div');
+  portrait.className = 'dialog-portrait';
+  portrait.innerHTML = portraitSvg;
+  dialogBox.insertBefore(portrait, speakerEl);
+}
   dialogScreen.classList.add('active');
 
   // Если есть варианты выбора
@@ -19261,7 +19319,7 @@ DIALOGS.q_first_hunt = {
     // ============================================================
     intro: {
       speaker: 'Старейшина Орн',
-      portrait: NPS_QUEST_MALE,
+      
       text: 'А, вот и ты. Юный искатель...\n\nЯ чувствую в тебе искру, но её нужно раздуть. Город Сенория окружён тёмными тварями — они становятся смелее с каждым днём.',
       next: 'who_are_you'
     },
@@ -19703,7 +19761,7 @@ DIALOGS.q_first_hunt = {
     // ============================================================
     after_complete: {
       speaker: 'Старейшина Орн',
-      portrait: NPS_QUEST_MALE,
+      
       text: 'Ты справился! Я знал, что не ошибся в тебе.\n\n*Орн кладёт руку тебе на плечо*\n\nПрими эту награду. И запомни: это только начало. Филакт полон тайн, и ты — ключ к ним.',
       onEnter: ctx => {
         claimQuestReward('q_first_hunt');
@@ -20438,7 +20496,7 @@ DIALOGS.q_smith_ingredients = {
     // ============================================================
     intro: {
       speaker: 'Кузнец Белегар',
-      portrait: NPS_QUEST_MALE,
+      
       text: '*В кузнице жарко. Белегар бьёт молотом по раскалённому металлу. Искры летят во все стороны*\n\nСтой где стоишь, не мешай! *удар* Ещё один! *удар*\n\n*Белегар опускает молот и вытирает пот*\n\nФух. Ну, чего пришёл? За клинком? Или так, поглазеть?',
       next: 'who_are_you'
     },
@@ -20650,7 +20708,7 @@ DIALOGS.q_smith_ingredients = {
     // ============================================================
     after_complete: {
       speaker: 'Кузнец Белегар',
-      portrait: NPS_QUEST_MALE,
+      
       text: 'Ха! Ты справился! *Белегар берёт кости и осматривает их*\n\nНеплохо. Кости свежие, крепкие. Из них выйдут отличные руны.\n\n*Белегар кладёт кости в горн и разжигает огонь*\n\nДержи награду. И знай: настоящий кузнец всегда помнит тех, кто помог ему.',
       onEnter: ctx => {
         claimQuestReward('q_smith_ingredients');
