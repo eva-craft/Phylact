@@ -21049,7 +21049,7 @@ function initGame(){
   drawBackground();
   spawnHouses();
   generateForestTrees();
-spawnForestTreesDOM();   // ← добавляем после домов
+   // ← добавляем после домов
 generateHeavenlyEdgeObjects();  
 drawBackground();        // ← перерисовываем фон уже с деревьями
   drawTopLayer();
@@ -21059,6 +21059,7 @@ drawBackground();        // ← перерисовываем фон уже с д
 spawnSoulSanctuaries();
 spawnTrainers();
   spawnQuestNPSs();
+spawnForestTreesDOM();
   // Потом дикие существа — ищут свободные места
   spawnAllFantasy();
   if(!loaded){
