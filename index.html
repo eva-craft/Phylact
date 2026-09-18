@@ -3065,7 +3065,7 @@ const HABITATS={
 // ===== ПРИРОДНЫЕ БИОМЫ =====
 deadlands:{name:"Немёртвые Земли",color:"#7c3aed",bg:"rgba(35,10,55,0.75)",type:"nature"},
 necropolis:{name:"Некрополь Личерон",color:"#a855f7",bg:"rgba(20,0,40,0.95)",type:"nature"},
-forest:{name:"Темный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:"nature"},
+forest:{name:"Сказочный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:"nature"},
 water:{name:"Море Сирен",color:"#38bdf8",bg:"rgba(30,91,138,0.6)",type:"nature"},
 mountain:{name:"Гора Звезд",color:"#a8a29e",bg:"rgba(90,90,90,0.6)",type:"nature"},
 desert:{name:"Арам'Набау",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",type:"nature"},
@@ -8058,8 +8058,8 @@ const ITEMS={
 };
 let inventory={Plylact:10,potion:5,medalion:0,ultraball:0,superpotion:0,revive:1,antidote:0};
 
-const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii","water","heavenly_edge","deadlands","necropolis","byun_mountains","zlatogorye","molotor","chagnomoks"];
-const DEFAULT_UNLOCK={type:"defeat",count:3};
+const ZONE_ORDER=["sid","forest","zyffren","mountain","haradat","route","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii","water","heavenly_edge","deadlands","necropolis","byun_mountains","zlatogorye","molotor","chagnomoks"];
+const DEFAULT_UNLOCK={type:"defeat",count:1};
 let unlockedZones=new Set(["sid"]);
 let zoneProgress={};
 let earnedSeals=new Set();
@@ -8236,7 +8236,7 @@ const QUEST_DEFS=[
   dialogue:"Древень-Страж спит уже сто лет. Принеси мне семена Плюща — и я разбужу его."},
 
 {id:"q_harpy_eggs",biome:"forest",nps:"Птицелов Гарен",npsPos:{x:650,y:1500},
-  title:"Гарпийи яйца",desc:"Поймай Гарпию-Птенца — её выводок нужен мне для исследований.",target:1,
+  title:"Яйца гарпий",desc:"Поймай Гарпию-Птенца — её выводок нужен мне для исследований.",target:1,
   type:"catch_specific",targetIds:[1016],reward:{money:2200,items:{ultraball:2}},
   dialogue:"Гарпии откладывают яйца раз в век! Поймай птенца — я щедро награжу."},
 
