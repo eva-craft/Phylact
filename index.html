@@ -10007,8 +10007,7 @@ let lastAnim=0;
 
 const world=document.getElementById('world');
 const biomeNameEl=document.getElementById('biomeName');
-const labelsLayer    = document.getElementById('labels');
-const questMarksLayer = document.getElementById('questMarks');
+
 // ===================== ЗВУКИ =====================
 let audioCtx=null;
 function beep(freq,dur,type){
@@ -15233,7 +15232,7 @@ function applyCam(){
   camY=Math.max(minY,Math.min(maxY,camY));
   world.style.transform=`translate(${camX}px,${camY}px)`;
   checkCurrentBiome();
-  
+  updateHUD();
 }
 function checkCurrentBiome(){
   const biome=getCurrentZoneBiome();
@@ -15309,7 +15308,7 @@ function applyYSorting() {
 function animate(now){
   animateFog(now);
 
-  if(now - lastAnim > 100){
+  if(now - lastAnim > 60){
     lastAnim = now;
     const t = now / 1000;
 
@@ -15356,17 +15355,41 @@ p.el.style.zIndex = yToZFantasy(p.y + oy + 28);
       }
     });
 
-  
+    // ===== 4. ЗДАНИЯ (.building) =====
+    // Медцентры, святилища, дома — тоже пересчитываем по Y
+    document.querySelectorAll('#world > .building').forEach(el => {
+      const m = el.style.transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
+      if(!m) return;
+      const y = parseFloat(m[2]);
+
+      // Определяем "низ" здания по его высоте
+      const dh = parseFloat(el.style.height) || 64;
+      el.style.zIndex = yToZBuilding(y + dh / 2);
+    });
 
     // ===== 5. ПОДПИСИ В #labels =====
     // Подписи существ и тренеров двигаются вместе с родителями,
     // но они лежат в отдельном слое (#labels), поэтому просто
     // синхронизируем их позицию и видимость
-   
+    FantasysOnMap.forEach(p => {
+      if(!p.el._labelEl) return;
+      const visible = !p.biome || unlockedZones.has(p.biome);
+      p.el._labelEl.style.display = visible ? 'block' : 'none';
+      // подпись всегда чуть ниже центра объекта
+      // (позиция не меняется — она статична относительно Y)
+    });
 
-    
+    trainersOnMap.forEach(tr => {
+      if(!tr.el._labelEl) return;
+      const visible = unlockedZones.has(tr.biome);
+      tr.el._labelEl.style.display = visible ? 'block' : 'none';
+    });
 
-   
+    npsQuestRefs.forEach(n => {
+      if(!n.el._labelEl) return;
+      const visible = unlockedZones.has(n.quest.biome);
+      n.el._labelEl.style.display = visible ? 'block' : 'none';
+    });
   }
 
   requestAnimationFrame(animate);
@@ -19441,12 +19464,12 @@ function initGame(){
   } else {
     document.getElementById('starterScreen').classList.add('hidden');
   }
-
-  drawBackground(); 
- spawnHouses();
+  drawBackground();
+  spawnHouses();
   generateForestTrees();
-  spawnForestTreesDOM();
-  generateHeavenlyEdgeObjects();       // ← один раз, уже со всеми деревьями
+spawnForestTreesDOM();   // ← добавляем после домов
+generateHeavenlyEdgeObjects();  
+drawBackground();        // ← перерисовываем фон уже с деревьями
   drawTopLayer();
   rebuildFogClouds();
   // Сначала фиксированные объекты — занимают позиции
