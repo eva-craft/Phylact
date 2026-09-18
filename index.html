@@ -16687,12 +16687,7 @@ function shakeSprite(id){
   const enemy=battleState.enemy;
   const player=playerTeam[battleState.playerInbest];
 
-  // ===== ВОССТАНОВЛЕНИЕ ЭНЕРГИИ ИГРОКУ =====
-  // Это остается без изменений
-  player.currentEnergy = Math.min(player.maxEnergy, (player.currentEnergy||0) + 8);
-
   if(player.currentHP<=0){playerFainted();return}
-
   // Статусные проверки
   const statusCheck=processStatusBeforeMove(enemy);
   if(!statusCheck.canMove){
