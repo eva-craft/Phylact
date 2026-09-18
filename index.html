@@ -17311,7 +17311,7 @@ function openQuestDialog(q){
   if(DIALOGS[q.id]){
     // Если квест уже сдан — особый диалог
     if(st && st.claimed){
-      startDialog(q.id, {phase: 'after'});
+      startDialog(q.id, {phase: 'after',    npsName: q.nps});
       // Переходим сразу к узлу after_complete, если он есть
       if(DIALOGS[q.id].nodes.after_complete){
         goToDialogNode('after_complete');
@@ -17320,7 +17320,7 @@ function openQuestDialog(q){
     }
     // Если квест готов к сдаче — диалог завершения
     if(st && st.completed && !st.claimed){
-      startDialog(q.id, {phase: 'complete'});
+      startDialog(q.id, {phase: 'complete', npsName: q.nps});
       if(DIALOGS[q.id].nodes.after_complete){
         goToDialogNode('after_complete');
       }
