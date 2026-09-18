@@ -3209,7 +3209,7 @@ goch:{name:"Чонод",color:"#7dd3fc",bg:"rgba(120,180,220,0.4)",type:"city"},
 olandir:{name:"Паландир",color:"#fca5a5",bg:"rgba(220,140,130,0.4)",type:"city"},
 totsar:{name:"Альфирон",color:"#c4b5fd",bg:"rgba(140,110,180,0.4)",type:"city"},
 selax:{name:"Селаксар",color:"#f9a8d4",bg:"rgba(220,150,190,0.4)",type:"city"},
-uurion:{name:"Урион",color:"#f472b6",bg:"rgba(200,120,160,0.4)",type:"city"},
+uurion:{name:"Урион",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",type:"city"},
 fattolodor:{name:"Фатолодор",color:"#fcd34d",bg:"rgba(220,180,100,0.4)",type:"city"},
 gozon:{name:"Город Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
 pole_magii:{name:"Поле Чудес",color:"#fbbf24",bg:"rgba(200,160,80,0.4)",type:"city"},
@@ -3519,7 +3519,7 @@ const Fantasy_DATA=[
 {id:1172,name:"Ламхи-Владыка Нор",types:["Земляной","Тёмный"],rarity:"epic",habitats:["cave","pole_magii","mountain"],desc:"Старейшина подземного клана. Повелевает роями крыс и хранит древние руны.",height:1.9,weight:140,category:"Ламхи",stats:{hp:130,attack:135,defense:110,spAtk:80,spDef:100,speed:120},shape:"lamhi_lord"},
 
 {id:1173,name:"Ламхи-Метатель",types:["Земляной","Боевой"],rarity:"common",habitats:[	"zyffren","route","cave"],desc:"Кидает отравленные дротики. Славится меткостью и трусостью.",height:1.1,weight:40,category:"Ламхи",stats:{hp:50,attack:55,defense:40,spAtk:60,spDef:45,speed:75},shape:"lamhi_thrower",evolvesTo:1174,evolveLevel:20},
-{id:1174,name:"Ламхи-Отравитель",types:["Земляной","Ядовитый"],rarity:"rare",habitats:["cave","uurion","totsar"],desc:"Мастер ядов и алхимии. Его дротики парализуют даже огров.",height:1.4,weight:70,category:"Ламхи",stats:{hp:75,attack:80,defense:65,spAtk:115,spDef:80,speed:100},shape:"lamhi_poisoner"},
+{id:1174,name:"Ламхи-Отравитель",types:["Земляной","Ядовитый"],rarity:"rare",habitats:["cave","totsar"],desc:"Мастер ядов и алхимии. Его дротики парализуют даже огров.",height:1.4,weight:70,category:"Ламхи",stats:{hp:75,attack:80,defense:65,spAtk:115,spDef:80,speed:100},shape:"lamhi_poisoner"},
 
 {id:1175,name:"Ламхи-Жрец Тьмы",types:["Тёмный","Нежить"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Служитель подземного бога-крысы. Жертвует пленников ради силы клана.",height:1.5,weight:75,category:"Ламхи",stats:{hp:85,attack:60,defense:70,spAtk:110,spDef:95,speed:80},shape:"lamhi_priest",evolvesTo:1176,evolveLevel:38},
 {id:1176,name:"Ламхи-Иерарх Ночи",types:["Тёмный","Нежить","necropolis"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Проклятый жрец, чьё тело разлагается веками. Повелевает роем крыс-Бесплотныйов.",height:1.8,weight:90,category:"Ламхи",stats:{hp:120,attack:90,defense:100,spAtk:150,spDef:130,speed:100},shape:"lamhi_hierarch"},
@@ -3545,10 +3545,10 @@ const Fantasy_DATA=[
 {id:1156,name:"Орк-Громила",types:["Боевой","Тёмный"],rarity:"uncommon",habitats:["mountain","route","desert","forest","volcano"],desc:"Зелёный воин с топором и волчьей шкурой. Яростный и беспощадный.",height:2.0,weight:180,category:"Орк",stats:{hp:90,attack:110,defense:70,spAtk:35,spDef:55,speed:65},shape:"orc_grunt",evolvesTo:1157,evolveLevel:32},
 {id:1157,name:"Орк-Военный Вождь",types:["Боевой","Тёмный"],rarity:"epic",habitats:["volcano","cave","pole_magii"],desc:"Вождь орков в волчьей мантии, его топор пьёт кровь врагов.",height:2.5,weight:260,category:"Орк",stats:{hp:135,attack:150,defense:100,spAtk:50,spDef:80,speed:80},shape:"orc_warchief"},
 
-{id:1158,name:"Тролль",types:["Природа","Боевой"],rarity:"uncommon",habitats:["forest","cave","route","mountain","desert"],desc:"Оранжевый шипастый тролль с горящими жёлтыми глазами. Регенерирует раны.",height:2.4,weight:200,category:"Тролль",stats:{hp:130,attack:95,defense:80,spAtk:50,spDef:60,speed:50},shape:"troll",evolvesTo:1159,evolveLevel:34},
+{id:1158,name:"Песчаный тролль",types:["Природа","Боевой"],rarity:"uncommon",habitats:["forest","cave","route","mountain","desert","uurion"],desc:"Оранжевый шипастый тролль с горящими жёлтыми глазами. Регенерирует раны.",height:2.4,weight:200,category:"Тролль",stats:{hp:130,attack:95,defense:80,spAtk:50,spDef:60,speed:50},shape:"troll",evolvesTo:1159,evolveLevel:34},
 {id:1159,name:"Тролль-Берсерк",types:["Природа","Боевой"],rarity:"epic",habitats:["forest","cave","volcano"],desc:"Древний тролль, покрытый костяными шипами. В ярости не чувствует боли.",height:2.9,weight:280,category:"Тролль",stats:{hp:185,attack:135,defense:100,spAtk:60,spDef:85,speed:65},shape:"troll_berserker"},
 // ===== СТАРТОВЫЕ (выбираются в начале) =====
-{id:1001,name:"Гном",types:["Земляной"],rarity:"rare",habitats:["forest","mountain","sid"],desc:"Маленький мастер, куёт волшебные клинки в своей кузнице.",height:1.0,weight:45,category:"Гном",stats:{hp:55,attack:65,defense:70,spAtk:45,spDef:55,speed:35},shape:"gnome_smith",evolvesTo:1002,evolveLevel:16},
+{id:1001,name:"Гном",types:["Земляной"],rarity:"rare",habitats:["forest","mountain","sid"],desc:"Маленький изобретатель, обладает высоким интеллектом.",height:1.0,weight:45,category:"Гном",stats:{hp:55,attack:65,defense:70,spAtk:45,spDef:55,speed:35},shape:"gnome_smith",evolvesTo:1002,evolveLevel:16},
 {id:1004,name:"Бес",types:["Демон"],rarity:"rare",habitats:["mountain","volcano","sid"],desc:"Озорной демонёнок, чьи шалости оставляют ожоги.",height:0.8,weight:12,category:"Имп",stats:{hp:45,attack:60,defense:40,spAtk:70,spDef:45,speed:70},shape:"fire_imp",evolvesTo:1005,evolveLevel:16},
 {id:1007,name:"Русалка",types:["Водный"],rarity:"rare",habitats:["water","goch","sid"],desc:"Дочь морской королевы, её песни управляют волнами.",height:1.2,weight:25,category:"Русалка",stats:{hp:50,attack:45,defense:55,spAtk:75,spDef:70,speed:55},shape:"mermaid_fae",evolvesTo:1008,evolveLevel:16},
 {id:1025,name:"Лепрекон",types:["Фея"],rarity:"rare",habitats:["forest","route","sid"],desc:"Хранитель золотого горшка, бьёт молниями из радуги.",height:0.9,weight:18,category:"Лепрекон",stats:{hp:45,attack:55,defense:45,spAtk:65,spDef:55,speed:95},shape:"leprechaun_spark",evolvesTo:1026,evolveLevel:18},
@@ -3633,218 +3633,216 @@ const TYPE_COLORS={Обычный:"#a8a878",Огненный:"#f08030",Водн�
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК (ФЭНТЕЗИ) =====================
 // ===================== НАБОРЫ АТАК — ПОЛНАЯ ВЕРСИЯ =====================
-
 // ===================== АТАКИ (ПОЛНЫЙ СПИСОК) =====================
 const FULL_MOVES = {
 // ===== АТАКИ ДЛЯ СУЩЕСТВ КВЕЛЬ-СИДАЯ И ВЕЧНОГО МОРЯ =====
 
 // --- Для Квель-Сидая (эльфы) ---
-"Точный выстрел":{type:"Вооруженный",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым."}, // Уже есть, но проверим
-"Стрела Света":{type:"Священный",power:85,cat:"special",effect:"drain",drain:0.5,desc:"Святая стрела, восстанавливающая 50% урона."},
-"Двойной выстрел":{type:"Вооруженный",power:45,cat:"physical",effect:"multihit",hits:2,desc:"Бьёт 2 раза."},
-"Залп стрел":{type:"Вооруженный",power:30,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
-"Оглушающий выстрел":{type:"Вооруженный",power:60,cat:"special",effect:"confuse",chance:0.4,desc:"Может сбить с толку."},
-"Природный щит":{type:"Природа",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
-"Зов леса":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-"Солнечный луч":{type:"Священный",power:90,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь светом."},
-"Ярость природы":{type:"Природа",power:110,cat:"special",effect:"recoil",recoil:0.2,desc:"Отдача 20% урона."},
-"Друидическое проклятие":{type:"Природа",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Сильно отравляет цель."},
-"Крик ястреба":{type:"Летающий",power:50,cat:"special",priority:1,desc:"Всегда бьёт первым."},
-"Шквал стрел":{type:"Вооруженный",power:35,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
-"Святое благословение":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-"Кара Света":{type:"Священный",power:100,cat:"special",desc:"Мощный удар светом."},
-"Эльфийская точность":{type:"Вооруженный",power:80,cat:"special",priority:1,desc:"Всегда бьёт первым."},
-"Рунический выстрел":{type:"Вооруженный",power:95,cat:"special",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту."},
-"Природное равновесие":{type:"Природа",power:null,cat:"status",effect:"rest",desc:"Полностью восстанавливает HP, но усыпляет."},
-"Гнев леса":{type:"Природа",power:120,cat:"special",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
-"Солнечный удар":{type:"Священный",power:95,cat:"physical",desc:"Удар, наполненный солнечной энергией."},
-"Метка охотника":{type:"Вооруженный",power:null,cat:"status",effect:"lowerdef",desc:"Понижает защиту цели."},
-"Лунный свет":{type:"Священный",power:70,cat:"special",effect:"heal",heal:0.3,desc:"Восстанавливает 30% HP."},
-"Звёздный выстрел":{type:"Священный",power:110,cat:"special",effect:"confuse",chance:0.2,desc:"Может сбить с толку."},
+"Точный выстрел":{type:"Вооруженный",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым. Стрела, выпущенная с невероятной точностью, настигает цель раньше, чем она успевает среагировать."},
+"Стрела Света":{type:"Священный",power:85,cat:"special",effect:"drain",drain:0.5,desc:"Святая стрела, восстанавливающая 50% нанесённого урона."},
+"Двойной выстрел":{type:"Вооруженный",power:45,cat:"physical",effect:"multihit",hits:2,desc:"Бьёт 2 раза. Две стрелы выпускаются одна за другой в уязвимые точки."},
+"Залп стрел":{type:"Вооруженный",power:30,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Настоящий дождь из стрел осыпает врага."},
+"Оглушающий выстрел":{type:"Вооруженный",power:60,cat:"special",effect:"confuse",chance:0.4,desc:"Может сбить с толку. Стрела попадает в голову, вызывая помутнение сознания."},
+"Природный щит":{type:"Природа",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту. Кожа покрывается корой, а вокруг тела вьются защитные лозы."},
+"Зов леса":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP. Сила леса исцеляет раны, возвращая жизненные силы."},
+"Солнечный луч":{type:"Священный",power:90,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь светом. Сфокусированный пучок солнечной энергии, обжигающий нечестивых."},
+"Ярость природы":{type:"Природа",power:110,cat:"special",effect:"recoil",recoil:0.2,desc:"Отдача 20% урона. Вся мощь леса обрушивается на врага, но и пользователь чувствует ответную боль."},
+"Друидическое проклятие":{type:"Природа",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Сильно отравляет цель. Накладывает древнее проклятие, отравляющее саму сущность врага."},
+"Крик ястреба":{type:"Летающий",power:50,cat:"special",priority:1,desc:"Всегда бьёт первым. Пронзительный крик дезориентирует врага перед атакой."},
+"Шквал стрел":{type:"Вооруженный",power:35,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Плотный поток стрел не даёт врагу передышки."},
+"Святое благословение":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP. Небесная благодать омывает тело, залечивая раны."},
+"Кара Света":{type:"Священный",power:100,cat:"special",desc:"Мощный удар светом. Концентрированный луч божественной энергии испепеляет всё на своём пути."},
+"Эльфийская точность":{type:"Вооруженный",power:80,cat:"special",priority:1,desc:"Всегда бьёт первым. Стрела, направляемая веками эльфийского мастерства, не знает промаха."},
+"Рунический выстрел":{type:"Вооруженный",power:95,cat:"special",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту. Стрела с выгравированной руной пробивает даже самую прочную броню."},
+"Природное равновесие":{type:"Природа",power:null,cat:"status",effect:"rest",desc:"Полностью восстанавливает HP, но усыпляет. Медитация в самом сердце леса, дарующая полное исцеление ценой временного сна."},
+"Гнев леса":{type:"Природа",power:120,cat:"special",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона. Лес впадает в ярость, но эта сила слишком велика для одного существа."},
+"Солнечный удар":{type:"Священный",power:95,cat:"physical",desc:"Удар, наполненный солнечной энергией. Кулак, заряженный сиянием солнца, наносит сокрушительный удар."},
+"Метка охотника":{type:"Вооруженный",power:null,cat:"status",effect:"lowerdef",desc:"Понижает защиту цели. Охотник помечает цель, показывая её слабые места."},
+"Лунный свет":{type:"Священный",power:70,cat:"special",effect:"heal",heal:0.3,desc:"Восстанавливает 30% HP. Мягкое сияние луны затягивает раны."},
+"Звёздный выстрел":{type:"Священный",power:110,cat:"special",effect:"confuse",chance:0.2,desc:"Может сбить с толку. Стрела, сотканная из звёздного света, пронзает разум врага."},
 
 // --- Для Вечного Моря ---
-"Волна холода":{type:"Водный",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить."},
-"Прилив":{type:"Водный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-"Морская ярость":{type:"Водный",power:110,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
-"Песнь глубин":{type:"Водный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
-"Коралловый щит":{type:"Каменный",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
-"Штормовой удар":{type:"Водный",power:120,cat:"special",effect:"recoil",recoil:0.3,desc:"Отдача 30% урона."},
-"Тёмная волна":{type:"Тёмный",power:95,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Ужас глубин":{type:"Тёмный",power:null,cat:"status",effect:"confuse",chance:0.8,desc:"Сбивает с толку."},
-"Жемчужный луч":{type:"Священный",power:80,cat:"special",effect:"heal",heal:0.4,desc:"Восстанавливает 40% HP."},
-"Морской вихрь":{type:"Водный",power:35,cat:"special",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
-"Святая вода":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-"Коралловый шип":{type:"Каменный",power:75,cat:"physical",desc:"Острый шип из коралла."},
-"Волна шторма":{type:"Водный",power:90,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Волна холода":{type:"Водный",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить. Ледяная волна накатывает на врага, пытаясь сковать его движения."},
+"Прилив":{type:"Водный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP. Энергия прилива восстанавливает силы."},
+"Морская ярость":{type:"Водный",power:110,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона. Вся мощь океана обрушивается на врага."},
+"Песнь глубин":{type:"Водный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель. Мелодичная песнь глубин убаюкивает врага."},
+"Коралловый щит":{type:"Каменный",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту. Тело покрывается твёрдым кораллом."},
+"Штормовой удар":{type:"Водный",power:120,cat:"special",effect:"recoil",recoil:0.3,desc:"Отдача 30% урона. Атака мощью шторма, отнимающая много сил."},
+"Тёмная волна":{type:"Тёмный",power:95,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона. Волна тёмной энергии высасывает жизнь."},
+"Ужас глубин":{type:"Тёмный",power:null,cat:"status",effect:"confuse",chance:0.8,desc:"Сбивает с толку. Враг видит ужасы тёмных глубин."},
+"Жемчужный луч":{type:"Священный",power:80,cat:"special",effect:"heal",heal:0.4,desc:"Восстанавливает 40% HP. Луч чистой энергии, дарующий исцеление."},
+"Морской вихрь":{type:"Водный",power:35,cat:"special",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Водоворот подхватывает врага, нанося множество ударов."},
+"Святая вода":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP. Освящённая вода исцеляет тело."},
+"Коралловый шип":{type:"Каменный",power:75,cat:"physical",desc:"Острый шип из коралла пронзает защиту."},
+"Волна шторма":{type:"Водный",power:90,cat:"special",priority:1,desc:"Всегда бьёт первым. Быстрая, как шторм, атака."},
 // ===== ОБЫЧНЫЕ =====
-"Удар посохом":{type:"Обычный",power:40,cat:"physical"},
-"Царапка когтем":{type:"Обычный",power:40,cat:"physical"},
-"Пощёчина":{type:"Обычный",power:40,cat:"physical"},
-"Удар кулаком":{type:"Обычный",power:80,cat:"physical"},
-"Внезапный выпад":{type:"Обычный",power:40,cat:"physical"},
-"Клык зверя":{type:"Обычный",power:80,cat:"physical"},
-"Грубая сила":{type:"Обычный",power:90,cat:"physical"},
-"Таран":{type:"Обычный",power:85,cat:"physical"},
-"Луч маны":{type:"Обычный",power:150,cat:"special"},
-"Обёртывание":{type:"Обычный",power:15,cat:"physical"},
-"Беспомощность":{type:"Обычный",power:null,cat:"status"},
-"Отчаянный бросок":{type:"Обычный",power:null,cat:"physical"},
-"Захват":{type:"Обычный",power:40,cat:"physical"},
-"Сокрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
-"Разрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Отдача 25% урона."},
-"Тройной удар":{type:"Обычный",power:25,cat:"physical",effect:"multihit",hits:3,desc:"Бьёт 3 раза."},
-"Двойной удар":{type:"Обычный",power:35,cat:"physical",effect:"multihit",hits:2,desc:"Бьёт 2 раза."},
-"Двойной таран":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона."},
-"Двойное ребро":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона."},
-"Рывок":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Ускорение":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
-"Ярость":{type:"Обычный",power:20,cat:"physical",effect:"rage",desc:"Растёт при получении урона."},
-"Защитная стойка":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту."},
-"Мягкая защита":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту."},
-"Защита":{type:"Обычный",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
-"Ослепление":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
-"Оглушение":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
-"Пение":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель."},
-"Пение сирены":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель."},
-"Мягкое свечение":{type:"Обычный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-"Хвост-хлыст":{type:"Обычный",power:null,cat:"status",effect:"lowerdef",desc:"Понижает защиту цели."},
-"Взрыв маны":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
-"Взрыв":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
-"Жертвенный взрыв":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
-"Самоликвидация":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание."},
+"Удар посохом":{type:"Обычный",power:40,cat:"physical",desc:"Простой, но надёжный удар деревянным посохом."},
+"Царапка когтем":{type:"Обычный",power:40,cat:"physical",desc:"Быстрая атака острыми когтями."},
+"Пощёчина":{type:"Обычный",power:40,cat:"physical",desc:"Унизительная пощёчина, наносящая лёгкий урон."},
+"Удар кулаком":{type:"Обычный",power:80,cat:"physical",desc:"Мощный удар кулаком, способный оглушить."},
+"Внезапный выпад":{type:"Обычный",power:40,cat:"physical",desc:"Быстрая атака, настигающая врага врасплох."},
+"Клык зверя":{type:"Обычный",power:80,cat:"physical",desc:"Свирепый укус острыми клыками."},
+"Грубая сила":{type:"Обычный",power:90,cat:"physical",desc:"Атака, основанная на чистой физической мощи."},
+"Таран":{type:"Обычный",power:85,cat:"physical",desc:"Мощный рывок всем телом, чтобы сбить врага с ног."},
+"Луч маны":{type:"Обычный",power:150,cat:"special",desc:"Мощный, но истощающий выброс чистой магической энергии."},
+"Обёртывание":{type:"Обычный",power:15,cat:"physical",desc:"Попытка обвить врага, нанося незначительный урон."},
+"Беспомощность":{type:"Обычный",power:null,cat:"status",desc:"Существо выглядит настолько жалким, что враг может потерять бдительность."},
+"Отчаянный бросок":{type:"Обычный",power:null,cat:"physical",desc:"Отчаянная попытка нанести урон, когда все силы на исходе."},
+"Захват":{type:"Обычный",power:40,cat:"physical",desc:"Простой захват, чтобы удержать врага на месте."},
+"Сокрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Мощный удар, отдача 25% урона. Сила удара такова, что отдаётся в руках."},
+"Разрушение":{type:"Обычный",power:80,cat:"physical",effect:"recoil",recoil:0.25,desc:"Разрушительный удар, отдача 25% урона. Сокрушает всё на своём пути."},
+"Тройной удар":{type:"Обычный",power:25,cat:"physical",effect:"multihit",hits:3,desc:"Бьёт 3 раза. Серия из трёх быстрых ударов."},
+"Двойной удар":{type:"Обычный",power:35,cat:"physical",effect:"multihit",hits:2,desc:"Бьёт 2 раза. Два последовательных удара."},
+"Двойной таран":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона. Сокрушительный двойной удар, истощающий пользователя."},
+"Двойное ребро":{type:"Обычный",power:120,cat:"physical",effect:"recoil",recoil:0.33,desc:"Отдача 33% урона. Мощный удар двумя конечностями."},
+"Рывок":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым. Стремительный рывок к цели."},
+"Ускорение":{type:"Обычный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым. Атака на пределе скорости."},
+"Ярость":{type:"Обычный",power:20,cat:"physical",effect:"rage",desc:"Растёт при получении урона. Сила атаки увеличивается с каждым ударом по пользователю."},
+"Защитная стойка":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту. Существо принимает оборонительную стойку."},
+"Мягкая защита":{type:"Обычный",power:null,cat:"status",effect:"defenseup",desc:"Повышает защиту. Тело становится более устойчивым к атакам."},
+"Защита":{type:"Обычный",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку. Полностью защищает от следующего удара."},
+"Ослепление":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку. Яркая вспышка ослепляет врага."},
+"Оглушение":{type:"Обычный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку. Мощный удар по голове лишает врага ориентации."},
+"Пение":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель. Колыбельная, погружающая врага в сон."},
+"Пение сирены":{type:"Обычный",power:null,cat:"status",effect:"sleep",chance:0.55,desc:"Усыпляет цель. Волшебное пение сирены, которому невозможно сопротивляться."},
+"Мягкое свечение":{type:"Обычный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP. Тёплый свет залечивает раны."},
+"Хвост-хлыст":{type:"Обычный",power:null,cat:"status",effect:"lowerdef",desc:"Понижает защиту цели. Хлёсткий удар хвостом сбивает врага с толку."},
+"Взрыв маны":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание. Взрыв всей накопленной маны, наносящий колоссальный урон."},
+"Взрыв":{type:"Обычный",power:250,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание. Мощнейший взрыв, уничтожающий всё вокруг."},
+"Жертвенный взрыв":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание. Приносит себя в жертву ради мощного взрыва."},
+"Самоликвидация":{type:"Обычный",power:200,cat:"physical",effect:"selfdestruct",desc:"Пользователь теряет сознание. Активирует механизм самоуничтожения."},
 
 // ===== ТЁМНЫЙ =====
-"Укус тьмы":{type:"Тёмный",power:60,cat:"physical"},
-"Приказ стаи":{type:"Тёмный",power:null,cat:"status",effect:"lowerdef",desc:"Стая крыс подгрызает защиту цели."},
+"Укус тьмы":{type:"Тёмный",power:60,cat:"physical",desc:"Укус, наполненный тёмной энергией, высасывающий жизнь."},
+"Приказ стаи":{type:"Тёмный",power:null,cat:"status",effect:"lowerdef",desc:"Стая крыс подгрызает защиту цели. Понижает защиту."},
 
 // ===== ОГНЕННЫЙ =====
-"Искра":{type:"Огненный",power:40,cat:"special"},
-"Струя пламени":{type:"Огненный",power:90,cat:"special"},
-"Пламенный клык":{type:"Огненный",power:65,cat:"physical"},
-"Огненный шквал":{type:"Огненный",power:110,cat:"special"},
-"Волна пламени":{type:"Огненный",power:95,cat:"special"},
-"Огненный вихрь":{type:"Огненный",power:35,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь."},
-"Вспышка пламени":{type:"Огненный",power:null,cat:"status",effect:"burn",chance:0.85,desc:"Гарантированный ожог."},
+"Искра":{type:"Огненный",power:40,cat:"special",desc:"Небольшой сгусток пламени, способный подпалить врага."},
+"Струя пламени":{type:"Огненный",power:90,cat:"special",desc:"Мощный поток огня, обжигающий всё на своём пути."},
+"Пламенный клык":{type:"Огненный",power:65,cat:"physical",desc:"Укус, раскалённый до красна, оставляющий ожоги."},
+"Огненный шквал":{type:"Огненный",power:110,cat:"special",desc:"Настоящий огненный шторм, сжигающий всё вокруг."},
+"Волна пламени":{type:"Огненный",power:95,cat:"special",desc:"Волна огня, накрывающая врага."},
+"Огненный вихрь":{type:"Огненный",power:35,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь. Вращающийся вихрь пламени, который может подпалить."},
+"Вспышка пламени":{type:"Огненный",power:null,cat:"status",effect:"burn",chance:0.85,desc:"Гарантированный ожог. Внезапная вспышка, поджигающая врага."},
 "Поджог":{type:"Огненный",power:70,cat:"physical",effect:"recoil",recoil:0.4,desc:"Имп поджигает и себя, и врага. Отдача 40%."},
-"Воля-о-висп":{type:"Огненный",power:null,cat:"status",effect:"burn",chance:0.85,desc:"Гарантированный ожог."},
+"Воля-о-висп":{type:"Огненный",power:null,cat:"status",effect:"burn",chance:0.85,desc:"Гарантированный ожог. Блуждающий огонёк касается врага, оставляя ожог."},
 
 // ===== ВОДНЫЙ =====
-"Водяной шип":{type:"Водный",power:40,cat:"special"},
-"Поток воды":{type:"Водный",power:60,cat:"special"},
-"Волна прилива":{type:"Водный",power:90,cat:"special"},
-"Гидроудар":{type:"Водный",power:110,cat:"special"},
-"Хвост волны":{type:"Водный",power:90,cat:"physical"},
-"Удар хвостом":{type:"Водный",power:40,cat:"physical"},
-"Струя воды":{type:"Водный",power:40,cat:"special",effect:"loweratk",chance:0.3,desc:"Может понизить атаку."},
-"Водный рывок":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым."},
-"Водный поток":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Водяной шип":{type:"Водный",power:40,cat:"special",desc:"Струя воды под давлением, способная проткнуть насквозь."},
+"Поток воды":{type:"Водный",power:60,cat:"special",desc:"Сфокусированный поток воды, сбивающий врага с ног."},
+"Волна прилива":{type:"Водный",power:90,cat:"special",desc:"Мощная волна, накатывающая на врага."},
+"Гидроудар":{type:"Водный",power:110,cat:"special",desc:"Сокрушительный удар массой воды."},
+"Хвост волны":{type:"Водный",power:90,cat:"physical",desc:"Удар хвостом, усиленный энергией воды."},
+"Удар хвостом":{type:"Водный",power:40,cat:"physical",desc:"Простой, но эффективный удар хвостом."},
+"Струя воды":{type:"Водный",power:40,cat:"special",effect:"loweratk",chance:0.3,desc:"Может понизить атаку. Точная струя воды бьёт по уязвимым местам."},
+"Водный рывок":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым. Стремительная атака, подобная течению."},
+"Водный поток":{type:"Водный",power:40,cat:"special",priority:1,desc:"Всегда бьёт первым. Быстрый поток, настигающий врага."},
 
 // ===== ПРИРОДА =====
-"Удар лозой":{type:"Природа",power:45,cat:"physical"},
-"Режущий лист":{type:"Природа",power:55,cat:"physical"},
-"Луч света":{type:"Природа",power:120,cat:"special"},
-"Спорный сон":{type:"Природа",power:null,cat:"status",effect:"sleep",chance:0.75,desc:"Усыпляет спорами."},
-"Танец цветов":{type:"Природа",power:70,cat:"special",effect:"confuse",chance:0.2,desc:"Может сбить с толку."},
-"Высасывание жизни":{type:"Природа",power:75,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Град семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
-"Пулемёт семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
-"Природное восстановление":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
-"Синтез":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP."},
+"Удар лозой":{type:"Природа",power:45,cat:"physical",desc:"Хлёсткий удар гибкой лозой."},
+"Режущий лист":{type:"Природа",power:55,cat:"physical",desc:"Острые, как бритва, листья рассекают врага."},
+"Луч света":{type:"Природа",power:120,cat:"special",desc:"Концентрированный луч солнечного света, испепеляющий врага."},
+"Спорный сон":{type:"Природа",power:null,cat:"status",effect:"sleep",chance:0.75,desc:"Усыпляет спорами. Облако усыпляющих спор окутывает врага."},
+"Танец цветов":{type:"Природа",power:70,cat:"special",effect:"confuse",chance:0.2,desc:"Может сбить с толку. Гипнотический танец лепестков."},
+"Высасывание жизни":{type:"Природа",power:75,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона. Высасывает жизненные силы из врага."},
+"Град семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Залп твёрдых семян."},
+"Пулемёт семян":{type:"Природа",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Скоростной обстрел семенами."},
+"Природное восстановление":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP. Сила природы залечивает раны."},
+"Синтез":{type:"Природа",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Восстанавливает 50% HP. Фотосинтез на солнечном свету."},
 
 // ===== ЭЛЕКТРИЧЕСКИЙ =====
-"Разряд":{type:"Электрический",power:40,cat:"special"},
-"Грозовой удар":{type:"Электрический",power:90,cat:"special"},
-"Громовая стрела":{type:"Электрический",power:110,cat:"special"},
-"Парализующий разряд":{type:"Электрический",power:null,cat:"status",effect:"paralyze",chance:1.0,desc:"Парализует цель."},
-"Молния":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
-"Небесная кара":{type:"Электрический",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача."},
-"Разряд молнии":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
+"Разряд":{type:"Электрический",power:40,cat:"special",desc:"Небольшой электрический разряд."},
+"Грозовой удар":{type:"Электрический",power:90,cat:"special",desc:"Мощный удар молнии."},
+"Громовая стрела":{type:"Электрический",power:110,cat:"special",desc:"Сокрушительная стрела молнии."},
+"Парализующий разряд":{type:"Электрический",power:null,cat:"status",effect:"paralyze",chance:1.0,desc:"Парализует цель. Разряд, блокирующий мышцы."},
+"Молния":{type:"Электрический",power:65,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать. Удар молнии, способный обездвижить."},
+"Небесная кара":{type:"Электрический",power:120,cat:"special",effect:"recoil",recoil:0.33,desc:"Сильная отдача. Призывает удар молнии с небес."},
 
 // ===== ЛЕДЯНОЙ =====
-"Ледяное копьё":{type:"Ледяной",power:90,cat:"special"},
-"Ледяная буря":{type:"Ледяной",power:110,cat:"special"},
-"Морозный ветер":{type:"Ледяной",power:55,cat:"special",effect:"freeze",chance:0.1,desc:"Может заморозить."},
-"Морозный клык":{type:"Ледяной",power:65,cat:"physical",effect:"freeze",chance:0.15,desc:"Может заморозить."},
-"Ледяной ветер":{type:"Ледяной",power:55,cat:"special",effect:"freeze",chance:0.1,desc:"Может заморозить."},
-"Ледяной укус":{type:"Ледяной",power:65,cat:"physical",effect:"freeze",chance:0.15,desc:"Может заморозить."},
+"Ледяное копьё":{type:"Ледяной",power:90,cat:"special",desc:"Копьё изо льда, пронзающее врага."},
+"Ледяная буря":{type:"Ледяной",power:110,cat:"special",desc:"Свирепая буря, замораживающая всё вокруг."},
+"Морозный ветер":{type:"Ледяной",power:55,cat:"special",effect:"freeze",chance:0.1,desc:"Может заморозить. Ледяной ветер, сковывающий движения."},
+"Морозный клык":{type:"Ледяной",power:65,cat:"physical",effect:"freeze",chance:0.15,desc:"Может заморозить. Укус, покрытый ледяной коркой."},
+"Ледяной ветер":{type:"Ледяной",power:55,cat:"special",effect:"freeze",chance:0.1,desc:"Может заморозить. Порыв ледяного ветра."},
+"Ледяной укус":{type:"Ледяной",power:65,cat:"physical",effect:"freeze",chance:0.15,desc:"Может заморозить. Холодный укус, покрывающий врага инеем."},
 "Ледяная стрела":{type:"Ледяной",power:75,cat:"special",effect:"freeze",chance:0.2,desc:"Ледяная стрела лича. Может заморозить."},
 
 // ===== МЕНТАЛЬНЫЙ =====
-"Смятение":{type:"Ментальный",power:50,cat:"special"},
-"Взрыв разума":{type:"Ментальный",power:90,cat:"special"},
-"Луч разума":{type:"Ментальный",power:65,cat:"special"},
-"Магический сон":{type:"Ментальный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
-"Пожиратель снов":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих."},
-"Сон-похититель":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих."},
-"Поцелуй сирены":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Поцелуй вампира":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Магическое отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
-"Отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон."},
-"Магический барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
-"Барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту."},
+"Смятение":{type:"Ментальный",power:50,cat:"special",desc:"Психическая атака, вносящая хаос в мысли врага."},
+"Взрыв разума":{type:"Ментальный",power:90,cat:"special",desc:"Мощный телепатический удар, разрывающий сознание."},
+"Луч разума":{type:"Ментальный",power:65,cat:"special",desc:"Сфокусированный луч психической энергии."},
+"Магический сон":{type:"Ментальный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель. Наводит магический транс."},
+"Пожиратель снов":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих. Пожирает сны, восстанавливая HP."},
+"Сон-похититель":{type:"Ментальный",power:100,cat:"special",effect:"dreamdrain",desc:"Работает только на спящих. Высасывает энергию из спящего врага."},
+"Поцелуй сирены":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона. Поцелуй, высасывающий жизнь."},
+"Поцелуй вампира":{type:"Ментальный",power:50,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона. Прикосновение, забирающее жизненные силы."},
+"Магическое отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон. Создаёт магический барьер, отражающий атаки."},
+"Отражение":{type:"Ментальный",power:null,cat:"counter",effect:"mirrorcoat",desc:"Возвращает удвоенный спец. урон. Отражает атаку обратно во врага."},
+"Магический барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту. Создаёт барьер из чистой магии."},
+"Барьер":{type:"Ментальный",power:null,cat:"status",effect:"barrier",desc:"Повышает защиту. Возводит невидимую стену."},
 "Отдых":{type:"Ментальный",power:null,cat:"status",effect:"rest",desc:"Полностью восстанавливает HP, но усыпляет."},
-"Гипноз":{type:"Ментальный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель."},
+"Гипноз":{type:"Ментальный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет цель. Вводит врага в гипнотический транс."},
 
 // ===== КАМЕННЫЙ / ЗЕМЛЯНОЙ =====
-"Каменный шип":{type:"Каменный",power:50,cat:"physical"},
-"Обвал":{type:"Каменный",power:75,cat:"physical"},
-"Землетрясение":{type:"Земляной",power:100,cat:"physical"},
-"Каменный залп":{type:"Каменный",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
-"Рок-бластер":{type:"Каменный",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
+"Каменный шип":{type:"Каменный",power:50,cat:"physical",desc:"Острый шип из земли пронзает врага."},
+"Обвал":{type:"Каменный",power:75,cat:"physical",desc:"Камни обрушиваются на врага сверху."},
+"Землетрясение":{type:"Земляной",power:100,cat:"physical",desc:"Мощное сотрясение земли, сбивающее врага с ног."},
+"Каменный залп":{type:"Каменный",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Залп из камней."},
+"Рок-бластер":{type:"Каменный",power:25,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Скоростной обстрел камнями."},
 
 // ===== ЛЕТАЮЩИЙ =====
-"Удар крылом":{type:"Летающий",power:60,cat:"physical"},
-"Порыв ветра":{type:"Летающий",power:40,cat:"special"},
-"Воздушный клинок":{type:"Летающий",power:75,cat:"special"},
-"Клюв-копьё":{type:"Летающий",power:80,cat:"physical"},
+"Удар крылом":{type:"Летающий",power:60,cat:"physical",desc:"Мощный удар крылом."},
+"Порыв ветра":{type:"Летающий",power:40,cat:"special",desc:"Резкий порыв ветра, сбивающий врага."},
+"Воздушный клинок":{type:"Летающий",power:75,cat:"special",desc:"Лезвие из сжатого воздуха."},
+"Клюв-копьё":{type:"Летающий",power:80,cat:"physical",desc:"Пронзительный удар клювом."},
 
 // ===== ДРАКОН =====
-"Драконий вихрь":{type:"Дракон",power:40,cat:"special"},
-"Драконий натиск":{type:"Дракон",power:100,cat:"physical"},
-"Ярость дракона":{type:"Дракон",power:120,cat:"physical"},
+"Драконий вихрь":{type:"Дракон",power:40,cat:"special",desc:"Вихрь драконьей энергии."},
+"Драконий натиск":{type:"Дракон",power:100,cat:"physical",desc:"Сокрушительный натиск, полный драконьей мощи."},
+"Ярость дракона":{type:"Дракон",power:120,cat:"physical",desc:"Вся ярость дракона в одном ударе."},
 
 // ===== ЯДОВИТЫЙ / НИЗШИЙ =====
-"Жучий укус":{type:"Низший",power:60,cat:"physical"},
-"Жало скорпиона":{type:"Ядовитый",power:15,cat:"physical"},
-"Высасывание жизни":{type:"Низший",power:80,cat:"physical",effect:"drain",drain:0.5},
-"Отравленная пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель."},
+"Жучий укус":{type:"Низший",power:60,cat:"physical",desc:"Укус, свойственный низшим существам."},
+"Жало скорпиона":{type:"Ядовитый",power:15,cat:"physical",desc:"Быстрый укол жалом."},
+"Высасывание жизни":{type:"Низший",power:80,cat:"physical",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона. Высасывает жизнь."},
+"Отравленная пыльца":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.85,desc:"Отравляет цель. Облако токсичной пыльцы."},
 "Отравление":{type:"Ядовитый",power:null,cat:"status",effect:"poison",chance:0.9,desc:"Сильно отравляет."},
-"Отравленный шип":{type:"Ядовитый",power:15,cat:"physical",effect:"toxic",chance:0.5,desc:"Сильно отравляет."},
-"Токсичный шип":{type:"Ядовитый",power:15,cat:"physical",effect:"toxic",chance:0.5,desc:"Сильно отравляет."},
-"Отравленный клык":{type:"Ядовитый",power:50,cat:"physical",effect:"poison",chance:0.4,desc:"Может отравить."},
+"Отравленный шип":{type:"Ядовитый",power:15,cat:"physical",effect:"toxic",chance:0.5,desc:"Сильно отравляет. Шип с сильнодействующим ядом."},
+"Токсичный шип":{type:"Ядовитый",power:15,cat:"physical",effect:"toxic",chance:0.5,desc:"Сильно отравляет. Шип, покрытый токсинами."},
+"Отравленный клык":{type:"Ядовитый",power:50,cat:"physical",effect:"poison",chance:0.4,desc:"Может отравить. Укус с ядовитыми клыками."},
 
 // ===== БОЕВОЙ =====
-"Сфера ауры":{type:"Боевой",power:80,cat:"special"},
-"Контрудар":{type:"Боевой",power:null,cat:"counter",effect:"counter",desc:"Возвращает удвоенный физический урон."},
+"Сфера ауры":{type:"Боевой",power:80,cat:"special",desc:"Сгусток боевой ауры."},
+"Контрудар":{type:"Боевой",power:null,cat:"counter",effect:"counter",desc:"Возвращает удвоенный физический урон. Готовится отразить атаку."},
 "Высасывание":{type:"Боевой",power:20,cat:"physical",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
-"Предчувствие":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
-"Обнаружение":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
-"Ментальный":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку."},
+"Предчувствие":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку. Предвидит удар врага."},
+"Обнаружение":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку. Чувствует намерения врага."},
+"Ментальный":{type:"Боевой",power:null,cat:"status",effect:"protect",desc:"Блокирует следующую атаку. Создаёт ментальный щит."},
 
 // ===== СТАЛЬНОЙ =====
-"Железная защита":{type:"Стальной",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
-"Стальнойной клык":{type:"Стальной",power:70,cat:"physical",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту."},
+"Железная защита":{type:"Стальной",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту. Тело становится твёрдым, как сталь."},
+"Стальнойной клык":{type:"Стальной",power:70,cat:"physical",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту. Укус, способный пробить броню."},
 
 // ===== СВЯЩЕННЫЙ =====
 "Святая кара":{type:"Священный",power:100,cat:"special",desc:"Луч божественного света опаляет нечестивых."},
 "Небесный меч":{type:"Священный",power:95,cat:"physical",desc:"Меч из чистого света рассекает тьму."},
 "Благословение":{type:"Священный",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Небесное исцеление 50% HP."},
-"Божественный свет":{type:"Священный",power:80,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь светом."},
+"Божественный свет":{type:"Священный",power:80,cat:"special",effect:"burn",chance:0.3,desc:"Может обжечь светом. Столб божественного света."},
 "Кара небес":{type:"Священный",power:130,cat:"special",effect:"recoil",recoil:0.25,desc:"Гнев Небес. Отдача 25%."},
-"Перо Ангела":{type:"Священный",power:55,cat:"special",priority:1,desc:"Всегда бьёт первым."},
-"Святая аура":{type:"Священный",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту."},
-"Ангельское пение":{type:"Священный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет нечестивых."},
+"Перо Ангела":{type:"Священный",power:55,cat:"special",priority:1,desc:"Всегда бьёт первым. Атака пером, наполненным светом."},
+"Святая аура":{type:"Священный",power:null,cat:"status",effect:"defenseup",amount:2,desc:"Сильно повышает защиту. Аура света защищает от тьмы."},
+"Ангельское пение":{type:"Священный",power:null,cat:"status",effect:"sleep",chance:0.6,desc:"Усыпляет нечестивых. Пение ангелов умиротворяет."},
 "Освящение":{type:"Священный",power:null,cat:"status",effect:"toxic",chance:0.85,desc:"Сжигает нечисть изнутри (токсин)."},
-"Свет небес":{type:"Священный",power:70,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона."},
+"Свет небес":{type:"Священный",power:70,cat:"special",effect:"drain",drain:0.5,desc:"Восстанавливает 50% урона. Небесный свет исцеляет."},
 
 // ===== АНГЕЛЫ СМЕРТИ / НЕЖИТЬ =====
 "Коса жнеца":{type:"Нежить",power:110,cat:"physical",effect:"recoil",recoil:0.15,desc:"Коса обрывает жизнь. Отдача 15%."},
-"Поцелуй смерти":{type:"Нежить",power:90,cat:"special",effect:"drain",drain:0.75,desc:"Восстанавливает 75% урона."},
-"Проводы души":{type:"Нежить",power:null,cat:"status",effect:"revive",revive:0.5,desc:"Восстанавливает 50% HP павшему союзнику."},
-"Приговор":{type:"Нежить",power:null,cat:"status",effect:"possess",chance:0.7,desc:"Приговаривает душу врага к подчинению."},
-"Волна скорби":{type:"Нежить",power:85,cat:"special",effect:"confuse",chance:0.35,desc:"Может сбить с толку."},
-"Последний вздох":{type:"Нежить",power:120,cat:"special",effect:"selfdamage",selfDamage:0.15,desc:"Жнец жертвует 15% HP."},
-"Нить судьбы":{type:"Нежить",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым."},
+"Поцелуй смерти":{type:"Нежить",power:90,cat:"special",effect:"drain",drain:0.75,desc:"Восстанавливает 75% урона. Поцелуй, забирающий жизнь."},
+"Проводы души":{type:"Нежить",power:null,cat:"status",effect:"revive",revive:0.5,desc:"Восстанавливает 50% HP павшему союзнику. Провожает душу, но не даёт ей уйти."},
+"Приговор":{type:"Нежить",power:null,cat:"status",effect:"possess",chance:0.7,desc:"Приговаривает душу врага к подчинению. Шанс 70%."},
+"Волна скорби":{type:"Нежить",power:85,cat:"special",effect:"confuse",chance:0.35,desc:"Может сбить с толку. Волна тоски и отчаяния."},
+"Последний вздох":{type:"Нежить",power:120,cat:"special",effect:"selfdamage",selfDamage:0.15,desc:"Жнец жертвует 15% HP. Последний, самый мощный удар."},
+"Нить судьбы":{type:"Нежить",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым. Атака, обрывающая нить жизни."},
 "Каннибализм":{type:"Нежить",power:60,cat:"physical",effect:"drain",drain:0.75,desc:"Вгрызается в плоть врага и восстанавливает 75% урона."},
 "Костяной шип":{type:"Нежить",power:70,cat:"physical",desc:"Острый шип из костей пробивает плоть врага."},
 "Мясницкий крюк":{type:"Нежить",power:90,cat:"physical",effect:"recoil",recoil:0.15,desc:"Крюк пронзает врага, отдача 15% урона."},
@@ -3858,31 +3856,30 @@ const FULL_MOVES = {
 "Тёмное исцеление":{type:"Нежить",power:null,cat:"status",effect:"heal",heal:0.5,desc:"Высасывает жизнь из земли, восстанавливая 50% HP."},
 "Жертва души":{type:"Нежить",power:130,cat:"special",effect:"selfdamage",selfDamage:0.15,desc:"Мощный тёмный удар. Лич теряет 15% HP."},
 "Воскрешение мёртвых":{type:"Нежить",power:null,cat:"status",effect:"revive",revive:0.5,desc:"Воскрешает павшего союзника с 50% HP."},
-"Холод могилы":{type:"Нежить",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить."},
+"Холод могилы":{type:"Нежить",power:65,cat:"special",effect:"freeze",chance:0.15,desc:"Может заморозить. Могильный холод сковывает врага."},
 
 // ===== ТЕНЬ / Бесплотный =====
 "Невидимость":{type:"Бесплотный",power:null,cat:"status",effect:"invisible",duration:2,desc:"Тень становится невидимой на 2 хода — её нельзя атаковать."},
 "Крик Банши":{type:"Бесплотный",power:50,cat:"special",effect:"slow",slow:0.5,desc:"Замедляющая волна. Понижает скорость врага вдвое на 3 хода."},
 "Одержимость":{type:"Бесплотный",power:null,cat:"status",effect:"possess",chance:0.6,desc:"Пытается подчинить волю врага. С шансом 60% враг пропустит ход."},
-"Удар из тени":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+"Удар из тени":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым. Внезапная атака из тени."},
 "Шар тьмы":{type:"Бесплотный",power:80,cat:"special",desc:"Сгусток чистой тьмы."},
 "Тень смерти":{type:"Бесплотный",power:null,cat:"special",desc:"Тень накрывает врага, ослабляя его."},
 "Прикосновение могилы":{type:"Бесплотный",power:45,cat:"physical",desc:"Холодное прикосновение из могилы."},
-"Теневой удар":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым."},
+"Теневой удар":{type:"Бесплотный",power:40,cat:"physical",priority:1,desc:"Всегда бьёт первым. Атака, сотканная из чистой тьмы."},
 
 // ===== ВООРУЖЁННЫЙ =====
 "Лазерный выстрел":{type:"Вооруженный",power:85,cat:"special",desc:"Мощный заряд лазера."},
-"Плазменная пушка":{type:"Вооруженный",power:110,cat:"special",effect:"burn",chance:0.25,desc:"Может обжечь плазмой."},
-"Электрошокер":{type:"Вооруженный",power:60,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать."},
-"Ракетный залп":{type:"Вооруженный",power:30,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз."},
+"Плазменная пушка":{type:"Вооруженный",power:110,cat:"special",effect:"burn",chance:0.25,desc:"Может обжечь плазмой. Заряд раскалённой плазмы."},
+"Электрошокер":{type:"Вооруженный",power:60,cat:"special",effect:"paralyze",chance:0.3,desc:"Может парализовать. Разряд электричества."},
+"Ракетный залп":{type:"Вооруженный",power:30,cat:"physical",effect:"multihit",hits:"2-5",desc:"Бьёт 2-5 раз. Залп ракет."},
 "Прицельный выстрел":{type:"Вооруженный",power:95,cat:"special",desc:"Точный выстрел в слабое место."},
-"Осколочная граната":{type:"Вооруженный",power:80,cat:"special",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту."},
-"Плазменный залп":{type:"Вооруженный",power:120,cat:"special",effect:"recoil",recoil:0.25,desc:"Отдача 25% от перегрева."},
-"Турель":{type:"Вооруженный",power:null,cat:"status",effect:"barrier",desc:"Ставит защитную турель."},
-"Дымовая завеса":{type:"Вооруженный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку."},
-"Мины":{type:"Вооруженный",power:null,cat:"status",effect:"toxic",chance:0.8,desc:"Разбрасывает отравленные мины."},
-"Точный выстрел":{type:"Вооруженный",power:70,cat:"special",priority:1,desc:"Всегда бьёт первым."},
-"Перегрузка":{type:"Вооруженный",power:140,cat:"special",effect:"selfdamage",selfDamage:0.2,desc:"Пользователь жертвует 20% HP."},
+"Осколочная граната":{type:"Вооруженный",power:80,cat:"special",effect:"lowerdef",chance:0.3,desc:"Может понизить защиту. Осколки пробивают броню."},
+"Плазменный залп":{type:"Вооруженный",power:120,cat:"special",effect:"recoil",recoil:0.25,desc:"Отдача 25% от перегрева. Мощный плазменный выстрел."},
+"Турель":{type:"Вооруженный",power:null,cat:"status",effect:"barrier",desc:"Ставит защитную турель. Повышает защиту."},
+"Дымовая завеса":{type:"Вооруженный",power:null,cat:"status",effect:"confuse",chance:0.7,desc:"Сбивает с толку. Дым дезориентирует врага."},
+"Мины":{type:"Вооруженный",power:null,cat:"status",effect:"toxic",chance:0.8,desc:"Разбрасывает отравленные мины. Сильно отравляет."},
+"Перегрузка":{type:"Вооруженный",power:140,cat:"special",effect:"selfdamage",selfDamage:0.2,desc:"Пользователь жертвует 20% HP. Максимальная мощность оружия."},
 "Тактический сброс":{type:"Вооруженный",power:90,cat:"physical",desc:"Сброс бомбы с дрона."},
 
 // ===== ЛАМХИ =====
@@ -3895,6 +3892,55 @@ const FULL_MOVES = {
 "Проклятие роя":{type:"Нежить",power:100,cat:"special",effect:"drain",drain:0.5,desc:"Тёмная волна крыс-духов, восстанавливает 50% урона."},
 "Норский клинок":{type:"Земляной",power:95,cat:"physical",desc:"Клинок из кости подземного зверя. Мощный и точный."}
 };
+
+// ===================== ДОПОЛНИТЕЛЬНЫЕ АТАКИ (нежить Warcraft III) =====================
+Object.assign(FULL_MOVES, {
+  "Невидимость":{
+    type:"Бесплотный",power:null,cat:"status",
+    effect:"invisible",duration:2,
+    desc:"Тень становится невидимой на 2 хода — её нельзя атаковать."
+  },
+  "Крик Банши":{
+    type:"Бесплотный",power:50,cat:"special",
+    effect:"slow",slow:0.5,
+    desc:"Замедляющая волна. Понижает скорость врага вдвое на 3 хода."
+  },
+  "Одержимость":{
+    type:"Бесплотный",power:null,cat:"status",
+    effect:"possess",chance:0.6,
+    desc:"Пытается подчинить волю врага. С шансом 60% враг пропустит ход."
+  },
+  "Мясницкий крюк":{
+    type:"Нежить",power:90,cat:"physical",
+    effect:"recoil",recoil:0.15,
+    desc:"Крюк пронзает врага, отдача 15% урона."
+  },
+  "Пожирание трупов":{
+    type:"Нежить",power:null,cat:"status",
+    effect:"heal",heal:0.35,
+    desc:"Пожирает останки, восстанавливая 35% HP."
+  },
+  "Воскрешение мёртвых":{
+    type:"Нежить",power:null,cat:"status",
+    effect:"revive",revive:0.5,
+    desc:"Воскрешает павшего союзника с 50% HP (вне боя)."
+  },
+  "Ледяная стрела":{
+    type:"Ледяной",power:75,cat:"special",
+    effect:"freeze",chance:0.2,
+    desc:"Ледяная стрела лича. Может заморозить."
+  },
+  "Тёмное исцеление":{
+    type:"Нежить",power:null,cat:"status",
+    effect:"heal",heal:0.5,
+    desc:"Высасывает жизнь из земли, восстанавливая 50% HP."
+  },
+  "Жертва души":{
+    type:"Нежить",power:130,cat:"special",
+    effect:"selfdamage",selfDamage:0.15,
+    desc:"Мощный тёмный удар. Лич теряет 15% HP."
+  }
+});
 
 const LEARNSETS={
 // ===================== ВЕЧНОЕ МОРЕ =====================
@@ -10413,11 +10459,32 @@ function findFreeSpawnPointInZone(zone){
   return null;
 }
 
+
+function cleanSpawnOccupied() {
+  // Собираем все актуальные точки
+  const alive = new Set();
+
+  FantasysOnMap.forEach(p => alive.add(`${p.x.toFixed(1)},${p.y.toFixed(1)}`));
+  trainersOnMap.forEach(t => alive.add(`${t.x.toFixed(1)},${t.y.toFixed(1)}`));
+  npsQuestRefs.forEach(n => alive.add(`${n.pos.x.toFixed(1)},${n.pos.y.toFixed(1)}`));
+  HealerHut_ZONES.forEach(z => alive.add(`${(z.x+z.w/2).toFixed(1)},${(z.y+z.h/2).toFixed(1)}`));
+
+  // Оставляем только «живые» точки
+  for (let i = spawnOccupied.length - 1; i >= 0; i--) {
+    const key = `${spawnOccupied[i].x.toFixed(1)},${spawnOccupied[i].y.toFixed(1)}`;
+    if (!alive.has(key)) spawnOccupied.splice(i, 1);
+  }
+}
+
+
 function scheduleRespawn(biome, zone){
+
   if(!biome) return;
   if(!unlockedZones.has(biome)) return;
   const delay = RESPAWN_DELAY_MS + Math.random()*RESPAWN_JITTER_MS;
   setTimeout(()=>{
+ cleanSpawnOccupied();  
+
     if(FantasysOnMap.length >= MAX_Fantasy_ON_MAP) return;
     if(!unlockedZones.has(biome)) return;
     const p = pickRandomFantasyForBiome(biome);
@@ -10435,8 +10502,7 @@ function spawnFantasyInZone(p, biome, forcedZone) {
   const pos = forcedZone
     ? findFreeSpawnPointInZone(forcedZone)
     : findFreeSpawnPoint(biome);
-  if (!pos) return;
-  reserveSpawnPoint(pos.x, pos.y);
+  if (!pos) return;  reserveSpawnPoint(pos.x, pos.y);
 // ЗАМЕНИТЕ НА:
 const el = document.createElement('div');
 el.className = 'Fantasy';
@@ -13248,7 +13314,7 @@ chagnomoks: ['#a78bfa','#c4b5fd'],
   fattolodor: ['#fcd34d','#fef08a'],
   totsar:     ['#c4b5fd','#ddd6fe'],
   olandir:    ['#fca5a5','#fecaca'],
-  uurion:     ['#f472b6','#fbcfe8'],
+  uurion:     ['orange','black'],
   gozon:      ['#f87171','#fecaca'],
   pole_magii: ['#fbbf24','#fde68a']
 };
@@ -16704,14 +16770,14 @@ function shakeSprite(id){
   // === ИЗМЕНЕНИЕ: Фильтруем атаки, на которые хватает энергии ===
   const affordableMoves = enemyMoves.filter(move => (enemy.currentEnergy || 0) >= (move.cost || 0));
 
-  let move;
-  if (affordableMoves.length > 0) {
-    // Если есть доступные атаки, выбираем одну из них
-    move = affordableMoves[Math.floor(Math.random() * affordableMoves.length)];
-  } else {
-    // Если энергии не хватает ни на одну атаку, враг "отдыхает" и восстанавливает энергию
-    move = { name: 'Восстановление сил', power: null, cat: 'status', effect: 'recharge', desc: 'Восстанавливает энергию.' };
-  }
+let move;
+if (affordableMoves.length > 0) {
+  // Если есть доступные атаки, выбираем одну из них
+  move = affordableMoves[Math.floor(Math.random() * affordableMoves.length)];
+} else {
+  // Энергии нет — враг пропускает ход (без восстановления)
+  move = { name: 'Истощение', power: null, cat: 'status', effect: 'skip', desc: 'Враг истощён и пропускает ход.' };
+}
   
   // Контрудар от игрока
   if(battleState.playerCounter&&battleState.lastEnemyDamage>0){
