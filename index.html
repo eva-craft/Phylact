@@ -4502,6 +4502,25 @@ function getTypeEff(moveType,defTypes){
   return m;
 }// ===================== ФЭНТЕЗИ-СУЩЕСТВА =====================
 const Fantasy_DATA = [
+
+
+{id:1800,name:"Скелет-Воин",types:["Нежить","Боевой"],rarity:"common",habitats:["necropolis"],desc:"Простейший слуга Императора-Лича, восставший из костей древнего воина. Он не помнит своего имени, но помнит, как держать меч. Его существование — это вечное повторение последнего боя.",height:1.7,weight:25,category:"Скелет",stats:{hp:50,attack:70,defense:60,spAtk:30,spDef:40,speed:50},shape:"skeleton_warrior"},
+{id:1801,name:"Скелет-Лучник",types:["Нежить","Вооруженный"],rarity:"uncommon",habitats:["necropolis"],desc:"Восставший лучник, чей лук истлел, но стрелы всё ещё летят. Император-Лич даровал ему магические стрелы из костей, и теперь он — идеальный снайпер, что не знает усталости.",height:1.7,weight:22,category:"Скелет",stats:{hp:55,attack:85,defense:50,spAtk:70,spDef:45,speed:80},shape:"skeleton_archer"},
+{id:1802,name:"Некромант",types:["Нежить","Ментальный"],rarity:"rare",habitats:["necropolis"],desc:"Живой маг, что продал душу Императору-Личу ради власти над смертью. Он ещё дышит, но его сердце не бьётся. Он повелевает упырями и скелетами, и его цель — однажды занять место самого Императора.",height:1.9,weight:65,category:"Некромант",stats:{hp:90,attack:50,defense:75,spAtk:155,spDef:110,speed:85},shape:"necromancer"},
+{id:1803,name:"Рыцарь Смерти",types:["Нежить","Стальной"],rarity:"epic",habitats:["necropolis"],desc:"Паладин, что пал в бою и был восставлен Императором-Личом как его личный страж. Его броня почернела, а меч покрыт рунами смерти. Он — самый верный слуга Императора, ибо в его груди — не сердце, а филактерия.",height:2.2,weight:180,category:"Рыцарь",stats:{hp:150,attack:160,defense:155,spAtk:110,spDef:130,speed:80},shape:"death_knight"},
+{id:1804,name:"Костяной Дракон",types:["Нежить","Дракон"],rarity:"epic",habitats:["necropolis"],desc:"Дракон, что был убит и восставлен Императором-Личом. Его плоть сгнила, но кости помнят полёт. Он — самое страшное орудие Жатвы: летающая смерть, что не знает боли и не ведает страха.",height:5.0,weight:350,category:"Дракон",stats:{hp:160,attack:170,defense:130,spAtk:140,spDef:110,speed:90},shape:"bone_dragon"},
+
+// ============================================================
+// ==================== ФИНАЛЬНЫЙ БОСС =========================
+// ============================================================
+{id:9999,name:"Император-Лич Кладус",types:["Нежить","Тёмный","Ментальный"],rarity:"legendary",habitats:["necropolis"],desc:"Самый могущественный из нежити, созданный Подземной Владычицей Тоаной, но восставший против неё. Он — первопричина всех бед Филакта, и его Жатва не знает конца. Его цель — не власть, а уничтожение всего живого.",height:2.8,weight:120,category:"Император",stats:{hp:300,attack:220,defense:190,spAtk:240,spDef:210,speed:150},shape:"archlich"},
+
+
+
+
+
+
+
 // ===================== ВЕЧНОЕ МОРЕ =====================
 {id:1400,name:"Морской Жрец",types:["Водный","Священный"],rarity:"rare",habitats:["eternal_sea"],desc:"Жрец древнего культа, что поклоняется духам моря. Он — из числа тех немногих, кто помнит, что Вечное Море было колыбелью жизни, а не просто водной преградой. Его молитвы — это песни о сотворении мира, обращённые к самому Вечному Свету, отражённому в глубинах.",height:1.6,weight:70,category:"Жрец",stats:{hp:80,attack:60,defense:85,spAtk:115,spDef:120,speed:65},shape:"siren_queen",evolvesTo:1401,evolveLevel:45},
 {id:1401,name:"Верховный Жрец Моря",types:["Водный","Священный"],rarity:"epic",habitats:["eternal_sea"],desc:"Повелитель морских ритуалов, чей посох — осколок первого кристалла, рождённого из Вечного Света. Он управляет течениями не столько магией, сколько всеобщим признанием морей. Его слово — закон для всех, кто живёт под водой.",height:1.9,weight:90,category:"Жрец",stats:{hp:120,attack:90,defense:110,spAtk:150,spDef:155,speed:85},shape:"goddess_siren"},
@@ -4704,8 +4723,8 @@ const Fantasy_DATA = [
 // ===== ЭПИЧЕСКИЕ И ЛЕГЕНДАРНЫЕ (дополнительные) =====
 {id:1190,name:"Древний Дракон Времени",types:["Дракон","Ментальный"],rarity:"legendary",habitats:["pole_magii","heavenly_edge"],desc:"Легендарный дракон, что видел рождение Филакта и переживёт его смерть. Он — хранитель времени, и его дыхание — это не огонь, а сама память. Говорят, он может показать прошлое и будущее, но никогда не вмешивается.",height:6.0,weight:800,category:"Дракон",stats:{hp:180,attack:140,defense:160,spAtk:190,spDef:170,speed:120},shape:"sky_dragon"},
 {id:1191,name:"Аватар Вечного Света",types:["Священный","Фея"],rarity:"legendary",habitats:["heavenly_edge"],desc:"Легендарное существо, что является прямым воплощением Вечного Света. Оно не рождалось — оно было всегда. Его цель — сохранять баланс между светом и тьмой, и его сила — это сама жизнь.",height:2.5,weight:80,category:"Аватар",stats:{hp:200,attack:120,defense:170,spAtk:200,spDef:190,speed:150},shape:"creator_spark"},
-{id:1192,name:"Император-Лич Кладус",types:["Нежить","Тёмный","Ментальный"],rarity:"legendary",habitats:["necropolis"],desc:"Самый могущественный из нежити, созданный Подземной Владычицей Тоаной, но восставший против неё. Он — первопричина всех бед Филакта, и его Жатва не знает конца. Его цель — не власть, а уничтожение всего живого.",height:2.8,weight:120,category:"Император",stats:{hp:250,attack:200,defense:180,spAtk:220,spDef:200,speed:140},shape:"archlich"},
-{id:1193,name:"Подземная Владычица Тоана",types:["Тёмный","Земляной","Ментальный"],rarity:"legendary",habitats:["necropolis","cave"],desc:"Древняя богиня, что создала Императора-лича, но была предана им. Она скрывается в самых глубоких пещерах Филакта, вынашивая планы мести. Её сила — это сама земля, и её гнев — это землетрясение.",height:2.6,weight:150,category:"Богиня",stats:{hp:220,attack:180,defense:200,spAtk:210,spDef:190,speed:130},shape:"dark_lord"},
+
+
 {id:1194,name:"Араш, Паучья Богиня",types:["Тёмный","Низший","Ментальный"],rarity:"legendary",habitats:["necropolis","cave"],desc:"Тёмная богиня хаоса и обмана, которой поклонялся Аванур. Она — не из этого мира, а из-за его границ. Её паутина оплела весь Филакт, и её цель — поглотить Вечный Свет.",height:3.0,weight:200,category:"Богиня",stats:{hp:210,attack:190,defense:170,spAtk:230,spDef:180,speed:160},shape:"soul_devourer"},
 
 // ===== ХРАНИТЕЛИ И СТРАЖИ =====
@@ -5036,6 +5055,51 @@ Object.assign(FULL_MOVES, {
 });
 
 const LEARNSETS={
+// ... (конец LEARNSETS)
+
+// ===== АРМИЯ ИМПЕРАТОРА-ЛИЧА =====
+1800:[ // Скелет-Воин
+  {level:1,  move:"Костяной шип"},
+  {level:5,  move:"Грубая сила"},
+  {level:10, move:"Землетрясение"},
+  {level:16, move:"Сокрушение"}
+],
+1801:[ // Скелет-Лучник
+  {level:1,  move:"Прицельный выстрел"},
+  {level:5,  move:"Осколочная граната"},
+  {level:10, move:"Ракетный залп"}
+],
+1802:[ // Некромант
+  {level:1,  move:"Смятение"},
+  {level:5,  move:"Костяной шип"},
+  {level:10, move:"Тёмное исцеление"},
+  {level:16, move:"Волна смерти"},
+  {level:22, move:"Воскрешение мёртвых"}
+],
+1803:[ // Рыцарь Смерти
+  {level:1,  move:"Тройной удар"},
+  {level:1,  move:"Сокрушение"},
+  {level:12, move:"Коса жнеца"},
+  {level:18, move:"Приговор"},
+  {level:24, move:"Последний вздох"}
+],
+1804:[ // Костяной Дракон
+  {level:1,  move:"Драконий вихрь"},
+  {level:1,  move:"Обвал"},
+  {level:12, move:"Ярость дракона"},
+  {level:18, move:"Землетрясение"},
+  {level:24, move:"Драконий натиск"}
+],
+
+// ===== ФИНАЛЬНЫЙ БОСС =====
+9999:[ // Император-Лич Кладус
+  {level:1,  move:"Жертва души"},
+  {level:1,  move:"Приговор"},
+  {level:1,  move:"Воскрешение мёртвых"},
+  {level:1,  move:"Волна смерти"},
+  {level:1,  move:"Последний вздох"},
+  {level:1,  move:"Коса жнеца"}
+],
 // ===================== ВЕЧНОЕ МОРЕ =====================
 1400:[ // Морской Жрец
   {level:1,  move:"Водяной шип"},
@@ -5954,6 +6018,13 @@ const LEARNSETS={
 
 // ===================== ДОПОЛНИТЕЛЬНЫЕ АТАКИ (нежить Warcraft III) =====================
 Object.assign(FULL_MOVES, {
+// ... (внутри FULL_MOVES)
+
+"Приговор":{
+    type:"Нежить",power:null,cat:"status",
+    effect:"possess",chance:0.7,
+    desc:"Приговаривает душу врага к подчинению. Шанс 70%."
+},
   "Невидимость":{
     type:"Бесплотный",power:null,cat:"status",
     effect:"invisible",duration:2,
@@ -6118,7 +6189,125 @@ const NPS_KNIGHT = `<svg viewBox="0 0 64 64">
 
 const SPRITES = {/* ===================== ЛАМХИ-ЮНЕЦ ===================== */
 
+// ... (конец объекта SPRITES)
 
+/* ===================== АРМИЯ ИМПЕРАТОРА-ЛИЧА ===================== */
+skeleton_warrior:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="58" rx="12" ry="2.5" fill="rgba(0,0,0,0.3)"/>
+  <path d="M26 48 L24 56 L30 56 L28 48 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <path d="M38 48 L40 56 L34 56 L36 48 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="22" y="30" width="20" height="18" rx="3" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <path d="M22 32 H42 M22 38 H42" stroke="#475569" stroke-width="0.8"/>
+  <path d="M18 34 Q12 34 10 40 Q14 42 18 38 Z" fill="#cbd5e1"/>
+  <path d="M46 34 Q52 34 54 40 Q50 42 46 38 Z" fill="#cbd5e1"/>
+  <rect x="8" y="22" width="3" height="24" fill="#94a3b8" transform="rotate(-20 9 34)"/>
+  <circle cx="32" cy="18" r="10" fill="#e5e7eb" stroke="#475569" stroke-width="1.3"/>
+  <ellipse cx="32" cy="22" rx="6" ry="5" fill="#475569"/>
+  <ellipse cx="28" cy="18" rx="2.5" ry="2.8" fill="#0a0e1a"/>
+  <ellipse cx="36" cy="18" rx="2.5" ry="2.8" fill="#0a0e1a"/>
+  <circle cx="28" cy="18" r="1" fill="#a855f7"/>
+  <circle cx="36" cy="18" r="1" fill="#a855f7"/>
+</svg>`,
+skeleton_archer:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="58" rx="12" ry="2.5" fill="rgba(0,0,0,0.3)"/>
+  <path d="M26 48 L24 56 L30 56 L28 48 Z" fill="#cbd5e1"/>
+  <path d="M38 48 L40 56 L34 56 L36 48 Z" fill="#cbd5e1"/>
+  <rect x="22" y="30" width="20" height="18" rx="3" fill="#a8a29e" stroke="#44403c" stroke-width="1.2"/>
+  <path d="M22 36 H42" stroke="#44403c" stroke-width="0.8"/>
+  <path d="M18 34 Q12 34 10 40 Q14 42 18 38 Z" fill="#cbd5e1"/>
+  <path d="M46 34 Q52 34 54 40 Q50 42 46 38 Z" fill="#cbd5e1"/>
+  <path d="M12 30 Q6 40 12 50" stroke="#78350f" stroke-width="2" fill="none"/>
+  <path d="M12 30 L12 50" stroke="#e5e7eb" stroke-width="0.5"/>
+  <circle cx="32" cy="18" r="10" fill="#e5e7eb" stroke="#475569" stroke-width="1.3"/>
+  <ellipse cx="28" cy="18" rx="2.5" ry="2.8" fill="#0a0e1a"/>
+  <ellipse cx="36" cy="18" rx="2.5" ry="2.8" fill="#0a0e1a"/>
+  <circle cx="28" cy="18" r="1" fill="#a855f7"/>
+  <circle cx="36" cy="18" r="1" fill="#a855f7"/>
+  <path d="M22 14 L26 10 L30 14" stroke="#cbd5e1" stroke-width="1" fill="none"/>
+</svg>`,
+necromancer:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.4)"/>
+  <path d="M18 28 L46 28 L50 58 L14 58 Z" fill="#1e1b4b"/>
+  <path d="M18 28 L46 28 L47 36 L17 36 Z" fill="#4c1d95"/>
+  <circle cx="32" cy="42" r="5" fill="#0a0e1a" stroke="#a855f7" stroke-width="1.3"/>
+  <path d="M32 38 L32 46 M28 42 L36 42" stroke="#67e8f9" stroke-width="1"/>
+  <rect x="10" y="30" width="8" height="18" rx="3" fill="#4c1d95"/>
+  <rect x="46" y="30" width="8" height="18" rx="3" fill="#4c1d95"/>
+  <circle cx="14" cy="49" r="3" fill="#a855f7"/>
+  <circle cx="50" cy="49" r="3" fill="#a855f7"/>
+  <rect x="8" y="14" width="3" height="36" fill="#451a03"/>
+  <circle cx="9.5" cy="10" r="5" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="8" cy="9.5" r="1.2" fill="#a855f7"/>
+  <circle cx="11" cy="9.5" r="1.2" fill="#a855f7"/>
+  <circle cx="32" cy="16" r="11" fill="#e5e7eb"/>
+  <path d="M20 14 Q22 2 32 2 Q42 2 44 14 Z" fill="#1e1b4b"/>
+  <ellipse cx="28" cy="16" rx="2" ry="2.5" fill="#0a0e1a"/>
+  <ellipse cx="36" cy="16" rx="2" ry="2.5" fill="#0a0e1a"/>
+  <circle cx="28" cy="16" r="1" fill="#67e8f9"/>
+  <circle cx="36" cy="16" r="1" fill="#67e8f9"/>
+</svg>`,
+death_knight:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="18" ry="3.5" fill="rgba(0,0,0,0.45)"/>
+  <path d="M20 28 L44 28 L48 58 L16 58 Z" fill="#1e1b4b" stroke="#0a0e1a" stroke-width="1.5"/>
+  <path d="M22 30 L42 30 L44 54 L20 54 Z" fill="#2d1b4e" stroke="#7c3aed" stroke-width="1"/>
+  <path d="M14 28 Q18 22 24 24 L24 32 Q18 30 14 28 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1.2"/>
+  <path d="M50 28 Q46 22 40 24 L40 32 Q46 30 50 28 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1.2"/>
+  <rect x="8" y="30" width="8" height="18" rx="3" fill="#1e1b4b"/>
+  <rect x="48" y="30" width="8" height="18" rx="3" fill="#1e1b4b"/>
+  <rect x="4" y="10" width="4" height="42" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M6 6 L2 14 L6 20 L10 14 Z" fill="#a855f7"/>
+  <circle cx="32" cy="18" r="11" fill="#1e1b4b" stroke="#0a0e1a" stroke-width="1.5"/>
+  <path d="M22 12 L26 6 L30 10 L32 4 L34 10 L38 6 L42 12 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1"/>
+  <ellipse cx="28" cy="18" rx="2.5" ry="3" fill="#0a0e1a"/>
+  <ellipse cx="36" cy="18" rx="2.5" ry="3" fill="#0a0e1a"/>
+  <circle cx="28" cy="18" r="1.2" fill="#dc2626"/>
+  <circle cx="36" cy="18" r="1.2" fill="#dc2626"/>
+</svg>`,
+bone_dragon:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="58" rx="26" ry="4" fill="rgba(0,0,0,0.4)"/>
+  <path d="M14 30 Q0 20 2 38 Q10 30 16 32 Q4 24 14 30 Z" fill="#e5e7eb" stroke="#475569" stroke-width="1.2"/>
+  <path d="M50 30 Q64 20 62 38 Q54 30 48 32 Q60 24 50 30 Z" fill="#e5e7eb" stroke="#475569" stroke-width="1.2"/>
+  <ellipse cx="32" cy="40" rx="18" ry="12" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/>
+  <path d="M22 36 H42 M24 42 H40 M28 46 H36" stroke="#94a3b8" stroke-width="2" fill="none"/>
+  <path d="M14 46 Q10 52 12 58" stroke="#e5e7eb" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M50 46 Q54 52 52 58" stroke="#e5e7eb" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <ellipse cx="18" cy="26" rx="10" ry="8" fill="#e5e7eb" stroke="#475569" stroke-width="1.3"/>
+  <path d="M12 20 L14 12 L18 18 Z" fill="#a855f7"/>
+  <path d="M24 20 L22 12 L18 18 Z" fill="#a855f7"/>
+  <ellipse cx="15" cy="26" rx="3" ry="4" fill="#0a0e1a"/>
+  <ellipse cx="21" cy="26" rx="3" ry="4" fill="#0a0e1a"/>
+  <circle cx="15" cy="26" r="1.5" fill="#a855f7"/>
+  <circle cx="21" cy="26" r="1.5" fill="#a855f7"/>
+  <path d="M10 30 Q14 34 18 32" stroke="#e5e7eb" stroke-width="1.5" fill="none"/>
+  <path d="M14 34 L12 36 M16 34 L15 36 M18 34 L17 36" stroke="#e5e7eb" stroke-width="1"/>
+</svg>`,
+lich_emperor:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="61" rx="26" ry="4" fill="rgba(0,0,0,0.6)"/>
+  <ellipse cx="32" cy="36" rx="30" ry="26" fill="#4c1d95" opacity="0.3"/>
+  <path d="M14 28 Q12 12 32 8 Q52 12 50 28 L56 60 L8 60 Z" fill="#2d1b4e" stroke="#7c3aed" stroke-width="1.8"/>
+  <path d="M14 28 Q32 22 50 28" stroke="#a855f7" stroke-width="1.5" fill="none"/>
+  <path d="M18 36 Q32 30 46 36" stroke="#7c3aed" stroke-width="1.2" fill="none"/>
+  <path d="M20 44 Q32 38 44 44" stroke="#7c3aed" stroke-width="1" fill="none"/>
+  <circle cx="32" cy="42" r="6" fill="#000" stroke="#dc2626" stroke-width="1.8"/>
+  <path d="M32 36 L32 48 M26 42 L38 42" stroke="#dc2626" stroke-width="1.8"/>
+  <ellipse cx="32" cy="22" rx="13" ry="12" fill="#1a0e2e"/>
+  <path d="M20 16 L24 4 L28 10 L32 2 L36 10 L40 4 L44 16 Z" fill="#4c1d95" stroke="#a855f7" stroke-width="1.3"/>
+  <circle cx="32" cy="4" r="2.5" fill="#a855f7"/>
+  <circle cx="24" cy="8" r="1.5" fill="#a855f7"/>
+  <circle cx="40" cy="8" r="1.5" fill="#a855f7"/>
+  <path d="M22 22 Q22 18 32 18 Q42 18 42 22 Q38 24 32 24 Q26 24 22 22 Z" fill="#a855f7" opacity="0.6"/>
+  <ellipse cx="27" cy="22" rx="3" ry="3.5" fill="#fbbf24"/>
+  <ellipse cx="37" cy="22" rx="3" ry="3.5" fill="#fbbf24"/>
+  <circle cx="27" cy="22" r="1.2" fill="#1a1a1a"/>
+  <circle cx="37" cy="22" r="1.2" fill="#1a1a1a"/>
+  <circle cx="27" cy="22" r="5" fill="#fbbf24" opacity="0.3"/>
+  <circle cx="37" cy="22" r="5" fill="#fbbf24" opacity="0.3"/>
+  <rect x="4" y="14" width="4" height="46" fill="#451a03" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M6 14 Q6 0 16 0 Q26 0 26 10 Q26 18 16 18" fill="none" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="16" cy="10" r="2.5" fill="#dc2626"/>
+  <circle cx="16" cy="10" r="5" fill="#dc2626" opacity="0.4"/>
+</svg>`,
+// ... (остальные спрайты)
 
 
 elf_archer_master:`<svg viewBox="0 0 64 64">
@@ -10731,6 +10920,7 @@ let zoneProgress={};
 let earnedSeals=new Set();
 const WILD_POWER_MULT = 0.7;
 const SOUL_SEALS={
+lich_emperor:{name:"Печать Императора",master:"Кладус"},
 haradat:{name:"Печать Камня",master:"Торвальд"},
 goch:{name:"Печать Воды",master:"Аэлин"},
 olandir:{name:"Печать Молнии",master:"Заррок"},
@@ -10742,6 +10932,14 @@ zyffren:{name:"Печать Земли",master:"Джован"}
 };
 
 const SOUL_MASTERS={
+lich_emperor:{
+  name:"Император-Лич Кладус",
+  title:"Повелитель Жатвы",
+  team:[ /* его команда формируется в startLichEmperorBattle */ ],
+  reward:100000, badge:"lich_emperor",
+  before:"Ты бросил вызов самой смерти. Твоя душа станет первой в моей новой Жатве.",
+  after:"Невозможно... Я, созданный из тьмы... побеждён? Свет... возвращается..."
+},
 haradat:{
   name:"Мастер Камня Торвальд",
   title:"Мастер Душ Камня",
@@ -11455,11 +11653,11 @@ chagnomoks: {
 necropolis: {
   levels:[42, 55],
   rarities:{
-    common: 0,
-    uncommon: 1,
-    rare: 2,
-    epic: 2,
-    legendary: 2
+    common: 1,     // Скелеты
+    uncommon: 2,   // Скелеты-лучники
+    rare: 3,       // Некроманты
+    epic: 2,       // Рыцари Смерти, Костяные Драконы
+    legendary: 1   // Сам Император (появится 1 раз)
   }
 },
 
@@ -11706,6 +11904,71 @@ function spawnAllFantasy(){
       }
     });
   });
+
+
+
+
+
+
+
+
+
+
+
+  // ===== ОСОБЫЙ СПАВН: ИМПЕРАТОР-ЛИЧ =====
+  // Спавним его один раз, в центре Некрополя, если он ещё не побеждён
+  if (unlockedZones.has('necropolis') && !earnedSeals.has('lich_emperor')) {
+    const necropolisZone = BIOME_ZONES.find(z => z.biome === 'necropolis');
+    if (necropolisZone) {
+      const emperorData = Fantasy_DATA.find(x => x.id === 9999);
+      if (emperorData) {
+        const pos = { x: necropolisZone.x + necropolisZone.w / 2, y: necropolisZone.y + necropolisZone.h / 2 };
+        
+        const el = document.createElement('div');
+        el.className = 'Fantasy'; // Используем тот же класс
+        el.innerHTML = getSprite(emperorData.shape);
+        el.style.transform = `translate(${pos.x}px,${pos.y}px)`;
+        el.style.filter = 'drop-shadow(0 0 15px #dc2626) drop-shadow(0 0 25px #a855f7)'; // Эпичное свечение
+        el.style.zIndex = yToZFantasy(pos.y + 28);
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = '💀 Император-Лич';
+        label.style.color = '#dc2626';
+        label.style.borderColor = '#dc2626';
+        label.style.boxShadow = '0 0 8px #dc2626';
+        el.appendChild(label);
+        
+        // Особый клик — запускает уникальный бой
+        el.addEventListener('click', e => {
+          e.stopPropagation();
+          startLichEmperorBattle();
+        });
+        
+        // ПКМ — бестиарий
+        el.addEventListener('contextmenu', e => {
+          e.preventDefault(); e.stopPropagation();
+          openBestiary(emperorData);
+        });
+
+        world.appendChild(el);
+        FantasysOnMap.push({ el, x: pos.x, y: pos.y, data: emperorData, hidden: false, biome: 'necropolis' });
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 function spawnTrainers(){
@@ -17466,7 +17729,57 @@ function startTrainerBattle(tmpl,pos){
   });
 }
 // НАЙДИТЕ:
+// ... (после startSoulMasterBattle)
 
+function startLichEmperorBattle() {
+    if (earnedSeals.has('lich_emperor')) { // Проверяем, не побеждён ли уже босс
+        showToast("Император-Лич уже побеждён! Его Жатва окончена.");
+        return;
+    }
+    if (playerTeam.length === 0) { showToast("У тебя нет существ!"); return; }
+    if (!playerTeam.some(p => p.currentHP > 0)) { showToast("Все существа без сознания!"); return; }
+
+    const emperor = Fantasy_DATA.find(x => x.id === 9999);
+    if (!emperor) return;
+
+    // Армия Императора
+    const army = [
+        Fantasy_DATA.find(x => x.id === 1800), // Скелет-Воин
+        Fantasy_DATA.find(x => x.id === 1801), // Скелет-Лучник
+        Fantasy_DATA.find(x => x.id === 1802), // Некромант
+        Fantasy_DATA.find(x => x.id === 1803), // Рыцарь Смерти
+        Fantasy_DATA.find(x => x.id === 1804), // Костяной Дракон
+    ].filter(Boolean);
+
+    // Создаём команду врагов
+    const enemyTeam = [
+        createPlayerFantasy(emperor, 70), // Сам Император 70 уровня
+        ...army.map(data => createPlayerFantasy(data, 65)), // Армия 65 уровня
+    ];
+
+    closeAllScreens();
+    hideMenuButtons();
+
+    showDialog(emperor.name, "Ты бросил вызов самой смерти. Твоя душа станет первой в моей новой Жатве.", () => {
+        battleState = {
+            enemy: enemyTeam[0],
+            playerInbest: playerTeam.findIndex(p => p.currentHP > 0),
+            turn: 'player', busy: false,
+            isTrainer: true, isSoulMaster: true, // Считаем это битвой с мастером
+            enemyTeam: enemyTeam,
+            enemyInbest: 0,
+            trainerName: emperor.name,
+            reward: 100000, // Огромная награда
+            soulKey: 'lich_emperor', // Ключ для печати
+            playerProtect: false, enemyProtect: false,
+            lastPlayerDamage: 0, lastEnemyDamage: 0,
+            lastPlayerMove: null, lastEnemyMove: null
+        };
+        document.getElementById('battleScreen').classList.add('active');
+        updateBattleUI();
+        showBattleLog(`${emperor.name}: Восстаньте, мои слуги!`);
+    });
+}
 
 // ЗАМЕНИТЕ НА:
 function startSoulMasterBattle(soulKey){
