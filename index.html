@@ -11105,6 +11105,221 @@ function generateForestTrees(){
   const MAX_ATTEMPTS = 6000;
   const TARGET_COUNT = 450;
 // ===================== БОЖЕСТВЕННЫЙ КРАЙ: ОБЛАКА, ЗДАНИЯ, ОБЕЛИСКИ =====================
+
+// ===================== ДЕРЕВЬЯ В СКАЗОЧНОМ ЛЕСУ (DOM, с Y-сортировкой) =====================
+function spawnForestTreesDOM(){
+  // Удаляем старые деревья леса, если функция вызывается повторно
+  document.querySelectorAll('#world > .building.forest-tree').forEach(el => el.remove());
+
+  const forestZones = BIOME_ZONES.filter(z => z.biome === 'forest');
+  if(!forestZones.length) return;
+
+  const rnd = mulberry32(24681357);
+  const MIN_DIST = 55;      // мин. расстояние между деревьями
+  const MAX_TREES = 120;    // максимум деревьев
+  let placed = 0;
+
+  // === Собираем ВСЕ занятые точки на карте ===
+  const occupiedPoints = [];
+
+  // 1. Существа на карте
+  FantasysOnMap.forEach(p => {
+    occupiedPoints.push({ x: p.x, y: p.y, r: 55 });
+  });
+
+  // 2. Тренеры
+  trainersOnMap.forEach(t => {
+    occupiedPoints.push({ x: t.x, y: t.y, r: 60 });
+  });
+
+  // 3. NPC с квестами
+  npsQuestRefs.forEach(n => {
+    occupiedPoints.push({ x: n.pos.x, y: n.pos.y, r: 60 });
+  });
+
+  // 4. Дома, медцентры, святилища (всё, что .building, кроме старых деревьев)
+  document.querySelectorAll('#world > .building:not(.forest-tree)').forEach(el => {
+    const m = el.style.transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
+    if(!m) return;
+    const bx = parseFloat(m[1]);
+    const by = parseFloat(m[2]);
+    const w = parseFloat(el.style.width)  || 64;
+    const h = parseFloat(el.style.height) || 64;
+    const r = Math.max(w, h) / 2 + 20;
+    occupiedPoints.push({ x: bx, y: by, r });
+  });
+
+  // 5. Все зарезервированные точки спавна (на всякий случай)
+  if(typeof spawnOccupied !== 'undefined'){
+    spawnOccupied.forEach(p => occupiedPoints.push({ x: p.x, y: p.y, r: 50 }));
+  }
+
+  // 6. Все существа/тренеры, которые ещё не добавлены в массивы,
+  //    но уже есть в DOM (страховка)
+  document.querySelectorAll('#world > .Fantasy, #world > .trainer, #world > .nps-quest').forEach(el => {
+    const m = el.style.transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
+    if(!m) return;
+    occupiedPoints.push({
+      x: parseFloat(m[1]),
+      y: parseFloat(m[2]),
+      r: 55
+    });
+  });
+
+  // Универсальная проверка: свободна ли точка?
+  function isPointFree(x, y, extraRadius){
+    const extra = extraRadius || 0;
+    for(const o of occupiedPoints){
+      const dx = o.x - x;
+      const dy = o.y - y;
+      const minDist = o.r + extra;
+      if(dx * dx + dy * dy < minDist * minDist) return false;
+    }
+    return true;
+  }
+
+  const placedTrees = [];  // для проверки коллизий деревьев между собой
+
+  // === Расставляем деревья ===
+  forestZones.forEach(zone => {
+    const cx = zone.x + zone.w / 2;
+    const cy = zone.y + zone.h / 2;
+    const rx = zone.w / 2;
+    const ry = zone.h / 2;
+
+    const areaFactor = (zone.w * zone.h) / 100000;
+    const count = Math.min(60, Math.floor(15 * areaFactor + 10));
+
+    let attempts = 0;
+    let zonePlaced = 0;
+
+    while(zonePlaced < count && attempts < 600 && placed < MAX_TREES){
+      attempts++;
+
+      // Точка внутри эллипса биома (не у самого края)
+      const a = rnd() * Math.PI * 2;
+      const r = Math.sqrt(rnd()) * 0.82;
+      const tx = cx + Math.cos(a) * rx * r;
+      const ty = cy + Math.sin(a) * ry * r;
+
+      // 1. Не близко к другим деревьям
+      let tooClose = false;
+      for(const t of placedTrees){
+        const dx = t.x - tx, dy = t.y - ty;
+        if(dx * dx + dy * dy < MIN_DIST * MIN_DIST){ tooClose = true; break; }
+      }
+      if(tooClose) continue;
+
+      // 2. Не близко к существам, NPC, тренерам, зданиям
+      if(!isPointFree(tx, ty, 25)) continue;
+
+      // 3. На всякий случай — проверка через старую функцию резервации
+      if(typeof isSpawnFree === 'function' && !isSpawnFree(tx, ty, 50)) continue;
+
+      // === Создаём DOM-элемент дерева ===
+      const el = document.createElement('div');
+      el.className = 'building forest-tree';
+      const size = 56 + rnd() * 24;
+      el.style.width  = size + 'px';
+      el.style.height = size + 'px';
+      el.style.marginLeft = (-size/2) + 'px';
+      el.style.marginTop  = (-size/2) + 'px';
+      el.style.pointerEvents = 'none';
+      el.innerHTML = forestTreeSVG(Math.floor(rnd() * 100000));
+
+      el.style.transform = `translate(${tx}px, ${ty}px)`;
+      el.dataset.sortY = ty + size * 0.35;
+
+      world.appendChild(el);
+      houseEls.push(el);
+
+      el.style.zIndex = yToZBuilding(ty + size * 0.35);
+
+      placedTrees.push({ x: tx, y: ty });
+      zonePlaced++;
+      placed++;
+    }
+  });
+
+  console.log(`🌲 Деревьев в Сказочном лесу: ${placed}`);
+  console.log(`   Учтено занятых точек: ${occupiedPoints.length}`);
+}
+
+// Дерево для Сказочного леса — объёмное, с несколькими слоями кроны
+function forestTreeSVG(seed){
+  const variant = seed % 4;   // 4 варианта дерева
+
+  if(variant === 0){
+    // Высокое ель-подобное дерево
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
+      <rect x="30" y="46" width="4" height="14" fill="#4a2c14"/>
+      <rect x="30" y="46" width="1.5" height="14" fill="#2a1a0c"/>
+      <path d="M32 44 L14 30 L50 30 Z" fill="#15803d"/>
+      <path d="M32 36 L12 22 L52 22 Z" fill="#166534"/>
+      <path d="M32 28 L16 12 L48 12 Z" fill="#22c55e"/>
+      <path d="M32 20 L20 6 L44 6 Z" fill="#4ade80"/>
+      <circle cx="26" cy="20" r="2" fill="rgba(134,239,172,0.5)"/>
+      <circle cx="38" cy="14" r="1.5" fill="rgba(134,239,172,0.6)"/>
+    </svg>`;
+  }
+
+  if(variant === 1){
+    // Широкое лиственное дерево
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+      <rect x="29" y="44" width="6" height="16" fill="#4a2c14"/>
+      <rect x="29" y="44" width="2" height="16" fill="#2a1a0c"/>
+      <circle cx="22" cy="34" r="14" fill="#14532d"/>
+      <circle cx="42" cy="34" r="14" fill="#14532d"/>
+      <circle cx="32" cy="26" r="16" fill="#166534"/>
+      <circle cx="32" cy="22" r="11" fill="#22c55e"/>
+      <circle cx="24" cy="20" r="3" fill="rgba(134,239,172,0.55)"/>
+      <circle cx="40" cy="24" r="2.5" fill="rgba(134,239,172,0.5)"/>
+      <circle cx="32" cy="16" r="2" fill="rgba(187,247,208,0.7)"/>
+    </svg>`;
+  }
+
+  if(variant === 2){
+    // Дуплистое дерево (два ствола)
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+      <path d="M26 60 L26 40 Q24 30 20 24 Q28 26 30 38 L30 60 Z" fill="#4a2c14"/>
+      <path d="M38 60 L38 42 Q40 32 44 26 Q36 28 34 40 L34 60 Z" fill="#3a2010"/>
+      <circle cx="22" cy="22" r="12" fill="#14532d"/>
+      <circle cx="42" cy="24" r="12" fill="#14532d"/>
+      <circle cx="32" cy="18" r="13" fill="#166534"/>
+      <circle cx="32" cy="14" r="9" fill="#22c55e"/>
+      <circle cx="26" cy="12" r="2.5" fill="rgba(134,239,172,0.6)"/>
+      <circle cx="40" cy="16" r="2" fill="rgba(134,239,172,0.5)"/>
+      <!-- Дупло -->
+      <ellipse cx="30" cy="34" rx="3" ry="5" fill="#1a0e05"/>
+    </svg>`;
+  }
+
+  // variant === 3: Старое дерево с корнями
+  return `<svg viewBox="0 0 64 64">
+    <ellipse cx="32" cy="60" rx="18" ry="3" fill="rgba(0,0,0,0.3)"/>
+    <path d="M28 58 L26 48 L24 58 Z" fill="#3a2010"/>
+    <path d="M36 58 L38 48 L40 58 Z" fill="#3a2010"/>
+    <rect x="29" y="42" width="6" height="18" fill="#4a2c14"/>
+    <rect x="29" y="42" width="2" height="18" fill="#2a1a0c"/>
+    <!-- Крупная крона -->
+    <circle cx="20" cy="28" r="13" fill="#14532d"/>
+    <circle cx="44" cy="28" r="13" fill="#14532d"/>
+    <circle cx="32" cy="20" r="15" fill="#166534"/>
+    <circle cx="24" cy="22" r="10" fill="#22c55e"/>
+    <circle cx="40" cy="22" r="10" fill="#22c55e"/>
+    <circle cx="32" cy="14" r="8" fill="#4ade80"/>
+    <circle cx="24" cy="14" r="2.5" fill="rgba(187,247,208,0.7)"/>
+    <circle cx="40" cy="18" r="2" fill="rgba(187,247,208,0.6)"/>
+    <circle cx="32" cy="10" r="1.8" fill="rgba(255,255,255,0.7)"/>
+    <!-- Мох -->
+    <ellipse cx="20" cy="40" rx="3" ry="2" fill="#22c55e" opacity="0.6"/>
+  </svg>`;
+}
+
+
 const heavenlyClouds = [];     // парящие облака
 
 function drawHeavenlyEdgeObjects(ctx, time) {
@@ -18643,7 +18858,155 @@ DIALOGS.q_heavenly_gate = {
 };
 
 
+// ===================== ДЕРЕВЬЯ В СКАЗОЧНОМ ЛЕСУ (DOM, с Y-сортировкой) =====================
+function spawnForestTreesDOM(){
+  // Сначала удаляем старые деревья леса, если есть
+  document.querySelectorAll('#world > .building.forest-tree').forEach(el => el.remove());
 
+  const forestZones = BIOME_ZONES.filter(z => z.biome === 'forest');
+  if(!forestZones.length) return;
+
+  const rnd = mulberry32(24681357);
+  const MIN_DIST = 205;   // минимальное расстояние между деревьями
+  const MAX_TREES = 120; // сколько деревьев всего
+  let placed = 0;
+
+  const placedTrees = []; // для проверки коллизий между собой
+
+  // Пытаемся расставить деревья в каждой зоне леса
+  forestZones.forEach(zone => {
+    const cx = zone.x + zone.w / 2;
+    const cy = zone.y + zone.h / 2;
+    const rx = zone.w / 2;
+    const ry = zone.h / 2;
+
+    // Количество деревьев пропорционально площади, но не больше MAX_TREES
+    const areaFactor = (zone.w * zone.h) / 100000;
+    const count = Math.min(60, Math.floor(15 * areaFactor + 10));
+
+    let attempts = 0;
+    let zonePlaced = 0;
+    while(zonePlaced < count && attempts < 400 && placed < MAX_TREES){
+      attempts++;
+
+      // Точка внутри эллипса биома
+      const a = rnd() * Math.PI * 2;
+      const r = Math.sqrt(rnd()) * 0.85;  // 85% радиуса — не у самого края
+      const tx = cx + Math.cos(a) * rx * r;
+      const ty = cy + Math.sin(a) * ry * r;
+
+      // Проверка: не слишком близко к другим деревьям
+      let tooClose = false;
+      for(const t of placedTrees){
+        const dx = t.x - tx, dy = t.y - ty;
+        if(dx * dx + dy * dy < MIN_DIST * MIN_DIST){ tooClose = true; break; }
+      }
+      if(tooClose) continue;
+
+      // Проверка: не рядом с занятыми точками (дома, NPC, медцентры и т.д.)
+      if(typeof isSpawnFree === 'function' && !isSpawnFree(tx, ty, 50)) continue;
+
+      // Создаём DOM-элемент дерева
+      const el = document.createElement('div');
+      el.className = 'building forest-tree';
+      const size = 56 + rnd() * 24;   // 56-80 px — разные размеры
+      el.style.width  = size + 'px';
+      el.style.height = size + 'px';
+      el.style.marginLeft = (-size/2) + 'px';
+      el.style.marginTop  = (-size/2) + 'px';
+      el.style.pointerEvents = 'none';
+      el.innerHTML = forestTreeSVG(Math.floor(rnd() * 100000));
+
+      el.style.transform = `translate(${tx}px, ${ty}px)`;
+      el.dataset.sortY = ty + size * 0.35;   // низ ствола для сортировки
+
+      world.appendChild(el);
+      houseEls.push(el);   // подхватывается applyYSorting()
+
+      el.style.zIndex = yToZBuilding(ty + size * 0.35);
+
+      placedTrees.push({ x: tx, y: ty });
+      zonePlaced++;
+      placed++;
+    }
+  });
+
+  console.log(`🌲 Деревьев в Сказочном лесу: ${placed}`);
+}
+
+// Дерево для Сказочного леса — объёмное, с несколькими слоями кроны
+function forestTreeSVG(seed){
+  const variant = seed % 4;   // 4 варианта дерева
+
+  if(variant === 0){
+    // Высокое ель-подобное дерево
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
+      <rect x="30" y="46" width="4" height="14" fill="#4a2c14"/>
+      <rect x="30" y="46" width="1.5" height="14" fill="#2a1a0c"/>
+      <path d="M32 44 L14 30 L50 30 Z" fill="#15803d"/>
+      <path d="M32 36 L12 22 L52 22 Z" fill="#166534"/>
+      <path d="M32 28 L16 12 L48 12 Z" fill="#22c55e"/>
+      <path d="M32 20 L20 6 L44 6 Z" fill="#4ade80"/>
+      <circle cx="26" cy="20" r="2" fill="rgba(134,239,172,0.5)"/>
+      <circle cx="38" cy="14" r="1.5" fill="rgba(134,239,172,0.6)"/>
+    </svg>`;
+  }
+
+  if(variant === 1){
+    // Широкое лиственное дерево
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+      <rect x="29" y="44" width="6" height="16" fill="#4a2c14"/>
+      <rect x="29" y="44" width="2" height="16" fill="#2a1a0c"/>
+      <circle cx="22" cy="34" r="14" fill="#14532d"/>
+      <circle cx="42" cy="34" r="14" fill="#14532d"/>
+      <circle cx="32" cy="26" r="16" fill="#166534"/>
+      <circle cx="32" cy="22" r="11" fill="#22c55e"/>
+      <circle cx="24" cy="20" r="3" fill="rgba(134,239,172,0.55)"/>
+      <circle cx="40" cy="24" r="2.5" fill="rgba(134,239,172,0.5)"/>
+      <circle cx="32" cy="16" r="2" fill="rgba(187,247,208,0.7)"/>
+    </svg>`;
+  }
+
+  if(variant === 2){
+    // Дуплистое дерево (два ствола)
+    return `<svg viewBox="0 0 64 64">
+      <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+      <path d="M26 60 L26 40 Q24 30 20 24 Q28 26 30 38 L30 60 Z" fill="#4a2c14"/>
+      <path d="M38 60 L38 42 Q40 32 44 26 Q36 28 34 40 L34 60 Z" fill="#3a2010"/>
+      <circle cx="22" cy="22" r="12" fill="#14532d"/>
+      <circle cx="42" cy="24" r="12" fill="#14532d"/>
+      <circle cx="32" cy="18" r="13" fill="#166534"/>
+      <circle cx="32" cy="14" r="9" fill="#22c55e"/>
+      <circle cx="26" cy="12" r="2.5" fill="rgba(134,239,172,0.6)"/>
+      <circle cx="40" cy="16" r="2" fill="rgba(134,239,172,0.5)"/>
+      <!-- Дупло -->
+      <ellipse cx="30" cy="34" rx="3" ry="5" fill="#1a0e05"/>
+    </svg>`;
+  }
+
+  // variant === 3: Старое дерево с корнями
+  return `<svg viewBox="0 0 64 64">
+    <ellipse cx="32" cy="60" rx="18" ry="3" fill="rgba(0,0,0,0.3)"/>
+    <path d="M28 58 L26 48 L24 58 Z" fill="#3a2010"/>
+    <path d="M36 58 L38 48 L40 58 Z" fill="#3a2010"/>
+    <rect x="29" y="42" width="6" height="18" fill="#4a2c14"/>
+    <rect x="29" y="42" width="2" height="18" fill="#2a1a0c"/>
+    <!-- Крупная крона -->
+    <circle cx="20" cy="28" r="13" fill="#14532d"/>
+    <circle cx="44" cy="28" r="13" fill="#14532d"/>
+    <circle cx="32" cy="20" r="15" fill="#166534"/>
+    <circle cx="24" cy="22" r="10" fill="#22c55e"/>
+    <circle cx="40" cy="22" r="10" fill="#22c55e"/>
+    <circle cx="32" cy="14" r="8" fill="#4ade80"/>
+    <circle cx="24" cy="14" r="2.5" fill="rgba(187,247,208,0.7)"/>
+    <circle cx="40" cy="18" r="2" fill="rgba(187,247,208,0.6)"/>
+    <circle cx="32" cy="10" r="1.8" fill="rgba(255,255,255,0.7)"/>
+    <!-- Мох -->
+    <ellipse cx="20" cy="40" rx="3" ry="2" fill="#22c55e" opacity="0.6"/>
+  </svg>`;
+}
 // ===================== ИНИЦИАЛИЗАЦИЯ =====================
 function initGame(){
   setupDialogClickHandler();  
@@ -18656,7 +19019,8 @@ function initGame(){
   }
   drawBackground();
   spawnHouses();
-  generateForestTrees();   // ← добавляем после домов
+  generateForestTrees();
+spawnForestTreesDOM();   // ← добавляем после домов
 generateHeavenlyEdgeObjects();  
 drawBackground();        // ← перерисовываем фон уже с деревьями
   drawTopLayer();
