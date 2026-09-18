@@ -2752,6 +2752,14 @@ display:none;
   align-items: center;
   justify-content: center;
 }
+
+
+#world{...width:3000px;height:3200px;...}
+#bg{...width:3000px;height:3200px;...}
+#fog{...width:3000px;height:3200px;...}
+#top{...width:3000px;height:3200px;...}
+#labels{...width:3000px;height:3200px;...}
+#questMarks{...width:3000px;height:3200px;...}
 </style>
 </head>
 <body>
@@ -2763,9 +2771,9 @@ display:none;
 </div>
 
 <div id="game"><div id="world">
-  <canvas id="bg" width="3000" height="2000"></canvas>
-  <canvas id="fog" width="3000" height="2000"></canvas>
-  <canvas id="top" width="3000" height="2000"></canvas>
+<canvas id="bg" width="3000" height="3200"></canvas>
+<canvas id="fog" width="3000" height="3200"></canvas>
+<canvas id="top" width="3000" height="3200"></canvas>
 <div id="labels"></div>
  <div id="questMarks"></div>
 </div></div>
@@ -3005,6 +3013,8 @@ window.addEventListener('DOMContentLoaded', function(){
 "use strict";
 const HABITATS={
 // ===== ПРИРОДНЫЕ БИОМЫ =====
+deadlands:{name:"Немёртвые Земли",color:"#7c3aed",bg:"rgba(35,10,55,0.75)",type:"nature"},
+necropolis:{name:"Некрополь Личерон",color:"#a855f7",bg:"rgba(20,0,40,0.95)",type:"nature"},
 forest:{name:"Темный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:"nature"},
 water:{name:"Море Сирен",color:"#38bdf8",bg:"rgba(30,91,138,0.6)",type:"nature"},
 mountain:{name:"Гора Звезд",color:"#a8a29e",bg:"rgba(90,90,90,0.6)",type:"nature"},
@@ -3029,6 +3039,10 @@ ostrova_pobezhdennogo:{name:"Острова Побежденного",color:"#67
 heavenly_edge:{name:"Божественный Край",color:"#fef3c7",bg:"rgba(255, 250, 220, 0.5)",type:"divine"}
 };
 const BIOME_ZONES=[
+{biome:"deadlands",x:300,y:2100,w:2400,h:900},
+
+// ===== НЕКРОПОЛЬ ЛИЧЕРОН (вложен в Немёртвые Земли, по центру) =====
+{biome:"necropolis",x:1000,y:2350,w:1000,h:500},
 {biome:"water",x:100,y:1700,w:2800,h:300},{biome:"water",x:100,y:900,w:250,h:900},
 {biome:"water",x:1200,y:1200,w:500,h:250},{biome:"water",x:1900,y:700,w:400,h:200},
 {biome:"volcano",x:1900,y:1650,w:500,h:300},{biome:"forest",x:350,y:1150,w:700,h:450},
@@ -3267,18 +3281,18 @@ const Fantasy_DATA=[
 {id:1174,name:"Ламхи-Отравитель",types:["Земляной","Ядовитый"],rarity:"rare",habitats:["cave","uurion","totsar"],desc:"Мастер ядов и алхимии. Его дротики парализуют даже огров.",height:1.4,weight:70,category:"Ламхи",stats:{hp:75,attack:80,defense:65,spAtk:115,spDef:80,speed:100},shape:"lamhi_poisoner"},
 
 {id:1175,name:"Ламхи-Жрец Тьмы",types:["Тёмный","Нежить"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Служитель подземного бога-крысы. Жертвует пленников ради силы клана.",height:1.5,weight:75,category:"Ламхи",stats:{hp:85,attack:60,defense:70,spAtk:110,spDef:95,speed:80},shape:"lamhi_priest",evolvesTo:1176,evolveLevel:38},
-{id:1176,name:"Ламхи-Иерарх Ночи",types:["Тёмный","Нежить"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Проклятый жрец, чьё тело разлагается веками. Повелевает роем крыс-Бесплотныйов.",height:1.8,weight:90,category:"Ламхи",stats:{hp:120,attack:90,defense:100,spAtk:150,spDef:130,speed:100},shape:"lamhi_hierarch"},
+{id:1176,name:"Ламхи-Иерарх Ночи",types:["Тёмный","Нежить","necropolis"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Проклятый жрец, чьё тело разлагается веками. Повелевает роем крыс-Бесплотныйов.",height:1.8,weight:90,category:"Ламхи",stats:{hp:120,attack:90,defense:100,spAtk:150,spDef:130,speed:100},shape:"lamhi_hierarch"},
 // ===== НЕЖИТЬ (в духе Warcraft III) =====
-{id:1160,name:"Тень",types:["Нежить","Бесплотный"],rarity:"uncommon",habitats:["cave","totsar","pole_magii"],desc:"Тёмный дух, способный становиться невидимым. В тени неуязвим для любых атак.",height:1.2,weight:0.1,category:"Тень",stats:{hp:45,attack:40,defense:35,spAtk:80,spDef:55,speed:95},shape:"shade",evolvesTo:1161,evolveLevel:32},
-{id:1161,name:"Тёмная Тень",types:["Нежить","Бесплотный"],rarity:"epic",habitats:["cave","totsar","pole_magii"],desc:"Древний тёмный дух, чьё прикосновение высасывает саму жизнь. Абсолютно невидим.",height:1.6,weight:0.1,category:"Тень",stats:{hp:75,attack:65,defense:60,spAtk:130,spDef:90,speed:125},shape:"dark_shade"},
+{id:1160,name:"Тень",types:["Нежить","Бесплотный"],rarity:"uncommon",habitats:["cave","totsar","pole_magii","deadlands"],desc:"Тёмный дух, способный становиться невидимым. В тени неуязвим для любых атак.",height:1.2,weight:0.1,category:"Тень",stats:{hp:45,attack:40,defense:35,spAtk:80,spDef:55,speed:95},shape:"shade",evolvesTo:1161,evolveLevel:32},
+{id:1161,name:"Тёмная Тень",types:["Нежить","Бесплотный"],rarity:"epic",habitats:["cave","totsar","pole_magii","deadlands"],desc:"Древний тёмный дух, чьё прикосновение высасывает саму жизнь. Абсолютно невидим.",height:1.6,weight:0.1,category:"Тень",stats:{hp:75,attack:65,defense:60,spAtk:130,spDef:90,speed:125},shape:"dark_shade"},
 
-{id:1162,name:"Банши",types:["Нежить","Бесплотный"],rarity:"rare",habitats:["cave","totsar","pole_magii"],desc:"Скорбящий дух эльфийки, чей крик замедляет врагов, а одержимость подчиняет их волю.",height:1.5,weight:0.1,category:"Банши",stats:{hp:60,attack:50,defense:45,spAtk:110,spDef:70,speed:85},shape:"banshee",evolvesTo:1163,evolveLevel:38},
-{id:1163,name:"Царица Банши",types:["Нежить","Бесплотный"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Повелительница скорбящих духов. Её крик разрывает разум, а одержимость порабощает героев.",height:1.8,weight:0.1,category:"Банши",stats:{hp:90,attack:75,defense:70,spAtk:155,spDef:110,speed:105},shape:"banshee_queen"},
+{id:1162,name:"Банши",types:["Нежить","Бесплотный"],rarity:"rare",habitats:["cave","totsar","pole_magii","deadlands"],desc:"Скорбящий дух эльфийки, чей крик замедляет врагов, а одержимость подчиняет их волю.",height:1.5,weight:0.1,category:"Банши",stats:{hp:60,attack:50,defense:45,spAtk:110,spDef:70,speed:85},shape:"banshee",evolvesTo:1163,evolveLevel:38},
+{id:1163,name:"Царица Банши",types:["Нежить","Бесплотный"],rarity:"epic",habitats:["pole_magii","cave","necropolis"],desc:"Повелительница скорбящих духов. Её крик разрывает разум, а одержимость порабощает героев.",height:1.8,weight:0.1,category:"Банши",stats:{hp:90,attack:75,defense:70,spAtk:155,spDef:110,speed:105},shape:"banshee_queen"},
 
-{id:1164,name:"Сшивень",types:["Нежить","Боевой"],rarity:"rare",habitats:["cave","totsar","mountain"],desc:"Сшитый из трупов монстр с огромным крюком. Разрывает плоть и восстанавливает силы, пожирая врагов.",height:2.6,weight:350,category:"Сшивень",stats:{hp:140,attack:125,defense:90,spAtk:40,spDef:70,speed:45},shape:"abomination",evolvesTo:1165,evolveLevel:42},
-{id:1165,name:"Мертвяк",types:["Нежить","Боевой"],rarity:"epic",habitats:["cave","pole_magii"],desc:"Чудовище из сотни трупов, повелитель крюка. Его мясницкий крюк пронзает даже камень.",height:3.2,weight:600,category:"Мясник",stats:{hp:200,attack:165,defense:120,spAtk:50,spDef:95,speed:55},shape:"butcher"},
+{id:1164,name:"Сшивень",types:["Нежить","Боевой"],rarity:"rare",habitats:["cave","totsar","mountain","deadlands"],desc:"Сшитый из трупов монстр с огромным крюком. Разрывает плоть и восстанавливает силы, пожирая врагов.",height:2.6,weight:350,category:"Сшивень",stats:{hp:140,attack:125,defense:90,spAtk:40,spDef:70,speed:45},shape:"abomination",evolvesTo:1165,evolveLevel:42},
+{id:1165,name:"Мертвяк",types:["Нежить","Боевой"],rarity:"epic",habitats:["cave","pole_magii", "deadlands"],desc:"Чудовище из сотни трупов, повелитель крюка. Его мясницкий крюк пронзает даже камень.",height:3.2,weight:600,category:"Мясник",stats:{hp:200,attack:165,defense:120,spAtk:50,spDef:95,speed:55},shape:"butcher"},
 
-{id:1166,name:"Лич",types:["Нежить","Ментальный"],rarity:"rare",habitats:["cave","pole_magii","totsar"],desc:"Мёртвый маг, обретший бессмертие. Повелевает смертью и восстанавливает силы тёмной магией.",height:1.8,weight:40,category:"Лич",stats:{hp:85,attack:55,defense:70,spAtk:140,spDef:105,speed:75},shape:"lich",evolvesTo:1167,evolveLevel:45},
+{id:1166,name:"Лич",types:["Нежить","Ментальный"],rarity:"rare",habitats:["cave","pole_magii","totsar", "necropolis"],desc:"Мёртвый маг, обретший бессмертие. Повелевает смертью и восстанавливает силы тёмной магией.",height:1.8,weight:40,category:"Лич",stats:{hp:85,attack:55,defense:70,spAtk:140,spDef:105,speed:75},shape:"lich",evolvesTo:1167,evolveLevel:45},
 {id:1167,name:"Архилич",types:["Нежить","Ментальный"],rarity:"legendary",habitats:["pole_magii"],desc:"Древний повелитель мёртвых, чья сила не знает границ. Воскрешает павших и питается их душами.",height:2.2,weight:55,category:"Архилич",stats:{hp:120,attack:80,defense:100,spAtk:175,spDef:140,speed:95},shape:"archlich"},
 // ===== ОГРЫ / ОРКИ / ТРОЛЛИ =====
 {id:1152,name:"Огр",types:["Земляной","Боевой"],rarity:"uncommon",habitats:["mountain","route","haradat","forest"],desc:"Четырёхрукий великан, крушит всё на своём пути дубиной и кулаками.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
@@ -3341,7 +3355,7 @@ const Fantasy_DATA=[
 {id:1143,name:"Лесной Медведь-Соня",types:["Обычный","Природа"],rarity:"rare",habitats:["route","forest","mountain"],desc:"Спит всю зиму, весной становится добрым защитником леса.",height:2.2,weight:380,category:"Медведь",stats:{hp:160,attack:110,defense:70,spAtk:60,spDef:105,speed:30},shape:"sleepy_bear"},
 
 // ===== ЛЕГЕНДАРНЫЕ =====
-{id:1150,name:"Тёмный Владыка",types:["Ментальный","Нежить"],rarity:"legendary",habitats:["cave","pole_magii"],desc:"Создан из чистой магии тьмы, его сила не знает границ.",height:2.2,weight:130,category:"Владыка",stats:{hp:110,attack:115,defense:95,spAtk:160,spDef:95,speed:135},shape:"dark_lord"},
+{id:1150,name:"Тёмный Владыка",types:["Ментальный","Нежить","necropolis"],rarity:"legendary",habitats:["cave","pole_magii"],desc:"Создан из чистой магии тьмы, его сила не знает границ.",height:2.2,weight:130,category:"Владыка",stats:{hp:110,attack:115,defense:95,spAtk:160,spDef:95,speed:135},shape:"dark_lord"},
 {id:1151,name:"Искра-Создатель",types:["Ментальный","Фея"],rarity:"legendary",habitats:["forest","pole_magii"],desc:"Прародитель всех волшебных существ, может принимать любую форму.",height:0.5,weight:4,category:"Создатель",stats:{hp:105,attack:105,defense:105,spAtk:105,spDef:105,speed:105},shape:"creator_spark"},
 {id:1144,name:"Ледяной Феникс",types:["Ледяной","Летающий"],rarity:"legendary",habitats:["water","ostrova_pobezhdennogo"],desc:"Легендарная птица зимы, её перья — кристаллы льда.",height:1.8,weight:60,category:"Феникс",stats:{hp:95,attack:90,defense:105,spAtk:100,spDef:130,speed:90},shape:"ice_phoenix"},
 {id:1145,name:"Грозовой Феникс",types:["Электрический","Летающий"],rarity:"legendary",habitats:["mountain","pole_magii"],desc:"Легендарная птица бури, повелевает молниями.",height:1.7,weight:55,category:"Феникс",stats:{hp:95,attack:95,defense:90,spAtk:130,spDef:95,speed:105},shape:"storm_phoenix"},
@@ -3353,8 +3367,8 @@ const Fantasy_DATA=[
 {id:1006,name:"Демон-Владыка",types:["Огненный","Дракон"],rarity:"epic",habitats:["volcano","mountain"],desc:"Повелитель огненных демонов, его ярость сжигает миры.",height:2.0,weight:110,category:"Демон",stats:{hp:85,attack:95,defense:85,spAtk:120,spDef:90,speed:105},shape:"demon_lord"},
 {id:1009,name:"Сирена-Богиня",types:["Водный","Фея"],rarity:"epic",habitats:["water","ostrova_pobezhdennogo"],desc:"Богиня океанов, её слёзы становятся жемчугом.",height:1.9,weight:70,category:"Богиня",stats:{hp:85,attack:85,defense:105,spAtk:95,spDef:110,speed:80},shape:"goddess_siren"},
 {id:1149,name:"Небесный Дракон",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","pole_magii","ostrova_pobezhdennogo"],desc:"Добрый дракон-хранитель, защищает слабых.",height:2.5,weight:220,category:"Дракон",stats:{hp:95,attack:140,defense:100,spAtk:105,spDef:105,speed:85},shape:"sky_dragon"},
-{id:1055,name:"Упырь",types:["Нежить"],rarity:"uncommon",habitats:["cave","totsar","desert"],desc:"Восставший мертвец, питается плотью живых. Медлителен, но невероятно живуч.",height:1.5,weight:90,category:"Упырь",stats:{hp:30,attack:50,defense:20,spAtk:40,spDef:20,speed:25},shape:"ghoul",evolvesTo:1056,evolveLevel:28},
-{id:1056,name:"Упырь-Пожиратель",types:["Нежить","Земляной"],rarity:"rare",habitats:["cave","totsar"],desc:"Древний упырь, чьё тело покрыто костяной бронёй. Пожирает всё живое.",height:2.0,weight:180,category:"Упырь",stats:{hp:105,attack:110,defense:95,spAtk:55,spDef:75,speed:35},shape:"ghoul_devourer"},
+{id:1055,name:"Упырь",types:["Нежить"],rarity:"uncommon",habitats:["cave","totsar","desert","deadlands"],desc:"Восставший мертвец, питается плотью живых. Медлителен, но невероятно живуч.",height:1.5,weight:90,category:"Упырь",stats:{hp:30,attack:50,defense:20,spAtk:40,spDef:20,speed:25},shape:"ghoul",evolvesTo:1056,evolveLevel:28},
+{id:1056,name:"Упырь-Пожиратель",types:["Нежить","Земляной"],rarity:"rare",habitats:["cave","totsar","deadlands"],desc:"Древний упырь, чьё тело покрыто костяной бронёй. Пожирает всё живое.",height:2.0,weight:180,category:"Упырь",stats:{hp:105,attack:110,defense:95,spAtk:55,spDef:75,speed:35},shape:"ghoul_devourer"},
 
 
 
@@ -7704,7 +7718,7 @@ const ITEMS={
 };
 let inventory={Plylact:10,potion:5,medalion:0,ultraball:0,superpotion:0,revive:1,antidote:0};
 
-const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii", "water", "heavenly_edge"];
+const ZONE_ORDER=["sid","zyffren","route","forest","haradat","mountain","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii", "water", "heavenly_edge", "deadlands", "necropolis"];
 const DEFAULT_UNLOCK={type:"defeat",count:3};
 let unlockedZones=new Set(["sid"]);
 let zoneProgress={};
@@ -8294,7 +8308,33 @@ const ZONE_CONFIG={
   pole_magii: {levels:[30,35], rarities:{common:0,  uncommon:1, rare:5, epic:8, legendary:2}},
  heavenly_edge: {levels:[38, 45], rarities:{common:0, uncommon:0, rare:6, epic:12, legendary:3}},
   ostrova_pobezhdennogo:{levels:[26,30], rarities:{common:1, uncommon:3, rare:6, epic:5, legendary:1}},
-water: {levels:[18,22], rarities:{common:20, uncommon:5, rare:4, epic:2, legendary:1}}
+water: {levels:[18,22], rarities:{common:20, uncommon:5, rare:4, epic:2, legendary:1}},
+// ===== НЕМЁРТВЫЕ ЗЕМЛИ =====
+deadlands: {
+  levels:[30, 38],
+  rarities:{
+    common: 0,
+    uncommon: 22,
+    rare: 8,
+    epic: 6,
+    legendary: 1
+  }
+},
+
+// ===== НЕКРОПОЛЬ ЛИЧЕРОН =====
+necropolis: {
+  levels:[42, 55],
+  rarities:{
+    common: 0,
+    uncommon: 1,
+    rare: 2,
+    epic: 2,
+    legendary: 2
+  }
+},
+
+
+
 };
 
 function getZoneLevels(biome){
@@ -10017,13 +10057,15 @@ function drawBiomeTexture(ctx, biome, zone){
     case 'cave':     drawCave(ctx,x,y,w,h,seed); break;
     case 'volcano':  drawVolcano(ctx,x,y,w,h,seed); break;
     case 'route':    drawRoute(ctx,x,y,w,h,seed); break;
-case 'heavenly_edge': drawHeavenlyEdge(ctx,x,y,w,h,seed); break; // <-- ДОБАВИТЬ
-  default:
-  if(biome === 'haradat'){
-    drawMagicCity(ctx, x, y, w, h, seed, 'haradat');
-  } else if(['sid','zyffren','goch','selax','fattolodor','totsar','olandir','uurion','gozon','pole_magii'].includes(biome)){
-    drawCity(ctx,x,y,w,h,seed,biome);
-  }
+    case 'heavenly_edge': drawHeavenlyEdge(ctx,x,y,w,h,seed); break;
+    case 'deadlands':  drawDeadlands(ctx,x,y,w,h,seed);  break;   // ← НОВОЕ
+    case 'necropolis': drawNecropolis(ctx,x,y,w,h,seed); break;   // ← НОВОЕ
+    default:
+      if(biome === 'haradat'){
+        drawMagicCity(ctx, x, y, w, h, seed, 'haradat');
+      } else if(['sid','zyffren','goch','selax','fattolodor','totsar','olandir','uurion','gozon','pole_magii'].includes(biome)){
+        drawCity(ctx,x,y,w,h,seed,biome);
+      }
   }
 }
 
@@ -11787,10 +11829,280 @@ function animateFog(now){
   }
 }
 
+
+
+function drawDeadlands(ctx,x,y,w,h,rnd){
+  // Багрово-фиолетовый фон
+  const g = ctx.createRadialGradient(x+w/2,y+h/2,0,x+w/2,y+h/2,w/2);
+  g.addColorStop(0, 'rgba(70,25,80,0.9)');
+  g.addColorStop(0.6, 'rgba(40,10,55,0.85)');
+  g.addColorStop(1, 'rgba(15,5,25,0)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);
+  ctx.fill();
+
+  // Мёртвая Земляной — трещины
+  for(let i=0;i<80;i++){
+    const px = x + rnd()*w;
+    const py = y + rnd()*h;
+    ctx.strokeStyle = `rgba(90,40,90,${0.15+rnd()*0.2})`;
+    ctx.lineWidth = 1 + rnd()*1.5;
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.lineTo(px + (rnd()-0.5)*18, py + (rnd()-0.5)*18);
+    ctx.stroke();
+  }
+
+  // Сухие мёртвые деревья
+  for(let i=0;i<30;i++){
+    const tx = x + 40 + rnd()*(w-80);
+    const ty = y + 40 + rnd()*(h-80);
+
+    // Ствол
+    ctx.strokeStyle = '#3d2a4a';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(tx, ty);
+    ctx.lineTo(tx, ty-25);
+    ctx.stroke();
+
+    // Сучья
+    ctx.strokeStyle = '#4a3555';
+    ctx.lineWidth = 1.5;
+    for(let b=0;b<4;b++){
+      const angle = (b/4) * Math.PI * 2 + rnd();
+      ctx.beginPath();
+      ctx.moveTo(tx, ty - 12 - b*3);
+      ctx.lineTo(tx + Math.cos(angle)*10, ty - 12 - b*3 + Math.sin(angle)*6 - 5);
+      ctx.stroke();
+    }
+
+    // Тёмная аура вокруг
+    ctx.fillStyle = 'rgba(80,20,90,0.15)';
+    ctx.beginPath();
+    ctx.arc(tx, ty-15, 18, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Лужи тёмной крови / болота
+  for(let i=0;i<12;i++){
+    const bx = x + rnd()*w;
+    const by = y + rnd()*h;
+    const br = 8 + rnd()*15;
+    ctx.fillStyle = 'rgba(60,5,40,0.6)';
+    ctx.beginPath();
+    ctx.ellipse(bx, by, br, br*0.4, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(120,20,80,0.4)';
+    ctx.beginPath();
+    ctx.ellipse(bx, by, br*0.6, br*0.25, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Костяные обломки
+  for(let i=0;i<40;i++){
+    const bx = x + rnd()*w;
+    const by = y + rnd()*h;
+    ctx.fillStyle = 'rgba(200,190,180,0.5)';
+    ctx.beginPath();
+    ctx.ellipse(bx, by, 2, 1, rnd()*Math.PI, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Блуждающие огни
+  for(let i=0;i<20;i++){
+    const fx = x + rnd()*w;
+    const fy = y + rnd()*h;
+    const color = ['rgba(168,85,247,0.6)','rgba(220,38,38,0.6)','rgba(103,232,249,0.5)'][Math.floor(rnd()*3)];
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(fx, fy, 1.5+rnd()*2, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = color.replace('0.6','0.15').replace('0.5','0.15');
+    ctx.beginPath();
+    ctx.arc(fx, fy, 5+rnd()*3, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
+
+function drawNecropolis(ctx,x,y,w,h,rnd){
+  // Тёмный фиолетово-чёрный фон (более насыщенный)
+  const g = ctx.createRadialGradient(x+w/2,y+h/2,0,x+w/2,y+h/2,w/2);
+  g.addColorStop(0, 'rgba(40,10,70,0.98)');
+  g.addColorStop(0.6, 'rgba(15,0,30,0.95)');
+  g.addColorStop(1, 'rgba(5,0,15,0)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);
+  ctx.fill();
+
+  // Магическое кольцо
+  ctx.strokeStyle = 'rgba(168,85,247,0.4)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([15,10]);
+  ctx.beginPath();
+  ctx.ellipse(x+w/2,y+h/2,w/2*0.85,h/2*0.85,0,0,Math.PI*2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Внутреннее кольцо рун
+  for(let i=0;i<12;i++){
+    const a = (i/12)*Math.PI*2;
+    const rx = x+w/2 + Math.cos(a)*w/2*0.7;
+    const ry = y+h/2 + Math.sin(a)*h/2*0.7;
+    ctx.fillStyle = 'rgba(168,85,247,0.7)';
+    ctx.beginPath();
+    ctx.arc(rx, ry, 2, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(168,85,247,0.2)';
+    ctx.beginPath();
+    ctx.arc(rx, ry, 7, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Могильные плиты (много)
+  for(let i=0;i<80;i++){
+    const px = x + rnd()*w;
+    const py = y + rnd()*h;
+    const pw = 5 + rnd()*6;
+    const ph = 10 + rnd()*14;
+
+    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+    ctx.fillRect(px+1.5, py+1.5, pw, ph);
+
+    ctx.fillStyle = 'rgba(80,70,100,0.8)';
+    ctx.fillRect(px, py, pw, ph);
+    ctx.fillStyle = 'rgba(50,40,70,0.9)';
+    ctx.fillRect(px, py, pw, ph*0.4);
+
+    // Символ
+    if(rnd()>0.4){
+      ctx.strokeStyle = 'rgba(200,180,220,0.7)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(px+pw/2, py+3);
+      ctx.lineTo(px+pw/2, py+ph-3);
+      ctx.moveTo(px+1.5, py+ph/2);
+      ctx.lineTo(px+pw-1.5, py+ph/2);
+      ctx.stroke();
+    }
+  }
+
+  // Костяные деревья
+  for(let i=0;i<15;i++){
+    const tx = x + 40 + rnd()*(w-80);
+    const ty = y + 40 + rnd()*(h-80);
+
+    ctx.strokeStyle = '#6b5b7b';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(tx, ty);
+    ctx.lineTo(tx, ty-25);
+    ctx.stroke();
+
+    ctx.strokeStyle = '#8b7b9b';
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(tx, ty-15); ctx.lineTo(tx-10, ty-24);
+    ctx.moveTo(tx, ty-19); ctx.lineTo(tx+10, ty-28);
+    ctx.moveTo(tx, ty-23); ctx.lineTo(tx-6, ty-32);
+    ctx.moveTo(tx, ty-23); ctx.lineTo(tx+6, ty-34);
+    ctx.stroke();
+
+    // Черепа на ветвях
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    ctx.arc(tx-10, ty-24, 1.8, 0, Math.PI*2);
+    ctx.arc(tx+10, ty-28, 1.8, 0, Math.PI*2);
+    ctx.arc(tx+6, ty-34, 1.5, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Костяные арки
+  for(let i=0;i<5;i++){
+    const ax = x + 100 + rnd()*(w-200);
+    const ay = y + h - 60 - rnd()*50;
+    ctx.strokeStyle = '#a89a78';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.arc(ax, ay, 30, Math.PI, 0);
+    ctx.stroke();
+
+    // Черепа на арке
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    ctx.arc(ax-30, ay, 5, 0, Math.PI*2);
+    ctx.arc(ax+30, ay, 5, 0, Math.PI*2);
+    ctx.fill();
+
+    // Глазницы
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc(ax-31, ay-1, 1.3, 0, Math.PI*2);
+    ctx.arc(ax-29, ay-1, 1.3, 0, Math.PI*2);
+    ctx.arc(ax+29, ay-1, 1.3, 0, Math.PI*2);
+    ctx.arc(ax+31, ay-1, 1.3, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Огни душ
+  for(let i=0;i<30;i++){
+    const fx = x + rnd()*w;
+    const fy = y + rnd()*h;
+    const color = rnd()>0.5 ? 'rgba(168,85,247,0.9)' : 'rgba(103,232,249,0.8)';
+    const glow = rnd()>0.5 ? 'rgba(168,85,247,0.3)' : 'rgba(103,232,249,0.25)';
+
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(fx, fy, 7+rnd()*5, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(fx, fy, 1.8+rnd()*2, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Центральный алтарь Личерона
+  const ax = x+w/2, ay = y+h/2;
+  ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  ctx.beginPath();
+  ctx.ellipse(ax, ay+25, 50, 15, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Пирамида алтаря
+  ctx.fillStyle = '#2d1b4e';
+  ctx.beginPath();
+  ctx.moveTo(ax-40, ay+20);
+  ctx.lineTo(ax, ay-30);
+  ctx.lineTo(ax+40, ay+20);
+  ctx.closePath();
+  ctx.fill();
+
+  // Светящаяся руна на алтаре
+  ctx.fillStyle = 'rgba(168,85,247,0.9)';
+  ctx.beginPath();
+  ctx.arc(ax, ay, 8, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  ctx.beginPath();
+  ctx.arc(ax, ay, 3, 0, Math.PI*2);
+  ctx.fill();
+
+  // Аура алтаря
+  ctx.fillStyle = 'rgba(168,85,247,0.15)';
+  ctx.beginPath();
+  ctx.arc(ax, ay, 40, 0, Math.PI*2);
+  ctx.fill();
+}
+
+
 // ===================== КАМЕРА =====================
 function applyCam(){
   const maxX=0,minX=-(3000-window.innerWidth);
-  const maxY=0,minY=-(2000-window.innerHeight);
+  const maxY=0,minY=-(3200-window.innerHeight);   // ← 3200 вместо 2000
   camX=Math.max(minX,Math.min(maxX,camX));
   camY=Math.max(minY,Math.min(maxY,camY));
   world.style.transform=`translate(${camX}px,${camY}px)`;
