@@ -10478,22 +10478,40 @@ function cleanSpawnOccupied() {
 
 
 function scheduleRespawn(biome, zone){
-
   if(!biome) return;
   if(!unlockedZones.has(biome)) return;
-  const delay = RESPAWN_DELAY_MS + Math.random()*RESPAWN_JITTER_MS;
-  setTimeout(()=>{
- cleanSpawnOccupied();  
 
+  const delay = RESPAWN_DELAY_MS + Math.random()*RESPAWN_JITTER_MS;
+
+  setTimeout(()=>{
+    cleanSpawnOccupied();
     if(FantasysOnMap.length >= MAX_Fantasy_ON_MAP) return;
     if(!unlockedZones.has(biome)) return;
-    const p = pickRandomFantasyForBiome(biome);
-    if(!p) return;
+
+    // 1. Подбираем существо, подходящее биому
+    let p = pickRandomFantasyForBiome(biome);
+
+    // 2. Fallback: если по весам ничего не нашли — берём ЛЮБОЕ существо с этим habitat
+    if(!p){
+      const fallbackPool = Fantasy_DATA.filter(f => f.habitats.includes(biome));
+      if(fallbackPool.length){
+        p = fallbackPool[Math.floor(Math.random()*fallbackPool.length)];
+        console.warn('Fallback-респаун для биома:', biome, '→', p.name);
+      }
+    }
+
+    if(!p){
+      console.warn('Не удалось подобрать существо для респауна в биоме:', biome);
+      return;
+    }
+
+    // 3. Спавним — в ту же зону, если она валидна
     if(zone && BIOME_ZONES.includes(zone)){
       spawnFantasyInZone(p, biome, zone);
     } else {
       spawnFantasyInZone(p, biome);
     }
+
     updateHUD();
   }, delay);
 }
