@@ -3131,7 +3131,7 @@ display:none;
   </div>
 </div>
 <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
-
+<audio id="questSound" src="quest.mp3" preload="auto"></audio>
 <div id="pauseScreen">
   <div class="pause-device">
     <div class="pause-logo">🎮</div>
@@ -4567,31 +4567,123 @@ document.getElementById('pauseRestartBtn').addEventListener('click', async ()=>{
 window.addEventListener('keydown', e => {
   if(e.key !== 'Escape') return;
 
-  // Если открыто какое-то модальное окно — пусть работает старый обработчик
-  const anyModalOpen =
-    document.querySelector('#Bestiary.active') ||
-    document.querySelector('#teamScreen.active') ||
-    document.querySelector('#myFantasyDetail.active') ||
-    document.querySelector('#HealerHutScreen.active') ||
-    document.querySelector('#shopScreen.active') ||
-    document.querySelector('#inventoryScreen.active') ||
-    document.querySelector('#questScreen.active') ||
-    document.querySelector('#dialogScreen.active') ||
-    document.querySelector('#evolveScreen.active') ||
-    document.querySelector('#battleScreen.active');
+  // Не срабатываем, если фокус в поле ввода
+  const tag = (e.target.tagName || '').toLowerCase();
+  if(tag === 'input' || tag === 'textarea') return;
 
-  if(anyModalOpen){
-    // закроем всё и вернёмся в игру, но паузу не открываем
-    closeAllScreens();
+  // Не срабатываем, если открыто игровое модальное окно (alert/confirm/prompt)
+  if(document.getElementById('gameModal').classList.contains('active')){
+    closeGameModal();
+    e.preventDefault();
     return;
   }
 
-  // Иначе — переключаем паузу
-  if(gamePaused) closePause();
-  else           openPause();
-}, true);   // ← capture:true — сработает раньше старого обработчика
+  // ============================================================
+  // СПИСОК ОКОН: от самого «верхнего» (последнего открытого) к нижнему.
+  // Меняйте порядок, если у вас другая логика наложения.
+  // ============================================================
+  const windows = [
+    // 1. Эволюция (самое верхнее — поверх всего)
+    { el: document.getElementById('evolveScreen'), close: () => {
+        document.getElementById('evolveScreen').classList.remove('active');
+    }},
+
+    // 2. Диалог (сюжетный или простой)
+    { el: document.getElementById('dialogScreen'), close: () => {
+        closeDialog();
+    }},
+
+    // 3. Бестиарий (полный экран)
+    { el: document.getElementById('BestiaryScreen'), close: () => {
+        closeBestiaryScreen();
+    }},
+
+    // 4. Детали существа
+    { el: document.getElementById('myFantasyDetail'), close: () => {
+        closeMyFantasyDetail();
+    }},
+
+    // 5. Квесты
+    { el: document.getElementById('questScreen'), close: () => {
+        closeQuestScreen();
+    }},
+
+    // 6. Команда
+    { el: document.getElementById('teamScreen'), close: () => {
+        closeTeamScreen();
+    }},
+
+    // 7. Инвентарь
+    { el: document.getElementById('inventoryScreen'), close: () => {
+        closeInventory();
+    }},
+
+    // 8. Магазин
+    { el: document.getElementById('shopScreen'), close: () => {
+        closeShop();
+    }},
+
+    // 9. Лавка лекаря
+    { el: document.getElementById('HealerHutScreen'), close: () => {
+        closeHealerHut();
+    }},
+
+    // 10. Бестиарий (старое окно)
+    { el: document.getElementById('Bestiary'), close: () => {
+        closeBestiary();
+    }},
+
+    // 11. Бой
+    { el: document.getElementById('battleScreen'), close: () => {
+        // Бой нельзя просто «закрыть» — либо убегаем, либо ничего
+        if(battleState && !battleState.busy && !battleState.isTrainer){
+          endBattle();
+        }
+    }},
+
+    // 12. Пауза
+    { el: document.getElementById('pauseScreen'), close: () => {
+        closePause();
+    }}
+  ];
+
+  // Ищем первое (верхнее) открытое окно и закрываем только его
+  for(const w of windows){
+    if(w.el && w.el.classList.contains('active')){
+      w.close();
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+  }
+
+  // Если ни одно окно не открыто — открываем паузу
+  if(!gamePaused){
+    openPause();
+    e.preventDefault();
+  }
+}, true);
 
 
+function closeDialog(){
+  const screen = document.getElementById('dialogScreen');
+  screen.classList.remove('active');
+
+  // Если открыт сюжетный диалог — сбрасываем его состояние
+  if(typeof dialogState !== 'undefined' && dialogState){
+    dialogState = null;
+  }
+  dialogCallback = null;
+
+  // Чистим DOM диалога
+  const dialogBox = screen.querySelector('.dialog-box');
+  if(dialogBox){
+    const choices = dialogBox.querySelector('.dialog-choices');
+    if(choices) choices.remove();
+    const portrait = dialogBox.querySelector('.dialog-portrait');
+    if(portrait) portrait.remove();
+  }
+}
 
 
 
@@ -13986,7 +14078,35 @@ function sndWeak(){beep(120,.2,'sine')}
 function sndLevel(){beep(523,.1);setTimeout(()=>beep(659,.1),100);setTimeout(()=>beep(784,.15),200)}
 function sndCatch(){beep(659,.1);setTimeout(()=>beep(523,.15),100)}
 function sndEvolve(){beep(523,.15);setTimeout(()=>beep(659,.15),150);setTimeout(()=>beep(784,.15),300);setTimeout(()=>beep(1047,.3),450)}
-function sndQuest(){beep(880,.1);setTimeout(()=>beep(1100,.15),100);setTimeout(()=>beep(1320,.2),200)}
+function sndQuest(){
+  // Воспроизводим mp3-файл
+  try {
+    const questAudio = document.getElementById('questSound');
+    if(questAudio){
+      questAudio.currentTime = 0;   // сбрасываем, если уже играл
+      questAudio.volume = 0.6;      // громкость 60%
+      const p = questAudio.play();
+      if(p && p.catch){
+        p.catch(err => {
+          console.warn('Не удалось воспроизвести quest.mp3:', err);
+          // Фолбэк на старый beep-звук, если mp3 не загрузился
+          beep(880,.1);
+          setTimeout(()=>beep(1100,.15),100);
+          setTimeout(()=>beep(1320,.2),200);
+        });
+      }
+    } else {
+      // Если элемента нет — играем старый beep
+      beep(880,.1);
+      setTimeout(()=>beep(1100,.15),100);
+      setTimeout(()=>beep(1320,.2),200);
+    }
+  } catch(e) {
+    beep(880,.1);
+    setTimeout(()=>beep(1100,.15),100);
+    setTimeout(()=>beep(1320,.2),200);
+  }
+}
 
 // ===================== СОХРАНЕНИЕ =====================
 function saveProgress(){
@@ -25255,7 +25375,39 @@ console.log('📜 Квестов: '+QUEST_DEFS.length);
       e.preventDefault();
     }
   }, { passive: false });
+// ===================== ЗВУК ПРИ НАЖАТИИ НА ЛЮБУЮ КНОПКУ =====================
+document.addEventListener('click', e => {
+  // Ищем ближайшую кнопку (реальную <button> или элемент с ролью кнопки)
+  const btn = e.target.closest(
+    'button, .battle-btn, .pause-btn, .gm-btn, .healer-btn, ' +
+    '.q-claim, .si-buy, .mpd-close, .best-close, .bs-chip, ' +
+    '.bs-reset, .team-slot, .starter-card, .dialog-choice-btn'
+  );
+  if(!btn) return;
 
+  // Не играем на disabled-кнопках
+  if(btn.disabled) return;
+
+  playUiSound();
+});
+
+// Универсальная функция воспроизведения UI-звука
+function playUiSound(){
+  try {
+    const s = document.getElementById('questSound');
+    if(!s) return;
+    // Клонируем узел, чтобы звук мог проигрываться несколько раз подряд
+    // (иначе быстрые клики обрезают друг друга)
+    const clone = s.cloneNode(true);
+    clone.volume = 0.5;
+    const p = clone.play();
+    if(p && p.catch){
+      p.catch(()=>{});   // тихо игнорируем ошибки autoplay
+    }
+    // Удаляем клон после окончания
+    clone.onended = () => clone.remove();
+  } catch(e){}
+}
   // --- 4. Двойной тап (быстрое приближение на мобильных) ---
   let lastTap = 0;
   document.addEventListener('touchend', e => {
