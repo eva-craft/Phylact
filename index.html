@@ -2948,6 +2948,10 @@ display:none;
   0%,100%{ filter: drop-shadow(0 0 4px #a855f7) drop-shadow(0 0 8px #4c1d95); }
   50%    { filter: drop-shadow(0 0 7px #a855f7) drop-shadow(0 0 14px #4c1d95); }
 }
+#bg{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;z-index:1}
+#fog{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:5}
+#plague{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:7}
+#top{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:8}
 </style>
 </head>
 <body>
@@ -2961,6 +2965,7 @@ display:none;
 <div id="game"><div id="world">
 <canvas id="bg" width="6000" height="3600"></canvas>
 <canvas id="fog" width="6000" height="3600"></canvas>
+<canvas id="plague" width="6000" height="3600" style="position:absolute;top:0;left:0;display:block;pointer-events:none;z-index:7"></canvas>
 <canvas id="top" width="6000" height="3600"></canvas>
 <div id="labels"></div>
  <div id="questMarks"></div>
@@ -2987,7 +2992,7 @@ display:none;
   <b>Управление:</b><br>
   🖱 Перетаскивай карту<br>
   🔍 ПКМ — бестиарий<br>
-  ⚔️ ЛКМ — бой<br>
+  ⚔️ Двойной ЛКМ — бой<br>
   🏥 Красные — лечение<br>
   🏪 Синие — магазин<br>
   👤 Филактеристы — бой<br>
@@ -3162,9 +3167,182 @@ display:none;
 <div id="toast"></div>
 
 <script>
+let unlockedZones=new Set(["sid"]);
+const BIOME_ZONES=[
+
+{biome:"eternal_sea",x:3100,y:200,w:1300,h:2800},
+{biome:"quel_sidai",x:3400,y:800,w:700,h:600},
+{biome:"deadlands",x:300,y:2100,w:2400,h:2300},
+// ===== ГОРЫ БЮН (справа от Немёртвых Земель) =====
+{biome:"byun_mountains",x:2400,y:2100,w:600,h:900},
+{biome:"underground",x:4400,y:200,w:1300,h:2800},
+// Города тёмных эльфов внутри Подземья
+{biome:"manzahar",x:4700,y:300,w:600,h:500},
+{biome:"arashemen",x:4700,y:1000,w:500,h:400},
+{biome:"shagg_shail",x:4700,y:1600,w:500,h:400},
+{biome:"izga_stir",x:4700,y:2200,w:500,h:400},
+// ===== ТРИ КОРОЛЕВСТВА НА ГОРАХ БЮН =====
+// Златогорье — королевство лепреконов (верхняя часть)
+{biome:"zlatogorye",x:2550,y:2150,w:300,h:200},
+// Молотор — горное королевство дворфов (центр)
+{biome:"molotor",x:2550,y:2450,w:300,h:200},
+// Флюкс — королевство гномов (нижняя часть)
+{biome:"chagnomoks",x:2550,y:2750,w:300,h:200},
+// ===== НЕКРОПОЛЬ ЛИЧЕРОН (вложен в Немёртвые Земли, по центру) =====
+{biome:"necropolis",x:1000,y:2350,w:1000,h:500},
+{biome:"water",x:100,y:1700,w:2800,h:300},{biome:"water",x:100,y:900,w:250,h:900},
+{biome:"water",x:1200,y:1200,w:500,h:250},{biome:"water",x:1900,y:700,w:400,h:200},
+{biome:"volcano",x:1900,y:1650,w:500,h:300},{biome:"forest",x:350,y:1150,w:700,h:450},
+{biome:"desert",x:2200,y:1350,w:800,h:400},{biome:"mountain",x:300,y:300,w:700,h:600},
+{biome:"cave",x:1200,y:200,w:500,h:400},{biome:"cave",x:1900,y:900,w:350,h:350},
+{biome:"route",x:750,y:1350,w:500,h:300},{biome:"route",x:1100,y:900,w:400,h:300},
+{biome:"route",x:1500,y:500,w:400,h:300},{biome:"route",x:1400,y:1300,w:500,h:300},
+{biome:"route",x:1750,y:1100,w:400,h:300},
+{biome:"sid",x:500,y:1550,w:300,h:200},
+{biome:"zyffren",x:500,y:1050,w:300,h:200},
+{biome:"haradat",x:500,y:350,w:300,h:200},
+{biome:"goch",x:1600,y:300,w:300,h:200},
+{biome:"selax",x:1400,y:900,w:300,h:200},
+{biome:"fattolodor",x:1900,y:550,w:300,h:200},
+{biome:"heavenly_edge",x:1950,y:200,w:650,h:350},
+{biome:"totsar",x:2200,y:1000,w:300,h:200},
+{biome:"olandir",x:1800,y:1400,w:300,h:200},
+{biome:"uurion",x:2600,y:1450,w:300,h:200},
+{biome:"gozon",x:2200,y:1800,w:250,h:150},
+{biome:"pole_magii",x:150,y:100,w:400,h:250},
+{biome:"ostrova_pobezhdennogo",x:1200,y:1500,w:400,h:250},
+{biome:"valn",   x:400,  y:3200, w:400, h:350},
+{biome:"lornvis",x:900,  y:3100, w:450, h:380},
+{biome:"malder", x:1500, y:3200, w:420, h:360},
+];
+
+
+function mulberry32(seed){
+  return function(){
+    seed|=0;seed=seed+0x6D2B79F5|0;
+    let t=Math.imul(seed^seed>>>15,1|seed);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
 const heavenlyBuildings = [];  // летающие здания (в SVG-спрайтах)
 const heavenlyObelisks = [];   // светящиеся обелиски
 const heavenlyClouds = [];
+// ===================== ЧУМНОЙ ТУМАН (Вальн, Лорнвис, Малдер) =====================
+const plagueClouds = [];   // {x, y, baseY, r, phase, speed, driftX, puffs, color}
+let plagueAnimTime = 0;
+let lastPlagueFrame = 0;
+
+function generatePlagueClouds() {
+  plagueClouds.length = 0;
+
+  const plagueBiomes = ['valn', 'lornvis', 'malder'];
+  const rnd = mulberry32(31337);
+
+  // Цвета чумного тумана для каждого города
+  const PLAGUE_PALETTES = {
+    valn:    { core: 'rgba(168, 85, 247, 0.55)', edge: 'rgba(120, 40, 180, 0.0)',  tint: '#a855f7' },
+    lornvis: { core: 'rgba(192, 132, 252, 0.6)', edge: 'rgba(140, 60, 200, 0.0)',  tint: '#c084fc' },
+    malder:  { core: 'rgba(216, 180, 254, 0.55)',edge: 'rgba(160, 80, 220, 0.0)',  tint: '#d8b4fe' }
+  };
+
+  plagueBiomes.forEach(biome => {
+    const zones = BIOME_ZONES.filter(z => z.biome === biome);
+    if (!zones.length) return;
+
+    const palette = PLAGUE_PALETTES[biome] || PLAGUE_PALETTES.valn;
+
+    zones.forEach(zone => {
+      const cx = zone.x + zone.w / 2;
+      const cy = zone.y + zone.h / 2;
+      const rx = zone.w / 2;
+      const ry = zone.h / 2;
+
+      // 12 крупных облаков на город
+      for (let i = 0; i < 12; i++) {
+        const a = rnd() * Math.PI * 2;
+        const r = Math.sqrt(rnd()) * 0.9;
+        const px = cx + Math.cos(a) * rx * r;
+        const py = cy + Math.sin(a) * ry * r;
+
+        plagueClouds.push({
+          x: px,
+          y: py,
+          baseY: py,
+          r: 35 + rnd() * 40,                 // радиус облака
+          phase: rnd() * Math.PI * 2,
+          speed: 0.25 + rnd() * 0.5,          // скорость покачивания
+          driftX: (rnd() - 0.5) * 0.4,        // горизонтальный дрейф
+          driftY: (rnd() - 0.5) * 0.2,
+          puffs: Math.floor(5 + rnd() * 5),   // количество «клубов»
+          palette: palette,
+          biome: biome,
+          alpha: 0.6 + rnd() * 0.4
+        });
+      }
+    });
+  });
+
+  console.log(`☁️ Чумной туман: ${plagueClouds.length} облаков в ${plagueBiomes.length} городах`);
+}
+
+
+// ===================== ОТРИСОВКА ЧУМНОГО ТУМАНА =====================
+function drawPlagueClouds(ctx, time) {
+  if (!plagueClouds.length) return;
+
+  plagueClouds.forEach(c => {
+    // Зона должна быть открыта, иначе не рисуем
+    if (!unlockedZones.has(c.biome)) return;
+
+    // Плавное покачивание
+    const dx = Math.sin(time * 0.3 + c.phase) * 12 + c.driftX * time * 8;
+    const dy = Math.sin(time * c.speed + c.phase) * 6 + c.driftY * time * 4;
+    const cx = c.x + dx;
+    const cy = c.baseY + dy;
+
+    // Пульсация размера
+    const pulse = 1 + Math.sin(time * 1.2 + c.phase) * 0.08;
+    const rr = c.r * pulse;
+
+    // ===== 1. Внешняя дымка (мягкий ореол) =====
+    const outerGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr * 1.8);
+    outerGrad.addColorStop(0, c.palette.core);
+    outerGrad.addColorStop(0.5, c.palette.core.replace(/[\d.]+\)$/, '0.25)'));
+    outerGrad.addColorStop(1, c.palette.edge);
+    ctx.fillStyle = outerGrad;
+    ctx.globalAlpha = c.alpha * 0.7;
+    ctx.beginPath();
+    ctx.arc(cx, cy, rr * 1.8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // ===== 2. Пуховые комки (клубы) =====
+    for (let i = 0; i < c.puffs; i++) {
+      const a = (i / c.puffs) * Math.PI * 2 + c.phase * 0.5;
+      const pr = rr * (0.4 + 0.35 * Math.sin(i * 1.7 + c.phase));
+      const px = cx + Math.cos(a) * rr * 0.45;
+      const py = cy + Math.sin(a) * rr * 0.3;
+
+      const puffGrad = ctx.createRadialGradient(px, py, 0, px, py, pr);
+      puffGrad.addColorStop(0, c.palette.core);
+      puffGrad.addColorStop(1, c.palette.edge);
+      ctx.fillStyle = puffGrad;
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // ===== 3. Яркое ядро (свечение) =====
+    const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr * 0.6);
+    coreGrad.addColorStop(0, 'rgba(233, 213, 255, 0.35)');
+    coreGrad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+    ctx.fillStyle = coreGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, rr * 0.6, 0, Math.PI * 2);
+    ctx.fill();
+  });
+}
 // ===================== РЕПЛИКИ ВРАГОВ В БОЮ =====================
 // Ключ — id существа из Fantasy_DATA.
 //
@@ -4274,7 +4452,7 @@ const save = raw ? JSON.parse(raw) : {};
 save.unlockedZones = [
   'sid','zyffren','route','forest','haradat','mountain','goch','olandir',
   'selax','fattolodor','totsar','cave','uurion','desert','gozon',
-  'ostrova_pobezhdennogo','volcano','pole_magii','water', "necropolis", "deadlands", "byun_mountains", "zlatogorye", "chagnomoks", "molotor", "eternal_sea", "heavenly_edge", "quel_sidai", "underground", "manzahar", "arashemen", "shagg_shail", "izga_stir"
+  'ostrova_pobezhdennogo','volcano','pole_magii','water', "necropolis", "deadlands", "byun_mountains", "zlatogorye", "chagnomoks", "molotor", "eternal_sea", "heavenly_edge", "quel_sidai", "underground", "manzahar", "arashemen", "shagg_shail", "izga_stir", "valn", "lornvis", "malder"
 ];
 
 // Прогресс зон
@@ -4346,7 +4524,10 @@ function closeAllScreens() {
 window.addEventListener('DOMContentLoaded', function(){
 "use strict";
 const HABITATS={
-
+valn:{name:"Вальн",color:"#c4b5fd",bg:"rgba(50,25,70,0.8)",type:"plague"},
+lornvis:{name:"Лорнвис",color:"#d8b4fe",bg:"rgba(55,30,80,0.8)",type:"plague"},
+malder:{name:"Малдер",color:"#e9d5ff",bg:"rgba(60,35,90,0.8)",type:"plague"},
+necropolis:{name:"Личерон",color:"#a855f7",bg:"rgba(20,0,40,0.95)",type:"nature"},
 // ===== НОВЫЕ ЗОНЫ =====
 eternal_sea:{name:"Вечное Море",color:"#0ea5e9",bg:"rgba(10,50,100,0.7)",type:"nature"},
 quel_sidai:{name:"Квель-Сидай",color:"#fbbf24",bg:"rgba(180,140,40,0.55)",type:"city"},
@@ -4387,51 +4568,6 @@ pole_magii:{name:"Поле Чудес",color:"#fbbf24",bg:"rgba(200,160,80,0.4)"
 ostrova_pobezhdennogo:{name:"Острова Побежденного",color:"#67e8f9",bg:"rgba(60,140,180,0.55)",type:"nature"},
 heavenly_edge:{name:"Небесный Уголок",color:"#fef3c7",bg:"rgba(255, 250, 220, 0.5)",type:"divine"}
 };
-const BIOME_ZONES=[
-{biome:"eternal_sea",x:3100,y:200,w:1300,h:2800},
-{biome:"quel_sidai",x:3400,y:800,w:700,h:600},
-{biome:"deadlands",x:300,y:2100,w:2400,h:900},
-// ===== ГОРЫ БЮН (справа от Немёртвых Земель) =====
-{biome:"byun_mountains",x:2400,y:2100,w:600,h:900},
-{biome:"underground",x:4400,y:200,w:1300,h:2800},
-// Города тёмных эльфов внутри Подземья
-{biome:"manzahar",x:4700,y:300,w:600,h:500},
-{biome:"arashemen",x:4700,y:1000,w:500,h:400},
-{biome:"shagg_shail",x:4700,y:1600,w:500,h:400},
-{biome:"izga_stir",x:4700,y:2200,w:500,h:400},
-// ===== ТРИ КОРОЛЕВСТВА НА ГОРАХ БЮН =====
-// Златогорье — королевство лепреконов (верхняя часть)
-{biome:"zlatogorye",x:2550,y:2150,w:300,h:200},
-// Молотор — горное королевство дворфов (центр)
-{biome:"molotor",x:2550,y:2450,w:300,h:200},
-// Флюкс — королевство гномов (нижняя часть)
-{biome:"chagnomoks",x:2550,y:2750,w:300,h:200},
-// ===== НЕКРОПОЛЬ ЛИЧЕРОН (вложен в Немёртвые Земли, по центру) =====
-{biome:"necropolis",x:1000,y:2350,w:1000,h:500},
-{biome:"water",x:100,y:1700,w:2800,h:300},{biome:"water",x:100,y:900,w:250,h:900},
-{biome:"water",x:1200,y:1200,w:500,h:250},{biome:"water",x:1900,y:700,w:400,h:200},
-{biome:"volcano",x:1900,y:1650,w:500,h:300},{biome:"forest",x:350,y:1150,w:700,h:450},
-{biome:"desert",x:2200,y:1350,w:800,h:400},{biome:"mountain",x:300,y:300,w:700,h:600},
-{biome:"cave",x:1200,y:200,w:500,h:400},{biome:"cave",x:1900,y:900,w:350,h:350},
-{biome:"route",x:750,y:1350,w:500,h:300},{biome:"route",x:1100,y:900,w:400,h:300},
-{biome:"route",x:1500,y:500,w:400,h:300},{biome:"route",x:1400,y:1300,w:500,h:300},
-{biome:"route",x:1750,y:1100,w:400,h:300},
-{biome:"sid",x:500,y:1550,w:300,h:200},
-{biome:"zyffren",x:500,y:1050,w:300,h:200},
-{biome:"haradat",x:500,y:350,w:300,h:200},
-{biome:"goch",x:1600,y:300,w:300,h:200},
-{biome:"selax",x:1400,y:900,w:300,h:200},
-{biome:"fattolodor",x:1900,y:550,w:300,h:200},
-{biome:"heavenly_edge",x:1950,y:200,w:650,h:350},
-{biome:"totsar",x:2200,y:1000,w:300,h:200},
-{biome:"olandir",x:1800,y:1400,w:300,h:200},
-{biome:"uurion",x:2600,y:1450,w:300,h:200},
-{biome:"gozon",x:2200,y:1800,w:250,h:150},
-{biome:"pole_magii",x:150,y:100,w:400,h:250},
-{biome:"ostrova_pobezhdennogo",x:1200,y:1500,w:400,h:250}
-];
-
-
 // --- Генерация объектов Божественного Края ---
 function generateHeavenlyEdgeObjects() {
   heavenlyClouds.length = 0;
@@ -13649,9 +13785,9 @@ const ITEMS={
 };
 let inventory={Plylact:10,potion:5,medalion:0,ultraball:0,superpotion:0,revive:1,antidote:0};
 
-const ZONE_ORDER=["sid","forest","zyffren","mountain","haradat","route","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii","water","heavenly_edge","deadlands","necropolis","byun_mountains","zlatogorye","molotor","chagnomoks", "quel_sidai", "eternal_sea","underground","manzahar","arashemen","shagg_shail","izga_stir"];
+const ZONE_ORDER=["sid","forest","zyffren","mountain","haradat","route","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii","water","heavenly_edge","deadlands","valn","lornvis","malder","necropolis","byun_mountains","zlatogorye","molotor","chagnomoks", "quel_sidai", "eternal_sea","underground","manzahar","arashemen","shagg_shail","izga_stir"];
 const DEFAULT_UNLOCK={type:"defeat",count:1};
-let unlockedZones=new Set(["sid"]);
+
 let zoneProgress={};
 let earnedSeals=new Set();
 const WILD_POWER_MULT = 0.7;
@@ -14208,39 +14344,72 @@ function getMovesWithData(pk){
       desc:md.desc
     };
   });
-}
-// ===================== HUD =====================
+}let _lastHUD = {};
+
 function updateHUD(){
-  const c=document.getElementById('count');if(c)c.textContent=FantasysOnMap.length;
-  const ca=document.getElementById('caught');if(ca)ca.textContent=caughtSet.size;
-  const tc=document.getElementById('teamCount');if(tc)tc.textContent=playerTeam.length;
-  const m=document.getElementById('money');if(m)m.textContent=playerMoney;
-  const biome=getCurrentZoneBiome();
-  const zoneEl=document.getElementById('currentBiome');
-  const progEl=document.getElementById('zoneProgress');
-  if(zoneEl&&progEl){
-    if(biome&&HABITATS[biome]){
-      zoneEl.textContent=HABITATS[biome].name+(unlockedZones.has(biome)?"":" 🔒");
-      const idx=ZONE_ORDER.indexOf(biome);
-      const nextBiome=ZONE_ORDER[idx+1];
-      if(nextBiome&&!unlockedZones.has(nextBiome)){
-        const prog=zoneProgress[biome]||{defeated:0};
-        progEl.textContent=`${prog.defeated||0}/${DEFAULT_UNLOCK.count}`;
-      }else progEl.textContent="✓";
-    }else{zoneEl.textContent="—";progEl.textContent="—"}
+  const state = {
+    count: FantasysOnMap.length,
+    caught: caughtSet.size,
+    teamCount: playerTeam.length,
+    money: playerMoney,
+    biome: getCurrentZoneBiome()
+  };
+
+  if(state.count !== _lastHUD.count){
+    document.getElementById('count').textContent = state.count;
+    _lastHUD.count = state.count;
   }
-  // ЗАМЕНИТЕ НА:
-const badgesEl=document.getElementById('badges');
-if(badgesEl){
-  badgesEl.innerHTML='';
-  Object.keys(SOUL_SEALS).forEach(key=>{
-    const b=document.createElement('div');
-    b.className='badge'+(earnedSeals.has(key)?' earned':'');
-    b.textContent=earnedSeals.has(key)?"★":"?";
-    b.title=SOUL_SEALS[key].name+" ("+SOUL_SEALS[key].master+")";
-    badgesEl.appendChild(b);
-  });
-}
+  if(state.caught !== _lastHUD.caught){
+    document.getElementById('caught').textContent = state.caught;
+    _lastHUD.caught = state.caught;
+  }
+  if(state.teamCount !== _lastHUD.teamCount){
+    document.getElementById('teamCount').textContent = state.teamCount;
+    _lastHUD.teamCount = state.teamCount;
+  }
+  if(state.money !== _lastHUD.money){
+    document.getElementById('money').textContent = state.money;
+    _lastHUD.money = state.money;
+  }
+
+  const zoneEl = document.getElementById('currentBiome');
+  const progEl = document.getElementById('zoneProgress');
+  if(zoneEl && progEl){
+    if(state.biome && HABITATS[state.biome]){
+      const biomeName = HABITATS[state.biome].name + (unlockedZones.has(state.biome) ? "" : " 🔒");
+      if(zoneEl.textContent !== biomeName) zoneEl.textContent = biomeName;
+
+      const idx = ZONE_ORDER.indexOf(state.biome);
+      const nextBiome = ZONE_ORDER[idx+1];
+      let progText = "✓";
+      if(nextBiome && !unlockedZones.has(nextBiome)){
+        const prog = zoneProgress[state.biome] || {defeated:0};
+        progText = `${prog.defeated||0}/${DEFAULT_UNLOCK.count}`;
+      }
+      if(progEl.textContent !== progText) progEl.textContent = progText;
+    } else {
+      if(zoneEl.textContent !== "—") zoneEl.textContent = "—";
+      if(progEl.textContent !== "—") progEl.textContent = "—";
+    }
+  }
+
+  // Бейджи — обновляем только если изменилось число заработанных
+  const earned = earnedSeals.size;
+  if(earned !== _lastHUD.earned){
+    const badgesEl = document.getElementById('badges');
+    if(badgesEl){
+      badgesEl.innerHTML = '';
+      Object.keys(SOUL_SEALS).forEach(key => {
+        const b = document.createElement('div');
+        b.className = 'badge' + (earnedSeals.has(key) ? ' earned' : '');
+        b.textContent = earnedSeals.has(key) ? "★" : "?";
+        b.title = SOUL_SEALS[key].name + " (" + SOUL_SEALS[key].master + ")";
+        badgesEl.appendChild(b);
+      });
+    }
+    _lastHUD.earned = earned;
+  }
+
   updateQuestBadge();
 }
 function getCurrentZoneBiome(){
@@ -14449,7 +14618,37 @@ deadlands: {
     legendary: 1
   }
 },
-
+// ===== ГОРОДА-ПРИЗРАКИ ВАЛЬН, ЛОРНВИС, МАЛДЕР =====
+valn: {
+  levels: [40, 52],
+  rarities: {
+    common: 3,
+    uncommon: 8,
+    rare: 10,
+    epic: 5,
+    legendary: 1
+  }
+},
+lornvis: {
+  levels: [44, 56],
+  rarities: {
+    common: 2,
+    uncommon: 6,
+    rare: 12,
+    epic: 7,
+    legendary: 1
+  }
+},
+malder: {
+  levels: [48, 60],
+  rarities: {
+    common: 1,
+    uncommon: 5,
+    rare: 10,
+    epic: 10,
+    legendary: 2
+  }
+},
 // ===== ГОРЫ БЮН И ТРИ КОРОЛЕВСТВА =====
 byun_mountains: {
   levels: [40, 50],
@@ -14546,26 +14745,34 @@ function getZoneLevels(biome){
 // ===================== РЕСПАВН =====================
 const RESPAWN_DELAY_MS = 2500;
 const RESPAWN_JITTER_MS = 1500;
-const MAX_Fantasy_ON_MAP = 250;
+const MAX_Fantasy_ON_MAP = 10;
 
-function pickRandomFantasyForBiome(biome){
-  const cfg = ZONE_CONFIG[biome];
-  if(!cfg) return null;
-  const pool = [];
-  Object.keys(cfg.rarities).forEach(rarity=>{
-    const weight = cfg.rarities[rarity];
-    if(weight <= 0) return;
-    const candidates = Fantasy_DATA.filter(p =>
-      p.rarity === rarity && p.habitats.includes(biome)
-    );
-    candidates.forEach(p=>{
-      for(let i=0;i<weight;i++) pool.push(p);
+// ===== КЕШ ПУЛОВ (создаётся один раз) =====
+const POOL_CACHE = {};
+
+function buildPoolCache(){
+  ZONE_ORDER.forEach(biome => {
+    const cfg = ZONE_CONFIG[biome];
+    if(!cfg) return;
+    const pool = [];
+    Object.keys(cfg.rarities).forEach(rarity => {
+      const w = cfg.rarities[rarity];
+      if(w <= 0) return;
+      Fantasy_DATA.forEach(p => {
+        if(p.rarity === rarity && p.habitats.includes(biome)){
+          for(let i = 0; i < w; i++) pool.push(p);
+        }
+      });
     });
+    POOL_CACHE[biome] = pool;
   });
-  if(!pool.length) return null;
-  return pool[Math.floor(Math.random()*pool.length)];
 }
 
+function pickRandomFantasyForBiome(biome){
+  const pool = POOL_CACHE[biome];
+  if(!pool || !pool.length) return null;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
 function getZoneAtPoint(x, y){
   for(const z of BIOME_ZONES){
     if(isInZone(x, y, z)) return z;
@@ -17249,10 +17456,14 @@ case 'izga_stir':
     case 'cave':     drawCave(ctx,x,y,w,h,seed); break;
     case 'volcano':  drawVolcano(ctx,x,y,w,h,seed); break;
     case 'route':    drawRoute(ctx,x,y,w,h,seed); break;
+
 case 'byun_mountains': drawByunMountains(ctx,x,y,w,h,seed); break;
     case 'heavenly_edge': drawHeavenlyEdge(ctx,x,y,w,h,seed); break;
     case 'deadlands':  drawDeadlands(ctx,x,y,w,h,seed);  break;   // ← НОВОЕ
     case 'necropolis': drawNecropolis(ctx,x,y,w,h,seed); break;   // ← НОВОЕ
+  case 'valn':       drawPlagueCity(ctx,x,y,w,h,seed,'valn');    break;
+    case 'lornvis':    drawPlagueCity(ctx,x,y,w,h,seed,'lornvis'); break;
+    case 'malder':     drawPlagueCity(ctx,x,y,w,h,seed,'malder');  break;
 case 'byun_mountains': drawByunMountains(ctx,x,y,w,h,seed); break;    
 default:
       if(biome === 'haradat'){
@@ -18907,14 +19118,7 @@ const fogClouds=[];
 let fogAnimTime=0;
 let lastFogFrame=0;
 
-function mulberry32(seed){
-  return function(){
-    seed|=0;seed=seed+0x6D2B79F5|0;
-    let t=Math.imul(seed^seed>>>15,1|seed);
-    t=t+Math.imul(t^t>>>7,61|t)^t;
-    return ((t^t>>>14)>>>0)/4294967296;
-  };
-}
+
 
 function buildFogCloud(zone){
   const seed=zone.x*31+zone.y*17+zone.w*7+zone.h*3;
@@ -19267,26 +19471,37 @@ function drawTopLayer(){
     ctx.fillText(h.name.toUpperCase(),cx,zone.y+24);
     ctx.restore();
   });
-}
+}function animateFog(now){
+  if(now - lastFogFrame > 160){
+    lastFogFrame = now;
+    fogAnimTime = now / 1000;
 
-function animateFog(now){
-  if(now-lastFogFrame>160){
-    lastFogFrame=now;
-    fogAnimTime=now/1000;
+    // === 1. Обычный туман неизученных зон ===
     drawFog();
 
-    // === АНИМАЦИЯ ПАРЯЩИХ КРИСТАЛЛОВ ХАРАДАТА ===
+    // === 2. ЧУМНОЙ ТУМАН — в отдельном слое #plague ===
+    const plagueCanvas = document.getElementById('plague');
+    if(plagueCanvas){
+      const pctx = plagueCanvas.getContext('2d');
+      // Очищаем весь слой
+      pctx.clearRect(0, 0, plagueCanvas.width, plagueCanvas.height);
+      // Рисуем чумной туман
+      if (plagueClouds.length > 0) {
+        drawPlagueClouds(pctx, fogAnimTime);
+      }
+    }
+
+    // === 3. АНИМАЦИЯ ПАРЯЩИХ КРИСТАЛЛОВ ХАРАДАТА ===
     const canvas = document.getElementById('top');
     if(canvas && MAGIC_CITY_STATE.initialized){
       const ctx = canvas.getContext('2d');
-      // Очищаем только область Харадата (чтобы не затирать названия других зон)
+      // Очищаем область Харадата
       const haradatZones = BIOME_ZONES.filter(z => z.biome === 'haradat');
       haradatZones.forEach(zone => {
         ctx.clearRect(zone.x - 20, zone.y - 80, zone.w + 40, zone.h + 80);
       });
 
-
-      // Перерисовываем рамку Харадата
+      // Перерисовываем рамку и название Харадата
       haradatZones.forEach(zone => {
         const h = HABITATS.haradat;
         if(!unlockedZones.has('haradat')) return;
@@ -19316,24 +19531,20 @@ function animateFog(now){
 
       // Анимация кристаллов и порталов
       drawMagicCityAnimation(ctx, fogAnimTime);
-    // === АНИМАЦИЯ БОЖЕСТВЕННОГО КРАЯ ===
-    if (unlockedZones.has('heavenly_edge')) {
-      const heZones = BIOME_ZONES.filter(z => z.biome === 'heavenly_edge');
-      if (heZones.length) {
-        const canvas = document.getElementById('top');
-        const ctx = canvas.getContext('2d');
-        heZones.forEach(z => {
-          ctx.clearRect(z.x - 80, z.y - 150, z.w + 160, z.h + 180);
-        });
-        drawHeavenlyEdgeObjects(ctx, fogAnimTime);
+
+      // === АНИМАЦИЯ БОЖЕСТВЕННОГО КРАЯ ===
+      if (unlockedZones.has('heavenly_edge')) {
+        const heZones = BIOME_ZONES.filter(z => z.biome === 'heavenly_edge');
+        if (heZones.length) {
+          heZones.forEach(z => {
+            ctx.clearRect(z.x - 80, z.y - 150, z.w + 160, z.h + 180);
+          });
+          drawHeavenlyEdgeObjects(ctx, fogAnimTime);
+        }
       }
     }
-
-    }
-
   }
 }
-
 
 
 function drawDeadlands(ctx,x,y,w,h,rnd){
@@ -19430,6 +19641,319 @@ function drawDeadlands(ctx,x,y,w,h,rnd){
     ctx.fill();
   }
 }
+
+
+// ===================== ГОРОДА-ПРИЗРАКИ (Вальн, Лорнвис, Малдер) =====================
+function drawPlagueCity(ctx,x,y,w,h,rnd,biome){
+  const ecx = x + w/2, ecy = y + h/2;
+  const erx = w/2, ery = h/2;
+
+  // ============================================================
+  // 1. ФОН: фиолетовый чумной туман
+  // ============================================================
+  const palettes = {
+    valn:    {top:'rgba(80,45,110,0.9)',  mid:'rgba(55,25,85,0.85)', bot:'rgba(30,10,55,0.75)'},
+    lornvis: {top:'rgba(90,55,120,0.9)',  mid:'rgba(65,30,95,0.85)', bot:'rgba(35,15,65,0.75)'},
+    malder:  {top:'rgba(100,65,130,0.9)', mid:'rgba(75,40,105,0.85)',bot:'rgba(45,20,75,0.75)'}
+  };
+  const P = palettes[biome] || palettes.valn;
+
+  const g = ctx.createRadialGradient(ecx, ecy, 0, ecx, ecy, Math.max(erx, ery));
+  g.addColorStop(0,   P.top);
+  g.addColorStop(0.5, P.mid);
+  g.addColorStop(0.85,P.bot);
+  g.addColorStop(1,   'rgba(20,0,40,0)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy, erx, ery, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // ============================================================
+  // 2. ТРЕЩИНЫ И МЁРТВАЯ ЗЕМЛЯ
+  // ============================================================
+  for (let i = 0; i < 60; i++){
+    const px = x + rnd()*w;
+    const py = y + rnd()*h;
+    const dx = (px-ecx)/erx, dy = (py-ecy)/ery;
+    if (dx*dx + dy*dy > 1) continue;
+    ctx.strokeStyle = `rgba(120,70,150,${0.15 + rnd()*0.25})`;
+    ctx.lineWidth = 1 + rnd()*1.5;
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.lineTo(px + (rnd()-0.5)*22, py + (rnd()-0.5)*22);
+    ctx.stroke();
+  }
+
+  // ============================================================
+  // 3. РАЗРУШЕННЫЕ ДОМА (рисуются прямо здесь, как часть земли)
+  // ============================================================
+  for (let i = 0; i < 8; i++){
+    const hx = x + 60 + rnd()*(w-120);
+    const hy = y + 60 + rnd()*(h-120);
+    const dx = (hx-ecx)/erx, dy = (hy-ecy)/ery;
+    if (dx*dx + dy*dy > 0.75) continue;
+
+    const hw = 22 + rnd()*14;
+    const hh = 18 + rnd()*10;
+
+    // Тень
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fillRect(hx+2, hy+2, hw, hh);
+
+    // Стены (тёмно-фиолетовый камень)
+    ctx.fillStyle = '#2d1b4e';
+    ctx.fillRect(hx, hy, hw, hh);
+
+    // Провал в стене
+    ctx.fillStyle = '#0a0e1a';
+    ctx.fillRect(hx + hw*0.6, hy + hh*0.3, hw*0.4, hh*0.7);
+
+    // Крыша — обломки
+    ctx.fillStyle = '#4c1d95';
+    ctx.beginPath();
+    ctx.moveTo(hx - 2, hy);
+    ctx.lineTo(hx + hw/2 + 4, hy - 8 - rnd()*4);
+    ctx.lineTo(hx + hw + 2, hy);
+    ctx.closePath();
+    ctx.fill();
+
+    // Дыры в крыше
+    ctx.fillStyle = '#0a0e1a';
+    ctx.beginPath();
+    ctx.arc(hx + hw/2, hy - 5, 2 + rnd()*2, 0, Math.PI*2);
+    ctx.fill();
+
+    // Крест-надгробие у входа
+    if (rnd() > 0.5){
+      const cx2 = hx + hw*0.3;
+      const cy2 = hy + hh + 4;
+      ctx.fillStyle = '#6b7280';
+      ctx.fillRect(cx2 - 1.5, cy2 - 8, 3, 10);
+      ctx.fillRect(cx2 - 4, cy2 - 6, 8, 2);
+    }
+  }
+
+  // ============================================================
+  // 4. МЁРТВЫЕ ДЕРЕВЬЯ
+  // ============================================================
+  for (let i = 0; i < 12; i++){
+    const tx = x + 40 + rnd()*(w-80);
+    const ty = y + 40 + rnd()*(h-80);
+    const dx = (tx-ecx)/erx, dy = (ty-ecy)/ery;
+    if (dx*dx + dy*dy > 0.9) continue;
+
+    // Ствол
+    ctx.strokeStyle = '#3d2a4a';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(tx, ty);
+    ctx.lineTo(tx + (rnd()-0.5)*6, ty - 22 - rnd()*10);
+    ctx.stroke();
+
+    // Сучья
+    ctx.strokeStyle = '#4a3555';
+    ctx.lineWidth = 1.2;
+    for (let b = 0; b < 4; b++){
+      const angle = (b/4)*Math.PI*2 + rnd();
+      const bx = tx + (rnd()-0.5)*6;
+      const by = ty - 12 - b*3;
+      ctx.beginPath();
+      ctx.moveTo(bx, by);
+      ctx.lineTo(bx + Math.cos(angle)*8, by + Math.sin(angle)*5 - 3);
+      ctx.stroke();
+    }
+
+    // Мёртвая аура
+    ctx.fillStyle = 'rgba(120,60,150,0.12)';
+    ctx.beginPath();
+    ctx.arc(tx, ty-12, 14, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // ============================================================
+  // 5. ЧУМНЫЕ ЛУЖИ (светящиеся фиолетовые)
+  // ============================================================
+  for (let i = 0; i < 10; i++){
+    const bx = x + rnd()*w;
+    const by = y + rnd()*h;
+    const br = 8 + rnd()*14;
+
+    // Свечение
+    ctx.fillStyle = 'rgba(168,85,247,0.25)';
+    ctx.beginPath();
+    ctx.ellipse(bx, by, br*1.4, br*0.5, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // Лужа
+    ctx.fillStyle = 'rgba(120,50,160,0.55)';
+    ctx.beginPath();
+    ctx.ellipse(bx, by, br, br*0.35, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // Блик
+    ctx.fillStyle = 'rgba(220,180,255,0.5)';
+    ctx.beginPath();
+    ctx.ellipse(bx - br*0.3, by - br*0.1, br*0.3, br*0.12, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // ============================================================
+  // 6. ЧУМНЫЕ ИСПАРЕНИЯ (облака тумана)
+  // ============================================================
+  for (let i = 0; i < 18; i++){
+    const fx = x + rnd()*w;
+    const fy = y + rnd()*h;
+    const fr = 10 + rnd()*20;
+
+    const fg = ctx.createRadialGradient(fx, fy, 0, fx, fy, fr);
+    fg.addColorStop(0, 'rgba(180,120,220,0.35)');
+    fg.addColorStop(0.5,'rgba(140,80,190,0.18)');
+    fg.addColorStop(1, 'rgba(120,60,170,0)');
+    ctx.fillStyle = fg;
+    ctx.beginPath();
+    ctx.arc(fx, fy, fr, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // ============================================================
+  // 7. БЛУЖДАЮЩИЕ ОГНИ-ДУШИ
+  // ============================================================
+  for (let i = 0; i < 15; i++){
+    const fx = x + rnd()*w;
+    const fy = y + rnd()*h;
+    const colors = ['rgba(220,180,255,0.9)','rgba(168,85,247,0.9)','rgba(240,200,255,0.8)'];
+    const col = colors[Math.floor(rnd()*3)];
+
+    ctx.fillStyle = col.replace('0.9','0.2').replace('0.8','0.15');
+    ctx.beginPath();
+    ctx.arc(fx, fy, 6 + rnd()*4, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.arc(fx, fy, 1.5 + rnd()*1.5, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // ============================================================
+  // 8. ЦЕНТРАЛЬНЫЙ ОБЕЛИСК / ЧУМНОЙ КОЛОДЕЦ
+  // ============================================================
+  // Тень
+  ctx.fillStyle = 'rgba(0,0,0,0.5)';
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy + 20, 25, 8, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Основание колодца
+  ctx.fillStyle = '#2d1b4e';
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy + 14, 20, 7, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Стены колодца
+  ctx.fillStyle = '#4c1d95';
+  ctx.fillRect(ecx - 18, ecy - 4, 36, 18);
+
+  // Камни на стене
+  ctx.strokeStyle = '#1e1b4b';
+  ctx.lineWidth = 0.8;
+  for (let i = 0; i < 5; i++){
+    ctx.beginPath();
+    ctx.moveTo(ecx - 18, ecy - 4 + i*3.6);
+    ctx.lineTo(ecx + 18, ecy - 4 + i*3.6);
+    ctx.stroke();
+  }
+
+  // Тёмная жижа внутри
+  ctx.fillStyle = '#0a0e1a';
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy + 14, 16, 5, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Свечение из колодца
+  ctx.fillStyle = 'rgba(168,85,247,0.45)';
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy + 12, 14, 4, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(240,200,255,0.8)';
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy + 12, 8, 2.5, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Аура колодца
+  const aura = ctx.createRadialGradient(ecx, ecy, 0, ecx, ecy, 50);
+  aura.addColorStop(0, 'rgba(168,85,247,0.3)');
+  aura.addColorStop(1, 'rgba(168,85,247,0)');
+  ctx.fillStyle = aura;
+  ctx.beginPath();
+  ctx.arc(ecx, ecy, 50, 0, Math.PI*2);
+  ctx.fill();
+
+  // ============================================================
+  // 9. МАГИЧЕСКОЕ КОЛЬЦО РУН ВОКРУГ ГОРОДА
+  // ============================================================
+  ctx.strokeStyle = 'rgba(168,85,247,0.35)';
+  ctx.lineWidth = 1.8;
+  ctx.setLineDash([10,8]);
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy, erx*0.8, ery*0.8, 0, 0, Math.PI*2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Руны по кольцу
+  for (let i = 0; i < 10; i++){
+    const a = (i/10)*Math.PI*2;
+    const rx2 = ecx + Math.cos(a)*erx*0.8;
+    const ry2 = ecy + Math.sin(a)*ery*0.8;
+
+    ctx.fillStyle = 'rgba(168,85,247,0.25)';
+    ctx.beginPath();
+    ctx.arc(rx2, ry2, 8, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(220,180,255,0.9)';
+    ctx.beginPath();
+    ctx.arc(rx2, ry2, 2, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // ============================================================
+  // 10. ФОНАРИ-КРИСТАЛЛЫ ПО КРАЯМ
+  // ============================================================
+  for (let i = 0; i < 6; i++){
+    const a = (i/6)*Math.PI*2 + Math.PI/6;
+    const lx = ecx + Math.cos(a)*erx*0.6;
+    const ly = ecy + Math.sin(a)*ery*0.6;
+
+    // Столб
+    ctx.fillStyle = '#1e1b4b';
+    ctx.fillRect(lx - 1.5, ly - 18, 3, 18);
+
+    // Кристалл
+    ctx.fillStyle = '#a855f7';
+    ctx.beginPath();
+    ctx.moveTo(lx, ly - 26);
+    ctx.lineTo(lx - 3.5, ly - 18);
+    ctx.lineTo(lx, ly - 12);
+    ctx.lineTo(lx + 3.5, ly - 18);
+    ctx.closePath();
+    ctx.fill();
+
+    // Внутреннее свечение
+    ctx.fillStyle = '#e9d5ff';
+    ctx.beginPath();
+    ctx.arc(lx, ly - 19, 1.2, 0, Math.PI*2);
+    ctx.fill();
+
+    // Аура
+    ctx.fillStyle = 'rgba(168,85,247,0.3)';
+    ctx.beginPath();
+    ctx.arc(lx, ly - 18, 10, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
 
 // ===================== ВЕЧНОЕ МОРЕ =====================
 function drawEternalSea(ctx,x,y,w,h,rnd){
@@ -21361,37 +21885,31 @@ function checkUnlockNextZone(currentBiome){
 
     showToast(`🗺️ Открыта новая зона: ${HABITATS[nextBiome].name}!`,3500);
   }
-}
-
-function refreshWorldVisibility(){
-  // Медцентры
-  document.querySelectorAll('#world > .building').forEach(el => {
-    const transform = el.style.transform;
-    const match = transform.match(/translate\(([\d.-]+)px,\s*([\d.-]+)px\)/);
-    if (!match) return;
-    const x = parseFloat(match[1]);
-    const y = parseFloat(match[2]);
+}function refreshWorldVisibility(){
+  // Медцентры и святилища — берём из houseEls (там уже все .building)
+  houseEls.forEach(el => {
+    if(el.dataset.sortY === undefined) return;
+    const x = parseFloat(el.dataset.x);
+    const y = parseFloat(el.dataset.y);
+    if(isNaN(x) || isNaN(y)) return;
     const biome = getZoneBiomeAt(x, y);
-    if (biome) {
+    if(biome){
       el.style.display = unlockedZones.has(biome) ? 'flex' : 'none';
     }
   });
 
-  // Тренеры
   trainersOnMap.forEach(tr => {
     const visible = unlockedZones.has(tr.biome);
     tr.el.style.display = visible ? 'flex' : 'none';
     if (tr.el._labelEl) tr.el._labelEl.style.display = visible ? 'block' : 'none';
   });
 
-  // NPS с квестами
   npsQuestRefs.forEach(n => {
     const visible = unlockedZones.has(n.quest.biome);
     n.el.style.display = visible ? 'flex' : 'none';
     if (n.el._labelEl) n.el._labelEl.style.display = visible ? 'block' : 'none';
   });
 
-  // Существа
   FantasysOnMap.forEach(p => {
     const visible = !p.biome || unlockedZones.has(p.biome);
     p.el.style.display = visible ? 'flex' : 'none';
@@ -25235,13 +25753,15 @@ function initGame(){
   } else {
     document.getElementById('starterScreen').classList.add('hidden');
   }
+ 
   drawBackground();
   spawnHouses();
   generateForestTrees();
-   // ← добавляем после домов
-generateHeavenlyEdgeObjects();  
-drawBackground();        // ← перерисовываем фон уже с деревьями
+  generateHeavenlyEdgeObjects();   // ← уже работает
+          // ← ПЕРЕНЕСИТЕ СЮДА (после всех drawBackground)
+
   drawTopLayer();
+  generatePlagueClouds();
   rebuildFogClouds();
   // Сначала фиксированные объекты — занимают позиции
   spawnHealerHuts();
