@@ -14562,7 +14562,7 @@ if (p.rarity === 'legendary') el.style.filter = 'drop-shadow(0 0 10px #fbbf24)';
 else if (p.rarity === 'epic') el.style.filter = 'drop-shadow(0 0 6px #a855f7)';
 else if (p.rarity === 'rare') el.style.filter = 'drop-shadow(0 0 4px #60a5fa)';
   const zoneRef = forcedZone || getZoneAtPoint(pos.x, pos.y);
-el.addEventListener('click', e => {
+el.addEventListener('dblclick', e => {
   e.stopPropagation();
   if (!unlockedZones.has(biome)) {
     showToast('Эта зона ещё не открыта!');
@@ -14664,7 +14664,7 @@ function spawnAllFantasy(){
         el.appendChild(label);
         
         // Особый клик — запускает уникальный бой
-        el.addEventListener('click', e => {
+        el.addEventListener('dblclick', e => {
           e.stopPropagation();
           startLichEmperorBattle();
         });
