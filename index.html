@@ -3361,6 +3361,96 @@ function drawPlagueClouds(ctx, time) {
 // Если для существа нет записи — используются default.
 
 const BATTLE_QUOTES = {
+// Внутри объекта BATTLE_QUOTES:
+
+1600: { // Рефмо-Акулолюд
+  onStart:  ["Чуешь кровь?", "Ты — моя добыча!", "Глубины голодны!"],
+  onAttack: ["ХВАТЬ!", "Рви его!", "Вкусно!"],
+  onHurt:   ["Боль... раздражает.", "Ты... быстрый..."],
+  onLowHP:  ["Кровь... моя кровь...", "Ухожу... в глубину..."],
+  onFaint:  ["Глубины... принимают...", "Тьма... холодна..."],
+  onWin:    ["Глубины победили.", "Ты — мой обед."]
+},
+1601: { // Рефмо-Воин Глубин
+  onStart:  ["Ты оскверняешь наши воды!", "Я — вождь глубин!", "Умри, наземный!"],
+  onAttack: ["ЗА ХОЗЯИНА!", "Пронзи его!", "Трезубец не знает промаха!"],
+  onHurt:   ["Мои трезубцы! Ты заплатишь!", "Ты... силён..."],
+  onLowHP:  ["Глубины... зовут...", "Я... не сдамся..."],
+  onFaint:  ["Озеро... приняло меня...", "Хозяин... прости..."],
+  onWin:    ["Вода — наша.", "Ты — корм для рыб."]
+},
+1602: { // Нага-Фараон
+  onStart:  ["Ты стоишь пред владыкой Иллара.", "Мои четыре руки не знают промаха.", "Преклонись."],
+  onAttack: ["Кинжалы священны!", "Приказ фараона!", "Твой разум — мой!"],
+  onHurt:   ["Как... ты смеешь...", "Моя корона... колеблется..."],
+  onLowHP:  ["Древние... силы... покидают...", "Фараон... не падает..."],
+  onFaint:  ["Озеро... приняло... своего владыку...", "Я... вернусь..."],
+  onWin:    ["Иллар — вечен.", "Ты — мой слуга."]
+},
+1603: { // Нага-Владыка Фараонов
+  onStart:  ["Я — последний фараон Иллара.", "Вода, разум и жизнь — мои слуги.", "Твоя судьба решена."],
+  onAttack: ["Божественная кара!", "Кинжал фараона!", "Подчинись!"],
+  onHurt:   ["Моя корона... вечна...", "Ты... лишь пыль..."],
+  onLowHP:  ["Владыка... уходит...", "Озеро... помнит меня..."],
+  onFaint:  ["Я... вернусь... в легендах...", "Озеро... хранит мою память..."],
+  onWin:    ["Я — вечность.", "Ты — лишь рябь на воде."]
+},
+1604: { // Речной Тролль
+  onStart:  ["Тролль! Тролль!", "Вода лечит!", "Ты — ужин!"],
+  onAttack: ["Клык!", "Грубая сила!", "Землетрясение!"],
+  onHurt:   ["Ай! Рана!", "Регенерация... медленно..."],
+  onLowHP:  ["Раны... глубоки...", "Регенерация... не успевает..."],
+  onFaint:  ["Тролль... пал...", "Регенерация... окончена..."],
+  onWin:    ["Тролль победил.", "Ты — ужин."]
+},
+1605: { // Морской Орк
+  onStart:  ["За Ханство!", "Топор хочет крови!", "Ты — слабак!"],
+  onAttack: ["Грубая сила!", "Клык зверя!", "Сокрушение!"],
+  onHurt:   ["Ай! Больно!", "Ты... сильный..."],
+  onLowHP:  ["Топор... тяжёлый...", "Орк... устал..."],
+  onFaint:  ["Орк... пал...", "За Ханство... вечность..."],
+  onWin:    ["За Ханство!", "Ты — раздавлен."]
+},
+1606: { // Морской Орк-Вождь
+  onStart:  ["За Ханство!", "Я — вождь!", "Твой череп — мой трофей!"],
+  onAttack: ["Сокрушение!", "Клык зверя!", "Тройной удар!"],
+  onHurt:   ["Ай! Моя броня!", "Ты ударил вождя?!"],
+  onLowHP:  ["Топор... тяжёлый...", "Вождь... падает..."],
+  onFaint:  ["Вождь... пал...", "Ханство... приняло..."],
+  onWin:    ["За Ханство!", "Ты — трофей."]
+},
+1607: { // Каппа
+  onStart:  ["Огурец! Дай огурец!", "Я — Каппа!", "Не кланяйся мне!"],
+  onAttack: ["Плюх!", "Удар хвостом!", "Водяной фонтан!"],
+  onHurt:   ["Ай! Вода выливается!", "Моя тарелка!"],
+  onLowHP:  ["Вода... высыхает...", "Каппа... слабеет..."],
+  onFaint:  ["Вода... ушла...", "Огурец... мой..."],
+  onWin:    ["Каппа победил!", "Дай огурец!"]
+},
+1608: { // Гиппокамп
+  onStart:  ["Я — волна!", "Скорость — моё оружие!", "Догони меня!"],
+  onAttack: ["Рывок!", "Воздушный клинок!", "Волна прилива!"],
+  onHurt:   ["Ай! Плавник!", "Ты... быстрый..."],
+  onLowHP:  ["Волны... устали...", "Скорость... покидает..."],
+  onFaint:  ["Океан... принял меня...", "Волна... разбилась..."],
+  onWin:    ["Волна победила.", "Ты — не догнал."]
+},
+1610: { // Рыцарь Ксарота
+  onStart:  ["За Ксарот!", "Мой меч не знает промаха!", "Сдавайся!"],
+  onAttack: ["Удар щитом!", "Контрудар!", "Небесный меч!"],
+  onHurt:   ["Моя броня!", "Ты... достоин..."],
+  onLowHP:  ["Ксарот... я... не справился...", "Меч... тяжелеет..."],
+  onFaint:  ["За... Ксарот...", "Прощай... король..."],
+  onWin:    ["Ксарот победил.", "Ты — побеждён."]
+},
+1611: { // Паладин Ксарота
+  onStart:  ["Свет ведёт меня!", "Тьма, изыди!", "Ты — грешник!"],
+  onAttack: ["Святая кара!", "Небесный меч!", "Кара небес!"],
+  onHurt:   ["Свет... испытывает...", "Моя вера... непоколебима!"],
+  onLowHP:  ["Свет... угасает...", "Ксарот... я... падаю..."],
+  onFaint:  ["Свет... принял меня...", "Прощай... город..."],
+  onWin:    ["Свет победил.", "Тьма изгнана."]
+},
 // ============================================================
 // ===================== ФЕИ ==================================
 // ============================================================
@@ -4848,7 +4938,31 @@ function getTypeEff(moveType,defTypes){
   return m;
 }// ===================== ФЭНТЕЗИ-СУЩЕСТВА =====================
 const Fantasy_DATA = [
+// ... (конец массива Fantasy_DATA)
 
+// ===================== ОЗЕРО ИЛЛАР =====================
+{id:1600,name:"Рефмо-Акулолюд",types:["Водный","Боевой"],rarity:"rare",habitats:["illar_lake"],desc:"Мощный акулолюд, обитающий в глубинах Озера Иллар. Его кожа покрыта серой чешуёй, а жабры позволяют дышать под водой. Он охотится на всё, что движется, и его зубы могут прокусить даже стальную броню.",height:2.2,weight:180,category:"Акулолюд",stats:{hp:110,attack:125,defense:90,spAtk:65,spDef:80,speed:105},shape:"shark_man",evolvesTo:1601,evolveLevel:45},
+
+{id:1601,name:"Рефмо-Воин Глубин",types:["Водный","Боевой"],rarity:"epic",habitats:["illar_lake"],desc:"Вождь акулолюдов, чья броня сделана из костей гигантских морских змеев. Он носит два трезубца и командует стаями Рефмо-Акулолюдей. Его ненависть к наземным существам не знает границ.",height:2.6,weight:250,category:"Акулолюд",stats:{hp:160,attack:170,defense:140,spAtk:85,spDef:110,speed:130},shape:"shark_man_warrior"},
+
+{id:1602,name:"Нага-Фараон",types:["Природа","Ментальный"],rarity:"epic",habitats:["illar_lake"],desc:"Древний нага, правивший Озером Иллар тысячи лет назад. Его четыре руки держат священные кинжалы, а его змеиный хвост позволяет двигаться с невероятной скоростью. Его взгляд может подчинить разум любого существа.",height:2.4,weight:200,category:"Нага",stats:{hp:140,attack:120,defense:110,spAtk:155,spDef:135,speed:125},shape:"naga_pharaoh",evolvesTo:1603,evolveLevel:52},
+
+{id:1603,name:"Нага-Владыка Фараонов",types:["Природа","Ментальный","Священный"],rarity:"legendary",habitats:["illar_lake"],desc:"Легендарный нага, чья власть над Озером Иллар абсолютна. Он может управлять водой, разумом и самой жизнью. Говорят, что он был свидетелем падения древних цивилизаций и хранит их тайны. Его корона сделана из чистого золота, а его кинжалы светятся божественной энергией.",height:3.0,weight:350,category:"Нага",stats:{hp:190,attack:160,defense:150,spAtk:200,spDef:180,speed:160},shape:"naga_pharaoh_lord"},
+
+{id:1604,name:"Речной Тролль",types:["Природа","Боевой"],rarity:"uncommon",habitats:["illar_lake"],desc:"Зелёный тролль, приспособившийся к жизни в воде. Его кожа покрыта слизью, а на голове растут водоросли. Он регенерирует даже быстрее своих сухопутных сородичей, особенно в воде. Его когти могут разорвать рыбу пополам.",height:2.5,weight:220,category:"Тролль",stats:{hp:155,attack:110,defense:95,spAtk:60,spDef:75,speed:60},shape:"river_troll"},
+
+{id:1605,name:"Морской Орк",types:["Водный","Боевой"],rarity:"uncommon",habitats:["illar_lake"],desc:"Синекожий орк, чьи предки были изгнаны из Ныргана и нашли новый дом в водах Озера Иллар. Он дышит под водой, но предпочитает сражаться на мелководье. Его топор покрыт ржавчиной, но от этого не менее смертоносен.",height:2.1,weight:200,category:"Орк",stats:{hp:115,attack:130,defense:85,spAtk:45,spDef:70,speed:75},shape:"sea_orc",evolvesTo:1606,evolveLevel:48},
+
+{id:1606,name:"Морской Орк-Вождь",types:["Водный","Боевой"],rarity:"epic",habitats:["illar_lake"],desc:"Вождь морских орков, объединивший разрозненные племена Озера Иллар. Его двойной топор выкован из кораллов и закалён в морской воде. Он носит корону из плавников убитых врагов и не знает пощады.",height:2.5,weight:280,category:"Орк",stats:{hp:170,attack:165,defense:130,spAtk:70,spDef:100,speed:95},shape:"sea_orc_warchief"},
+
+{id:1607,name:"Каппа",types:["Водный","Низший"],rarity:"common",habitats:["illar_lake"],desc:"Маленький водяной демон, живущий в реках и озёрах. На его голове — тарелка с водой, которая даёт ему силу. Если вода высохнет, Каппа становится беспомощным. Он любит огурцы и ненавидит вежливых людей.",height:0.9,weight:25,category:"Каппа",stats:{hp:70,attack:65,defense:75,spAtk:55,spDef:65,speed:80},shape:"kappa"},
+
+{id:1608,name:"Гиппокамп",types:["Водный","Летающий"],rarity:"rare",habitats:["illar_lake"],desc:"Изящное морское существо, напоминающее помесь морского конька и дельфина. Гиппокампы — верные спутники нагов и акулолюдов. Они могут развивать огромную скорость под водой и даже выпрыгивать из неё, чтобы атаковать с воздуха.",height:1.8,weight:90,category:"Гиппокамп",stats:{hp:100,attack:90,defense:85,spAtk:115,spDef:95,speed:135},shape:"hippocampus"},
+
+// ===================== ГОРОД КСАРОТ =====================
+{id:1610,name:"Рыцарь Ксарота",types:["Боевой","Стальной"],rarity:"rare",habitats:["ksarot"],desc:"Элитный воин армии Ксарота. Его доспехи выкованы гномами Флюкса, а меч зачарован магами Харадата. Он сражается во имя короля и готов отдать жизнь за город.",height:2.0,weight:150,category:"Рыцарь",stats:{hp:125,attack:140,defense:135,spAtk:60,spDef:90,speed:85},shape:"ksarot_knight",evolvesTo:1611,evolveLevel:55},
+
+{id:1611,name:"Паладин Ксарота",types:["Боевой","Стальной","Священный"],rarity:"epic",habitats:["ksarot"],desc:"Верховный защитник Ксарота, избранный самим Светом. Его молот способен сокрушать нежить одним ударом, а его вера исцеляет союзников. Паладины — последняя линия обороны города.",height:2.3,weight:190,category:"Паладин",stats:{hp:165,attack:160,defense:170,spAtk:110,spDef:140,speed:90},shape:"ksarot_paladin"},
 // ============================================================
 // ===================== ФЕИ ==================================
 // ============================================================
@@ -5823,6 +5937,7 @@ Object.assign(FULL_MOVES, {
   desc:"Восстанавливает 50% урона. Огненная фея вытягивает тепло."
 },
 });
+
 const LEARNSETS={
 // ============================================================
 // ===================== ФИНАЛЬНЫЙ БОСС =======================
@@ -7314,6 +7429,98 @@ const LEARNSETS={
   {level:1,  move:"Драконий натиск"},
   {level:1,  move:"Ярость дракона"},
   {level:1,  move:"Волна смерти"}
+],
+
+// ============================================================
+// ===================== ОЗЕРО ИЛЛАР ==========================
+// ============================================================
+1600:[ // Рефмо-Акулолюд
+  {level:1,  move:"Водяной шип"},
+  {level:5,  move:"Крысиный укус"},
+  {level:10, move:"Водный рывок"},
+  {level:16, move:"Сокрушение"},
+  {level:22, move:"Гидроудар"},
+  {level:28, move:"Морская ярость"}
+],
+1601:[ // Рефмо-Воин Глубин
+  {level:1,  move:"Морская ярость"},
+  {level:1,  move:"Костяной залп"},
+  {level:1,  move:"Гидроудар"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Тройной удар"}
+],
+1602:[ // Нага-Фараон
+  {level:1,  move:"Луч разума"},
+  {level:5,  move:"Режущий лист"},
+  {level:10, move:"Паутина"},
+  {level:16, move:"Удар с двух рук"},
+  {level:22, move:"Взрыв разума"},
+  {level:28, move:"Кровавый ритуал"}
+],
+1603:[ // Нага-Владыка Фараонов
+  {level:1,  move:"Взрыв разума"},
+  {level:1,  move:"Ритуальный кинжал"},
+  {level:1,  move:"Яд дроу"},
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Гнев Паучьей Королевы"}
+],
+1604:[ // Речной Тролль
+  {level:1,  move:"Царапка когтем"},
+  {level:5,  move:"Удар лозой"},
+  {level:10, move:"Высасывание жизни"},
+  {level:16, move:"Природное восстановление"},
+  {level:22, move:"Землетрясение"},
+  {level:28, move:"Сокрушение"}
+],
+1605:[ // Морской Орк
+  {level:1,  move:"Царапка когтем"},
+  {level:5,  move:"Внезапный выпад"},
+  {level:10, move:"Укус тьмы"},
+  {level:16, move:"Грубая сила"},
+  {level:22, move:"Контрудар"},
+  {level:28, move:"Сокрушение"}
+],
+1606:[ // Морской Орк-Вождь
+  {level:1,  move:"Грубая сила"},
+  {level:1,  move:"Клык зверя"},
+  {level:1,  move:"Сокрушение"},
+  {level:1,  move:"Тройной удар"},
+  {level:1,  move:"Волна пламени"}
+],
+1607:[ // Каппа
+  {level:1,  move:"Удар хвостом"},
+  {level:5,  move:"Водяной шип"},
+  {level:10, move:"Защитная стойка"},
+  {level:16, move:"Водный поток"},
+  {level:22, move:"Гидроудар"},
+  {level:28, move:"Водяной шип"}
+],
+1608:[ // Гиппокамп
+  {level:1,  move:"Удар хвостом"},
+  {level:5,  move:"Порыв ветра"},
+  {level:10, move:"Водный рывок"},
+  {level:16, move:"Воздушный клинок"},
+  {level:22, move:"Волна прилива"},
+  {level:28, move:"Гидроудар"}
+],
+
+// ============================================================
+// ===================== ГОРОД КСАРОТ =========================
+// ============================================================
+1610:[ // Рыцарь Ксарота
+  {level:1,  move:"Удар кулаком"},
+  {level:5,  move:"Контрудар"},
+  {level:10, move:"Стальнойной клык"},
+  {level:16, move:"Небесный меч"},
+  {level:22, move:"Сокрушение"},
+  {level:28, move:"Тройной удар"}
+],
+1611:[ // Паладин Ксарота
+  {level:1,  move:"Святая кара"},
+  {level:1,  move:"Небесный меч"},
+  {level:1,  move:"Святая аура"},
+  {level:1,  move:"Благословение"},
+  {level:1,  move:"Кара небес"}
 ]
 };
 // ===================== ДОПОЛНИТЕЛЬНЫЕ АТАКИ (нежить Warcraft III) =====================
@@ -7596,7 +7803,428 @@ const NPS_KNIGHT = `<svg viewBox="0 0 64 64">
 
 
 
-const SPRITES = {/* ===================== ЛАМХИ-ЮНЕЦ ===================== */
+const SPRITES = {
+
+shark_man:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <!-- Плавник на спине -->
+  <path d="M28 26 L32 10 L36 26 Z" fill="#64748b" stroke="#334155" stroke-width="1.2"/>
+  <!-- Тело -->
+  <rect x="22" y="28" width="20" height="20" rx="4" fill="#94a3b8" stroke="#475569" stroke-width="1.4"/>
+  <!-- Жабры -->
+  <path d="M24 32 L24 36 M27 32 L27 36 M30 32 L30 36" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Руки -->
+  <rect x="12" y="30" width="8" height="16" rx="3" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <rect x="44" y="30" width="8" height="16" rx="3" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <!-- Когти -->
+  <path d="M12 46 L10 50 M15 47 L14 51 M18 46 L18 50" stroke="#1e293b" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M52 46 L54 50 M49 47 L50 51 M46 46 L46 50" stroke="#1e293b" stroke-width="1.4" stroke-linecap="round"/>
+  <!-- Голова -->
+  <path d="M20 24 Q32 8 44 24 L42 32 L22 32 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <!-- Глаза -->
+  <circle cx="26" cy="20" r="2.5" fill="#0f172a"/>
+  <circle cx="38" cy="20" r="2.5" fill="#0f172a"/>
+  <circle cx="26" cy="20" r="1" fill="#ef4444"/>
+  <circle cx="38" cy="20" r="1" fill="#ef4444"/>
+  <!-- Пасть с зубами -->
+  <path d="M24 28 Q32 32 40 28" stroke="#334155" stroke-width="1.5" fill="#f1f5f9"/>
+  <path d="M25 28 L25 30 M27 29 L27 31 M29 29.5 L29 31.5 M31 30 L31 32 M33 30 L33 32 M35 29.5 L35 31.5 M37 29 L37 31 M39 28 L39 30" stroke="#94a3b8" stroke-width="1" stroke-linecap="round"/>
+</svg>`,
+shark_man_warrior:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="18" ry="3.5" fill="rgba(0,0,0,0.4)"/>
+  <!-- Плавник на спине с шипами -->
+  <path d="M28 26 L32 8 L36 26 Z" fill="#475569" stroke="#1e293b" stroke-width="1.3"/>
+  <path d="M30 20 L32 14 L34 20" fill="none" stroke="#dc2626" stroke-width="1.2"/>
+  <!-- Тело в броне -->
+  <rect x="20" y="28" width="24" height="22" rx="5" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Нагрудник -->
+  <rect x="24" y="30" width="16" height="12" rx="2" fill="#334155"/>
+  <!-- Руки с трезубцами -->
+  <rect x="10" y="30" width="9" height="18" rx="3" fill="#64748b" stroke="#1e293b" stroke-width="1.3"/>
+  <rect x="45" y="30" width="9" height="18" rx="3" fill="#64748b" stroke="#1e293b" stroke-width="1.3"/>
+  <!-- Трезубец левый -->
+  <rect x="8" y="12" width="2.5" height="20" fill="#94a3b8" stroke="#334155" stroke-width="0.8"/>
+  <path d="M9.25 12 L6 6 L9.25 8 L12.5 6 Z" fill="#cbd5e1" stroke="#334155" stroke-width="0.8"/>
+  <!-- Трезубец правый -->
+  <rect x="53.5" y="12" width="2.5" height="20" fill="#94a3b8" stroke="#334155" stroke-width="0.8"/>
+  <path d="M54.75 12 L51.5 6 L54.75 8 L58 6 Z" fill="#cbd5e1" stroke="#334155" stroke-width="0.8"/>
+  <!-- Голова -->
+  <path d="M18 24 Q32 6 46 24 L44 32 L20 32 Z" fill="#64748b" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Шлем-череп -->
+  <path d="M22 18 L26 8 L32 4 L38 8 L42 18 Z" fill="#1e293b"/>
+  <!-- Глаза -->
+  <circle cx="26" cy="20" r="2.8" fill="#0f172a"/>
+  <circle cx="38" cy="20" r="2.8" fill="#0f172a"/>
+  <circle cx="26" cy="20" r="1.2" fill="#dc2626"/>
+  <circle cx="38" cy="20" r="1.2" fill="#dc2626"/>
+  <!-- Пасть -->
+  <path d="M22 28 Q32 34 42 28" stroke="#1e293b" stroke-width="1.6" fill="#f1f5f9"/>
+  <polygon points="24,28 23,31 26,29" fill="#cbd5e1"/>
+  <polygon points="38,28 39,31 36,29" fill="#cbd5e1"/>
+</svg>`,
+
+/* ===================== ОЗЕРО ИЛЛАР: НАГИ-ФАРАОНЫ ===================== */
+naga_pharaoh:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="14" ry="3" fill="rgba(0,0,0,0.35)"/>
+  <!-- Змеиный хвост -->
+  <path d="M32 52 Q48 52 46 40 Q44 34 36 36 Q30 38 30 44 L32 52 Z" fill="#15803d" stroke="#14532d" stroke-width="1.5"/>
+  <!-- Плавник на хвосте -->
+  <path d="M40 38 Q48 34 50 30 Q48 36 44 40 Z" fill="#22c55e" stroke="#14532d" stroke-width="1"/>
+  <!-- Тело -->
+  <path d="M24 40 Q20 28 32 26 Q44 28 40 40 Q36 44 32 44 Q28 44 24 40 Z" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/>
+  <!-- Чешуя -->
+  <path d="M28 32 L30 30 L32 32 M34 32 L36 30 L38 32 M26 36 L28 34 L30 36 M32 36 L34 34 L36 36" stroke="#22c55e" stroke-width="1" fill="none"/>
+  <!-- Четыре руки -->
+  <!-- Верхние -->
+  <rect x="14" y="28" width="6" height="14" rx="3" fill="#16a34a" stroke="#14532d" stroke-width="1.2" transform="rotate(-20 17 35)"/>
+  <rect x="44" y="28" width="6" height="14" rx="3" fill="#16a34a" stroke="#14532d" stroke-width="1.2" transform="rotate(20 47 35)"/>
+  <!-- Нижние -->
+  <rect x="16" y="40" width="6" height="12" rx="3" fill="#15803d" stroke="#14532d" stroke-width="1.2" transform="rotate(-40 19 46)"/>
+  <rect x="42" y="40" width="6" height="12" rx="3" fill="#15803d" stroke="#14532d" stroke-width="1.2" transform="rotate(40 45 46)"/>
+  <!-- Нож в верхней правой руке -->
+  <path d="M50 30 L54 22 L56 24 L52 32 Z" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="11" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/>
+  <!-- Фараонский головной убор -->
+  <path d="M22 14 Q22 2 32 2 Q42 2 42 14 L44 22 L20 22 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.4"/>
+  <path d="M32 2 V22" stroke="#b45309" stroke-width="1"/>
+  <!-- Кобра на лбу -->
+  <path d="M30 8 Q32 4 34 8 Q33 10 32 10 Q31 10 30 8 Z" fill="#fde68a" stroke="#b45309" stroke-width="0.8"/>
+  <!-- Глаза -->
+  <ellipse cx="28" cy="18" rx="2.5" ry="3" fill="#fbbf24"/>
+  <ellipse cx="36" cy="18" rx="2.5" ry="3" fill="#fbbf24"/>
+  <ellipse cx="28" cy="18" rx="1" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="18" rx="1" ry="2" fill="#1a1a1a"/>
+  <!-- Усы -->
+  <path d="M24 24 Q22 26 24 28 M40 24 Q42 26 40 28" stroke="#14532d" stroke-width="1.2" fill="none"/>
+</svg>`,
+naga_pharaoh_lord:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="20" ry="4" fill="rgba(0,0,0,0.5)"/>
+  <ellipse cx="32" cy="40" rx="24" ry="20" fill="#22c55e" opacity="0.15"/>
+  <!-- Змеиный хвост с короной -->
+  <path d="M32 52 Q54 52 50 36 Q46 28 36 32 Q28 36 30 44 L32 52 Z" fill="#16a34a" stroke="#14532d" stroke-width="1.6"/>
+  <path d="M42 34 Q54 30 56 22 Q52 30 46 36 Z" fill="#22c55e" stroke="#14532d" stroke-width="1.2"/>
+  <!-- Тело -->
+  <path d="M22 40 Q16 24 32 22 Q48 24 42 40 Q38 46 32 46 Q26 46 22 40 Z" fill="#15803d" stroke="#14532d" stroke-width="1.6"/>
+  <!-- Золотая чешуя -->
+  <path d="M28 30 L30 28 L32 30 M34 30 L36 28 L38 30 M26 34 L28 32 L30 34 M32 34 L34 32 L36 34" stroke="#fbbf24" stroke-width="1.2" fill="none"/>
+  <!-- Золотые пластины -->
+  <ellipse cx="32" cy="36" rx="6" ry="4" fill="#fbbf24" stroke="#b45309" stroke-width="1.2"/>
+  <!-- Четыре руки -->
+  <rect x="10" y="26" width="7" height="16" rx="3" fill="#16a34a" stroke="#14532d" stroke-width="1.3" transform="rotate(-25 13 34)"/>
+  <rect x="47" y="26" width="7" height="16" rx="3" fill="#16a34a" stroke="#14532d" stroke-width="1.3" transform="rotate(25 50 34)"/>
+  <rect x="12" y="40" width="7" height="14" rx="3" fill="#15803d" stroke="#14532d" stroke-width="1.3" transform="rotate(-45 15 47)"/>
+  <rect x="45" y="40" width="7" height="14" rx="3" fill="#15803d" stroke="#14532d" stroke-width="1.3" transform="rotate(45 48 47)"/>
+  <!-- Два кинжала -->
+  <path d="M52 28 L58 18 L60 20 L54 30 Z" fill="#e5e7eb" stroke="#334155" stroke-width="1"/>
+  <path d="M12 28 L6 18 L4 20 L10 30 Z" fill="#e5e7eb" stroke="#334155" stroke-width="1"/>
+  <!-- Голова -->
+  <circle cx="32" cy="16" r="12" fill="#16a34a" stroke="#14532d" stroke-width="1.6"/>
+  <!-- Двойная корона -->
+  <path d="M20 12 Q20 -2 32 -2 Q44 -2 44 12 L46 22 L18 22 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.6"/>
+  <path d="M32 -2 V22" stroke="#b45309" stroke-width="1.2"/>
+  <!-- Кобра-корона -->
+  <path d="M30 6 Q32 2 34 6 Q33 8 32 8 Q31 8 30 6 Z" fill="#fde68a" stroke="#b45309" stroke-width="0.9"/>
+  <circle cx="32" cy="4" r="1.5" fill="#dc2626"/>
+  <!-- Глаза -->
+  <ellipse cx="27" cy="16" rx="3" ry="3.5" fill="#fbbf24"/>
+  <ellipse cx="37" cy="16" rx="3" ry="3.5" fill="#fbbf24"/>
+  <ellipse cx="27" cy="16" rx="1.2" ry="2.2" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="16" rx="1.2" ry="2.2" fill="#1a1a1a"/>
+  <circle cx="27" cy="16" r="5" fill="#fbbf24" opacity="0.3"/>
+  <circle cx="37" cy="16" r="5" fill="#fbbf24" opacity="0.3"/>
+  <!-- Усы -->
+  <path d="M22 22 Q20 26 23 28 M42 22 Q44 26 41 28" stroke="#14532d" stroke-width="1.4" fill="none"/>
+</svg>`,
+
+/* ===================== ОЗЕРО ИЛЛАР: РЕЧНОЙ ТРОЛЛЬ ===================== */
+river_troll:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="18" ry="3.5" fill="rgba(0,0,0,0.35)"/>
+  <!-- Ноги -->
+  <rect x="22" y="46" width="7" height="13" rx="2" fill="#166534" stroke="#14532d" stroke-width="1.3"/>
+  <rect x="35" y="46" width="7" height="13" rx="2" fill="#166534" stroke="#14532d" stroke-width="1.3"/>
+  <!-- Тело -->
+  <rect x="18" y="26" width="28" height="22" rx="5" fill="#22c55e" stroke="#14532d" stroke-width="1.5"/>
+  <!-- Пятна на теле -->
+  <circle cx="24" cy="34" r="2" fill="#166534" opacity="0.6"/>
+  <circle cx="38" cy="40" r="2.5" fill="#166534" opacity="0.6"/>
+  <circle cx="32" cy="30" r="1.5" fill="#166534" opacity="0.6"/>
+  <!-- Руки -->
+  <rect x="10" y="28" width="8" height="16" rx="3" fill="#22c55e" stroke="#14532d" stroke-width="1.3"/>
+  <rect x="46" y="28" width="8" height="16" rx="3" fill="#22c55e" stroke="#14532d" stroke-width="1.3"/>
+  <!-- Когти -->
+  <path d="M10 44 L8 48 M13 45 L12 49 M16 44 L16 48" stroke="#1a2e05" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M54 44 L56 48 M51 45 L52 49 M48 44 L48 48" stroke="#1a2e05" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Голова -->
+  <circle cx="32" cy="16" r="12" fill="#22c55e" stroke="#14532d" stroke-width="1.5"/>
+  <!-- Уши -->
+  <path d="M20 12 L12 6 L18 14 Z" fill="#166534" stroke="#14532d" stroke-width="1"/>
+  <path d="M44 12 L52 6 L46 14 Z" fill="#166534" stroke="#14532d" stroke-width="1"/>
+  <!-- Волосы-водоросли -->
+  <path d="M24 4 Q26 0 28 4 Q26 8 24 4 Z" fill="#15803d"/>
+  <path d="M32 2 Q34 -2 36 2 Q34 6 32 2 Z" fill="#15803d"/>
+  <path d="M40 4 Q42 0 44 4 Q42 8 40 4 Z" fill="#15803d"/>
+  <!-- Глаза -->
+  <ellipse cx="27" cy="16" rx="2.5" ry="3" fill="#fbbf24"/>
+  <ellipse cx="37" cy="16" rx="2.5" ry="3" fill="#fbbf24"/>
+  <ellipse cx="27" cy="16" rx="1" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="16" rx="1" ry="2" fill="#1a1a1a"/>
+  <!-- Пасть с клыками -->
+  <path d="M24 22 Q32 28 40 22" stroke="#14532d" stroke-width="1.5" fill="#fef3c7"/>
+  <polygon points="26,22 25,26 28,23" fill="#fff" stroke="#14532d" stroke-width="0.5"/>
+  <polygon points="38,22 39,26 36,23" fill="#fff" stroke="#14532d" stroke-width="0.5"/>
+</svg>`,
+
+/* ===================== ОЗЕРО ИЛЛАР: МОРСКОЙ ОРК ===================== */
+sea_orc:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <!-- Ноги -->
+  <rect x="24" y="46" width="6" height="12" rx="2" fill="#0369a1" stroke="#0c4a6e" stroke-width="1.3"/>
+  <rect x="34" y="46" width="6" height="12" rx="2" fill="#0369a1" stroke="#0c4a6e" stroke-width="1.3"/>
+  <ellipse cx="27" cy="58" rx="4" ry="2" fill="#0c4a6e"/>
+  <ellipse cx="37" cy="58" rx="4" ry="2" fill="#0c4a6e"/>
+  <!-- Тело -->
+  <path d="M20 28 L44 28 L46 48 L18 48 Z" fill="#0ea5e9" stroke="#0c4a6e" stroke-width="1.5"/>
+  <!-- Кожаная броня -->
+  <path d="M22 30 L42 30 L44 42 L20 42 Z" fill="#1e3a8a" stroke="#0c4a6e" stroke-width="1.2"/>
+  <!-- Ремень с черепом -->
+  <rect x="20" y="42" width="24" height="3" fill="#78350f"/>
+  <circle cx="32" cy="43.5" r="2" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="0.8"/>
+  <!-- Руки -->
+  <rect x="12" y="30" width="8" height="16" rx="3" fill="#0ea5e9" stroke="#0c4a6e" stroke-width="1.3"/>
+  <rect x="44" y="30" width="8" height="16" rx="3" fill="#0ea5e9" stroke="#0c4a6e" stroke-width="1.3"/>
+  <circle cx="16" cy="47" r="3.5" fill="#0369a1"/>
+  <circle cx="48" cy="47" r="3.5" fill="#0369a1"/>
+  <!-- Топор -->
+  <rect x="10" y="18" width="3" height="24" fill="#78350f" stroke="#451a03" stroke-width="0.8" transform="rotate(-10 11 30)"/>
+  <path d="M6 14 Q12 8 18 14 Q16 22 10 24 Q6 22 6 14 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <!-- Голова -->
+  <circle cx="32" cy="18" r="11" fill="#0ea5e9" stroke="#0c4a6e" stroke-width="1.5"/>
+  <!-- Плавники на голове -->
+  <path d="M22 14 L14 8 L20 16 Z" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1"/>
+  <path d="M42 14 L50 8 L44 16 Z" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1"/>
+  <!-- Косичка -->
+  <path d="M32 7 Q34 0 38 2 Q36 6 34 8 Z" fill="#0c4a6e"/>
+  <!-- Челюсть с клыками -->
+  <path d="M24 24 Q32 31 40 24" fill="#0c4a6e" stroke="#082f49" stroke-width="1"/>
+  <polygon points="27,24 26,29 29,26" fill="#fff" stroke="#082f49" stroke-width="0.5"/>
+  <polygon points="37,24 38,29 35,26" fill="#fff" stroke="#082f49" stroke-width="0.5"/>
+  <!-- Глаза -->
+  <ellipse cx="28" cy="18" rx="2.2" ry="2.6" fill="#fbbf24"/>
+  <ellipse cx="36" cy="18" rx="2.2" ry="2.6" fill="#fbbf24"/>
+  <ellipse cx="28" cy="18" rx="0.8" ry="2" fill="#1a1a1a"/>
+  <ellipse cx="36" cy="18" rx="0.8" ry="2" fill="#1a1a1a"/>
+  <!-- Брови -->
+  <path d="M23 14 L29 15 M35 15 L41 14" stroke="#082f49" stroke-width="1.6" stroke-linecap="round"/>
+</svg>`,
+sea_orc_warchief:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="20" ry="4" fill="rgba(0,0,0,0.45)"/>
+  <!-- Ноги -->
+  <rect x="22" y="46" width="7" height="13" rx="2" fill="#075985" stroke="#082f49" stroke-width="1.4"/>
+  <rect x="35" y="46" width="7" height="13" rx="2" fill="#075985" stroke="#082f49" stroke-width="1.4"/>
+  <ellipse cx="25" cy="59" rx="5" ry="2.5" fill="#082f49"/>
+  <ellipse cx="38" cy="59" rx="5" ry="2.5" fill="#082f49"/>
+  <!-- Тело -->
+  <path d="M18 26 L46 26 L48 48 L16 48 Z" fill="#0ea5e9" stroke="#082f49" stroke-width="1.6"/>
+  <!-- Тёмная броня -->
+  <path d="M20 28 L44 28 L46 44 L18 44 Z" fill="#0c4a6e" stroke="#082f49" stroke-width="1.3"/>
+  <path d="M24 30 L40 30 L40 42 L24 42 Z" fill="#1e3a8a"/>
+  <!-- Символ волны -->
+  <path d="M26 36 Q32 32 38 36" stroke="#67e8f9" stroke-width="1.5" fill="none"/>
+  <path d="M28 40 Q32 36 36 40" stroke="#67e8f9" stroke-width="1.5" fill="none"/>
+  <!-- Наплечники -->
+  <path d="M14 28 L10 20 L22 24 Z" fill="#1e293b" stroke="#0f172a" stroke-width="1"/>
+  <path d="M50 28 L54 20 L42 24 Z" fill="#1e293b" stroke="#0f172a" stroke-width="1"/>
+  <!-- Руки -->
+  <rect x="10" y="30" width="8" height="18" rx="3" fill="#0ea5e9" stroke="#082f49" stroke-width="1.3"/>
+  <rect x="46" y="30" width="8" height="18" rx="3" fill="#0ea5e9" stroke="#082f49" stroke-width="1.3"/>
+  <circle cx="14" cy="49" r="4" fill="#075985"/>
+  <circle cx="50" cy="49" r="4" fill="#075985"/>
+  <!-- Двойной топор -->
+  <rect x="6" y="16" width="3" height="28" fill="#451a03" stroke="#1a1a1a" stroke-width="0.9" transform="rotate(-15 7 30)"/>
+  <path d="M0 12 Q10 6 20 12 Q18 22 8 24 Q0 22 0 12 Z" fill="#94a3b8" stroke="#1e293b" stroke-width="1.3"/>
+  <path d="M8 6 L8 0 L12 4 L14 0 L14 6" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.8"/>
+  <!-- Голова -->
+  <circle cx="32" cy="16" r="12" fill="#0ea5e9" stroke="#082f49" stroke-width="1.6"/>
+  <!-- Плавники-корона -->
+  <path d="M20 10 L12 0 L22 12 Z" fill="#38bdf8" stroke="#082f49" stroke-width="1.2"/>
+  <path d="M44 10 L52 0 L42 12 Z" fill="#38bdf8" stroke="#082f49" stroke-width="1.2"/>
+  <path d="M32 4 L34 -4 L36 4" fill="#38bdf8" stroke="#082f49" stroke-width="1"/>
+  <!-- Челюсть -->
+  <path d="M23 22 Q32 30 41 22" fill="#082f49" stroke="#000" stroke-width="1.2"/>
+  <polygon points="25,22 23,28 28,24" fill="#fff"/>
+  <polygon points="39,22 41,28 36,24" fill="#fff"/>
+  <polygon points="30,25 30,30 34,26" fill="#fff"/>
+  <!-- Глаза -->
+  <ellipse cx="27" cy="16" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="37" cy="16" rx="2.5" ry="3" fill="#dc2626"/>
+  <ellipse cx="27" cy="16" rx="1" ry="2.2" fill="#1a1a1a"/>
+  <ellipse cx="37" cy="16" rx="1" ry="2.2" fill="#1a1a1a"/>
+  <circle cx="27" cy="16" r="5" fill="#dc2626" opacity="0.3"/>
+  <circle cx="37" cy="16" r="5" fill="#dc2626" opacity="0.3"/>
+  <path d="M22 12 L28 14 M36 14 L42 12" stroke="#082f49" stroke-width="1.8" stroke-linecap="round"/>
+</svg>`,
+
+/* ===================== ОЗЕРО ИЛЛАР: КАППА ===================== */
+kappa:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="58" rx="14" ry="3" fill="rgba(0,0,0,0.3)"/>
+  <!-- Панцирь на спине -->
+  <path d="M42 36 Q54 34 52 24 Q48 30 42 32 Z" fill="#365314" stroke="#1a2e05" stroke-width="1.3"/>
+  <path d="M44 34 Q50 32 50 28" stroke="#4d7c0f" stroke-width="1" fill="none"/>
+  <!-- Тело-черепаха -->
+  <ellipse cx="32" cy="42" rx="14" ry="12" fill="#4d7c0f" stroke="#1a2e05" stroke-width="1.5"/>
+  <ellipse cx="32" cy="44" rx="8" ry="7" fill="#a3e635" opacity="0.6"/>
+  <!-- Лапы -->
+  <ellipse cx="22" cy="52" rx="5" ry="3.5" fill="#4d7c0f" stroke="#1a2e05" stroke-width="1.2"/>
+  <ellipse cx="42" cy="52" rx="5" ry="3.5" fill="#4d7c0f" stroke="#1a2e05" stroke-width="1.2"/>
+  <!-- Руки -->
+  <ellipse cx="18" cy="42" rx="3.5" ry="5" fill="#65a30d" stroke="#1a2e05" stroke-width="1.2"/>
+  <ellipse cx="46" cy="42" rx="3.5" ry="5" fill="#65a30d" stroke="#1a2e05" stroke-width="1.2"/>
+  <!-- Голова -->
+  <ellipse cx="30" cy="26" rx="13" ry="11" fill="#65a30d" stroke="#1a2e05" stroke-width="1.4"/>
+  <!-- Тарелка с водой на голове -->
+  <ellipse cx="30" cy="16" rx="10" ry="4" fill="#67e8f9" stroke="#0e7490" stroke-width="1.2"/>
+  <ellipse cx="30" cy="16" rx="7" ry="2.5" fill="#a5f3fc" opacity="0.8"/>
+  <circle cx="30" cy="16" r="8" fill="#67e8f9" opacity="0.4"/>
+  <!-- Клюв -->
+  <path d="M22 28 Q30 34 38 28 L36 26 Q30 30 24 26 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.2"/>
+  <!-- Глаза -->
+  <ellipse cx="25" cy="25" rx="2.5" ry="3" fill="#fff"/>
+  <ellipse cx="35" cy="25" rx="2.5" ry="3" fill="#fff"/>
+  <circle cx="25" cy="25" r="1.4" fill="#1a1a1a"/>
+  <circle cx="35" cy="25" r="1.4" fill="#1a1a1a"/>
+  <circle cx="25.5" cy="24.4" r="0.5" fill="#fff"/>
+  <circle cx="35.5" cy="24.4" r="0.5" fill="#fff"/>
+</svg>`,
+
+/* ===================== ОЗЕРО ИЛЛАР: ГИППОКАМП ===================== */
+hippocampus:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="58" rx="20" ry="3.5" fill="rgba(0,0,0,0.3)"/>
+  <!-- Хвост-плавник -->
+  <path d="M46 44 Q60 40 58 26 Q54 36 46 38 Z" fill="#38bdf8" stroke="#075985" stroke-width="1.3"/>
+  <path d="M58 26 Q62 22 60 16 Q56 22 54 26 Z" fill="#7dd3fc" stroke="#075985" stroke-width="1"/>
+  <!-- Тело-конёк -->
+  <path d="M18 44 Q16 32 24 28 Q34 26 40 34 Q46 42 42 48 Q34 52 24 50 Z" fill="#0ea5e9" stroke="#075985" stroke-width="1.5"/>
+  <!-- Полоски -->
+  <path d="M24 34 Q28 32 30 36 M30 40 Q34 38 36 42 M36 44 Q40 42 42 46" stroke="#0369a1" stroke-width="1" fill="none"/>
+  <!-- Плавники -->
+  <path d="M18 34 Q12 30 10 34 Q14 34 18 36 Z" fill="#7dd3fc" stroke="#075985" stroke-width="1"/>
+  <path d="M22 30 Q20 24 24 26 Q24 28 26 30 Z" fill="#7dd3fc" stroke="#075985" stroke-width="1"/>
+  <!-- Голова -->
+  <ellipse cx="24" cy="24" rx="11" ry="10" fill="#0ea5e9" stroke="#075985" stroke-width="1.4"/>
+  <!-- МХанство-трубочка -->
+  <path d="M14 26 Q8 26 8 30 Q12 30 16 30 Z" fill="#0ea5e9" stroke="#075985" stroke-width="1.2"/>
+  <circle cx="10" cy="29" r="0.8" fill="#075985"/>
+  <!-- Гребень-плавник на голове -->
+  <path d="M20 14 Q22 6 24 10 Q22 12 24 16 Z" fill="#67e8f9" stroke="#075985" stroke-width="1"/>
+  <path d="M24 14 Q26 6 28 10 Q26 12 28 16 Z" fill="#7dd3fc" stroke="#075985" stroke-width="1"/>
+  <path d="M28 16 Q30 10 32 14 Q30 16 32 20 Z" fill="#67e8f9" stroke="#075985" stroke-width="1"/>
+  <!-- Глаз -->
+  <ellipse cx="26" cy="23" rx="2.5" ry="3" fill="#fff"/>
+  <circle cx="26" cy="23" r="1.5" fill="#1a1a1a"/>
+  <circle cx="26.5" cy="22.4" r="0.5" fill="#fff"/>
+  <!-- Улыбка -->
+  <path d="M16 33 Q18 34 20 33" stroke="#075985" stroke-width="1" fill="none" stroke-linecap="round"/>
+</svg>`,
+
+/* ===================== КСАРОТ: РЫЦАРЬ ===================== */
+ksarot_knight:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="18" ry="3.5" fill="rgba(0,0,0,0.3)"/>
+  <!-- Ноги в доспехах -->
+  <rect x="24" y="46" width="7" height="14" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.3"/>
+  <rect x="33" y="46" width="7" height="14" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="1.3"/>
+  <ellipse cx="27" cy="59" rx="5" ry="2.5" fill="#1e293b"/>
+  <ellipse cx="37" cy="59" rx="5" ry="2.5" fill="#1e293b"/>
+  <!-- Тяжёлый доспех -->
+  <path d="M20 28 L44 28 L46 48 L18 48 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <path d="M22 30 L42 30 L43 44 L21 44 Z" fill="#e5e7eb" stroke="#475569" stroke-width="1"/>
+  <!-- Нагрудник с крестом Ксарота -->
+  <path d="M32 32 V42 M26 37 H38" stroke="#fbbf24" stroke-width="2.5"/>
+  <circle cx="32" cy="37" r="3" fill="none" stroke="#fbbf24" stroke-width="1.2"/>
+  <!-- Наплечники -->
+  <path d="M16 28 Q18 22 24 24 L24 30 Q18 30 16 28 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <path d="M48 28 Q46 22 40 24 L40 30 Q46 30 48 28 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+  <!-- Руки -->
+  <rect x="12" y="30" width="8" height="18" rx="3" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <rect x="44" y="30" width="8" height="18" rx="3" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="16" cy="49" r="4" fill="#94a3b8"/>
+  <circle cx="48" cy="49" r="4" fill="#94a3b8"/>
+  <!-- Меч -->
+  <rect x="8" y="16" width="3" height="28" fill="#e5e7eb" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="6" y="14" width="7" height="3" fill="#fbbf24"/>
+  <circle cx="9.5" cy="44" r="2" fill="#fbbf24"/>
+  <!-- Щит -->
+  <path d="M48 34 L58 32 L58 44 L53 50 L48 44 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.4"/>
+  <path d="M53 35 V46 M48 40 H58" stroke="#fbbf24" stroke-width="1.5"/>
+  <!-- Шлем -->
+  <path d="M22 24 Q22 8 32 8 Q42 8 42 24 Q38 18 32 18 Q26 18 22 24 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <!-- Забрало-решётка -->
+  <path d="M24 20 L40 20" stroke="#475569" stroke-width="1.2"/>
+  <path d="M25 20 L25 24 M28 20 L28 24 M32 20 L32 24 M36 20 L36 24 M39 20 L39 24" stroke="#475569" stroke-width="1"/>
+  <!-- Глаза-прорези -->
+  <ellipse cx="27" cy="17" rx="2.2" ry="2" fill="#0f172a"/>
+  <ellipse cx="37" cy="17" rx="2.2" ry="2" fill="#0f172a"/>
+  <circle cx="27" cy="17" r="0.8" fill="#fbbf24"/>
+  <circle cx="37" cy="17" r="0.8" fill="#fbbf24"/>
+  <!-- Плюмаж -->
+  <path d="M32 8 Q30 2 32 0 Q34 2 34 8 Q36 4 36 8 Q34 10 32 10 Q30 10 28 8 Q28 4 30 8 Z" fill="#dc2626"/>
+</svg>`,
+
+/* ===================== КСАРОТ: ПАЛАДИН ===================== */
+ksarot_paladin:`<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="20" ry="4" fill="rgba(0,0,0,0.4)"/>
+  <!-- Святое сияние -->
+  <ellipse cx="32" cy="34" rx="26" ry="22" fill="#fef3c7" opacity="0.25"/>
+  <!-- Ноги в золотых доспехах -->
+  <rect x="24" y="46" width="7" height="14" rx="2" fill="#fbbf24" stroke="#b45309" stroke-width="1.4"/>
+  <rect x="33" y="46" width="7" height="14" rx="2" fill="#fbbf24" stroke="#b45309" stroke-width="1.4"/>
+  <ellipse cx="27" cy="59" rx="5" ry="2.5" fill="#b45309"/>
+  <ellipse cx="37" cy="59" rx="5" ry="2.5" fill="#b45309"/>
+  <!-- Золотой доспех -->
+  <path d="M18 26 L46 26 L48 48 L16 48 Z" fill="#fde68a" stroke="#b45309" stroke-width="1.6"/>
+  <path d="M20 28 L44 28 L45 44 L19 44 Z" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+  <!-- Символ Света на груди -->
+  <circle cx="32" cy="36" r="6" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5"/>
+  <path d="M32 30 V42 M26 36 H38 M28 32 L36 40 M36 32 L28 40" stroke="#fbbf24" stroke-width="1.3"/>
+  <circle cx="32" cy="36" r="2" fill="#fff"/>
+  <circle cx="32" cy="36" r="9" fill="#fbbf24" opacity="0.25"/>
+  <!-- Наплечники с крыльями -->
+  <path d="M14 26 Q16 20 22 22 L22 28 Q16 28 14 26 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.3"/>
+  <path d="M50 26 Q48 20 42 22 L42 28 Q48 28 50 26 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.3"/>
+  <path d="M14 20 L8 16 L16 22" stroke="#fff" stroke-width="1.2" fill="none"/>
+  <path d="M50 20 L56 16 L48 22" stroke="#fff" stroke-width="1.2" fill="none"/>
+  <!-- Руки -->
+  <rect x="10" y="30" width="8" height="18" rx="3" fill="#fde68a" stroke="#b45309" stroke-width="1.3"/>
+  <rect x="46" y="30" width="8" height="18" rx="3" fill="#fde68a" stroke="#b45309" stroke-width="1.3"/>
+  <circle cx="14" cy="49" r="4" fill="#fbbf24"/>
+  <circle cx="50" cy="49" r="4" fill="#fbbf24"/>
+  <!-- Священный молот -->
+  <rect x="6" y="16" width="3.5" height="28" fill="#78350f" stroke="#451a03" stroke-width="1"/>
+  <rect x="2" y="12" width="12" height="8" rx="2" fill="#fde68a" stroke="#b45309" stroke-width="1.3"/>
+  <path d="M8 12 L8 8 L10 12" fill="#fbbf24"/>
+  <circle cx="8" cy="16" r="3" fill="#fff" opacity="0.6"/>
+  <!-- Священная книга -->
+  <rect x="48" y="32" width="12" height="10" rx="1" fill="#7f1d1d" stroke="#450a0a" stroke-width="1.2"/>
+  <path d="M54 32 V42" stroke="#fbbf24" stroke-width="1"/>
+  <path d="M50 35 L53 35 M55 35 L58 35 M50 38 L53 38 M55 38 L58 38" stroke="#fbbf24" stroke-width="0.7"/>
+  <!-- Шлем-корона -->
+  <path d="M22 22 Q22 6 32 6 Q42 6 42 22 Q38 16 32 16 Q26 16 22 22 Z" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Корона -->
+  <path d="M20 12 L22 4 L26 8 L30 0 L32 6 L34 0 L38 8 L42 4 L44 12 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1.2" stroke-linejoin="round"/>
+  <circle cx="32" cy="2" r="2" fill="#fff"/>
+  <circle cx="26" cy="6" r="1.2" fill="#fef3c7"/>
+  <circle cx="38" cy="6" r="1.2" fill="#fef3c7"/>
+  <!-- Глаза -->
+  <ellipse cx="27" cy="18" rx="2.2" ry="2.8" fill="#1e3a8a"/>
+  <ellipse cx="37" cy="18" rx="2.2" ry="2.8" fill="#1e3a8a"/>
+  <circle cx="27.6" cy="17" r="0.8" fill="#fff"/>
+  <circle cx="37.6" cy="17" r="0.8" fill="#fff"/>
+  <path d="M29 24 Q32 26 35 24" stroke="#b45309" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+  <!-- Лучи света -->
+  <path d="M32 2 L32 -4 M20 6 L16 0 M44 6 L48 0" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+</svg>`,
+
+/* ===================== ЛАМХИ-ЮНЕЦ ===================== */
 /* ===================== ФЕЯ ===================== */
 fairy_base:`<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="58" rx="12" ry="2.5" fill="rgba(0,0,0,0.3)"/>
