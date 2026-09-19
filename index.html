@@ -18189,37 +18189,6 @@ function drawCloud(ctx,cloud,t){
   ctx.fill();
   ctx.restore();
 
-  ctx.save();
-  puffs.forEach(p=>{
-    const breathe=1+Math.sin(t*p.speed+p.phase)*0.14;
-    const dx=p.x+Math.sin(t*0.15+p.phase)*10+p.driftX*t*8;
-    const dy=p.y+Math.cos(t*0.12+p.phase)*8+p.driftY*t*5;
-    const r=p.r*breathe;
-    const grad=ctx.createRadialGradient(dx,dy-r*0.35,0,dx,dy,r);
-    const topShade=Math.floor(240*p.shade);
-    const midShade=Math.floor(180*p.shade);
-    const botShade=Math.floor(120*p.shade);
-    grad.addColorStop(0,`rgba(${topShade},${topShade},${topShade+10},0.015)`);
-    grad.addColorStop(0.45,`rgba(${midShade},${midShade},${midShade+15},0.06)`);
-    grad.addColorStop(0.8,`rgba(${botShade},${botShade},${botShade+15},0.1)`);
-    grad.addColorStop(1,'rgba(80,85,105,0)');
-    ctx.fillStyle=grad;
-    ctx.beginPath();
-    ctx.arc(dx,dy,r,0,Math.PI*2);
-    ctx.fill();
-  });
-  ctx.restore();
-
-  ctx.save();
-  const haze=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(cloud.rx,cloud.ry));
-  haze.addColorStop(0,'rgba(225,230,245,0.2)');
-  haze.addColorStop(0.3,'rgba(205,215,235,0.11)');
-  haze.addColorStop(0.5,'rgba(200,210,230,0)');
-  ctx.fillStyle=haze;
-  ctx.beginPath();
-  ctx.ellipse(cx,cy,cloud.rx,cloud.ry,0,0,Math.PI*2);
-  ctx.fill();
-  ctx.restore();
 
   ctx.save();
   ctx.font='46px "Fantasy Classic", "Segoe UI", sans-serif';
