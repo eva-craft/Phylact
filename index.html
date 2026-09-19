@@ -15573,7 +15573,7 @@ function getZoneLevels(biome){
 // ===================== РЕСПАВН =====================
 const RESPAWN_DELAY_MS = 2500;
 const RESPAWN_JITTER_MS = 1500;
-const MAX_Fantasy_ON_MAP = 10;
+const MAX_Fantasy_ON_MAP = 1011111111;
 
 // ===== КЕШ ПУЛОВ (создаётся один раз) =====
 const POOL_CACHE = {};
@@ -25591,7 +25591,2111 @@ function renderInventory(){
     items.appendChild(el);
   });
 }
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Стражник Гром =====================
+DIALOGS.q_goblin_thieves = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Стражник Гром',
+      text: 'Стой! Кто идёт? А, это ты, искатель. Хорошо, что ты здесь.\n\nУ нас беда — гоблины-воры обнаглели. Они грабят караваны на дороге в Зиффрен. Мои люди не справляются.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Стражник Гром',
+      text: 'Поможешь?',
+      choices: [
+        { text: '⚔️ Конечно, я помогу!', next: 'quest_details' },
+        { text: '🤔 Что мне за это будет?', next: 'reward_hint' }
+      ]
+    },
+    reward_hint: {
+      speaker: 'Стражник Гром',
+      text: 'Ха! Деловой. Ладно, вот что: городская казна выделит тебе 900 золотых и 8 филактерий. Идёт?',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Стражник Гром',
+      text: '📜 Задание: «Гоблинские воры»\n\nПобеди 4 существ возле города.\n\nНаграда: 900 золотых и 8 Филактерий.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_goblin_thieves');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Стражник Гром',
+      text: 'Отлично! Иди на восток, к дороге. И будь осторожен — гоблины хитры.',
+      choices: [
+        { text: '🙏 Я вернусь с победой!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Стражник Гром',
+      text: 'Ты сделал это! Караваны снова в безопасности. Держи награду, герой!',
+      onEnter: ctx => { claimQuestReward('q_goblin_thieves'); },
+      choices: [
+        { text: '🙏 Служу Сенории!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог со Стражником Громом завершён'); }
+};
 
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Охотница Ильва =====================
+DIALOGS.q_wolf_pack = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Охотница Ильва',
+      text: 'Тише! Ты спугнёшь добычу.\n\nЯ выслеживаю одного хитрого гоблина. Он ворует скот у фермеров уже месяц. Мои стрелы его не берут — слишком быстрый.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Охотница Ильва',
+      text: 'Слушай, у тебя есть филактерии? Поймай его для меня. Я заплачу.',
+      choices: [
+        { text: '🎯 Я поймаю его!', next: 'quest_details' },
+        { text: '🤔 Сколько заплатишь?', next: 'reward_hint' }
+      ]
+    },
+    reward_hint: {
+      speaker: 'Охотница Ильва',
+      text: '800 золотых и 3 Проклятых Медальона. Это всё, что у меня есть. Но поверь, этот гоблин стоит того.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Охотница Ильва',
+      text: '📜 Задание: «Волчья стая»\n\nПоймай Гоблина-Вора.\n\nНаграда: 800 золотых и 3 Проклятых Медальона.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_wolf_pack');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Охотница Ильва',
+      text: 'Ищи его у ферм на западе. Он обычно прячется в кустах.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Охотница Ильва',
+      text: 'Наконец-то! Этот вор получил по заслугам. Фермеры вздохнут спокойно.\n\nВот твоя награда.',
+      onEnter: ctx => { claimQuestReward('q_wolf_pack'); },
+      choices: [
+        { text: '🙏 Рад был помочь!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Охотницей Ильвой завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Мудрец Кайлен =====================
+DIALOGS.q_first_seal_hint = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Мудрец Кайлен',
+      text: 'Я чувствую в тебе искру, искатель. Ты стоишь на пороге великого пути.\n\nПечати Душ... Ты слышал о них?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Мудрец Кайлен',
+      text: 'Это ключи к истинной силе. Но чтобы получить первую, тебе нужно стать сильнее.',
+      choices: [
+        { text: '📜 Расскажи мне о Печатях!', next: 'lore_seals' },
+        { text: '⚔️ Что мне делать?', next: 'quest_details' }
+      ]
+    },
+    lore_seals: {
+      speaker: 'Мудрец Кайлен',
+      text: 'Восемь Печатей. Восемь Мастеров. Каждый — в своём городе.\n\nПечать Камня, Воды, Молнии, Природы, Теней, Разума, Пламени и Земли.\n\nСобери все восемь — и ты сможешь бросить вызов самому Императору-личу.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Мудрец Кайлен',
+      text: '📜 Задание: «Шёпот Печатей»\n\nДоведи любое существо до 8 уровня.\n\nНаграда: 700 золотых и 5 Зелий Жизни.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_first_seal_hint');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Мудрец Кайлен',
+      text: 'Иди. И помни: сила приходит к тем, кто терпелив.',
+      choices: [
+        { text: '🙏 Благодарю за совет.', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Мудрец Кайлен',
+      text: 'Ты стал сильнее. Я вижу это. Теперь ты готов искать Мастеров Душ.\n\nНачни с Мастера Камня Торвальда в Нионите.',
+      onEnter: ctx => { claimQuestReward('q_first_seal_hint'); },
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Мудрецом Кайленом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Рейнджер Дариэль =====================
+DIALOGS.q_road_cleanup = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Рейнджер Дариэль',
+      text: 'Приветствую, путник. Я — Дариэль, рейнджер Тропы Странников.\n\nТорговый тракт кишит тварями. Купцы боятся выходить. Мне нужна помощь.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Рейнджер Дариэль',
+      text: 'Поможешь очистить тракт?',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что мне за это будет?', next: 'reward_hint' }
+      ]
+    },
+    reward_hint: {
+      speaker: 'Рейнджер Дариэль',
+      text: '1200 золотых и 2 Больших Зелья Жизни. Купцы скинулись, чтобы нанять охотника.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Рейнджер Дариэль',
+      text: '📜 Задание: «Зачистка тракта»\n\nПобеди 6 существ на Тропе Странников.\n\nНаграда: 1200 золотых и 2 Больших Зелья Жизни.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_road_cleanup');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Рейнджер Дариэль',
+      text: 'Иди вдоль тракта. И будь осторожен — там не только гоблины.',
+      choices: [
+        { text: '🙏 Я вернусь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Рейнджер Дариэль',
+      text: 'Тракт чист! Купцы снова могут ходить с миром. Держи награду, охотник.',
+      onEnter: ctx => { claimQuestReward('q_road_cleanup'); },
+      choices: [
+        { text: '🙏 Рад был помочь!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Рейнджером Дариэлем завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Путник Ллевин =====================
+DIALOGS.q_rat_lord = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Путник Ллевин',
+      text: 'Ох, искатель! Спасибо, что остановился. Меня ограбил крысолюд! Он забрал всё, что у меня было.\n\nЭто был Ламхи-Коготь. Ужасное создание.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Путник Ллевин',
+      text: 'Поймай его, прошу! Я заплачу, чем смогу.',
+      choices: [
+        { text: '🎯 Я поймаю его!', next: 'quest_details' },
+        { text: '🤔 Что у тебя есть?', next: 'reward_hint' }
+      ]
+    },
+    reward_hint: {
+      speaker: 'Путник Ллевин',
+      text: '1500 золотых и 5 Проклятых Медальонов. Это всё, что у меня осталось после ограбления.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Путник Ллевин',
+      text: '📜 Задание: «Крысиный владыка»\n\nПоймай Ламхи-Когтя.\n\nНаграда: 1500 золотых и 5 Проклятых Медальонов.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_rat_lord');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Путник Ллевин',
+      text: 'Он скрывается в пещерах на востоке. Будь осторожен — он хитрый.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Путник Ллевин',
+      text: 'Ты поймал его! Я снова верю в справедливость. Забирай награду, герой!',
+      onEnter: ctx => { claimQuestReward('q_rat_lord'); },
+      choices: [
+        { text: '🙏 Удачи в пути!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Путником Ллевином завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Травница Мирра =====================
+DIALOGS.q_mushroom_menace = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Травница Мирра',
+      text: 'Ох, горе-то какое! Микониды отравили колодцы! Люди болеют, дети плачут...\n\nПомоги нам, искатель!',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Травница Мирра',
+      text: 'Ты ведь можешь победить их?',
+      choices: [
+        { text: '🌿 Я помогу!', next: 'quest_details' },
+        { text: '🤔 А что взамен?', next: 'reward_hint' }
+      ]
+    },
+    reward_hint: {
+      speaker: 'Травница Мирра',
+      text: '1500 золотых и 10 филактерий. У меня больше нет, но я сварю тебе целебный эликсир бесплатно.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Травница Мирра',
+      text: '📜 Задание: «Грибная напасть»\n\nПобеди 8 существ-миконидов.\n\nНаграда: 1500 золотых и 10 Филактерий.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_mushroom_menace');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Травница Мирра',
+      text: 'Ищи их в лесу. Они похожи на грибы, но ходят. Будь осторожен — их споры ядовиты!',
+      choices: [
+        { text: '🙏 Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Травница Мирра',
+      text: 'Ты спас нас! Колодцы снова чисты. Держи награду, герой!',
+      onEnter: ctx => { claimQuestReward('q_mushroom_menace'); },
+      choices: [
+        { text: '🙏 Здоровья вам!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Травницей Миррой завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Друид Рондэлон =====================
+DIALOGS.q_treant_awakening = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Друид Рондэлон',
+      text: 'Природа шепчет мне о тебе, искатель. Ты — дитя леса, даже если не знаешь этого.\n\nМне нужна твоя помощь. Древень-Страж спит уже сто лет. Я хочу его разбудить.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Друид Рондэлон',
+      text: 'Для этого мне нужны семена Плюща. Принесёшь?',
+      choices: [
+        { text: '🌿 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Зачем тебе Древень?', next: 'lore_treant' }
+      ]
+    },
+    lore_treant: {
+      speaker: 'Друид Рондэлон',
+      text: 'Древень — это не просто дерево. Это дух леса, его сердце. Когда он проснётся, лес снова расцветёт.\n\nНо для пробуждения нужны семена Плюща. Они содержат жизненную силу.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Друид Рондэлон',
+      text: '📜 Задание: «Пробуждение Древня»\n\nПоймай Плюща.\n\nНаграда: 1800 золотых и 5 Проклятых Медальонов.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_treant_awakening');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Друид Рондэлон',
+      text: 'Плющ — это живая лиана. Она может быть где угодно в лесу. Ищи её у старых деревьев.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Друид Рондэлон',
+      text: 'Семена! Наконец-то! *Рондэлон берёт семена и начинает ритуал*\n\nСмотри... Древень просыпается! Лес снова жив!\n\nТы сделал великое дело, искатель. Держи награду.',
+      onEnter: ctx => { claimQuestReward('q_treant_awakening'); },
+      choices: [
+        { text: '🙏 Пусть лес живёт!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Друидом Рондэлоном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Птицелов Гарен =====================
+DIALOGS.q_harpy_eggs = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Птицелов Гарен',
+      text: 'Тсс! Не спугни! Я выслеживаю гарпию уже три дня.\n\nГарпии откладывают яйца раз в век. Мне нужен птенец для исследований.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Птицелов Гарен',
+      text: 'Поймаешь для меня?',
+      choices: [
+        { text: '🎯 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что получу?', next: 'reward_hint' }
+      ]
+    },
+    reward_hint: {
+      speaker: 'Птицелов Гарен',
+      text: '2200 золотых и 2 Сосуда Души. Это редчайший трофей, я готов заплатить.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Птицелов Гарен',
+      text: '📜 Задание: «Яйца гарпий»\n\nПоймай Гарпию-Птенца.\n\nНаграда: 2200 золотых и 2 Сосуда Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_harpy_eggs');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Птицелов Гарен',
+      text: 'Ищи её на опушке леса. Молодые гарпии обычно прячутся в кустах.',
+      choices: [
+        { text: '🙏 Я принесу его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Птицелов Гарен',
+      text: 'Ты поймал его! Этот птенец — настоящее сокровище! Теперь мои исследования продвинутся.\n\nДержи награду!',
+      onEnter: ctx => { claimQuestReward('q_harpy_eggs'); },
+      choices: [
+        { text: '🙏 Удачи в исследованиях!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Птицеловом Гареном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Магистр Вейлон =====================
+DIALOGS.q_golem_souls = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Магистр Вейлон',
+      text: 'Приветствую в Нионите, городе магии. Я — Магистр Вейлон, глава гильдии магов.\n\nНаши големы питаются осколками душ. Но запасы истощились. Поможешь?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Магистр Вейлон',
+      text: 'Это в интересах всего города.',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что получу?', next: 'reward_hint' }
+      ]
+    },
+    reward_hint: {
+      speaker: 'Магистр Вейлон',
+      text: '2200 золотых и 3 Больших Зелья Жизни. Гильдия щедра к тем, кто помогает.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Магистр Вейлон',
+      text: '📜 Задание: «Души големов»\n\nПобеди 10 существ, чтобы собрать осколки душ.\n\nНаграда: 2200 золотых и 3 Больших Зелья Жизни.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_golem_souls');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Магистр Вейлон',
+      text: 'Иди. И будь осторожен — осколки душ нестабильны.',
+      choices: [
+        { text: '🙏 Я вернусь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Магистр Вейлон',
+      text: 'Превосходно! Наши големы снова работают. Ты спас Нионит от энергетического кризиса.\n\nДержи награду.',
+      onEnter: ctx => { claimQuestReward('q_golem_souls'); },
+      choices: [
+        { text: '🙏 Служу магии!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Магистром Вейлоном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Коллекционер Бран =====================
+DIALOGS.q_stone_collector = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Коллекционер Бран',
+      text: 'О! Искатель! Ты как раз вовремя. Мне нужен Каменный Голем для моей коллекции.\n\nЭто редчайший экземпляр! Я заплачу щедро.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Коллекционер Бран',
+      text: 'Поймаешь для меня?',
+      choices: [
+        { text: '🎯 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Зачем тебе голем?', next: 'lore_golem' }
+      ]
+    },
+    lore_golem: {
+      speaker: 'Коллекционер Бран',
+      text: 'Каменные големы — это чудо магии! Они созданы из чистой породы гор. Каждый экземпляр уникален.\n\nМой дед был геомантом. Он мечтал собрать всех големов Филакта. Я продолжаю его дело.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Коллекционер Бран',
+      text: '📜 Задание: «Живой камень»\n\nПоймай Каменного Голема.\n\nНаграда: 2000 золотых и 5 Проклятых Медальонов.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_stone_collector');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Коллекционер Бран',
+      text: 'Големы обычно обитают в горах и пещерах. Ищи его там.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Коллекционер Бран',
+      text: 'Великолепно! Этот голем — жемчужина моей коллекции! Держи награду, искатель!',
+      onEnter: ctx => { claimQuestReward('q_stone_collector'); },
+      choices: [
+        { text: '🙏 Рад был помочь!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Коллекционером Браном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Ученик Торвальда =====================
+DIALOGS.q_first_master_stone = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Ученик Торвальда',
+      text: 'Приветствую, искатель. Я — ученик Мастера Камня Торвальда.\n\nМой учитель принимает только сильных воинов. Ты готов?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Ученик Торвальда',
+      text: 'Покажи мне свою силу.',
+      choices: [
+        { text: '⚔️ Я готов!', next: 'quest_details' },
+        { text: '🤔 Кто такой Торвальд?', next: 'lore_torvald' }
+      ]
+    },
+    lore_torvald: {
+      speaker: 'Ученик Торвальда',
+      text: 'Торвальд — Мастер Душ Камня. Он охраняет первую Печать. Его големы высечены из сердца горы.\n\nОн суров, но справедлив. Если докажешь свою силу — он обучит тебя.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Ученик Торвальда',
+      text: '📜 Задание: «Путь к Печати Камня»\n\nДоведи любое существо до 12 уровня.\n\nНаграда: 2500 золотых и 5 Больших Зелий Жизни.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_first_master_stone');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Ученик Торвальда',
+      text: 'Иди и тренируйся. Когда будешь готов — возвращайся.',
+      choices: [
+        { text: '🙏 Я стану сильнее!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Ученик Торвальда',
+      text: 'Ты стал сильнее. Мой учитель заметил тебя. Теперь ты можешь бросить ему вызов.',
+      onEnter: ctx => { claimQuestReward('q_first_master_stone'); },
+      choices: [
+        { text: '🙏 Я готов!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Учеником Торвальда завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Альпинист Бьорн =====================
+DIALOGS.q_mountain_climb = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Альпинист Бьорн',
+      text: 'Эй, искатель! Ты собираешься подняться на Гору Звёзд?\n\nЭто опасно. Гора убивает слабых. Но если ты выживешь — станешь сильнее.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Альпинист Бьорн',
+      text: 'Готов проверить себя?',
+      choices: [
+        { text: '⚔️ Я готов!', next: 'quest_details' },
+        { text: '🤔 Что там наверху?', next: 'lore_mountain' }
+      ]
+    },
+    lore_mountain: {
+      speaker: 'Альпинист Бьорн',
+      text: 'На вершине — древний алтарь. Говорят, там можно найти осколки звёзд.\n\nНо чтобы добраться, нужно победить существ, что живут на склонах.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Альпинист Бьорн',
+      text: '📜 Задание: «Восхождение»\n\nПобеди 12 существ на Горе Звёзд.\n\nНаграда: 2800 золотых и 1 Свиток Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_mountain_climb');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Альпинист Бьорн',
+      text: 'Иди. И не смотри вниз.',
+      choices: [
+        { text: '🙏 Я покорю вершину!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Альпинист Бьорн',
+      text: 'Ты сделал это! Ты достоин вершины. Держи награду, герой!',
+      onEnter: ctx => { claimQuestReward('q_mountain_climb'); },
+      choices: [
+        { text: '🙏 Спасибо, Бьорн!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Альпинистом Бьорном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Звездочёт Лун =====================
+DIALOGS.q_star_crystal = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Звездочёт Лун',
+      text: 'Звёзды рассказали мне о тебе, искатель. Ты ищешь силу.\n\nЯ знаю, где найти осколок звезды. Он в теле Каменного Бойца.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Звездочёт Лун',
+      text: 'Поймай его для меня.',
+      choices: [
+        { text: '🎯 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за осколок?', next: 'lore_crystal' }
+      ]
+    },
+    lore_crystal: {
+      speaker: 'Звездочёт Лун',
+      text: 'Осколок звезды — это чистый свет, упавший с небес. Он дарует силу тому, кто его найдёт.\n\nНо Каменный Боец поглотил его. Теперь осколок внутри него.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Звездочёт Лун',
+      text: '📜 Задание: «Осколок звезды»\n\nПоймай Каменного Бойца.\n\nНаграда: 3500 золотых и 3 Сосуда Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_star_crystal');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Звездочёт Лун',
+      text: 'Ищи его в горах. И будь осторожен — он сильнее, чем кажется.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Звездочёт Лун',
+      text: 'Осколок! Наконец-то! Теперь я смогу завершить свои исследования.\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_star_crystal'); },
+      choices: [
+        { text: '🙏 Удачи, звездочёт!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог со Звездочётом Луном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Бард Аэлин =====================
+DIALOGS.q_siren_song = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Бард Аэлин',
+      text: 'Слушай... Слышишь? Это песни сирен. Они заманивают моряков в глубины.\n\nЯ хочу сложить балладу о герое, который спасёт наши воды.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Бард Аэлин',
+      text: 'Поможешь мне?',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за баллада?', next: 'lore_ballad' }
+      ]
+    },
+    lore_ballad: {
+      speaker: 'Бард Аэлин',
+      text: 'Баллада о герое — это история, которая будет жить вечно. Я хочу написать о том, кто очистит море от сирен.\n\nНо для этого нужен герой. Ты подходишь.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Бард Аэлин',
+      text: '📜 Задание: «Песнь Сирен»\n\nПобеди 15 существ в море и на побережье.\n\nНаграда: 3200 золотых и 2 Сосуда Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_siren_song');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Бард Аэлин',
+      text: 'Иди к морю. И будь осторожен — сирены поют сладко.',
+      choices: [
+        { text: '🙏 Я вернусь с победой!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Бард Аэлин',
+      text: 'Ты сделал это! Теперь я напишу балладу, которая прославит тебя на века!\n\nДержи награду, герой.',
+      onEnter: ctx => { claimQuestReward('q_siren_song'); },
+      choices: [
+        { text: '🙏 Спой обо мне!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Бардом Аэлином завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Рыбак Тобиас =====================
+DIALOGS.q_lost_seahorse = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Рыбак Тобиас',
+      text: 'Ох, горе! Мой сын потерял своего морского конька! Малыш плачет уже второй день.\n\nПомоги найти нового!',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Рыбак Тобиас',
+      text: 'Пожалуйста, я заплачу!',
+      choices: [
+        { text: '🎯 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Как он выглядел?', next: 'lore_seahorse' }
+      ]
+    },
+    lore_seahorse: {
+      speaker: 'Рыбак Тобиас',
+      text: 'Он был маленький, золотистый, с большими глазами. Мой сын звал его Солнышко.\n\nОн потерялся где-то у берега.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Рыбак Тобиас',
+      text: '📜 Задание: «Потерянный конёк»\n\nПоймай Морского Конька-Малыша.\n\nНаграда: 2500 золотых и 8 Проклятых Медальонов.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_lost_seahorse');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Рыбак Тобиас',
+      text: 'Ищи его у берега. Он обычно прячется в водорослях.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Рыбак Тобиас',
+      text: 'Ты нашёл его! Мой сын снова улыбается! Спасибо тебе, искатель!\n\nДержи награду.',
+      onEnter: ctx => { claimQuestReward('q_lost_seahorse'); },
+      choices: [
+        { text: '🙏 Рад был помочь!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Рыбаком Тобиасом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Громовержец Зарр =====================
+DIALOGS.q_storm_trials = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Громовержец Зарр',
+      text: 'Я — Зарр, Громовержец Паландира. Молния выбирает только сильных.\n\nТы хочешь получить моё благословение?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Громовержец Зарр',
+      text: 'Докажи, что ты достоин.',
+      choices: [
+        { text: '⚡ Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за благословение?', next: 'lore_blessing' }
+      ]
+    },
+    lore_blessing: {
+      speaker: 'Громовержец Зарр',
+      text: 'Моё благословение — это сила молнии. Оно усиливает твоих существ, делает их быстрее и сильнее.\n\nНо получить его может только тот, кто победит 18 существ.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Громовержец Зарр',
+      text: '📜 Задание: «Испытание Грозы»\n\nПобеди 18 существ.\n\nНаграда: 4200 золотых и 3 Сосуда Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_storm_trials');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Громовержец Зарр',
+      text: 'Иди. И помни: молния не прощает слабости.',
+      choices: [
+        { text: '⚡ Я стану сильнее!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Громовержец Зарр',
+      text: 'Ты доказал свою силу. Прими моё благословение — силу молнии!\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_storm_trials'); },
+      choices: [
+        { text: '⚡ Благодарю, Громовержец!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Громовержцем Зарром завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Купец О'Брайен =====================
+DIALOGS.q_leprechaun_gold = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: "Купец О'Брайен",
+      text: 'А, искатель! Хочешь заработать? У меня есть дело к лепреконам.\n\nОни торгуют золотом, но только с мастерами. Поможешь?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: "Купец О'Брайен",
+      text: 'Что скажешь?',
+      choices: [
+        { text: '💰 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Зачем тебе лепреконы?', next: 'lore_leprechaun' }
+      ]
+    },
+    lore_leprechaun: {
+      speaker: "Купец О'Брайен",
+      text: 'Лепреконы — лучшие торговцы в Филакте. Их золото чистое, как радуга. Но они торгуют только с сильными.\n\nПрокачай своего спутника — и мы заключим сделку.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: "Купец О'Брайен",
+      text: '📜 Задание: «Золото Лепрекона»\n\nДоведи любое существо до 18 уровня.\n\nНаграда: 5000 золотых и 2 Свитка Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_leprechaun_gold');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: "Купец О'Брайен",
+      text: 'Иди и тренируйся. Лепреконы не терпят слабых.',
+      choices: [
+        { text: '💰 Я вернусь с золотом!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: "Купец О'Брайен",
+      text: 'Ты стал сильнее! Теперь лепреконы будут с нами торговать. Держи награду, искатель!',
+      onEnter: ctx => { claimQuestReward('q_leprechaun_gold'); },
+      choices: [
+        { text: '💰 Удачи в торговле!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log("Диалог с Купцом О'Брайеном завершён"); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Дриада Элирия =====================
+DIALOGS.q_forest_guardians = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Дриада Элирия',
+      text: 'Приветствую, дитя леса. Я — Элирия, дриада Селаксара.\n\nМоя роща стонет от диких тварей. Они убивают моих духов. Помоги.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Дриада Элирия',
+      text: 'Ты поможешь лесу?',
+      choices: [
+        { text: '🌿 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за роща?', next: 'lore_grove' }
+      ]
+    },
+    lore_grove: {
+      speaker: 'Дриада Элирия',
+      text: 'Моя роща — это священное место. Здесь растут древние деревья, которым тысячи лет.\n\nНо твари пришли из тьмы. Они убивают всё живое. Я не могу их остановить одна.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Дриада Элирия',
+      text: '📜 Задание: «Хранители рощи»\n\nПобеди 22 существа.\n\nНаграда: 5200 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_forest_guardians');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Дриада Элирия',
+      text: 'Иди. И помни: лес — твой друг.',
+      choices: [
+        { text: '🌿 Я защищу рощу!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Дриада Элирия',
+      text: 'Ты спас мою рощу! Деревья снова цветут. Лес благословляет тебя.\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_forest_guardians'); },
+      choices: [
+        { text: '🌿 Пусть лес живёт!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Дриадой Элирией завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Духовед Сайра =====================
+DIALOGS.q_fox_spirit = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Духовед Сайра',
+      text: 'Я вижу духов, которые окружают тебя. Один из них — Дух-Лисичка.\n\nОн хранит тайны эволюции. Поймай его — и я раскрою тебе древний ритуал.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Духовед Сайра',
+      text: 'Ты готов?',
+      choices: [
+        { text: '🎯 Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за ритуал?', next: 'lore_ritual' }
+      ]
+    },
+    lore_ritual: {
+      speaker: 'Духовед Сайра',
+      text: 'Ритуал эволюции — это древняя магия, которая позволяет существам меняться.\n\nДух-Лисичка может эволюционировать в любую стихию. Но для этого нужен особый ритуал.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Духовед Сайра',
+      text: '📜 Задание: «Дух-Лисичка»\n\nПоймай Духа-Лисичку.\n\nНаграда: 4500 золотых и 8 Больших Зелий Жизни.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_fox_spirit');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Духовед Сайра',
+      text: 'Ищи его в лесу. Он появляется только перед теми, кто чист сердцем.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Духовед Сайра',
+      text: 'Ты поймал его! Теперь я раскрою тебе ритуал. Слушай внимательно...\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_fox_spirit'); },
+      choices: [
+        { text: '🙏 Благодарю, духовед!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Духоведом Сайрой завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Архимаг Сабирель =====================
+DIALOGS.q_mind_flayer = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Архимаг Сабирель',
+      text: 'Я предвидела твой приход, искатель. Я — Сабирель, Архимаг Фатолодора.\n\nПожиратели разума атакуют наш город. Мне нужна помощь.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Архимаг Сабирель',
+      text: 'Поможешь?',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Кто такие Пожиратели разума?', next: 'lore_flayer' }
+      ]
+    },
+    lore_flayer: {
+      speaker: 'Архимаг Сабирель',
+      text: 'Пожиратели разума — это телепаты, которые питаются сознанием. Они проникают в сны и высасывают воспоминания.\n\nОни опасны. Но их можно победить.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Архимаг Сабирель',
+      text: '📜 Задание: «Пожиратели разума»\n\nПобеди 26 существ.\n\nНаграда: 6200 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_mind_flayer');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Архимаг Сабирель',
+      text: 'Иди. И не смотри им в глаза.',
+      choices: [
+        { text: '⚔️ Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Архимаг Сабирель',
+      text: 'Ты сделал это! Город снова в безопасности. Держи награду, искатель.\n\nИ запомни: разум — сильнее меча.',
+      onEnter: ctx => { claimQuestReward('q_mind_flayer'); },
+      choices: [
+        { text: '🙏 Благодарю, Архимаг!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Архимагом Сабирель завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Телепат Миран =====================
+DIALOGS.q_telepath_amulet = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Телепат Миран',
+      text: 'Я чувствую твои мысли, искатель. Ты ищешь силу.\n\nУ меня есть амулет Духа-Телепата. Он усилит твою команду. Но сначала — поймай самого Духа.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Телепат Миран',
+      text: 'Ты готов?',
+      choices: [
+        { text: '🎯 Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за амулет?', next: 'lore_amulet' }
+      ]
+    },
+    lore_amulet: {
+      speaker: 'Телепат Миран',
+      text: 'Амулет Духа-Телепата — это древний артефакт. Он позволяет твоим существам читать мысли врагов.\n\nНо для этого нужен сам Дух. Его энергия питает амулет.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Телепат Миран',
+      text: '📜 Задание: «Амулет Телепата»\n\nПоймай Духа-Телепата.\n\nНаграда: 5500 золотых и 2 Свитка Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_telepath_amulet');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Телепат Миран',
+      text: 'Ищи его в пещерах. Он прячется от света.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Телепат Миран',
+      text: 'Ты поймал его! Теперь амулет твой. Он усилит твою команду.\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_telepath_amulet'); },
+      choices: [
+        { text: '🙏 Благодарю, телепат!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Телепатом Мираном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Экзорцист Когар =====================
+DIALOGS.q_ghost_purge = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Экзорцист Когар',
+      text: 'Я — Когар, экзорцист Тотсара. Город проклят! Бесплотныйи выходят из стен по ночам.\n\nМне нужна помощь, чтобы изгнать их.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Экзорцист Когар',
+      text: 'Поможешь?',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за проклятие?', next: 'lore_curse' }
+      ]
+    },
+    lore_curse: {
+      speaker: 'Экзорцист Когар',
+      text: 'Это древнее проклятие. Когда-то на этом месте было кладбище. Но потом пришли некроманты и осквернили землю.\n\nТеперь Бесплотныйи не могут найти покой. Они выходят по ночам.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Экзорцист Когар',
+      text: '📜 Задание: «Изгнание духов»\n\nПобеди 30 существ.\n\nНаграда: 7200 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_ghost_purge');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Экзорцист Когар',
+      text: 'Иди. И помни: не бойся их. Они боятся тебя больше.',
+      choices: [
+        { text: '⚔️ Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Экзорцист Когар',
+      text: 'Ты сделал это! Город снова свободен от проклятия. Держи награду, искатель.\n\nТы — настоящий экзорцист!',
+      onEnter: ctx => { claimQuestReward('q_ghost_purge'); },
+      choices: [
+        { text: '🙏 Благодарю, Когар!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Экзорцистом Когаром завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Охотница Вельда =====================
+DIALOGS.q_banshee_hunt = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Охотница Вельда',
+      text: 'Ты искатель? Хорошо. Мне нужна помощь.\n\nСлёзы Банши — редчайший алхимический ингредиент. Поймай её для меня.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Охотница Вельда',
+      text: 'Что скажешь?',
+      choices: [
+        { text: '🎯 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Зачем тебе слёзы?', next: 'lore_tears' }
+      ]
+    },
+    lore_tears: {
+      speaker: 'Охотница Вельда',
+      text: 'Слёзы Банши стоят дороже золота. Они используются в алхимии для создания мощных зелий.\n\nНо получить их сложно — Банши плачут только перед смертью.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Охотница Вельда',
+      text: '📜 Задание: «Плач Банши»\n\nПоймай Банши.\n\nНаграда: 6500 золотых и 8 Больших Зелий Жизни.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_banshee_hunt');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Охотница Вельда',
+      text: 'Ищи её в пещерах и на кладбищах. Она любит тёмные места.',
+      choices: [
+        { text: '🙏 Я найду её!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Охотница Вельда',
+      text: 'Ты поймал её! Теперь я смогу создать своё лучшее зелье.\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_banshee_hunt'); },
+      choices: [
+        { text: '🙏 Удачи в алхимии!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Охотницей Вельдой завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Спелеолог Дюран =====================
+DIALOGS.q_dark_depths = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Спелеолог Дюран',
+      text: 'Осторожно! В глубинах Пещеры Душ пробудилось древнее зло.\n\nЯ исследовал пещеру и наткнулся на нечто ужасное. Нужно его остановить.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Спелеолог Дюран',
+      text: 'Поможешь?',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что там в глубинах?', next: 'lore_depths' }
+      ]
+    },
+    lore_depths: {
+      speaker: 'Спелеолог Дюран',
+      text: 'В глубинах пещеры живут существа, которые не видели света тысячи лет. Они мутировали, стали сильнее и злее.\n\nИх нужно остановить, пока они не выбрались наружу.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Спелеолог Дюран',
+      text: '📜 Задание: «Тёмные глубины»\n\nПобеди 35 существ в Пещере Душ.\n\nНаграда: 8500 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_dark_depths');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Спелеолог Дюран',
+      text: 'Иди. И не заходи слишком глубоко. Там ты можешь не вернуться.',
+      choices: [
+        { text: '⚔️ Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Спелеолог Дюран',
+      text: 'Ты сделал это! Пещера снова безопасна для исследований.\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_dark_depths'); },
+      choices: [
+        { text: '🙏 Удачи в исследованиях!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог со Спелеологом Дюраном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Исследователь Грим =====================
+DIALOGS.q_vampire_nest = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Исследователь Грим',
+      text: 'Тсс! Тише! Я выслеживаю Вампи. Они высасывают кровь спящих.\n\nМне нужно поймать одного — для исследований.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Исследователь Грим',
+      text: 'Поможешь?',
+      choices: [
+        { text: '🎯 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Зачем тебе Вампи?', next: 'lore_vampire' }
+      ]
+    },
+    lore_vampire: {
+      speaker: 'Исследователь Грим',
+      text: 'Вампи — это ночные охотники. Они боятся света, но очень быстрые.\n\nЯ изучаю их уже три года. Мне нужен живой экземпляр.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Исследователь Грим',
+      text: '📜 Задание: «Гнездо Вампи»\n\nПоймай Вампи.\n\nНаграда: 4200 золотых и 8 Проклятых Медальонов.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_vampire_nest');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Исследователь Грим',
+      text: 'Ищи его в пещерах и на кладбищах. Он спит днём и охотится ночью.',
+      choices: [
+        { text: '🙏 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Исследователь Грим',
+      text: 'Ты поймал его! Этот экземпляр бесценен. Теперь я смогу завершить свои исследования.\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_vampire_nest'); },
+      choices: [
+        { text: '🙏 Удачи в исследованиях!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Исследователем Гримом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Сафари-гид Хан =====================
+DIALOGS.q_safari_master = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Сафари-гид Хан',
+      text: 'Добро пожаловать в Урион, искатель! Здесь находится лучшая сафари-зона в Филакте.\n\nНо чтобы получить лицензию мастера, нужно доказать свою силу.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Сафари-гид Хан',
+      text: 'Готов?',
+      choices: [
+        { text: '⚔️ Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за лицензия?', next: 'lore_license' }
+      ]
+    },
+    lore_license: {
+      speaker: 'Сафари-гид Хан',
+      text: 'Лицензия мастера — это разрешение на охоту на самых редких существ.\n\nНо её получают только те, кто победил 40 существ.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Сафари-гид Хан',
+      text: '📜 Задание: «Мастер Сафари»\n\nПобеди 40 существ.\n\nНаграда: 10 500 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_safari_master');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Сафари-гид Хан',
+      text: 'Иди. И не разочаруй меня.',
+      choices: [
+        { text: '⚔️ Я стану мастером!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Сафари-гид Хан',
+      text: 'Ты сделал это! Ты — настоящий мастер сафари! Держи лицензию и награду.',
+      onEnter: ctx => { claimQuestReward('q_safari_master'); },
+      choices: [
+        { text: '🙏 Благодарю, Хан!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Сафари-гидом Ханом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Дракон-фанат Рэй =====================
+DIALOGS.q_dragon_egg = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Дракон-фанат Рэй',
+      text: 'Драконы! Это самые величественные существа Филакта!\n\nЯ мечтаю вырастить дракона. Но для этого нужно поймать Дракончика-Змея.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Дракон-фанат Рэй',
+      text: 'Поможешь?',
+      choices: [
+        { text: '🐉 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за дракон?', next: 'lore_dragon' }
+      ]
+    },
+    lore_dragon: {
+      speaker: 'Дракон-фанат Рэй',
+      text: 'Дракончик-Змей — это будущий повелитель небес. Он вырастет в Небесного Змея, который сможет летать среди облаков.\n\nНо для этого нужен особый уход.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Дракон-фанат Рэй',
+      text: '📜 Задание: «Яйцо дракона»\n\nПоймай Дракончика-Змея.\n\nНаграда: 9000 золотых и 3 Свитка Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_dragon_egg');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Дракон-фанат Рэй',
+      text: 'Ищи его у водопадов. Он любит воду.',
+      choices: [
+        { text: '🐉 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Дракон-фанат Рэй',
+      text: 'Ты поймал его! Теперь я выращу настоящего дракона!\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_dragon_egg'); },
+      choices: [
+        { text: '🐉 Удачи с драконом!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Дракон-фанатом Рэем завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Рейнджер Кассим =====================
+DIALOGS.q_desert_storm = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Рейнджер Кассим',
+      text: 'Песчаная буря пробудила древние мумии! Они выходят из песков и атакуют караваны.\n\nМне нужна помощь.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Рейнджер Кассим',
+      text: 'Поможешь?',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за мумии?', next: 'lore_mummy' }
+      ]
+    },
+    lore_mummy: {
+      speaker: 'Рейнджер Кассим',
+      text: 'Мумии — это древние воины, которые были прокляты тысячи лет назад.\n\nОни не умирают. Их можно только победить.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Рейнджер Кассим',
+      text: '📜 Задание: «Песчаная буря»\n\nПобеди 45 существ в пустыне.\n\nНаграда: 12 500 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_desert_storm');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Рейнджер Кассим',
+      text: 'Иди. И будь осторожен — буря не утихнет, пока не насытится.',
+      choices: [
+        { text: '⚔️ Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Рейнджер Кассим',
+      text: 'Ты сделал это! Пустыня снова спокойна. Держи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_desert_storm'); },
+      choices: [
+        { text: '🙏 Благодарю, Кассим!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Рейнджером Кассимом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Археолог Нефер =====================
+DIALOGS.q_pharaoh_tomb = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Археолог Нефер',
+      text: 'Гробница Фараона! Легендарное место. Говорят, там спрятаны несметные сокровища.\n\nНо войти могут только сильные. Прокачай своего спутника.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Археолог Нефер',
+      text: 'Готов?',
+      choices: [
+        { text: '⚔️ Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за гробница?', next: 'lore_tomb' }
+      ]
+    },
+    lore_tomb: {
+      speaker: 'Археолог Нефер',
+      text: 'Гробница Фараона — это древнее захоронение. Говорят, там покоится сам Фараон и его сокровища.\n\nНо путь туда опасен. Нужно быть сильным.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Археолог Нефер',
+      text: '📜 Задание: «Гробница Фараона»\n\nДоведи любое существо до 35 уровня.\n\nНаграда: 15 000 золотых и 3 Свитка Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_pharaoh_tomb');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Археолог Нефер',
+      text: 'Иди и тренируйся. Когда будешь готов — возвращайся.',
+      choices: [
+        { text: '⚔️ Я стану сильнее!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Археолог Нефер',
+      text: 'Ты готов! Теперь мы можем войти в гробницу вместе. Держи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_pharaoh_tomb'); },
+      choices: [
+        { text: '🏺 Идём в гробницу!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Археологом Нефером завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Вулканолог Брайнер =====================
+DIALOGS.q_volcanic_rage = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Вулканолог Брайнер',
+      text: 'Вулкан вот-вот взорвётся! Существа, живущие на склонах, в панике. Они атакуют всё, что видят.\n\nНужно их остановить!',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Вулканолог Брайнер',
+      text: 'Поможешь?',
+      choices: [
+        { text: '⚔️ Я помогу!', next: 'quest_details' },
+        { text: '🤔 Как остановить вулкан?', next: 'lore_volcano' }
+      ]
+    },
+    lore_volcano: {
+      speaker: 'Вулканолог Брайнер',
+      text: 'Вулкан нельзя остановить. Но можно успокоить его жертвами.\n\nПобеди существ — и вулкан утихнет.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Вулканолог Брайнер',
+      text: '📜 Задание: «Ярость вулкана»\n\nПобеди 50 существ.\n\nНаграда: 15 500 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_volcanic_rage');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Вулканолог Брайнер',
+      text: 'Иди. И будь осторожен — лава не прощает ошибок.',
+      choices: [
+        { text: '🌋 Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Вулканолог Брайнер',
+      text: 'Ты сделал это! Вулкан утих. Держи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_volcanic_rage'); },
+      choices: [
+        { text: '🌋 Благодарю, Брайнер!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Вулканологом Брайнером завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Морской капитан Морган =====================
+DIALOGS.q_ice_whale_song = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Морской капитан Морган',
+      text: 'Ледяной Кит поёт песнь, что успокаивает штормы. Я ищу его всю жизнь.\n\nПоймай его для меня — и я отдам тебе свой корабль.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Морской капитан Морган',
+      text: 'Что скажешь?',
+      choices: [
+        { text: '🐋 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за песнь?', next: 'lore_song' }
+      ]
+    },
+    lore_song: {
+      speaker: 'Морской капитан Морган',
+      text: 'Песнь Ледяного Кита — это древняя магия. Она успокаивает моря и приносит удачу морякам.\n\nНо Кит появляется только перед теми, кто чист сердцем.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Морской капитан Морган',
+      text: '📜 Задание: «Песнь Ледяного Кита»\n\nПоймай Ледяного Кита.\n\nНаграда: 11 000 золотых и 3 Свитка Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_ice_whale_song');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Морской капитан Морган',
+      text: 'Ищи его в северных морях. Он появляется только в полнолуние.',
+      choices: [
+        { text: '🐋 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Морской капитан Морган',
+      text: 'Ты поймал его! Песнь Ледяного Кита снова звучит в морях. Держи награду, искатель.\n\nИ корабль — твой, как обещал.',
+      onEnter: ctx => { claimQuestReward('q_ice_whale_song'); },
+      choices: [
+        { text: '🐋 Благодарю, капитан!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Морским капитаном Морганом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Огненный мастер Игнис =====================
+DIALOGS.q_phoenix_rising = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Огненный мастер Игнис',
+      text: 'Огонь — это жизнь! Он очищает всё. Я — Игнис, мастер огня.\n\nДокажи, что ты достоин пламени.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Огненный мастер Игнис',
+      text: 'Готов?',
+      choices: [
+        { text: '🔥 Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за испытание?', next: 'lore_fire' }
+      ]
+    },
+    lore_fire: {
+      speaker: 'Огненный мастер Игнис',
+      text: 'Испытание огня — это проверка силы и выносливости. Ты должен победить 60 существ.\n\nТолько тогда пламя признает тебя.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Огненный мастер Игнис',
+      text: '📜 Задание: «Восход Феникса»\n\nПобеди 60 существ.\n\nНаграда: 20 000 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_phoenix_rising');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Огненный мастер Игнис',
+      text: 'Иди. И помни: огонь не прощает слабости.',
+      choices: [
+        { text: '🔥 Я стану сильнее!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Огненный мастер Игнис',
+      text: 'Ты прошёл испытание! Пламя признало тебя. Держи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_phoenix_rising'); },
+      choices: [
+        { text: '🔥 Благодарю, Игнис!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Огненным мастером Игнисом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Коллекционер легенд Ксандр =====================
+DIALOGS.q_fire_phoenix_feather = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Коллекционер легенд Ксандр',
+      text: 'Перо Огненного Феникса! Легендарный артефакт. Говорят, оно дарует бессмертие.\n\nПоймай Феникса для меня — и я сделаю тебя легендой.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Коллекционер легенд Ксандр',
+      text: 'Что скажешь?',
+      choices: [
+        { text: '🔥 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за перо?', next: 'lore_feather' }
+      ]
+    },
+    lore_feather: {
+      speaker: 'Коллекционер легенд Ксандр',
+      text: 'Перо Огненного Феникса — это чистый огонь, застывший в форме пера.\n\nОно дарует силу и бессмертие. Но получить его можно только с самого Феникса.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Коллекционер легенд Ксандр',
+      text: '📜 Задание: «Перо Огненного Феникса»\n\nПоймай Огненного Феникса.\n\nНаграда: 26 000 золотых и 5 Свитков Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_fire_phoenix_feather');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Коллекционер легенд Ксандр',
+      text: 'Ищи его на вулкане. Он появляется только в огне.',
+      choices: [
+        { text: '🔥 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Коллекционер легенд Ксандр',
+      text: 'Ты поймал его! Перо Феникса — моё! Теперь ты — легенда!\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_fire_phoenix_feather'); },
+      choices: [
+        { text: '🔥 Спасибо, Ксандр!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Коллекционером легенд Ксандром завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Чемпион Аркадиус =====================
+DIALOGS.q_champion_path = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Чемпион Аркадиус',
+      text: 'Я — Чемпион Аркадиус, сильнейший охотник Поля Магии!\n\nТы хочешь бросить мне вызов?',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Чемпион Аркадиус',
+      text: 'Докажи, что ты достоин.',
+      choices: [
+        { text: '⚔️ Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за вызов?', next: 'lore_champion' }
+      ]
+    },
+    lore_champion: {
+      speaker: 'Чемпион Аркадиус',
+      text: 'Мой вызов — это проверка силы. Ты должен победить 80 существ.\n\nТолько тогда я признаю тебя равным.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Чемпион Аркадиус',
+      text: '📜 Задание: «Путь Чемпиона»\n\nПобеди 80 существ.\n\nНаграда: 35 000 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_champion_path');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Чемпион Аркадиус',
+      text: 'Иди. И не возвращайся, пока не станешь сильнее.',
+      choices: [
+        { text: '⚔️ Я вернусь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Чемпион Аркадиус',
+      text: 'Ты сделал это! Ты превзошёл мои ожидания. Я признаю тебя равным.\n\nДержи награду, чемпион.',
+      onEnter: ctx => { claimQuestReward('q_champion_path'); },
+      choices: [
+        { text: '⚔️ Благодарю, Аркадиус!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Чемпионом Аркадиусом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Хранитель Легенд Аэлон =====================
+DIALOGS.q_legendary_hunt = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Хранитель Легенд Аэлон',
+      text: 'Я — Аэлон, Хранитель Легенд. Я записываю истории о великих охотниках.\n\nПоймай легендарное существо — и я впишу твоё имя в вечность.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Хранитель Легенд Аэлон',
+      text: 'Готов стать легендой?',
+      choices: [
+        { text: '🌟 Я готов!', next: 'quest_details' },
+        { text: '🤔 Какие легенды?', next: 'lore_legends' }
+      ]
+    },
+    lore_legends: {
+      speaker: 'Хранитель Легенд Аэлон',
+      text: 'Легенды Филакта — это Тёмный Владыка, Искра-Создатель, Фениксы...\n\nПоймай одного из них — и твоё имя впишут в вечность.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Хранитель Легенд Аэлон',
+      text: '📜 Задание: «Легендарная охота»\n\nПоймай любое легендарное существо.\n\nНаграда: 60 000 золотых и 5 Свитков Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_legendary_hunt');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Хранитель Легенд Аэлон',
+      text: 'Иди. И помни: легенды не умирают. Они живут вечно.',
+      choices: [
+        { text: '🌟 Я стану легендой!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Хранитель Легенд Аэлон',
+      text: 'Ты сделал это! Твоё имя вписано в вечность! Теперь ты — легенда Филакта!\n\nДержи награду, герой.',
+      onEnter: ctx => { claimQuestReward('q_legendary_hunt'); },
+      choices: [
+        { text: '🌟 Благодарю, Аэлон!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Хранителем Легенд Аэлоном завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Мореход Сайлас =====================
+DIALOGS.q_lost_civilization = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Мореход Сайлас',
+      text: 'Эти острова хранят проклятие древних. Когда-то здесь была великая цивилизация. Но она погибла.\n\nПобеди 45 существ — и я расскажу тебе её историю.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Мореход Сайлас',
+      text: 'Готов?',
+      choices: [
+        { text: '⚔️ Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за цивилизация?', next: 'lore_civilization' }
+      ]
+    },
+    lore_civilization: {
+      speaker: 'Мореход Сайлас',
+      text: 'Это была цивилизация мореходов. Они умели управлять водой и ветром.\n\nНо однажды они прогневали морского бога. И он уничтожил их.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Мореход Сайлас',
+      text: '📜 Задание: «Затерянная цивилизация»\n\nПобеди 45 существ.\n\nНаграда: 13 000 золотых и 5 Сосудов Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_lost_civilization');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Мореход Сайлас',
+      text: 'Иди. И помни: древние не любят чужаков.',
+      choices: [
+        { text: '⚔️ Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Мореход Сайлас',
+      text: 'Ты сделал это! Теперь я расскажу тебе историю затерянной цивилизации.\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_lost_civilization'); },
+      choices: [
+        { text: '📖 Расскажи!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Мореходом Сайласом завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Жемчужница Лиара =====================
+DIALOGS.q_sea_dragon_pearl = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Жемчужница Лиара',
+      text: 'В сердце Морского Дракона — жемчужина, что стоит королевство!\n\nПоймай его для меня — и мы разделим богатство.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Жемчужница Лиара',
+      text: 'Что скажешь?',
+      choices: [
+        { text: '🐉 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за жемчужина?', next: 'lore_pearl' }
+      ]
+    },
+    lore_pearl: {
+      speaker: 'Жемчужница Лиара',
+      text: 'Жемчужина Морского Дракона — это сгусток чистой магии моря. Она дарует силу и богатство.\n\nНо получить её можно только с самого Дракона.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Жемчужница Лиара',
+      text: '📜 Задание: «Жемчужина Морского Дракона»\n\nПоймай Морского Дракона.\n\nНаграда: 14 000 золотых и 3 Свитка Воскрешения.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_sea_dragon_pearl');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Жемчужница Лиара',
+      text: 'Ищи его в глубинах моря. Он появляется только перед сильными.',
+      choices: [
+        { text: '🐉 Я найду его!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Жемчужница Лиара',
+      text: 'Ты поймал его! Жемчужина — наша! Теперь мы богаты!\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_sea_dragon_pearl'); },
+      choices: [
+        { text: '🐉 Спасибо, Лиара!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Жемчужницей Лиарой завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Капитан Немо =====================
+DIALOGS.q_deep_sea_treasure = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Капитан Немо',
+      text: 'На дне Моря Сирен лежит клад пиратов! Я ищу его всю жизнь.\n\nПобеди 20 морских существ — и мы спустимся за ним вместе.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Капитан Немо',
+      text: 'Готов?',
+      choices: [
+        { text: '⚔️ Я готов!', next: 'quest_details' },
+        { text: '🤔 Что за клад?', next: 'lore_treasure' }
+      ]
+    },
+    lore_treasure: {
+      speaker: 'Капитан Немо',
+      text: 'Клад пиратов — это золото, драгоценности и древние артефакты.\n\nНо он охраняется морскими чудовищами. Нужно быть сильным.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Капитан Немо',
+      text: '📜 Задание: «Сокровища глубин»\n\nПобеди 20 морских существ.\n\nНаграда: 6000 золотых и 3 Сосуда Души.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_deep_sea_treasure');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Капитан Немо',
+      text: 'Иди. И помни: море не прощает жадности.',
+      choices: [
+        { text: '⚔️ Я справлюсь!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Капитан Немо',
+      text: 'Ты сделал это! Клад — наш! Держи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_deep_sea_treasure'); },
+      choices: [
+        { text: '💰 Спасибо, капитан!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Капитаном Немо завершён'); }
+};
+
+// ===================== СЮЖЕТНЫЙ ДИАЛОГ: Искательница Марго =====================
+DIALOGS.q_siren_queen_crown = {
+  start: 'intro',
+  nodes: {
+    intro: {
+      speaker: 'Искательница Марго',
+      text: 'Корона Королевы Сирен открывает путь в подводный город!\n\nПоймай Русалку для меня — и я последую за тобой.',
+      next: 'choice_intro'
+    },
+    choice_intro: {
+      speaker: 'Искательница Марго',
+      text: 'Что скажешь?',
+      choices: [
+        { text: '🎯 Я помогу!', next: 'quest_details' },
+        { text: '🤔 Что за город?', next: 'lore_city' }
+      ]
+    },
+    lore_city: {
+      speaker: 'Искательница Марго',
+      text: 'Подводный город — это легендарное место. Там живут сирены и русалки.\n\nНо попасть туда можно только с короной Королевы.',
+      next: 'quest_details'
+    },
+    quest_details: {
+      speaker: 'Искательница Марго',
+      text: '📜 Задание: «Корона Королевы Сирен»\n\nПоймай Русалку.\n\nНаграда: 5500 золотых и 8 Проклятых Медальонов.',
+      onEnter: ctx => {
+        const q = QUEST_DEFS.find(x => x.id === 'q_siren_queen_crown');
+        if(q && !activeQuests[q.id]){
+          activeQuests[q.id] = {progress: 0, completed: false, claimed: false};
+          updateQuestMarkers(); updateQuestBadge(); saveProgress();
+          showToast(`📜 Принят квест: ${q.title}`);
+        }
+      },
+      next: 'after_accept'
+    },
+    after_accept: {
+      speaker: 'Искательница Марго',
+      text: 'Ищи её у берега. Русалки любят петь по ночам.',
+      choices: [
+        { text: '🎯 Я найду её!', next: null }
+      ]
+    },
+    after_complete: {
+      speaker: 'Искательница Марго',
+      text: 'Ты поймал её! Теперь корона наша! Мы войдём в подводный город!\n\nДержи награду, искатель.',
+      onEnter: ctx => { claimQuestReward('q_siren_queen_crown'); },
+      choices: [
+        { text: '👑 Спасибо, Марго!', next: null }
+      ]
+    }
+  },
+  onEnd: ctx => { console.log('Диалог с Искательницей Марго завершён'); }
+};
 
 // ===================== СЮЖЕТНЫЙ ДИАЛОГ: Старейшина Орн =====================
 DIALOGS.q_first_hunt = {
