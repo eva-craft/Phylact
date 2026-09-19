@@ -2952,6 +2952,19 @@ display:none;
 #fog{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:5}
 #plague{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:7}
 #top{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:8}
+/* было */
+#world{position:absolute;width:6000px;height:3600px;will-change:transform;transform-origin:0 0}
+#bg{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block}
+#fog{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:5}
+#top{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:6}
+#plague{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:7}
+
+/* стало */
+#world{position:absolute;width:6000px;height:4800px;will-change:transform;transform-origin:0 0}
+#bg{position:absolute;top:0;left:0;width:6000px;height:4800px;display:block}
+#fog{position:absolute;top:0;left:0;width:6000px;height:4800px;display:block;pointer-events:none;z-index:5}
+#top{position:absolute;top:0;left:0;width:6000px;height:4800px;display:block;pointer-events:none;z-index:6}
+#plague{position:absolute;top:0;left:0;width:6000px;height:4800px;display:block;pointer-events:none;z-index:7}
 </style>
 </head>
 <body>
@@ -2963,10 +2976,10 @@ display:none;
 </div>
 
 <div id="game"><div id="world">
-<canvas id="bg" width="6000" height="3600"></canvas>
-<canvas id="fog" width="6000" height="3600"></canvas>
-<canvas id="plague" width="6000" height="3600" style="position:absolute;top:0;left:0;display:block;pointer-events:none;z-index:7"></canvas>
-<canvas id="top" width="6000" height="3600"></canvas>
+<canvas id="bg" width="6000" height="4600"></canvas>
+<canvas id="fog" width="6000" height="4800"></canvas>
+<canvas id="plague" width="6000" height="4800" style="position:absolute;top:0;left:0;display:block;pointer-events:none;z-index:7"></canvas>
+<canvas id="top" width="6000" height="4800"></canvas>
 <div id="labels"></div>
  <div id="questMarks"></div>
 </div></div>
@@ -16030,115 +16043,92 @@ const NPS_QUEST_SVGS = {
     <path d="M44 15 Q50 15 50 18 Q44 17 42 17 Z" fill="#dc2626"/>
     <circle cx="32" cy="6" r="1.5" fill="#fbbf24"/>
   </svg>`
-};function pickNPSSvg(npsName, biome){
+};function pickNPSSvg(npsName){
   const n = (npsName || '').toLowerCase();
-  const b = (biome || '').toLowerCase();
 
   // ============================================================
-  // 1. ПОДЗЕМЬЕ (ТЁМНЫЕ ЭЛЬФЫ) — по биому ИЛИ по имени
+  // 1. ПОДЗЕМЬЕ (ТЁМНЫЕ ЭЛЬФЫ) — ПРИОРИТЕТ
   // ============================================================
-  const undergroundBiomes = ['underground', 'manzahar', 'arashemen', 'shagg_shail', 'izga_stir'];
-  const undergroundKeywords = [
-    'разведчик тени', 'верховная жрица', 'матрона', 'тёмный архимаг',
-    'мастер тёмного ритуала', 'арашеменский вестник', 'воин шагг-шаила',
-    'мастер клинка', 'тень изга-стира', 'мастер ядов', 'ловчий теней',
-    'страж-драук'
+  const undergroundNames = [
+    'верховная жрица', 'матрона', 'тёмный архимаг', 'мастер тёмного ритуала',
+    'арашеменский вестник', 'воин шагг-шаила', 'мастер клинка',
+    'тень изга-стира', 'мастер ядов', 'ловчий теней', 'страж-драук'
   ];
+  const isUnderground = undergroundNames.some(keyword => n.includes(keyword));
 
-  const isUnderground =
-    undergroundBiomes.includes(b) ||
-    undergroundKeywords.some(keyword => n.includes(keyword));
-
-  if (isUnderground) {
-    // --- Женские персонажи ---
-    if (n.includes('жрица') || n.includes('матрона') || n.includes('ядов')) {
+  if(isUnderground){
+    // Женские персонажи
+    if(n.includes('жрица') || n.includes('матрона') || n.includes('ядов')){
       return NPS_DROW_PRIESTESS;
     }
-    // --- Воины ---
-    if (n.includes('воин') || n.includes('клинка') || n.includes('драук')) {
+    // Воины
+    if(n.includes('воин') || n.includes('клинка') || n.includes('драук')){
       return NPS_DROW_WARRIOR;
     }
-    // --- Маги ---
-    if (n.includes('архимаг') || n.includes('ритуал')) {
+    // Маги
+    if(n.includes('архимаг') || n.includes('ритуал')){
       return NPS_DROW_MAGE;
     }
-    // --- Разведчики / тени / вестники / ловчие ---
-    if (n.includes('вестник') || n.includes('тень') ||
-        n.includes('ловчий')  || n.includes('тени') ||
-        n.includes('разведчик')) {
+    // Разведчики / тени / вестники
+    if(n.includes('вестник') || n.includes('тень') || n.includes('ловчий')){
       return NPS_DROW_SCOUT;
     }
-    // --- Запасной вариант для Подземья ---
+ 
+    // Запасной вариант для Подземья
     return NPS_DROW_WARRIOR;
   }
 
   // ============================================================
   // 2. САМЫЕ СПЕЦИФИЧНЫЕ (точные имена и уникальные слова)
   // ============================================================
-
-  // --- Три Королевства ---
-  if (n.includes('финеган') || n.includes('король лепрекон'))
+  if(n.includes('финеган') || n.includes('король лепрекон'))
     return NPS_LEPRECHAUN_KING;
-  if (n.includes('дюрин') || n.includes('король дворф'))
+  if(n.includes('дюрин') || n.includes('король дворф'))
     return NPS_DWARF_KING;
-  if (n.includes('гримли') || n.includes('технобарон'))
+  if(n.includes('гримли') || n.includes('технобарон'))
     return NPS_GNOME_BARON;
-
-  // --- Кузнец (только Белегар!) ---
-  if (n.includes('белегар') || n.includes('кузнец'))
+  if(n.includes('белегар') || n.includes('кузнец'))
     return NPS_BLACKSMITH;
-
-  // --- Божественный Край ---
-  if (n.includes('хранитель врат') || n.includes('врат'))
+  if(n.includes('хранитель врат') || n.includes('врат'))
     return NPS_HEAVENLY_GUARDIAN;
-
-  // --- Старейшина (Орн и любые другие старейшины) ---
-  if (n.includes('старейшина') || n.includes('орн'))
+  if(n.includes('старейшина') || n.includes('орн'))
     return NPS_ELDER;
-
-  // --- Ловчий Кейр ---
-  if (n.includes('ловчий') || n.includes('кейр'))
+  if(n.includes('ловчий') || n.includes('кейр'))
     return NPS_TRAINER_FEMALE;
 
   // ============================================================
   // 3. РОЛИ (общие)
   // ============================================================
-
-  // --- Женские образы ---
-  if (n.includes('ведьма')       || n.includes('жрица') ||
-      n.includes('травница')     || n.includes('охотница') ||
-      n.includes('искательница') || n.includes('жемчужница') ||
-      n.includes('коллекционер') || n.includes('экзорцист') ||
-      n.includes('мастерица')    || n.includes('дриада') ||
-      n.includes('телепат')      || n.includes('духовед') ||
-      n.includes('бард')         || n.includes('аэлин'))
+  if(n.includes('ведьма') || n.includes('жрица') ||
+     n.includes('травница') || n.includes('охотница') ||
+     n.includes('искательница') || n.includes('жемчужница') ||
+     n.includes('коллекционер') || n.includes('экзорцист') ||
+     n.includes('мастерица') || n.includes('дриада') ||
+     n.includes('телепат') || n.includes('духовед') ||
+     n.includes('бард') || n.includes('аэлин'))
     return NPS_QUEST_FEMALE;
 
-  // --- Маги / архимаги / профессора ---
-  if (n.includes('профессор')   || n.includes('архимаг') ||
-      n.includes('чемпион')     || n.includes('магистр') ||
-      n.includes('мудрец')      || n.includes('хранитель легенд'))
+  if(n.includes('профессор') || n.includes('архимаг') ||
+     n.includes('чемпион') || n.includes('магистр') ||
+     n.includes('мудрец') || n.includes('хранитель легенд'))
     return NPS_PROFESSOR;
 
-  // --- Ловчие / охотники / рейнджеры / моряки ---
-  if (n.includes('охотник')   || n.includes('рейнджер') ||
-      n.includes('следопыт')  || n.includes('птицелов') ||
-      n.includes('рыбак')     || n.includes('мореход')  ||
-      n.includes('капитан')   || n.includes('гид')      ||
-      n.includes('искател'))
+  if(n.includes('охотник') || n.includes('рейнджер') ||
+     n.includes('следопыт') || n.includes('птицелов') ||
+     n.includes('рыбак') || n.includes('мореход') ||
+     n.includes('капитан') || n.includes('гид') ||
+     n.includes('искател'))
     return NPS_TRAINER_FEMALE;
 
-  // --- Воины / рыцари / стражи ---
-  if (n.includes('стражник')  || n.includes('воин') ||
-      n.includes('рыцарь')    || n.includes('громовержец') ||
-      n.includes('паладин'))
+  if(n.includes('стражник') || n.includes('воин') ||
+     n.includes('рыцарь') || n.includes('громовержец') ||
+     n.includes('паладин'))
     return NPS_KNIGHT;
 
-  // --- Дворфы / ремесленники / исследователи ---
-  if (n.includes('дворф')       || n.includes('скалолаз') ||
-      n.includes('альпинист')   || n.includes('шахтёр') ||
-      n.includes('спелеолог')   || n.includes('исследователь') ||
-      n.includes('археолог')    || n.includes('вулканолог'))
+  if(n.includes('дворф') || n.includes('скалолаз') ||
+     n.includes('альпинист') || n.includes('шахтёр') ||
+     n.includes('спелеолог') || n.includes('исследователь') ||
+     n.includes('археолог') || n.includes('вулканолог'))
     return NPS_QUEST_MALE;
 
   // ============================================================
@@ -16146,6 +16136,7 @@ const NPS_QUEST_SVGS = {
   // ============================================================
   return NPS_QUEST_MALE;
 }
+
 
 
 
@@ -16201,7 +16192,7 @@ function spawnQuestNPSs(){
     el.dataset.biome = q.biome;
 
     // SVG по типу NPS + восклицательный знак
-   const svg = pickNPSSvg(q.nps, q.biome);
+   const svg = pickNPSSvg(q.nps);
 el.innerHTML = svg;
 
     // Подпись с именем
@@ -17053,7 +17044,7 @@ const TREE_EDGE_MARGIN = 30;   // отступ от края биома
 function generateForestTrees(){
   forestTrees = [];
 
-  const W = 6000, H = 3600;
+  const W = 6000, H = 4800;
   const rnd = mulberry32(987654321);
 
   // --- 1. Собираем все "запретные" зоны: биомы + запас ---
@@ -22585,7 +22576,7 @@ function drawNecropolis(ctx,x,y,w,h,rnd){
 // ===================== КАМЕРА =====================
 function applyCam(){
   const maxX=0,minX=-(6000-window.innerWidth);
-  const maxY=0,minY=-(3600-window.innerHeight);   // ← 3200 вместо 2000
+  const maxY=0,minY=-(4800-window.innerHeight);   // ← 3200 вместо 2000
   camX=Math.max(minX,Math.min(maxX,camX));
   camY=Math.max(minY,Math.min(maxY,camY));
   world.style.transform=`translate(${camX}px,${camY}px)`;
