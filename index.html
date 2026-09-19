@@ -2966,6 +2966,7 @@ display:none;
 #top{position:absolute;top:0;left:0;width:6000px;height:4800px;display:block;pointer-events:none;z-index:6}
 #plague{position:absolute;top:0;left:0;width:6000px;height:4800px;display:block;pointer-events:none;z-index:7}
 #top {
+
   z-index: 999999999 !important;
 }
 </style>
@@ -4667,7 +4668,7 @@ chagnomoks:{name:"Флюкс",color:"#a78bfa",bg:"rgba(120,90,180,0.5)",type:"ci
 // ===== ГОРОДА =====
 sid:{name:"Кастель",color:"#a3e635",bg:"rgba(160,200,120,0.4)",type:"city"},
 zyffren:{name:"Зиффрен",color:"#86efac",bg:"rgba(140,180,120,0.4)",type:"city"},
-haradat:{name:"Зарадат",color:"#60a5fa",bg:"rgba(59,130,246,0.45)",type:"city"},
+haradat:{name:"Нионит",color:"#60a5fa",bg:"rgba(59,130,246,0.45)",type:"city"},
 goch:{name:"Чонод",color:"#7dd3fc",bg:"rgba(120,180,220,0.4)",type:"city"},
 olandir:{name:"Паландир",color:"#fca5a5",bg:"rgba(220,140,130,0.4)",type:"city"},
 totsar:{name:"Альфирон",color:"#c4b5fd",bg:"rgba(140,110,180,0.4)",type:"city"},
@@ -4976,7 +4977,7 @@ const Fantasy_DATA = [
 {id:1608,name:"Гиппокамп",types:["Водный","Летающий"],rarity:"rare",habitats:["illar_lake"],desc:"Изящное морское существо, напоминающее помесь морского конька и дельфина. Гиппокампы — верные спутники нагов и акулолюдов. Они могут развивать огромную скорость под водой и даже выпрыгивать из неё, чтобы атаковать с воздуха.",height:1.8,weight:90,category:"Гиппокамп",stats:{hp:100,attack:90,defense:85,spAtk:115,spDef:95,speed:135},shape:"hippocampus"},
 
 // ===================== ГОРОД КСАРОТ =====================
-{id:1610,name:"Рыцарь Ксарота",types:["Боевой","Стальной"],rarity:"rare",habitats:["ksarot"],desc:"Элитный воин армии Ксарота. Его доспехи выкованы гномами Флюкса, а меч зачарован магами Харадата. Он сражается во имя короля и готов отдать жизнь за город.",height:2.0,weight:150,category:"Рыцарь",stats:{hp:125,attack:140,defense:135,spAtk:60,spDef:90,speed:85},shape:"ksarot_knight",evolvesTo:1611,evolveLevel:55},
+{id:1610,name:"Рыцарь Ксарота",types:["Боевой","Стальной"],rarity:"rare",habitats:["ksarot"],desc:"Элитный воин армии Ксарота. Его доспехи выкованы гномами Флюкса, а меч зачарован магами Нионита. Он сражается во имя короля и готов отдать жизнь за город.",height:2.0,weight:150,category:"Рыцарь",stats:{hp:125,attack:140,defense:135,spAtk:60,spDef:90,speed:85},shape:"ksarot_knight",evolvesTo:1611,evolveLevel:55},
 
 {id:1611,name:"Паладин Ксарота",types:["Боевой","Стальной","Священный"],rarity:"epic",habitats:["ksarot"],desc:"Верховный защитник Ксарота, избранный самим Светом. Его молот способен сокрушать нежить одним ударом, а его вера исцеляет союзников. Паладины — последняя линия обороны города.",height:2.3,weight:190,category:"Паладин",stats:{hp:165,attack:160,defense:170,spAtk:110,spDef:140,speed:90},shape:"ksarot_paladin"},
 // ============================================================
@@ -5158,11 +5159,11 @@ const Fantasy_DATA = [
 
 // ===== ГНОМЫ-СНАЙПЕРЫ (Вооруженный) =====
 {id:1220,name:"Гном-Снайпер",types:["Вооруженный","Стальной"],rarity:"rare",habitats:["mountain","zyffren","sid"],desc:"Гном-техник с лазерной винтовкой, чьи предки были изгнаны из Флюкса за ересь. Они не верили в магию, а полагались только на технологии. Теперь их потомки служат наёмниками, и их выстрел — это их вера.",height:1.0,weight:50,category:"Снайпер",stats:{hp:60,attack:75,defense:70,spAtk:110,spDef:65,speed:80},shape:"gnome_sniper",evolvesTo:1221,evolveLevel:30},
-{id:1221,name:"Гном-Артиллерист",types:["Вооруженный","Огненный"],rarity:"epic",habitats:["mountain","volcano"],desc:"Гном с плазменной пушкой на плече. Он служил в армии Харадата, но был уволен за излишнюю жестокость. Теперь он — наёмник, и его пушка — это его единственный друг. Один выстрел — и кратер готов.",height:1.3,weight:110,category:"Артиллерист",stats:{hp:95,attack:105,defense:95,spAtk:150,spDef:85,speed:70},shape:"gnome_artillerist"},
+{id:1221,name:"Гном-Артиллерист",types:["Вооруженный","Огненный"],rarity:"epic",habitats:["mountain","volcano"],desc:"Гном с плазменной пушкой на плече. Он служил в армии Нионита, но был уволен за излишнюю жестокость. Теперь он — наёмник, и его пушка — это его единственный друг. Один выстрел — и кратер готов.",height:1.3,weight:110,category:"Артиллерист",stats:{hp:95,attack:105,defense:95,spAtk:150,spDef:85,speed:70},shape:"gnome_artillerist"},
 {id:1222,name:"Гном-Инженер",types:["Вооруженный","Электрический"],rarity:"uncommon",habitats:["zyffren","sid","goch"],desc:"Гном-механик с электрошокером, что ремонтирует и уничтожает с одинаковой ловкостью. Он — из тех, кто верит, что технологии могут спасти мир от тьмы, и его инструменты — это его оружие.",height:0.9,weight:45,category:"Инженер",stats:{hp:55,attack:60,defense:65,spAtk:95,spDef:70,speed:90},shape:"gnome_engineer",evolvesTo:1223,evolveLevel:28},
-{id:1223,name:"Гном-Техномаг",types:["Вооруженный","Ментальный"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Гном, слившийся с техно-магией. Он — результат эксперимента магов Харадата, что пытались объединить магию эльфов с технологиями гномов. Он управляет дронами и лазерами силой мысли, и его сила — это будущее Филакта.",height:1.2,weight:60,category:"Техномаг",stats:{hp:85,attack:80,defense:90,spAtk:145,spDef:120,speed:100},shape:"gnome_technomage"},
-{id:1224,name:"Боевой Дрон",types:["Вооруженный","Летающий"],rarity:"uncommon",habitats:["goch","olandir"],desc:"Летающий автоматон с лазерным орудием, созданный магами Харадата на основе эльфийских кристаллов. Он — не просто робот, а осколок разума своего создателя, и его задача — защищать город от любых угроз.",height:0.6,weight:20,category:"Дрон",stats:{hp:45,attack:70,defense:55,spAtk:100,spDef:60,speed:120},shape:"battle_drone",evolvesTo:1225,evolveLevel:26},
-{id:1225,name:"Тяжёлый Дрон-Осада",types:["Вооруженный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Бронированный дрон с плазменным орудием, чья задача — осаждать города и крепости. Он — последний аргумент магов Харадата в спорах с другими расами. Его появление — знак того, что дипломатия закончилась.",height:1.0,weight:80,category:"Дрон",stats:{hp:95,attack:120,defense:105,spAtk:135,spDef:90,speed:85},shape:"siege_drone"},
+{id:1223,name:"Гном-Техномаг",types:["Вооруженный","Ментальный"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Гном, слившийся с техно-магией. Он — результат эксперимента магов Нионита, что пытались объединить магию эльфов с технологиями гномов. Он управляет дронами и лазерами силой мысли, и его сила — это будущее Филакта.",height:1.2,weight:60,category:"Техномаг",stats:{hp:85,attack:80,defense:90,spAtk:145,spDef:120,speed:100},shape:"gnome_technomage"},
+{id:1224,name:"Боевой Дрон",types:["Вооруженный","Летающий"],rarity:"uncommon",habitats:["goch","olandir"],desc:"Летающий автоматон с лазерным орудием, созданный магами Нионита на основе эльфийских кристаллов. Он — не просто робот, а осколок разума своего создателя, и его задача — защищать город от любых угроз.",height:0.6,weight:20,category:"Дрон",stats:{hp:45,attack:70,defense:55,spAtk:100,spDef:60,speed:120},shape:"battle_drone",evolvesTo:1225,evolveLevel:26},
+{id:1225,name:"Тяжёлый Дрон-Осада",types:["Вооруженный","Летающий"],rarity:"epic",habitats:["haradat","pole_magii"],desc:"Бронированный дрон с плазменным орудием, чья задача — осаждать города и крепости. Он — последний аргумент магов Нионита в спорах с другими расами. Его появление — знак того, что дипломатия закончилась.",height:1.0,weight:80,category:"Дрон",stats:{hp:95,attack:120,defense:105,spAtk:135,spDef:90,speed:85},shape:"siege_drone"},
 
 // ===== КРЫСОЛЮДИ ЛАМХИ =====
 {id:1170,name:"Ламхи-Юнец",types:["Земляной","Тёмный"],rarity:"common",habitats:["zyffren","route","cave"],desc:"Молодой крысолюд из подземного клана, что когда-то был изгнан из Манзанара за неповиновение. Он собирает блестящие вещи для старейшин, и его жизнь — это вечная борьба за место в клане.",height:1.0,weight:35,category:"Ламхи",stats:{hp:55,attack:60,defense:45,spAtk:35,spDef:40,speed:70},shape:"lamhi_young",evolvesTo:1171,evolveLevel:18},
@@ -5194,7 +5195,7 @@ const Fantasy_DATA = [
 {id:1152,name:"Огр",types:["Земляной","Боевой"],rarity:"uncommon",habitats:["mountain","route","forest","desert"],desc:"Четырёхрукий великан, что крушит всё на своём пути дубиной и кулаками. Он — потомок древних огров, что когда-то населяли Горы Бюн до прихода эльфов. Его сила — это его наследие, и его ярость — это память о потерянных землях.",height:2.8,weight:450,category:"Огр",stats:{hp:120,attack:105,defense:75,spAtk:30,spDef:45,speed:35},shape:"ogr",evolvesTo:1153,evolveLevel:30},
 {id:1153,name:"Огр-Вождь",types:["Земляной","Боевой"],rarity:"epic",habitats:["mountain","volcano","desert"],desc:"Вождь огров, чьи четыре руки держат четыре дубины. Он — один из немногих, кто выжил в войне с дворфами Молотора. Его ненависть к дворфам — это не просто эмоция, а священный долг кровной мести.",height:3.5,weight:800,category:"Огр",stats:{hp:170,attack:145,defense:105,spAtk:40,spDef:65,speed:45},shape:"ogr_chief"},
 {id:1154,name:"Огр-Маг",types:["Земляной","Ментальный"],rarity:"rare",habitats:["cave","mountain","pole_magii","haradat"],desc:"Синий четырёхрукий огр, что владеет грубой боевой магией. Он — изгой среди огров, ибо магия для них — это слабость. Он выжил благодаря своему уму, и его магия — это оружие отчаяния.",height:2.6,weight:420,category:"Огр",stats:{hp:105,attack:65,defense:70,spAtk:115,spDef:85,speed:40},shape:"ogr_mage",evolvesTo:1155,evolveLevel:34},
-{id:1155,name:"Огр-Архимаг",types:["Земляной","Ментальный"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Древний огр-маг, чьи четыре руки чертят руны в воздухе. Он — тот, кто заключил договор с магами Харадата и был принят в их ряды. Он повелевает камнем и разумом, и его сила — это результат веков обучения.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
+{id:1155,name:"Огр-Архимаг",types:["Земляной","Ментальный"],rarity:"epic",habitats:["pole_magii","cave"],desc:"Древний огр-маг, чьи четыре руки чертят руны в воздухе. Он — тот, кто заключил договор с магами Нионита и был принят в их ряды. Он повелевает камнем и разумом, и его сила — это результат веков обучения.",height:3.2,weight:750,category:"Огр",stats:{hp:145,attack:85,defense:100,spAtk:150,spDef:115,speed:55},shape:"ogr_archmage"},
 {id:1156,name:"Орк-Громила",types:["Боевой","Тёмный"],rarity:"uncommon",habitats:["mountain","route","desert","forest","volcano"],desc:"Зелёный воин с топором и волчьей шкурой, что пришёл из Ныргана — сурового мира гоблинов, орков и троллей. Он — наёмник, и его ярость — это его товар. Он беспощаден, ибо такова его природа.",height:2.0,weight:180,category:"Орк",stats:{hp:90,attack:110,defense:70,spAtk:35,spDef:55,speed:65},shape:"orc_grunt",evolvesTo:1157,evolveLevel:32},
 {id:1157,name:"Орк-Военный Вождь",types:["Боевой","Тёмный"],rarity:"epic",habitats:["volcano","cave","pole_magii"],desc:"Вождь орков в волчьей мантии, чей топор пьёт кровь врагов. Он — из тех, кто пришёл в Филакт не ради славы, а ради битвы. Его жизнь — это война, и его смерть — это тоже война.",height:2.5,weight:260,category:"Орк",stats:{hp:135,attack:150,defense:100,spAtk:50,spDef:80,speed:80},shape:"orc_warchief"},
 {id:1158,name:"Песчаный тролль",types:["Природа","Боевой"],rarity:"uncommon",habitats:["forest","cave","route","mountain","desert","uurion"],desc:"Оранжевый шипастый тролль с горящими жёлтыми глазами, что регенерирует раны. Он — один из тех, кто жил в Песках Забвения ещё до прихода смертных рас. Его сила — это его выносливость, и его жизнь — это вечная борьба с пустыней.",height:2.4,weight:200,category:"Тролль",stats:{hp:130,attack:95,defense:80,spAtk:50,spDef:60,speed:50},shape:"troll",evolvesTo:1159,evolveLevel:34},
@@ -5231,7 +5232,7 @@ const Fantasy_DATA = [
 // ===== ВОДНЫЕ =====
 {id:1129,name:"Морской Конёк-Малыш",types:["Водный"],rarity:"common",habitats:["water"],desc:"Крошечный конёк, что плавает стаями. Он — из тех, кто жил в Вечном Море ещё до прихода смертных рас. Его существование — это чистая радость, и его игра — это танец жизни.",height:0.3,weight:2,category:"Конёк",stats:{hp:30,attack:15,defense:40,spAtk:20,spDef:25,speed:70},shape:"seahorse_baby",evolvesTo:1130,evolveLevel:20},
 {id:1130,name:"Морской Дракон",types:["Водный","Дракон"],rarity:"epic",habitats:["water","ostrova_pobezhdennogo"],desc:"Грозный дракон глубин, что топит корабли. Он — из тех, кто жил в Вечном Море ещё до прихода смертных рас. Его ярость — это не зло, а защита своего дома от вторжения.",height:5.5,weight:220,category:"Дракон",stats:{hp:95,attack:120,defense:80,spAtk:85,spDef:95,speed:85},shape:"sea_dragon"},
-{id:1054,name:"Рири-маг",types:["Водный","Ментальный"],rarity:"uncommon",habitats:["water","goch","zyffren"],desc:"Странный зверёк, что страдает от видений. Он — из тех, кто был создан магами Харадата как эксперимент по объединению магии и природы. Он не злой, а скорее сломленный, и его боль — это его сила.",height:0.9,weight:20,category:"Маг",stats:{hp:55,attack:50,defense:50,spAtk:70,spDef:55,speed:50},shape:"platypus_mage"},
+{id:1054,name:"Рири-маг",types:["Водный","Ментальный"],rarity:"uncommon",habitats:["water","goch","zyffren"],desc:"Странный зверёк, что страдает от видений. Он — из тех, кто был создан магами Нионита как эксперимент по объединению магии и природы. Он не злой, а скорее сломленный, и его боль — это его сила.",height:0.9,weight:20,category:"Маг",stats:{hp:55,attack:50,defense:50,spAtk:70,spDef:55,speed:50},shape:"platypus_mage"},
 {id:1131,name:"Ледяной Кит",types:["Водный","Ледяной"],rarity:"rare",habitats:["water","ostrova_pobezhdennogo"],desc:"Гигант северных морей, что перевозит путников. Он — из тех, кто жил в Вечном Море ещё до прихода смертных рас. Его песня — это не просто звук, а сама история мира, и его спина — это остров для уставших.",height:4.0,weight:400,category:"Кит",stats:{hp:140,attack:80,defense:90,spAtk:90,spDef:100,speed:50},shape:"ice_whale"},
 
 // ===== ГОРНЫЕ / ОГНЕННЫЕ =====
@@ -5240,8 +5241,8 @@ const Fantasy_DATA = [
 {id:1135,name:"Огненная Кицунэ",types:["Огненный","Фея"],rarity:"rare",habitats:["volcano","selax"],desc:"Девятихвостая лиса, чьё пламя — иллюзия. Она — из тех, кто был создан Вечными эльфами как хранитель магии природы. Её хитрость — это её сила, и её игра — это её жизнь.",height:1.2,weight:28,category:"Кицунэ",stats:{hp:65,attack:65,defense:60,spAtk:110,spDef:90,speed:95},shape:"fire_kitsune"},
 
 // ===== ВОЛШЕБНЫЕ СУЩЕСТВА =====
-{id:1063,name:"Ревенант",types:["Нежить","Ментальный"],rarity:"uncommon",habitats:["fattolodor","cave","sid"],desc:"Полупрозрачный дух, что читает мысли и телепортируется. Он — из тех, кто был создан магами Харадата как эксперимент по объединению магии и природы. Он не злой, а скорее сломленный, и его боль — это его сила.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
-{id:1065,name:"Ревенант-архимаг",types:["Ментальный","Фея"],rarity:"epic",habitats:["fattolodor","cave"],desc:"Дух великого мага, чьи знания безграничны. Он — из тех, кто был создан магами Харадата как эксперимент по объединению магии и природы. Он не злой, а скорее сломленный, и его боль — это его сила.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
+{id:1063,name:"Ревенант",types:["Нежить","Ментальный"],rarity:"uncommon",habitats:["fattolodor","cave","sid"],desc:"Полупрозрачный дух, что читает мысли и телепортируется. Он — из тех, кто был создан магами Нионита как эксперимент по объединению магии и природы. Он не злой, а скорее сломленный, и его боль — это его сила.",height:1.0,weight:5,category:"Дух",stats:{hp:30,attack:20,defense:20,spAtk:110,spDef:60,speed:95},shape:"telepath_spirit",evolvesTo:1065,evolveLevel:16},
+{id:1065,name:"Ревенант-архимаг",types:["Ментальный","Фея"],rarity:"epic",habitats:["fattolodor","cave"],desc:"Дух великого мага, чьи знания безграничны. Он — из тех, кто был создан магами Нионита как эксперимент по объединению магии и природы. Он не злой, а скорее сломленный, и его боль — это его сила.",height:1.6,weight:40,category:"Архимаг",stats:{hp:60,attack:50,defense:50,spAtk:140,spDef:100,speed:125},shape:"archmage_spirit"},
 {id:1147,name:"Дракончик-Змей",types:["Дракон"],rarity:"rare",habitats:["water","cave"],desc:"Молодой морской дракон, что живёт у водопадов. Он — из тех, кто жил в Вечном Море ещё до прихода смертных рас. Его ярость — это не зло, а защита своего дома от вторжения.",height:1.5,weight:4,category:"Змей",stats:{hp:45,attack:65,defense:45,spAtk:55,spDef:50,speed:50},shape:"dragon_snake",evolvesTo:1148,evolveLevel:30},
 {id:1148,name:"Небесный Змей",types:["Дракон","Летающий"],rarity:"epic",habitats:["water","cave","pole_magii"],desc:"Взрослый дракон, что летает среди облаков. Он — из тех, кто жил в Вечном Море ещё до прихода смертных рас. Его ярость — это не зло, а защита своего дома от вторжения.",height:3.5,weight:150,category:"Змей",stats:{hp:75,attack:95,defense:70,spAtk:80,spDef:75,speed:75},shape:"sky_serpent"},
 
@@ -14808,11 +14809,11 @@ const QUEST_DEFS=[
   type:"catch_specific",targetIds:[1016],reward:{money:2200,items:{ultraball:2}},
   dialogue:"Гарпии откладывают яйца раз в век! Поймай птенца — я щедро награжу."},
 
-// ========== МАГОКРАТИЯ ХАРАДАТ ==========
+// ========== МАГОКРАТИЯ Нионит ==========
 {id:"q_golem_souls",biome:"haradat",nps:"Магистр Вейлон",npsPos:{x:550,y:400},
   title:"Души големов",desc:"Победи 10 существ — осколки их душ питают наших големов.",target:10,
   type:"defeat",reward:{money:2200,items:{superpotion:3}},
-  dialogue:"Наши големы питаются осколками душ. Победи десятерых — и магия Зарадата не угаснет."},
+  dialogue:"Наши големы питаются осколками душ. Победи десятерых — и магия Нионита не угаснет."},
 
 {id:"q_stone_collector",biome:"haradat",nps:"Коллекционер Бран",npsPos:{x:700,y:450},
   title:"Живой камень",desc:"Поймай Каменного Голема — мне нужен образец.",target:1,
@@ -17035,7 +17036,7 @@ function drawBackground(){
 
   // ===================== НАЗВАНИЯ (в top-слое, не здесь) =====================
 }
-// ===================== МАГОКРАТИЯ ХАРАДАТ 2.0 =====================
+// ===================== МАГОКРАТИЯ Нионит 2.0 =====================
 // Синий магический город: башни, купол, стены, порталы, парящие кристаллы
 
 
@@ -20429,17 +20430,17 @@ function drawTopLayer(){
       }
     }
 
-    // === 3. АНИМАЦИЯ ПАРЯЩИХ КРИСТАЛЛОВ ХАРАДАТА ===
+    // === 3. АНИМАЦИЯ ПАРЯЩИХ КРИСТАЛЛОВ НионитА ===
     const canvas = document.getElementById('top');
     if(canvas && MAGIC_CITY_STATE.initialized){
       const ctx = canvas.getContext('2d');
-      // Очищаем область Харадата
+      // Очищаем область Нионита
       const haradatZones = BIOME_ZONES.filter(z => z.biome === 'haradat');
       haradatZones.forEach(zone => {
         ctx.clearRect(zone.x - 20, zone.y - 80, zone.w + 40, zone.h + 80);
       });
 
-      // Перерисовываем рамку и название Харадата
+      // Перерисовываем рамку и название Нионита
       haradatZones.forEach(zone => {
         const h = HABITATS.haradat;
         if(!unlockedZones.has('haradat')) return;
@@ -26008,7 +26009,7 @@ DIALOGS.q_first_hunt = {
 
     hint_masters: {
       speaker: 'Старейшина Орн',
-      text: 'Мастера живут в разных уголках Филакта. Каждый — в своём городе:\n\n🗿 Мастер Камня Торвальд — в Зарадате.\n🌊 Мастерица Воды Аэлин — в Чоноде.\n⚡ Мастер Молний Заррок — в Паландире.\n🌿 Мастерица Природы Элирия — в Селаксаре.\n🌑 Мастер Теней Когар — в Урионе.\n🧠 Мастерица Разума Сабирель — в Фатолодоре.\n🔥 Мастер Пламени Брайнер — в Гозоне.\n🗻 Повелитель Гор Кутар — в Зиффрене.\n\nНачни с Торвальда. Он — первый.',
+      text: 'Мастера живут в разных уголках Филакта. Каждый — в своём городе:\n\n🗿 Мастер Камня Торвальд — в Нионите.\n🌊 Мастерица Воды Аэлин — в Чоноде.\n⚡ Мастер Молний Заррок — в Паландире.\n🌿 Мастерица Природы Элирия — в Селаксаре.\n🌑 Мастер Теней Когар — в Урионе.\n🧠 Мастерица Разума Сабирель — в Фатолодоре.\n🔥 Мастер Пламени Брайнер — в Гозоне.\n🗻 Повелитель Гор Кутар — в Зиффрене.\n\nНачни с Торвальда. Он — первый.',
       onEnter: ctx => {
         showToast('📜 Подсказка: Мастера Душ ждут тебя в городах!', 5000);
       },
@@ -26964,7 +26965,7 @@ DIALOGS.q_smith_ingredients = {
 
     father_story: {
       speaker: 'Кузнец Белегар',
-      text: '*Белегар смотрит на старый молот в углу*\n\nМой отец... Он был великим кузнецом. Он выковал клинок для самого Мастера Камня Торвальда.\n\nТот клинок до сих пор хранится в Зарадате. Говорят, он разрубает камень, как масло.\n\nОтец умер, когда мне было двенадцать. Я не успел у него многому научиться. Но я помню его слова: «Куй клинки так, будто куёшь свою судьбу».',
+      text: '*Белегар смотрит на старый молот в углу*\n\nМой отец... Он был великим кузнецом. Он выковал клинок для самого Мастера Камня Торвальда.\n\nТот клинок до сих пор хранится в Нионите. Говорят, он разрубает камень, как масло.\n\nОтец умер, когда мне было двенадцать. Я не успел у него многому научиться. Но я помню его слова: «Куй клинки так, будто куёшь свою судьбу».',
       onEnter: ctx => {
         showToast('🔨 Ты узнал историю отца Белегара.', 4000);
       },
