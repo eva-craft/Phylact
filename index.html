@@ -2928,7 +2928,26 @@ display:none;
 #top{position:absolute;top:0;left:0;width:6000px;height:3600px;display:block;pointer-events:none;z-index:970000}
 
 
+/* Обёртка: череп слева, плашка справа */
+.undead-wrap{
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  vertical-align: middle;
+}
 
+/* Череп — отдельный элемент слева */
+.undead-skull{
+  font-size: 13px;
+  line-height: 1;
+  filter: drop-shadow(0 0 4px #a855f7) drop-shadow(0 0 8px #4c1d95);
+  animation: undeadSkullPulse 2s ease-in-out infinite;
+}
+.undead-mark{display:none;}
+@keyframes undeadSkullPulse{
+  0%,100%{ filter: drop-shadow(0 0 4px #a855f7) drop-shadow(0 0 8px #4c1d95); }
+  50%    { filter: drop-shadow(0 0 7px #a855f7) drop-shadow(0 0 14px #4c1d95); }
+}
 </style>
 </head>
 <body>
@@ -4341,7 +4360,7 @@ sid:{name:"Кастель",color:"#a3e635",bg:"rgba(160,200,120,0.4)",type:"city
 // ... остальные города без изменений
 // ===== ПРИРОДНЫЕ БИОМЫ =====
 deadlands:{name:"Немёртвые Земли",color:"#7c3aed",bg:"rgba(35,10,55,0.75)",type:"nature"},
-necropolis:{name:"Некрополь Личерон",color:"#a855f7",bg:"rgba(20,0,40,0.95)",type:"nature"},
+necropolis:{name:"Личерон",color:"#a855f7",bg:"rgba(20,0,40,0.95)",type:"nature"},
 forest:{name:"Сказочный Лес",color:"#4ade80",bg:"rgba(45,90,61,0.5)",type:"nature"},
 water:{name:"Море Сирен",color:"#38bdf8",bg:"rgba(30,91,138,0.6)",type:"nature"},
 mountain:{name:"Гора Звезд",color:"#a8a29e",bg:"rgba(90,90,90,0.6)",type:"nature"},
@@ -4363,10 +4382,10 @@ totsar:{name:"Альфирон",color:"#c4b5fd",bg:"rgba(140,110,180,0.4)",type:
 selax:{name:"Селаксар",color:"#f9a8d4",bg:"rgba(220,150,190,0.4)",type:"city"},
 uurion:{name:"Урион",color:"#fcd34d",bg:"rgba(180,150,80,0.4)",type:"city"},
 fattolodor:{name:"Фатолодор",color:"#fcd34d",bg:"rgba(220,180,100,0.4)",type:"city"},
-gozon:{name:"Город Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
+gozon:{name:"Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
 pole_magii:{name:"Поле Чудес",color:"#fbbf24",bg:"rgba(200,160,80,0.4)",type:"city"},
 ostrova_pobezhdennogo:{name:"Острова Побежденного",color:"#67e8f9",bg:"rgba(60,140,180,0.55)",type:"nature"},
-heavenly_edge:{name:"Божественный Край",color:"#fef3c7",bg:"rgba(255, 250, 220, 0.5)",type:"divine"}
+heavenly_edge:{name:"Небесный Уголок",color:"#fef3c7",bg:"rgba(255, 250, 220, 0.5)",type:"divine"}
 };
 const BIOME_ZONES=[
 {biome:"eternal_sea",x:3100,y:200,w:1300,h:2800},
@@ -13518,7 +13537,9 @@ function isUndead(pkOrData){
 
 // Возвращает HTML-бейдж, если существо — нежить
 function undeadBadge(pkOrData){
-  return isUndead(pkOrData) ? '<span class="undead-mark">Нежить</span>' : '';
+  return isUndead(pkOrData) 
+    ? '<span class="undead-wrap"><span class="undead-skull">💀</span><span class="undead-mark"></span></span>' 
+    : '';
 }
 
 
@@ -20700,8 +20721,15 @@ function openBestiary(p,playerPk){
   const best=document.getElementById('Bestiary');
   const content=document.getElementById('bestiaryContent');
   const total=Object.values(p.stats).reduce((a,b)=>a+b,0);
+let typesHTML
 
-  const typesHTML=p.types.map(t=>`<span class="type-badge" style="background:${TYPE_COLORS[t]||'#777'}">${t}</span>`).join('');
+
+typesHTML=p.types.map(t=>`<span class="type-badge" style="background:${TYPE_COLORS[t]||'#777'}">${t}</span>`).join('');
+
+
+
+
+
   const habitatsHTML=p.habitats.map(h=>`<span class="habitat-tag" style="color:${HABITATS[h].color}">📍 ${HABITATS[h].name}</span>`).join('');
   const weaks={2:[],4:[],0.5:[],0.25:[],0:[]};
   Object.keys(TYPE_COLORS).forEach(atkType=>{
@@ -20790,7 +20818,7 @@ let allMovesHTML = '';
       <div class="best-sprite">${getSprite(p.shape)}</div>
       <div class="best-title">
         <div class="num">#${String(p.id).padStart(3,'0')}</div>
-        <h2>${p.name}${playerPk?` <span style="font-size:14px;color:#ffcb05">Ур. ${playerPk.level}</span>`:''}</h2>
+        <h2>${p.name}${playerPk?` <span style="font-size:14px;color:#ffcb05">Ур. ${playerPk.level}</span>`:''} ${undeadBadge(p)}</h2>
         <div class="types">${typesHTML}</div>
         <div><div class="rarity-tag" style="display:inline-block;color:${RARITY_COLORS[p.rarity]};border:1px solid ${RARITY_COLORS[p.rarity]}">★ ${RARITY_NAMES[p.rarity]}</div>${habitatsHTML}</div>
       </div>
