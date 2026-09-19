@@ -3214,6 +3214,10 @@ const BIOME_ZONES=[
 {biome:"valn",   x:400,  y:3200, w:400, h:350},
 {biome:"lornvis",x:900,  y:3100, w:450, h:380},
 {biome:"malder", x:1500, y:3200, w:420, h:360},
+// ===== ОЗЕРО ИЛЛАР (справа от Немёртвых Земель) =====
+{biome:"illar_lake",x:2400,y:3000,w:600,h:900},
+// ===== ГОРОД КСАРОТ (столица людей, внутри озера на острове) =====
+{biome:"ksarot",x:3120,y:3030,w:750,h:650},
 ];
 
 
@@ -4452,7 +4456,8 @@ const save = raw ? JSON.parse(raw) : {};
 save.unlockedZones = [
   'sid','zyffren','route','forest','haradat','mountain','goch','olandir',
   'selax','fattolodor','totsar','cave','uurion','desert','gozon',
-  'ostrova_pobezhdennogo','volcano','pole_magii','water', "necropolis", "deadlands", "byun_mountains", "zlatogorye", "chagnomoks", "molotor", "eternal_sea", "heavenly_edge", "quel_sidai", "underground", "manzahar", "arashemen", "shagg_shail", "izga_stir", "valn", "lornvis", "malder"
+  'ostrova_pobezhdennogo','volcano','pole_magii','water', "necropolis", "deadlands", "byun_mountains", "zlatogorye", "chagnomoks", "molotor", "eternal_sea", "heavenly_edge", "quel_sidai", "underground", "manzahar", "arashemen", "shagg_shail", "izga_stir", "valn", "lornvis", "malder", 
+"illar_lake", "ksarot"
 ];
 
 // Прогресс зон
@@ -4566,7 +4571,9 @@ fattolodor:{name:"Фатолодор",color:"#fcd34d",bg:"rgba(220,180,100,0.4)"
 gozon:{name:"Гозон",color:"#f87171",bg:"rgba(220,120,100,0.4)",type:"city"},
 pole_magii:{name:"Поле Чудес",color:"#fbbf24",bg:"rgba(200,160,80,0.4)",type:"city"},
 ostrova_pobezhdennogo:{name:"Острова Побежденного",color:"#67e8f9",bg:"rgba(60,140,180,0.55)",type:"nature"},
-heavenly_edge:{name:"Небесный Уголок",color:"#fef3c7",bg:"rgba(255, 250, 220, 0.5)",type:"divine"}
+heavenly_edge:{name:"Небесный Уголок",color:"#fef3c7",bg:"rgba(255, 250, 220, 0.5)",type:"divine"},
+illar_lake: {name:"Озеро Иллар", color:"#38bdf8", bg:"rgba(30,90,140,0.65)", type:"nature"},
+ksarot: {name:"Ксарот", color:"#fef3c7", bg:"rgba(220,210,180,0.55)", type:"city"},
 };
 // --- Генерация объектов Божественного Края ---
 function generateHeavenlyEdgeObjects() {
@@ -13785,7 +13792,7 @@ const ITEMS={
 };
 let inventory={Plylact:10,potion:5,medalion:0,ultraball:0,superpotion:0,revive:1,antidote:0};
 
-const ZONE_ORDER=["sid","forest","zyffren","mountain","haradat","route","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii","water","heavenly_edge","deadlands","valn","lornvis","malder","necropolis","byun_mountains","zlatogorye","molotor","chagnomoks", "quel_sidai", "eternal_sea","underground","manzahar","arashemen","shagg_shail","izga_stir"];
+const ZONE_ORDER=["sid","forest","zyffren","mountain","haradat","route","goch","olandir","selax","fattolodor","totsar","cave","uurion","desert","gozon","ostrova_pobezhdennogo","volcano","pole_magii","water","heavenly_edge","deadlands","valn","lornvis","malder","necropolis","byun_mountains","zlatogorye","molotor","chagnomoks", "quel_sidai", "eternal_sea","underground","manzahar","arashemen","shagg_shail","izga_stir", "illar_lake","ksarot"];
 const DEFAULT_UNLOCK={type:"defeat",count:1};
 
 let zoneProgress={};
@@ -14703,7 +14710,26 @@ necropolis: {
   }
 },
 
-
+illar_lake: {
+  levels: [40, 52],
+  rarities: {
+    common: 5,
+    uncommon: 12,
+    rare: 8,
+    epic: 4,
+    legendary: 1
+  }
+},
+ksarot: {
+  levels: [45, 58],
+  rarities: {
+    common: 0,
+    uncommon: 3,
+    rare: 10,
+    epic: 15,
+    legendary: 2
+  }
+},
 
 };
 
@@ -15891,7 +15917,46 @@ function spawnHouses(){
       dw = h.w * 1.0;
       dh = h.h * 1.0;
       svg = elfPalaceSVG();
-    } else if(h.isElfTower){
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ else if(h.isKsarot){
+  dw = h.w * 1.4 + 8;
+  dh = h.h * 1.4 + 14;
+  svg = BUILDING_KSAROT_HOUSE;
+}
+
+
+
+
+
+
+
+else if(h.isElfTower){
       dw = h.w * 1.4 + 8;
       dh = h.h * 1.4 + 14;
       svg = elfTowerSVG(h.wall, h.roof);
@@ -16168,7 +16233,7 @@ const TREE_EDGE_MARGIN = 30;   // отступ от края биома
 function generateForestTrees(){
   forestTrees = [];
 
-  const W = 3000, H = 2000;
+  const W = 6000, H = 3600;
   const rnd = mulberry32(987654321);
 
   // --- 1. Собираем все "запретные" зоны: биомы + запас ---
@@ -17425,7 +17490,64 @@ function drawByunMountains(ctx,x,y,w,h,rnd){
     ctx.fill();
   }
 }
-
+// ===================== ДОМ КСАРОТА (стиль Лордерона) =====================
+const BUILDING_KSAROT_HOUSE = `<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="22" ry="4" fill="rgba(0,0,0,0.35)"/>
+  
+  <!-- Белёные каменные стены -->
+  <rect x="8" y="26" width="48" height="34" fill="#f5f0e0" stroke="#a8a090" stroke-width="1.5"/>
+  
+  <!-- Каменная кладка -->
+  <path d="M8 36 H56 M8 46 H56 M20 26 V60 M34 26 V60 M46 26 V60" 
+        stroke="#c8bfa0" stroke-width="0.6" opacity="0.7"/>
+  
+  <!-- Декоративный карниз -->
+  <rect x="6" y="24" width="52" height="4" fill="#e5dcc0" stroke="#a8a090" stroke-width="1"/>
+  
+  <!-- Зелёная крыша с золотой каймой -->
+  <path d="M4 24 L32 4 L60 24 Z" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/>
+  <path d="M4 24 L32 4 L60 24" fill="none" stroke="#fbbf24" stroke-width="2"/>
+  
+  <!-- Черепица на крыше -->
+  <path d="M12 20 L16 15 M20 20 L24 15 M28 20 L32 15 M36 20 L40 15 M44 20 L48 15 M52 20 L56 15" 
+        stroke="#14532d" stroke-width="0.6" opacity="0.7"/>
+  
+  <!-- Золотой флюгер на коньке -->
+  <line x1="32" y1="4" x2="32" y2="-4" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M32 -4 L38 -2 L32 0 Z" fill="#fbbf24"/>
+  <circle cx="32" cy="-4" r="1.5" fill="#fbbf24"/>
+  
+  <!-- Окна с тёплым светом -->
+  <rect x="14" y="34" width="10" height="12" rx="1" fill="#fde68a" stroke="#8b7355" stroke-width="1.2"/>
+  <rect x="40" y="34" width="10" height="12" rx="1" fill="#fde68a" stroke="#8b7355" stroke-width="1.2"/>
+  
+  <!-- Переплёты окон -->
+  <path d="M14 40 H24 M19 34 V46 M40 40 H50 M45 34 V46" stroke="#8b7355" stroke-width="0.8"/>
+  
+  <!-- Ставни -->
+  <rect x="11" y="33" width="3" height="14" fill="#16a34a"/>
+  <rect x="24" y="33" width="3" height="14" fill="#16a34a"/>
+  <rect x="37" y="33" width="3" height="14" fill="#16a34a"/>
+  <rect x="50" y="33" width="3" height="14" fill="#16a34a"/>
+  
+  <!-- Дверь-арка -->
+  <path d="M26 60 V48 Q26 42 32 42 Q38 42 38 48 V60 Z" 
+        fill="#5a3a1a" stroke="#3a2010" stroke-width="1.3"/>
+  <path d="M32 44 V60" stroke="#3a2010" stroke-width="0.6"/>
+  
+  <!-- Золотая ручка -->
+  <circle cx="34" cy="52" r="1.2" fill="#fbbf24"/>
+  
+  <!-- Золотой герб над дверью -->
+  <circle cx="32" cy="40" r="2.5" fill="#fde68a" stroke="#fbbf24" stroke-width="1"/>
+  <path d="M32 38 L32 42 M30 40 L34 40" stroke="#16a34a" stroke-width="1"/>
+  
+  <!-- Цветы у входа -->
+  <circle cx="10" cy="56" r="2.5" fill="#22c55e"/>
+  <circle cx="10" cy="56" r="1.5" fill="#f472b6"/>
+  <circle cx="54" cy="56" r="2.5" fill="#22c55e"/>
+  <circle cx="54" cy="56" r="1.5" fill="#fbbf24"/>
+</svg>`;
 
 function drawBiomeTexture(ctx, biome, zone){
   const seed = mulberry32(zone.x*31 + zone.y*17 + zone.w*7);
@@ -17435,6 +17557,8 @@ function drawBiomeTexture(ctx, biome, zone){
 case 'underground':
   drawUnderground(ctx, x, y, w, h, seed, 'underground');
   break;
+case 'illar_lake': drawIllarLake(ctx,x,y,w,h,seed); break;
+case 'ksarot':     drawKsarot(ctx,x,y,w,h,seed);    break;
 case 'manzahar':
   drawUnderground(ctx, x, y, w, h, seed, 'manzahar');
   break;
@@ -20135,6 +20259,549 @@ function drawEternalSea(ctx,x,y,w,h,rnd){
   ctx.fill();
 }
 
+// ===================== ОЗЕРО ИЛЛАР =====================
+function drawIllarLake(ctx,x,y,w,h,rnd){
+  const ecx = x + w/2;
+  const ecy = y + h/2;
+  const erx = w/2;
+  const ery = h/2;
+
+  // --- Глубина с градиентом ---
+  const g = ctx.createRadialGradient(ecx, ecy, 0, ecx, ecy, Math.max(erx, ery));
+  g.addColorStop(0,   'rgba(10, 50, 90, 0.9)');
+  g.addColorStop(0.4, 'rgba(20, 80, 130, 0.85)');
+  g.addColorStop(0.7, 'rgba(40, 120, 170, 0.7)');
+  g.addColorStop(1,   'rgba(60, 150, 200, 0)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy, erx, ery, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // --- Берег (песчаная кайма) ---
+  ctx.strokeStyle = 'rgba(200, 180, 130, 0.6)';
+  ctx.lineWidth = 8;
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy, erx*0.97, ery*0.97, 0, 0, Math.PI*2);
+  ctx.stroke();
+
+  // --- Волны ---
+  for(let i=0;i<60;i++){
+    const wx = x + rnd()*w;
+    const wy = y + rnd()*h;
+    const dx = (wx - ecx)/erx, dy = (wy - ecy)/ery;
+    if(dx*dx + dy*dy > 0.9) continue;
+    ctx.strokeStyle = `rgba(186, 230, 253, ${0.2 + rnd()*0.3})`;
+    ctx.lineWidth = 0.8 + rnd();
+    ctx.beginPath();
+    ctx.moveTo(wx-10, wy);
+    ctx.quadraticCurveTo(wx-5, wy-3, wx, wy);
+    ctx.quadraticCurveTo(wx+5, wy+3, wx+10, wy);
+    ctx.stroke();
+  }
+
+  // --- Блики солнца на воде ---
+  for(let i=0;i<12;i++){
+    const sx = x + rnd()*w;
+    const sy = y + rnd()*h;
+    const dx = (sx - ecx)/erx, dy = (sy - ecy)/ery;
+    if(dx*dx + dy*dy > 0.85) continue;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.beginPath();
+    ctx.ellipse(sx, sy, 6 + rnd()*8, 2 + rnd()*2, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.beginPath();
+    ctx.ellipse(sx, sy, 12 + rnd()*8, 4 + rnd()*3, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // --- Камыши по берегам ---
+  for(let i=0;i<25;i++){
+    const a = rnd() * Math.PI * 2;
+    const r = 0.9 + rnd()*0.08;
+    const px = ecx + Math.cos(a) * erx * r;
+    const py = ecy + Math.sin(a) * ery * r;
+
+    ctx.strokeStyle = '#166534';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(px, py + 8);
+    ctx.quadraticCurveTo(px + (rnd()-0.5)*4, py - 4, px + (rnd()-0.5)*6, py - 12);
+    ctx.stroke();
+
+    // Головка камыша
+    ctx.fillStyle = '#78350f';
+    ctx.beginPath();
+    ctx.ellipse(px + (rnd()-0.5)*6, py - 12, 1.5, 4, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // --- Кувшинки ---
+  for(let i=0;i<15;i++){
+    const lx = x + 40 + rnd()*(w-80);
+    const ly = y + 40 + rnd()*(h-80);
+    const dx = (lx - ecx)/erx, dy = (ly - ecy)/ery;
+    if(dx*dx + dy*dy > 0.75) continue;
+
+    // Лист
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.ellipse(lx, ly, 8, 5, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#15803d';
+    ctx.beginPath();
+    ctx.ellipse(lx, ly, 8, 5, 0, Math.PI*0.25, Math.PI*1.75);
+    ctx.fill();
+
+    // Цветок (иногда)
+    if(rnd() > 0.5){
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath();
+      ctx.arc(lx, ly - 1, 3, 0, Math.PI*2);
+      ctx.fill();
+      ctx.fillStyle = '#fde68a';
+      ctx.beginPath();
+      ctx.arc(lx, ly - 1, 1.2, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  // --- Рыбки под водой ---
+  for(let i=0;i<8;i++){
+    const fx = x + rnd()*w;
+    const fy = y + rnd()*h;
+    const dx = (fx - ecx)/erx, dy = (fy - ecy)/ery;
+    if(dx*dx + dy*dy > 0.7) continue;
+
+    ctx.fillStyle = 'rgba(251, 146, 60, 0.7)';
+    ctx.beginPath();
+    ctx.ellipse(fx, fy, 4, 2, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(fx - 4, fy);
+    ctx.lineTo(fx - 8, fy - 3);
+    ctx.lineTo(fx - 8, fy + 3);
+    ctx.closePath();
+    ctx.fill();
+    // Глаз
+    ctx.fillStyle = '#1a1a1a';
+    ctx.beginPath();
+    ctx.arc(fx + 2, fy - 0.5, 0.5, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // --- Отражения облаков ---
+  for(let i=0;i<6;i++){
+    const ox = x + rnd()*w;
+    const oy = y + rnd()*h;
+    const dx = (ox - ecx)/erx, dy = (oy - ecy)/ery;
+    if(dx*dx + dy*dy > 0.8) continue;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+    ctx.beginPath();
+    ctx.ellipse(ox, oy, 20 + rnd()*15, 6 + rnd()*4, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // --- Центральный остров с Ксаротом (если биом unlocked) ---
+  if(unlockedZones.has('ksarot')){
+    const ksarotZone = BIOME_ZONES.find(z => z.biome === 'ksarot');
+    if(ksarotZone){
+      const kx = ksarotZone.x + ksarotZone.w/2;
+      const ky = ksarotZone.y + ksarotZone.h/2;
+
+      // Остров
+      ctx.fillStyle = 'rgba(180, 160, 120, 0.9)';
+      ctx.beginPath();
+      ctx.ellipse(kx, ky, ksarotZone.w/2 + 25, ksarotZone.h/2 + 20, 0, 0, Math.PI*2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(200, 180, 140, 0.9)';
+      ctx.beginPath();
+      ctx.ellipse(kx, ky, ksarotZone.w/2 + 15, ksarotZone.h/2 + 12, 0, 0, Math.PI*2);
+      ctx.fill();
+
+     
+    
+    }
+  }
+}
+
+// ===================== ГОРОД КСАРОТ (столица людей, стиль Лордерона) =====================
+function drawKsarot(ctx, x, y, w, h, rnd){
+  const ecx = x + w/2;
+  const ecy = y + h/2;
+  const erx = w/2;
+  const ery = h/2;
+
+  // --- 1. Мостовая площадь ---
+  const g = ctx.createRadialGradient(ecx, ecy, 0, ecx, ecy, Math.max(erx, ery));
+  g.addColorStop(0,   'rgba(230, 220, 190, 0.9)');
+  g.addColorStop(0.5, 'rgba(210, 200, 170, 0.85)');
+  g.addColorStop(1,   'rgba(190, 180, 150, 0.7)');
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy, erx, ery, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Каменные плиты на площади
+  for(let i=0;i<80;i++){
+    const px = x + rnd()*w;
+    const py = y + rnd()*h;
+    const dx = (px - ecx)/erx, dy = (py - ecy)/ery;
+    if(dx*dx + dy*dy > 0.95) continue;
+    ctx.fillStyle = `rgba(180, 170, 140, ${0.3 + rnd()*0.3})`;
+    ctx.fillRect(px, py, 6 + rnd()*6, 4 + rnd()*4);
+    ctx.strokeStyle = 'rgba(120, 110, 90, 0.4)';
+    ctx.lineWidth = 0.5;
+    ctx.strokeRect(px, py, 6 + rnd()*6, 4 + rnd()*4);
+  }
+
+  // --- 2. Дороги-крест ---
+  ctx.fillStyle = 'rgba(160, 140, 110, 0.9)';
+  ctx.fillRect(x, ecy - 8, w, 16);
+  ctx.fillRect(ecx - 8, y, 16, h);
+
+  // Брусчатка дорог
+  ctx.strokeStyle = 'rgba(100, 80, 60, 0.5)';
+  ctx.lineWidth = 0.8;
+  for(let i=0;i<20;i++){
+    ctx.beginPath();
+    ctx.moveTo(x, ecy - 8 + i*0.8);
+    ctx.lineTo(x + w, ecy - 8 + i*0.8);
+    ctx.moveTo(ecx - 8 + i*0.8, y);
+    ctx.lineTo(ecx - 8 + i*0.8, y + h);
+    ctx.stroke();
+  }
+
+  // --- 3. ГОРОДСКИЕ СТЕНЫ (белые, как в Лордероне) ---
+  const wallColor = '#f5f0e0';
+  const wallDark = '#c8bfa0';
+  const wallShadow = '#8a8070';
+
+  // Основное кольцо стен
+  ctx.strokeStyle = wallColor;
+  ctx.lineWidth = 10;
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy, erx*0.92, ery*0.92, 0, 0, Math.PI*2);
+  ctx.stroke();
+
+  // Тень стены
+  ctx.strokeStyle = wallShadow;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(ecx, ecy + 2, erx*0.92, ery*0.92, 0, 0, Math.PI*2);
+  ctx.stroke();
+
+  // Зубцы стен
+  for(let i=0;i<40;i++){
+    const a = (i/40) * Math.PI * 2;
+    const px = ecx + Math.cos(a) * erx * 0.92;
+    const py = ecy + Math.sin(a) * ery * 0.92;
+
+    // Пропускаем место для ворот (запад)
+    if(Math.abs(a - Math.PI) < 0.2) continue;
+
+    ctx.fillStyle = wallColor;
+    ctx.beginPath();
+    ctx.moveTo(px - 4, py + 3);
+    ctx.lineTo(px - 4, py - 6);
+    ctx.lineTo(px - 1, py - 9);
+    ctx.lineTo(px + 1, py - 9);
+    ctx.lineTo(px + 4, py - 6);
+    ctx.lineTo(px + 4, py + 3);
+    ctx.closePath();
+    ctx.fill();
+
+    // Тень зубца
+    ctx.fillStyle = wallShadow;
+    ctx.fillRect(px + 2, py - 6, 2, 9);
+  }
+
+  // Башни по углам стены
+  const towers = [
+    {a: -Math.PI/4, tw: 22, th: 40},
+    {a: -3*Math.PI/4, tw: 22, th: 40},
+    {a: Math.PI/4, tw: 22, th: 40},
+    {a: 3*Math.PI/4, tw: 22, th: 40}
+  ];
+  towers.forEach(t => {
+    const tx = ecx + Math.cos(t.a) * erx * 0.92;
+    const ty = ecy + Math.sin(t.a) * ery * 0.92;
+
+    // Тень
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+    ctx.beginPath();
+    ctx.ellipse(tx, ty + t.th/2 + 4, t.tw*0.7, 4, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // Основание башни
+    ctx.fillStyle = wallColor;
+    ctx.beginPath();
+    ctx.moveTo(tx - t.tw/2, ty + t.th/2);
+    ctx.lineTo(tx - t.tw/2 + 2, ty - t.th/2 + 8);
+    ctx.lineTo(tx + t.tw/2 - 2, ty - t.th/2 + 8);
+    ctx.lineTo(tx + t.tw/2, ty + t.th/2);
+    ctx.closePath();
+    ctx.fill();
+
+    // Тень на башне
+    ctx.fillStyle = wallDark;
+    ctx.beginPath();
+    ctx.moveTo(tx, ty + t.th/2);
+    ctx.lineTo(tx, ty - t.th/2 + 8);
+    ctx.lineTo(tx + t.tw/2 - 2, ty - t.th/2 + 8);
+    ctx.lineTo(tx + t.tw/2, ty + t.th/2);
+    ctx.closePath();
+    ctx.fill();
+
+    // Золотая крыша башни
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.moveTo(tx - t.tw/2 - 3, ty - t.th/2 + 8);
+    ctx.lineTo(tx, ty - t.th/2 - 10);
+    ctx.lineTo(tx + t.tw/2 + 3, ty - t.th/2 + 8);
+    ctx.closePath();
+    ctx.fill();
+
+    // Золотая кайма крыши
+    ctx.strokeStyle = '#fbbf24';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(tx - t.tw/2 - 3, ty - t.th/2 + 8);
+    ctx.lineTo(tx, ty - t.th/2 - 10);
+    ctx.lineTo(tx + t.tw/2 + 3, ty - t.th/2 + 8);
+    ctx.stroke();
+
+    // Окно
+    ctx.fillStyle = '#fde68a';
+    ctx.beginPath();
+    ctx.arc(tx, ty - 4, 2.5, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  // --- 4. ЦЕНТРАЛЬНЫЙ ЗАМОК КСАРОТА ---
+  const castleW = 60;
+  const castleH = 70;
+  const cx = ecx;
+  const cy = ecy;
+
+  // Тень замка
+  ctx.fillStyle = 'rgba(0,0,0,0.35)';
+  ctx.beginPath();
+  ctx.ellipse(cx, cy + castleH/2 + 5, castleW*0.6, 6, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Главная башня замка
+  ctx.fillStyle = wallColor;
+  ctx.beginPath();
+  ctx.moveTo(cx - castleW/2, cy + castleH/2);
+  ctx.lineTo(cx - castleW/2 + 3, cy - castleH/2 + 15);
+  ctx.lineTo(cx + castleW/2 - 3, cy - castleH/2 + 15);
+  ctx.lineTo(cx + castleW/2, cy + castleH/2);
+  ctx.closePath();
+  ctx.fill();
+
+  // Тень на главной башне
+  ctx.fillStyle = wallDark;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + castleH/2);
+  ctx.lineTo(cx, cy - castleH/2 + 15);
+  ctx.lineTo(cx + castleW/2 - 3, cy - castleH/2 + 15);
+  ctx.lineTo(cx + castleW/2, cy + castleH/2);
+  ctx.closePath();
+  ctx.fill();
+
+  // Боковые башни замка
+  [-1, 1].forEach(side => {
+    const bx = cx + side * (castleW/2 - 5);
+    const by = cy;
+
+    ctx.fillStyle = wallColor;
+    ctx.beginPath();
+    ctx.moveTo(bx - 10, by + castleH/2 - 10);
+    ctx.lineTo(bx - 10 + 2, by - castleH/2);
+    ctx.lineTo(bx + 10 - 2, by - castleH/2);
+    ctx.lineTo(bx + 10, by + castleH/2 - 10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Тень
+    ctx.fillStyle = wallShadow;
+    ctx.beginPath();
+    ctx.moveTo(bx, by + castleH/2 - 10);
+    ctx.lineTo(bx, by - castleH/2);
+    ctx.lineTo(bx + 10 - 2, by - castleH/2);
+    ctx.lineTo(bx + 10, by + castleH/2 - 10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Зелёная крыша с золотом
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.moveTo(bx - 12, by - castleH/2);
+    ctx.lineTo(bx, by - castleH/2 - 15);
+    ctx.lineTo(bx + 12, by - castleH/2);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = '#fbbf24';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(bx - 12, by - castleH/2);
+    ctx.lineTo(bx, by - castleH/2 - 15);
+    ctx.lineTo(bx + 12, by - castleH/2);
+    ctx.stroke();
+
+    // Золотой шпиль
+    ctx.fillStyle = '#fbbf24';
+    ctx.beginPath();
+    ctx.arc(bx, by - castleH/2 - 15, 2.5, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  // Главная крыша замка — большая зелёная с золотом
+  ctx.fillStyle = '#16a34a';
+  ctx.beginPath();
+  ctx.moveTo(cx - castleW/2 - 5, cy - castleH/2 + 15);
+  ctx.lineTo(cx, cy - castleH/2 - 25);
+  ctx.lineTo(cx + castleW/2 + 5, cy - castleH/2 + 15);
+  ctx.closePath();
+  ctx.fill();
+
+  // Золотая кайма
+  ctx.strokeStyle = '#fbbf24';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(cx - castleW/2 - 5, cy - castleH/2 + 15);
+  ctx.lineTo(cx, cy - castleH/2 - 25);
+  ctx.lineTo(cx + castleW/2 + 5, cy - castleH/2 + 15);
+  ctx.stroke();
+
+  // Золотой флаг на шпиле
+  ctx.fillStyle = '#fbbf24';
+  ctx.beginPath();
+  ctx.arc(cx, cy - castleH/2 - 25, 3, 0, Math.PI*2);
+  ctx.fill();
+
+  // Флаг
+  ctx.fillStyle = '#16a34a';
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - castleH/2 - 30);
+  ctx.lineTo(cx + 15, cy - castleH/2 - 26);
+  ctx.lineTo(cx, cy - castleH/2 - 22);
+  ctx.closePath();
+  ctx.fill();
+
+  // Золотой герб на флаге
+  ctx.fillStyle = '#fbbf24';
+  ctx.beginPath();
+  ctx.arc(cx + 7, cy - castleH/2 - 26, 1.5, 0, Math.PI*2);
+  ctx.fill();
+
+  // Окна замка (тёплый свет)
+  for(let i=0;i<3;i++){
+    const wx = cx + (i-1) * 12;
+    const wy = cy - 5;
+    ctx.fillStyle = '#fde68a';
+    ctx.beginPath();
+    ctx.arc(wx, wy, 3, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(253, 230, 138, 0.4)';
+    ctx.beginPath();
+    ctx.arc(wx, wy, 6, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Ворота замка
+  ctx.fillStyle = '#5a3a1a';
+  ctx.beginPath();
+  ctx.arc(cx, cy + castleH/2 - 5, 7, Math.PI, 0);
+  ctx.lineTo(cx + 7, cy + castleH/2);
+  ctx.lineTo(cx - 7, cy + castleH/2);
+  ctx.closePath();
+  ctx.fill();
+
+  // Золотые заклёпки на воротах
+  ctx.fillStyle = '#fbbf24';
+  ctx.beginPath();
+  ctx.arc(cx - 4, cy + castleH/2 - 5, 1, 0, Math.PI*2);
+  ctx.arc(cx + 4, cy + castleH/2 - 5, 1, 0, Math.PI*2);
+  ctx.fill();
+
+  // --- 5. ГОРОДСКИЕ ДОМА (в DOM через housesToSpawn) ---
+  const houseColors = {
+    wall: '#f5f0e0',
+    roof: '#22c55e'
+  };
+
+  // Дома по квадрантам
+  const positions = [
+    {qx: x + w*0.20, qy: y + h*0.20},
+    {qx: x + w*0.60, qy: y + h*0.20},
+    {qx: x + w*0.20, qy: y + h*0.60},
+    {qx: x + w*0.60, qy: y + h*0.60},
+    {qx: x + w*0.35, qy: y + h*0.35},
+    {qx: x + w*0.35, qy: y + h*0.55},
+    {qx: x + w*0.55, qy: y + h*0.35},
+    {qx: x + w*0.55, qy: y + h*0.55}
+  ];
+
+  positions.forEach((pos, i) => {
+    // Проверяем что дом не пересекается с замком
+    const dx = (pos.qx + 20) - cx;
+    const dy = (pos.qy + 20) - cy;
+    if(dx*dx + dy*dy < (castleW/2 + 30)**2) return;
+
+    // Проверяем что внутри стен
+    const ddx = (pos.qx + 20 - ecx)/erx;
+    const ddy = (pos.qy + 20 - ecy)/ery;
+    if(ddx*ddx + ddy*ddy > 0.75) return;
+
+    housesToSpawn.push({
+      x: pos.qx - 18, y: pos.qy - 20, w: 36, h: 40,
+      wall: houseColors.wall,
+      roof: houseColors.roof,
+      sortY: pos.qy + 20,
+      isKsarot: true,
+      isGoldRoof: i % 2 === 0   // половина с золотыми крышами
+    });
+  });
+
+  // --- 6. Фонари ---
+  for(let i=0;i<6;i++){
+    const a = (i/6) * Math.PI * 2;
+    const lx = ecx + Math.cos(a) * erx * 0.5;
+    const ly = ecy + Math.sin(a) * ery * 0.5;
+
+    // Столб
+    ctx.fillStyle = '#5a3a1a';
+    ctx.fillRect(lx - 1, ly - 14, 2, 14);
+
+    // Фонарь
+    ctx.fillStyle = '#fde68a';
+    ctx.beginPath();
+    ctx.arc(lx, ly - 16, 3, 0, Math.PI*2);
+    ctx.fill();
+
+    // Свечение
+    ctx.fillStyle = 'rgba(253, 230, 138, 0.3)';
+    ctx.beginPath();
+    ctx.arc(lx, ly - 16, 8, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // --- 7. Розы и цветы у стен (декор) ---
+  for(let i=0;i<20;i++){
+    const a = rnd() * Math.PI * 2;
+    const r = 0.85 + rnd() * 0.05;
+    const fx = ecx + Math.cos(a) * erx * r;
+    const fy = ecy + Math.sin(a) * ery * r;
+
+    ctx.fillStyle = ['#ef4444', '#f472b6', '#fbbf24'][Math.floor(rnd()*3)];
+    ctx.beginPath();
+    ctx.arc(fx, fy, 1.5 + rnd(), 0, Math.PI*2);
+    ctx.fill();
+  }
+}
 function elfTreeSVG(){
   return `<svg viewBox="0 0 64 64">
     <ellipse cx="32" cy="60" rx="16" ry="3" fill="rgba(0,0,0,0.3)"/>
@@ -20654,6 +21321,68 @@ function drawUnderground(ctx, x, y, w, h, rnd, biome){
     {qx: x + w*0.15, qy: y + h*0.65},  // левый низ
     {qx: x + w*0.65, qy: y + h*0.65},  // правый низ
   ];
+
+
+// ===================== ДОМ КСАРОТА (стиль Лордерона) =====================
+const BUILDING_KSAROT_HOUSE = `<svg viewBox="0 0 64 64">
+  <ellipse cx="32" cy="60" rx="22" ry="4" fill="rgba(0,0,0,0.35)"/>
+  
+  <!-- Белёные каменные стены -->
+  <rect x="8" y="26" width="48" height="34" fill="#f5f0e0" stroke="#a8a090" stroke-width="1.5"/>
+  
+  <!-- Каменная кладка -->
+  <path d="M8 36 H56 M8 46 H56 M20 26 V60 M34 26 V60 M46 26 V60" 
+        stroke="#c8bfa0" stroke-width="0.6" opacity="0.7"/>
+  
+  <!-- Декоративный карниз -->
+  <rect x="6" y="24" width="52" height="4" fill="#e5dcc0" stroke="#a8a090" stroke-width="1"/>
+  
+  <!-- Зелёная крыша с золотой каймой -->
+  <path d="M4 24 L32 4 L60 24 Z" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/>
+  <path d="M4 24 L32 4 L60 24" fill="none" stroke="#fbbf24" stroke-width="2"/>
+  
+  <!-- Черепица на крыше -->
+  <path d="M12 20 L16 15 M20 20 L24 15 M28 20 L32 15 M36 20 L40 15 M44 20 L48 15 M52 20 L56 15" 
+        stroke="#14532d" stroke-width="0.6" opacity="0.7"/>
+  
+  <!-- Золотой флюгер на коньке -->
+  <line x1="32" y1="4" x2="32" y2="-4" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M32 -4 L38 -2 L32 0 Z" fill="#fbbf24"/>
+  <circle cx="32" cy="-4" r="1.5" fill="#fbbf24"/>
+  
+  <!-- Окна с тёплым светом -->
+  <rect x="14" y="34" width="10" height="12" rx="1" fill="#fde68a" stroke="#8b7355" stroke-width="1.2"/>
+  <rect x="40" y="34" width="10" height="12" rx="1" fill="#fde68a" stroke="#8b7355" stroke-width="1.2"/>
+  
+  <!-- Переплёты окон -->
+  <path d="M14 40 H24 M19 34 V46 M40 40 H50 M45 34 V46" stroke="#8b7355" stroke-width="0.8"/>
+  
+  <!-- Ставни -->
+  <rect x="11" y="33" width="3" height="14" fill="#16a34a"/>
+  <rect x="24" y="33" width="3" height="14" fill="#16a34a"/>
+  <rect x="37" y="33" width="3" height="14" fill="#16a34a"/>
+  <rect x="50" y="33" width="3" height="14" fill="#16a34a"/>
+  
+  <!-- Дверь-арка -->
+  <path d="M26 60 V48 Q26 42 32 42 Q38 42 38 48 V60 Z" 
+        fill="#5a3a1a" stroke="#3a2010" stroke-width="1.3"/>
+  <path d="M32 44 V60" stroke="#3a2010" stroke-width="0.6"/>
+  
+  <!-- Золотая ручка -->
+  <circle cx="34" cy="52" r="1.2" fill="#fbbf24"/>
+  
+  <!-- Золотой герб над дверью -->
+  <circle cx="32" cy="40" r="2.5" fill="#fde68a" stroke="#fbbf24" stroke-width="1"/>
+  <path d="M32 38 L32 42 M30 40 L34 40" stroke="#16a34a" stroke-width="1"/>
+  
+  <!-- Цветы у входа -->
+  <circle cx="10" cy="56" r="2.5" fill="#22c55e"/>
+  <circle cx="10" cy="56" r="1.5" fill="#f472b6"/>
+  <circle cx="54" cy="56" r="2.5" fill="#22c55e"/>
+  <circle cx="54" cy="56" r="1.5" fill="#fbbf24"/>
+</svg>`;
+
+
 // ===================== ДВОРЕЦ МАНЗАНАРА =====================
 const BUILDING_DARK_ELF_PALACE = `<svg viewBox="0 0 64 64">
   <ellipse cx="32" cy="60" rx="28" ry="4" fill="rgba(0,0,0,0.6)"/>
